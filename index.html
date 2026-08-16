@@ -2,579 +2,383 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mon Écurie — V3</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mon Écurie — V3.1</title>
 
 <style>
 *{box-sizing:border-box}
-
 :root{
- --blue:#17384b;
- --blue2:#0d2737;
- --blue3:#285c78;
- --gold:#e5b84f;
- --green:#45b86b;
- --red:#dc6862;
- --text:#fff;
- --muted:#b9c7cc;
+--bg:#0d1714;--panel:#17364a;--panel2:#214b62;--line:#55798a;
+--gold:#e5b94e;--green:#49bd70;--red:#df6b65;--text:#fff;--muted:#b9c8ce
 }
-
 html,body{
- margin:0;
- min-height:100%;
- background:#081116;
- color:var(--text);
- font-family:Arial,system-ui,sans-serif;
+margin:0;min-height:100%;background:#0b1113;color:var(--text);
+font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 }
-
 button{
- border:0;
- color:#fff;
- font:inherit;
- font-weight:800;
- cursor:pointer;
+font:inherit;font-weight:800;color:#fff;border:0;cursor:pointer
 }
+button:hover{filter:brightness(1.12)}
 
 .app{
- min-height:100vh;
- background:
- radial-gradient(circle at 50% 35%,#38533e 0,#19271f 45%,#080f12 100%);
+min-height:100vh;
+background:radial-gradient(circle at 50% 20%,#395342,#13201b 48%,#0b1113)
 }
 
-/* ===== BARRE DU HAUT ===== */
-
 .top{
- height:76px;
- display:flex;
- align-items:center;
- gap:9px;
- padding:6px 10px;
- background:linear-gradient(#21465b,#102735);
- border-bottom:2px solid #4c6e7d;
- position:sticky;
- top:0;
- z-index:50;
+height:74px;
+background:linear-gradient(180deg,#24465a,#102a3a);
+border-bottom:2px solid var(--line);
+display:flex;align-items:center;gap:10px;
+padding:7px 10px;position:sticky;top:0;z-index:100
 }
 
 .logo{
- min-width:220px;
- display:flex;
- align-items:center;
- gap:9px;
+display:flex;align-items:center;gap:8px;min-width:205px
 }
-
-.logoIcon{
- font-size:42px;
-}
-
-.logo b{
- font:700 24px Georgia,serif;
-}
-
-.logo small{
- display:block;
- color:#c6d3d8;
- font-size:10px;
- margin-top:2px;
-}
+.logoHorse{font-size:39px}
+.logo b{font:700 23px Georgia,serif}
+.logo small{display:block;color:#d3dfe4;font-size:10px}
 
 .stats{
- flex:1;
- display:flex;
- justify-content:center;
- gap:6px;
- overflow:auto;
+display:flex;gap:6px;flex:1;justify-content:center;overflow:auto
 }
-
 .stat{
- min-width:105px;
- padding:6px 8px;
- text-align:center;
- font-size:10px;
- background:#23475b;
- border:1px solid #557788;
- border-radius:9px;
+min-width:105px;padding:7px 9px;border-radius:9px;
+background:#29495d;border:1px solid #527080;text-align:center;font-size:11px
 }
+.stat b{font-size:14px}
+.money,.rep{color:#ffd66b}
 
-.stat b{
- font-size:14px;
+.topBtns{display:flex;gap:5px}
+.topBtns button{
+background:#29495d;border:1px solid #527080;
+border-radius:9px;padding:9px 11px
 }
-
-.money{
- color:#ffd66b;
-}
-
-.rep{
- color:#ffd66b;
-}
-
-.levelbar{
- height:6px;
- margin-top:4px;
- background:#3d5662;
- border-radius:10px;
- overflow:hidden;
-}
-
-.levelbar i{
- display:block;
- height:100%;
- width:60%;
- background:#45a9df;
-}
-
-/* ===== LAYOUT ===== */
 
 .layout{
- max-width:1550px;
- margin:auto;
- padding:7px;
- display:grid;
- grid-template-columns:180px minmax(500px,1fr) 235px;
- gap:7px;
+display:grid;
+grid-template-columns:180px minmax(0,1fr) 225px;
+gap:8px;max-width:1500px;margin:auto;padding:8px
 }
 
-.left,.right{
- display:flex;
- flex-direction:column;
- gap:7px;
-}
-
-/* ===== MENU ===== */
+.left,.right{display:flex;flex-direction:column;gap:7px}
 
 .card{
- background:linear-gradient(180deg,#123146f2,#0b202ff2);
- border:1px solid #4a6b7a;
- border-radius:10px;
- box-shadow:0 4px 12px #0009;
+background:linear-gradient(180deg,#17364a,#10283a);
+border:1px solid #476476;border-radius:10px;
+box-shadow:0 3px 10px #0008
 }
 
-.menu{
- padding:5px;
-}
-
+.menu{padding:5px}
 .menu button{
- width:100%;
- display:block;
- text-align:left;
- margin-bottom:5px;
- padding:10px 11px;
- border-radius:8px;
- background:linear-gradient(#214b63,#14364a);
- border:1px solid #456b7d;
+width:100%;display:block;text-align:left;padding:10px 9px;
+margin:2px 0;
+background:linear-gradient(180deg,#294d64,#1b384c);
+border:1px solid #45677a;border-radius:8px
 }
-
-.menu button:hover{
- border-color:#e5c25e;
-}
-
 .menu button.active{
- background:linear-gradient(#2b83b3,#1c5d80);
+background:linear-gradient(180deg,#397daf,#285c82)
 }
 
-/* ===== RESSOURCES ===== */
-
-.resources{
- padding:9px;
-}
-
-.resources h3,
-.news h3{
- margin:0 0 7px;
- font-size:13px;
-}
-
-.resource{
- margin:8px 0;
- font-size:10px;
-}
-
-.row{
- display:flex;
- justify-content:space-between;
- gap:5px;
-}
-
-.bar{
- height:6px;
- background:#304b57;
- border-radius:8px;
- overflow:hidden;
- margin-top:3px;
-}
-
-.bar i{
- display:block;
- height:100%;
- background:var(--green);
-}
-
-/* ===== NEWS ===== */
-
-.news{
- padding:9px;
-}
-
+.news{padding:9px;font-size:10px}
+.news h4{margin:0 0 6px;color:#ffd66b}
 .news p{
- margin:5px 0;
- padding:6px;
- background:#0a1e2b;
- border-radius:6px;
- font-size:10px;
+margin:5px 0;padding:6px;background:#0e2231;border-radius:6px
 }
 
-/* ===== DOMAINE ===== */
+.resourceCard{padding:9px;font-size:10px}
+.resourceCard h4{margin:0 0 7px;color:#ffd66b}
+.resRow{margin:7px 0}
+.resLabel{display:flex;justify-content:space-between}
+.meter{
+height:6px;background:#385463;border-radius:8px;overflow:hidden
+}
+.meter i{display:block;height:100%;background:var(--green)}
 
 .scene{
- position:relative;
- height:720px;
- overflow:hidden;
- border-radius:14px;
- border:2px solid #4d707e;
- box-shadow:0 6px 22px #000b;
- background:
- linear-gradient(
-  #8ab8cf 0 28%,
-  #71985c 28% 100%
- );
+position:relative;height:650px;overflow:hidden;border-radius:14px;
+background:linear-gradient(#80b6d0 0 28%,#789f5e 28% 100%);
+border:2px solid #4a6b73;box-shadow:0 5px 20px #000b
 }
-
-/* ciel */
 
 .sky{
- position:absolute;
- inset:0;
- background:
- radial-gradient(circle at 20% 16%,#fff8 0 18px,transparent 20px),
- radial-gradient(circle at 24% 16%,#fff8 0 27px,transparent 29px),
- radial-gradient(circle at 78% 11%,#fff7 0 20px,transparent 22px);
+position:absolute;inset:0;
+background:linear-gradient(#84b9d0 0 31%,#789f5e 31% 100%)
 }
-
-/* collines */
+.cloud{position:absolute;font-size:45px;opacity:.6}
+.c1{left:9%;top:7%}.c2{right:15%;top:12%}
 
 .hills{
- position:absolute;
- left:-10%;
- right:-10%;
- top:22%;
- height:180px;
- background:#5e8051;
- clip-path:polygon(
-  0 70%,12% 40%,22% 58%,35% 25%,
-  47% 58%,60% 28%,73% 54%,87% 32%,
-  100% 60%,100% 100%,0 100%
- );
+position:absolute;left:-5%;right:-5%;top:25%;height:160px;
+background:#58794f;
+clip-path:polygon(
+0 70%,18% 35%,34% 60%,49% 22%,64% 55%,78% 30%,100% 60%,
+100% 100%,0 100%
+)
 }
 
 .ground{
- position:absolute;
- inset:35% 0 0;
- background:
- linear-gradient(145deg,#87a95f,#527b4a);
+position:absolute;inset:31% 0 0;
+background:linear-gradient(145deg,#82a65e,#5d854f)
 }
-
-/* chemin */
-
-.path{
- position:absolute;
- width:76%;
- height:180px;
- left:13%;
- bottom:8%;
- background:#c6a36c;
- border:5px solid #876943;
- border-radius:50%;
- transform:rotate(-7deg);
- box-shadow:inset 0 0 30px #8e7047;
-}
-
-/* arbres */
-
-.tree{
- position:absolute;
- font-size:45px;
- filter:drop-shadow(0 5px 3px #0007);
- z-index:2;
-}
-
-.t1{left:3%;top:28%}
-.t2{right:3%;top:27%}
-.t3{left:48%;bottom:17%}
-.t4{right:25%;bottom:5%}
-.t5{left:82%;bottom:20%}
-
-/* ===== ECURIE ===== */
 
 .stable{
- position:absolute;
- left:8%;
- top:31%;
- width:64%;
- height:215px;
- background:
- repeating-linear-gradient(
-  90deg,
-  #75482f 0,
-  #75482f 23px,
-  #633b29 24px,
-  #633b29 27px
- );
- border:5px solid #452b20;
- border-radius:8px;
- box-shadow:0 10px 18px #0009;
- z-index:4;
+position:absolute;left:7%;top:29%;width:68%;height:220px;
+background:linear-gradient(180deg,#9a603a,#70442e);
+border:5px solid #4d3024;border-radius:10px;
+box-shadow:0 8px 15px #0008
 }
 
 .roof{
- position:absolute;
- left:-5%;
- right:-5%;
- top:-62px;
- height:70px;
- background:#45484a;
- border-bottom:7px solid #282a2c;
- clip-path:polygon(3% 100%,50% 0,97% 100%);
+position:absolute;left:-5%;right:-5%;top:-58px;height:68px;
+background:#45484a;
+clip-path:polygon(3% 100%,50% 0,97% 100%);
+border-bottom:7px solid #282b2c
 }
 
 .stableTitle{
- position:absolute;
- top:7px;
- left:0;
- right:0;
- text-align:center;
- font-weight:900;
- text-shadow:0 2px 4px #000;
+position:absolute;top:8px;left:0;right:0;text-align:center;
+font-weight:900;text-shadow:0 2px 3px #000
 }
 
 .boxes{
- position:absolute;
- left:10px;
- right:10px;
- bottom:10px;
- height:135px;
- display:grid;
- grid-template-columns:repeat(6,1fr);
- gap:5px;
+position:absolute;left:9px;right:9px;bottom:9px;height:145px;
+display:grid;grid-template-columns:repeat(6,1fr);gap:6px
 }
 
 .box{
- position:relative;
- background:#4d3022;
- border:3px solid #322117;
- border-radius:4px;
- overflow:hidden;
+position:relative;background:#543526;border:3px solid #38251c;
+border-radius:5px;overflow:hidden;
+display:flex;align-items:center;justify-content:center
 }
-
-.boxDoor{
- position:absolute;
- inset:8px 5px 20px;
- background:
- repeating-linear-gradient(
-  90deg,
-  #754a31 0,
-  #754a31 8px,
-  #513321 9px,
-  #513321 11px
- );
- border:2px solid #2d2019;
-}
-
+.box.free{opacity:.6}
 .boxName{
- position:absolute;
- bottom:2px;
- left:2px;
- right:2px;
- z-index:3;
- background:#112b39ee;
- text-align:center;
- font-size:9px;
- padding:2px;
- border-radius:3px;
+position:absolute;bottom:2px;left:2px;right:2px;
+background:#162e3aee;border-radius:4px;text-align:center;
+font-size:9px;padding:3px;z-index:5
 }
 
-/* ===== CHEVAUX ===== */
-
-.sceneHorse{
- position:absolute;
- z-index:8;
- font-size:50px;
- filter:drop-shadow(0 5px 3px #0009);
+.paddock,.arena{
+position:absolute;border:5px solid #795b3d;border-radius:18px;
+background:#ffffff10;box-shadow:inset 0 0 0 2px #d3b27c
 }
-
-.horse1{left:69%;top:50%}
-.horse2{left:78%;top:58%}
-.horse3{left:53%;top:57%}
-.horse4{left:84%;top:70%}
-
-/* ===== PRES ===== */
-
-.paddock{
- position:absolute;
- right:4%;
- top:43%;
- width:43%;
- height:210px;
- border:5px solid #755638;
- border-radius:15px;
- background:#ffffff0c;
- z-index:3;
-}
-
-.paddock:before,
-.paddock:after{
- content:"";
- position:absolute;
- left:5%;
- right:5%;
- height:5px;
- background:#a27b4f;
-}
-
-.paddock:before{top:35%}
-.paddock:after{top:65%}
-
-/* ===== CARRIERE ===== */
-
+.paddock{right:4%;top:48%;width:40%;height:190px}
 .arena{
- position:absolute;
- left:7%;
- bottom:10%;
- width:40%;
- height:180px;
- border-radius:50%;
- background:#c7a773;
- border:6px solid #795a3c;
- z-index:3;
+left:8%;bottom:7%;width:40%;height:170px;border-radius:50%
 }
-
 .arena:before{
- content:"";
- position:absolute;
- inset:15px;
- border:3px solid #ead7ad;
- border-radius:50%;
+content:"";position:absolute;inset:12px;
+border:3px solid #e8d0a0;border-radius:50%
 }
 
-.obstacle{
- position:absolute;
- z-index:4;
- font-size:28px;
+.tree{
+position:absolute;font-size:38px;
+filter:drop-shadow(0 4px 3px #0005)
 }
+.t1{left:3%;top:29%}.t2{right:3%;top:31%}
+.t3{left:48%;bottom:16%}.t4{right:20%;bottom:4%}
 
-.obs1{left:19%;bottom:25%}
-.obs2{left:34%;bottom:32%}
-.obs3{left:28%;bottom:17%}
-
-/* ===== VEHICULES ===== */
-
-.truck{
- position:absolute;
- right:2%;
- top:29%;
- font-size:58px;
- z-index:5;
- filter:drop-shadow(0 5px 4px #0008);
+.vehicle{
+position:absolute;font-size:52px;
+filter:drop-shadow(0 5px 4px #0007)
 }
-
-.tractor{
- position:absolute;
- left:3%;
- top:49%;
- font-size:58px;
- z-index:5;
- filter:drop-shadow(0 5px 4px #0008);
-}
-
-/* ===== BOUTONS DOMAINE ===== */
+.truck{right:2%;top:31%}
+.tractor{left:3%;top:50%}
 
 .tag{
- position:absolute;
- z-index:15;
- padding:7px 10px;
- border-radius:8px;
- background:#12364aee;
- border:1px solid #83a4b0;
- font-size:11px;
- box-shadow:0 3px 8px #0008;
+position:absolute;z-index:20;
+background:#17364aee;border:1px solid #80a6b5;
+padding:7px 10px;border-radius:8px;font-size:11px
+}
+.tagStable{left:31%;top:45%}
+.tagPasture{right:10%;top:68%}
+.tagArena{left:18%;bottom:6%}
+
+.horse{
+width:74px;height:62px;position:relative;cursor:pointer;
+filter:drop-shadow(0 4px 3px #0008)
+}
+.horse .body{
+position:absolute;left:20px;top:23px;width:47px;height:24px;
+border-radius:55%;background:var(--coat);
+border:2px solid #32231c
+}
+.horse .neck{
+position:absolute;left:13px;top:7px;width:18px;height:38px;
+background:var(--coat);border:2px solid #32231c;
+border-radius:80% 30% 30% 50%;transform:rotate(17deg)
+}
+.horse .head{
+position:absolute;left:1px;top:7px;width:24px;height:17px;
+background:var(--coat);border:2px solid #32231c;
+border-radius:60% 45% 50% 45%
+}
+.horse .ear{
+position:absolute;left:5px;top:-3px;width:6px;height:10px;
+background:var(--coat);border:2px solid #32231c;
+transform:rotate(-18deg)
+}
+.horse .mane{
+position:absolute;left:15px;top:11px;width:6px;height:31px;
+background:var(--mane);border-radius:50%
+}
+.horse .leg{
+position:absolute;top:40px;width:6px;height:23px;
+background:var(--legs);border-radius:5px
+}
+.horse .l1{left:25px}.horse .l2{left:38px}
+.horse .l3{left:51px}.horse .l4{left:62px}
+.horse .tail{
+position:absolute;right:-3px;top:20px;width:25px;height:12px;
+border-bottom:5px solid var(--legs);border-radius:50%;
+transform:rotate(25deg)
 }
 
-.tagStable{left:31%;top:45%}
-.tagPasture{right:14%;top:68%}
-.tagArena{left:18%;bottom:7%}
+.bai{--coat:#8a4d2e;--mane:#241813;--legs:#231813}
+.alezan{--coat:#b96832;--mane:#4b2415;--legs:#442417}
+.noir{--coat:#292727;--mane:#111;--legs:#111}
+.gris{--coat:#aaa9a2;--mane:#5c5b57;--legs:#55544f}
+.isabelle{--coat:#c89b59;--mane:#4a3523;--legs:#463322}
+.leopard{--coat:#c6b8a0;--mane:#5a4939;--legs:#514536}
+
+.sceneHorse{
+position:absolute;z-index:8
+}
+.sh1{left:68%;top:52%}
+.sh2{left:78%;top:59%}
+.sh3{left:53%;top:56%}
+.sh4{left:82%;top:72%}
 
 .bottom{
- position:absolute;
- z-index:20;
- left:4%;
- right:4%;
- bottom:8px;
- display:flex;
- gap:6px;
- justify-content:center;
- overflow:auto;
+position:absolute;left:2%;right:2%;bottom:8px;z-index:50;
+display:flex;gap:6px;overflow-x:auto
 }
-
 .action{
- min-width:120px;
- padding:9px 11px;
- border-radius:9px;
- background:linear-gradient(#1d5069ee,#102f40ee);
- border:1px solid #5d8090;
- box-shadow:0 4px 9px #0008;
+background:linear-gradient(180deg,#1e4b63,#122f40);
+border:1px solid #537384;border-radius:10px;
+padding:9px 11px;min-width:125px;text-align:center;
+box-shadow:0 4px 8px #0007
+}
+.action b{display:block}
+.action small{color:#b9c9ce}
+
+.panel{
+display:none;
+background:linear-gradient(180deg,#102c3d,#0d2230);
+border:1px solid #476476;border-radius:14px;
+padding:15px;min-height:650px
+}
+.panel.active{display:block}
+.panel h2{margin-top:0}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:10px
 }
 
-.action b,
-.action small{
- display:block;
+.horseCard{
+background:#18394d;border:1px solid #4c6977;
+border-radius:12px;padding:11px;display:flex;gap:10px
+}
+.thumb{
+width:82px;height:76px;background:#36525d;border-radius:7px;
+display:flex;align-items:center;justify-content:center;
+overflow:hidden;flex:none
+}
+.horseCard h3{margin:0 0 3px}
+.badge{
+background:#315c70;border-radius:6px;
+padding:3px 6px;font-size:10px
+}
+.actions{
+display:flex;flex-wrap:wrap;gap:5px;margin-top:7px
+}
+.actions button{
+padding:7px 9px;border-radius:7px;background:#2d6079
+}
+.actions .green{background:#3f8e59}
+.actions .gold{background:#a87a27}
+
+.profGrid,.statGrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:10px
 }
 
-.action small{
- color:#b9c9ce;
- font-size:10px;
+.infoCard{
+padding:14px;background:#18394d;
+border:1px solid #4c6977;border-radius:12px
 }
-
-/* ===== CHEVAUX DROITE ===== */
+.infoCard h3{margin-top:0}
 
 .rightHorse{
- display:flex;
- gap:7px;
- padding:7px;
- margin-bottom:5px;
- background:linear-gradient(#1c465c,#123447);
- border:1px solid #486b7a;
- border-radius:8px;
- cursor:pointer;
- font-size:10px;
+display:flex;gap:7px;padding:7px;border-radius:9px;
+background:linear-gradient(180deg,#21485f,#17364a);
+border:1px solid #476476;cursor:pointer;margin-bottom:6px
+}
+.rhInfo{font-size:10px;line-height:1.3;flex:1}
+.rhInfo b{font-size:12px}
+.pill{
+display:inline-block;padding:2px 5px;border-radius:5px;
+background:#3c8058;font-size:9px
 }
 
-.rightHorse:hover{
- border-color:var(--gold);
+.modal{
+display:none;position:fixed;inset:0;background:#000b;z-index:9999;
+align-items:center;justify-content:center;padding:15px
+}
+.modal.show{display:flex}
+.modalBox{
+width:min(540px,100%);max-height:85vh;overflow:auto;
+background:#173449;border:1px solid #688493;
+border-radius:16px;padding:15px
+}
+.choice{
+display:flex;align-items:center;gap:8px;
+background:#21465b;border:1px solid #4d7181;
+border-radius:9px;padding:8px;margin:5px 0;cursor:pointer
 }
 
-.rightHorse .pic{
- width:55px;
- height:50px;
- display:flex;
- align-items:center;
- justify-content:center;
- background:#35515b;
- border-radius:6px;
- font-size:34px;
- flex:none;
+.toast{
+position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+z-index:10000;background:#17364a;border:1px solid #80a6b5;
+border-radius:10px;padding:10px 14px;display:none;
+box-shadow:0 8px 25px #0008
+}
+.toast.show{display:block}
+
+@media(max-width:1050px){
+.layout{grid-template-columns:145px minmax(0,1fr)}
+.right{display:none}
+.logo{min-width:155px}
+.stats{justify-content:flex-start}
+.stat{min-width:85px}
 }
 
-.meter{
- height:5px;
- background:#334d59;
- border-radius:7px;
- overflow:hidden;
- margin:2px 0;
-}
-
-.meter i{
- display:block;
- height:100%;
- background:var(--green);
+@media(max-width:720px){
+.top{height:auto;flex-wrap:wrap}
+.logo{min-width:auto}
+.logoHorse{font-size:30px}
+.logo b{font-size:20px}
+.stats{order:3;width:100%}
+.topBtns{position:absolute;right:7px;top:7px}
+.layout{display:block;padding:5px}
+.left{display:none}
+.right{display:none}
+.scene{height:620px}
+.panel{min-height:620px;padding:10px}
+.grid,.profGrid,.statGrid{grid-template-columns:1fr}
+.stable{left:5%;width:90%;top:29%;height:205px}
+.boxes{grid-template-columns:repeat(3,1fr);height:140px}
+.paddock{top:56%;right:5%;width:55%;height:175px}
+.arena{left:4%;width:43%;height:150px}
+.tagStable{left:36%;top:45%}
+.tagPasture{right:10%;top:67%}
+.truck,.tractor{font-size:45px}
+.bottom{left:4px;right:4px}
+.bottom .action{min-width:135px}
 }
 </style>
 </head>
@@ -585,43 +389,38 @@ button{
 <header class="top">
 
 <div class="logo">
- <div class="logoIcon">🐎</div>
- <div>
-  <b>Mon Écurie</b>
-  <small>V3.0 · Domaine & Compétitions</small>
- </div>
+<div class="logoHorse">🐎</div>
+<div>
+<b>Mon Écurie</b>
+<small>V3.1 · Gestion complète de l'écurie</small>
+</div>
 </div>
 
 <div class="stats">
-
 <div class="stat">
- 📅 Année 1<br>
- <b>🌸 Printemps</b>
-</div>
-
-<div class="stat">
- ☀️ Semaine<br>
- <b id="week">12 / 52</b>
+📅 Année <b id="year">1</b><br>
+<b id="season">🌸 Printemps</b>
 </div>
 
 <div class="stat">
- 🪙 <b class="money" id="money">18 450 €</b>
+☀️ Semaine<br>
+<b id="week">12 / 52</b>
 </div>
 
 <div class="stat">
- ⭐ Réputation<br>
- <b class="rep" id="rep">0</b>
+🪙 <b class="money" id="money">18 450 €</b>
 </div>
 
 <div class="stat">
- 🏆 Niveau 2
- <div class="levelbar"><i></i></div>
+⭐ Réputation<br>
+<b class="rep" id="rep">0</b>
+</div>
 </div>
 
+<div class="topBtns">
+<button onclick="manualSave()">💾</button>
+<button onclick="resetGame()">⚙️</button>
 </div>
-
-<button onclick="saveGame()">💾</button>
-<button onclick="alert('⚙️ Réglages à venir')">⚙️</button>
 
 </header>
 
@@ -629,100 +428,58 @@ button{
 
 <aside class="left">
 
-<div class="menu card">
+<nav class="menu card" id="menu">
 
-<button class="active" onclick="showPage('domain',this)">
-🏠 Domaine
-</button>
+<button class="active" onclick="showPage('domain',this)">🏠 Domaine</button>
+<button onclick="showPage('stable',this)">🏚️ Écurie</button>
+<button onclick="showPage('pasture',this)">🌳 Prés</button>
+<button onclick="showPage('arena',this)">🏇 Carrière</button>
+<button onclick="showPage('shows',this)">🏆 Concours</button>
+<button onclick="showPage('market',this)">🐎 Marché</button>
+<button onclick="showPage('horses',this)">📖 Chevaux</button>
+<button onclick="showPage('care',this)">✚ Soins</button>
+<button onclick="showPage('pros',this)">🩺 Professionnels</button>
+<button onclick="showPage('gear',this)">🧰 Matériel</button>
+<button onclick="showPage('resources',this)">🌾 Ressources</button>
+<button onclick="showPage('staff',this)">👥 Personnel</button>
 
-<button onclick="showPage('stable',this)">
-🏚️ Écurie
-</button>
+</nav>
 
-<button onclick="showPage('pasture',this)">
-🌳 Prés
-</button>
+<div class="resourceCard card">
 
-<button onclick="showPage('arena',this)">
-🏇 Carrière
-</button>
+<h4>📦 Ressources</h4>
 
-<button onclick="showPage('shows',this)">
-🏆 Concours
-</button>
-
-<button onclick="showPage('market',this)">
-🐎 Marché
-</button>
-
-<button onclick="showPage('horses',this)">
-📖 Chevaux
-</button>
-
-<button onclick="showPage('care',this)">
-✚ Soins
-</button>
-
-<button onclick="showPage('staff',this)">
-👥 Professionnels
-</button>
-
-<button onclick="showPage('gear',this)">
-🧰 Matériel
-</button>
-
-</div>
-
-<div class="card resources">
-
-<h3>📦 Ressources</h3>
-
-<div class="resource">
-
-<div class="row">
+<div class="resRow">
+<div class="resLabel">
 <span>🌾 Foin</span>
-<b id="hayText">1 200 / 2 000 kg</b>
+<b id="hayText">1200 / 2000 kg</b>
+</div>
+<div class="meter"><i id="hayBar" style="width:60%"></i></div>
 </div>
 
-<div class="bar">
-<i id="hayBar" style="width:60%"></i>
-</div>
-
-</div>
-
-<div class="resource">
-
-<div class="row">
+<div class="resRow">
+<div class="resLabel">
 <span>🌽 Grain</span>
-<b id="grainText">800 / 1 500 kg</b>
+<b id="grainText">800 / 1500 kg</b>
+</div>
+<div class="meter"><i id="grainBar" style="width:53%"></i></div>
 </div>
 
-<div class="bar">
-<i id="grainBar" style="width:53%"></i>
-</div>
-
-</div>
-
-<div class="resource">
-
-<div class="row">
+<div class="resRow">
+<div class="resLabel">
 <span>🟫 Paille</span>
-<b>600 / 1 500 kg</b>
+<b id="strawText">600 / 1500 kg</b>
 </div>
-
-<div class="bar">
-<i style="width:40%"></i>
-</div>
-
+<div class="meter"><i id="strawBar" style="width:40%"></i></div>
 </div>
 
 </div>
 
-<div class="card news">
+<div class="news card">
 
-<h3>📰 Dernières nouvelles</h3>
+<h4>📰 Dernières nouvelles</h4>
 
-<p>🏅 Luna a terminé 2e en Club ! <b>+250 €</b></p>
+<p>🏅 Luna a terminé 2e en Club ! <b style="color:#62d47c">+250 €</b></p>
 <p>🌾 Stock de foin surveillé.</p>
 <p>🏇 Progression à l'entraînement.</p>
 
@@ -730,22 +487,22 @@ button{
 
 </aside>
 
-<!-- FIN DU BLOC 1 --><!-- ===== FIN BLOC 1 / DEBUT BLOC 2 ===== -->
+<main id="content">
 
-<main>
-
-<section id="domain" class="scene">
+<section id="domain" class="scene page active">
 
 <div class="sky"></div>
+
+<div class="cloud c1">☁️</div>
+<div class="cloud c2">☁️</div>
+
 <div class="hills"></div>
 <div class="ground"></div>
-<div class="path"></div>
 
 <div class="tree t1">🌳</div>
 <div class="tree t2">🌳</div>
 <div class="tree t3">🌳</div>
 <div class="tree t4">🌳</div>
-<div class="tree t5">🌳</div>
 
 <div class="stable">
 
@@ -760,30 +517,22 @@ button{
 </div>
 
 <div class="paddock"></div>
-
 <div class="arena"></div>
 
-<div class="obstacle obs1">🚧</div>
-<div class="obstacle obs2">🌹</div>
-<div class="obstacle obs3">🏳️</div>
-
-<div class="truck">🚚</div>
-<div class="tractor">🚜</div>
+<div class="vehicle truck">🚚</div>
+<div class="vehicle tractor">🚜</div>
 
 <div id="sceneHorses"></div>
 
-<button class="tag tagStable"
- onclick="showPage('stable')">
+<button class="tag tagStable" onclick="showPage('stable')">
 🏠 Entrer dans l'écurie
 </button>
 
-<button class="tag tagPasture"
- onclick="showPage('pasture')">
+<button class="tag tagPasture" onclick="showPage('pasture')">
 🌱 Voir les prés
 </button>
 
-<button class="tag tagArena"
- onclick="showPage('arena')">
+<button class="tag tagArena" onclick="showPage('arena')">
 🏇 Voir la carrière
 </button>
 
@@ -798,10 +547,16 @@ button{
 <button class="action" onclick="buyHay()">
 🌾
 <b>Acheter du foin</b>
-<small>+ 500 kg · 250 €</small>
+<small>+500 kg / 250 €</small>
 </button>
 
-<button class="action" onclick="chooseHorse()">
+<button class="action" onclick="buyGrain()">
+🌽
+<b>Acheter du grain</b>
+<small>+300 kg / 180 €</small>
+</button>
+
+<button class="action" onclick="chooseHorse('care')">
 🐎
 <b>S'occuper d'un cheval</b>
 <small>Choisir</small>
@@ -818,13 +573,13 @@ button{
 </section>
 
 
-<section id="stable" class="panelPage">
+<section id="stable" class="panel page">
 
 <h2>🏚️ Mon écurie</h2>
 
 <p>
 Boxes disponibles :
-<strong id="boxCount"></strong>
+<b id="boxCount"></b>
 </p>
 
 <div class="grid" id="stableGrid"></div>
@@ -832,25 +587,23 @@ Boxes disponibles :
 </section>
 
 
-<section id="pasture" class="panelPage">
+<section id="pasture" class="panel page">
 
 <h2>🌳 Mes prés</h2>
 
-<p>
-Les chevaux au pré récupèrent progressivement.
-</p>
+<p>Les chevaux au pré récupèrent progressivement.</p>
 
 <div class="grid" id="pastureGrid"></div>
 
 </section>
 
 
-<section id="arena" class="panelPage">
+<section id="arena" class="panel page">
 
 <h2>🏇 Carrière</h2>
 
 <p>
-Entraîne tes chevaux pour améliorer leurs performances.
+Travaille tes chevaux sans dépasser leur niveau de fatigue.
 </p>
 
 <div class="grid" id="arenaGrid"></div>
@@ -858,55 +611,50 @@ Entraîne tes chevaux pour améliorer leurs performances.
 </section>
 
 
-<section id="shows" class="panelPage">
+<section id="shows" class="panel page">
 
 <h2>🏆 Concours</h2>
 
 <div class="grid">
 
-<div class="card" style="padding:15px">
+<div class="infoCard">
 
-<h3>🥉 Club</h3>
+<h3>🥇 Club</h3>
 
-<p>Concours accessible aux débutants.</p>
+<p>
+Accessible aux chevaux débutants.
+</p>
 
-<p>Gain potentiel : <strong>250 €</strong></p>
-
-<button class="action"
-onclick="competition('Club',250,2)">
-Participer
+<button class="action" onclick="competition('Club',250,2)">
+Participer — 250 €
 </button>
 
 </div>
 
+<div class="infoCard">
 
-<div class="card" style="padding:15px">
+<h3>🏆 Amateur</h3>
 
-<h3>🥈 Amateur</h3>
+<p>
+Niveau régional plus exigeant.
+</p>
 
-<p>Niveau plus exigeant.</p>
-
-<p>Gain potentiel : <strong>600 €</strong></p>
-
-<button class="action"
-onclick="competition('Amateur',600,5)">
-Participer
+<button class="action" onclick="competition('Amateur',600,5)">
+Participer — 600 €
 </button>
 
 </div>
 
+<div class="infoCard">
 
-<div class="card" style="padding:15px">
+<h3>🇫🇷 Championnat</h3>
 
-<h3>🥇 Championnat</h3>
+<p>
+Pour les meilleurs chevaux.
+</p>
 
-<p>Pour les meilleurs chevaux.</p>
-
-<p>Gain potentiel : <strong>1 500 €</strong></p>
-
-<button class="action"
-onclick="competition('Championnat',1500,10)">
-Participer
+<button class="action" onclick="competition('Championnat',1500,10)">
+Participer — 1 500 €
 </button>
 
 </div>
@@ -916,12 +664,12 @@ Participer
 </section>
 
 
-<section id="market" class="panelPage">
+<section id="market" class="panel page">
 
 <h2>🐎 Marché aux chevaux</h2>
 
 <p>
-Achète de nouveaux chevaux pour développer ton écurie.
+Achète un cheval pour développer ton écurie.
 </p>
 
 <div class="grid" id="marketGrid"></div>
@@ -929,7 +677,7 @@ Achète de nouveaux chevaux pour développer ton écurie.
 </section>
 
 
-<section id="horses" class="panelPage">
+<section id="horses" class="panel page">
 
 <h2>📖 Mes chevaux</h2>
 
@@ -938,246 +686,276 @@ Achète de nouveaux chevaux pour développer ton écurie.
 </section>
 
 
-<section id="care" class="panelPage">
+<section id="care" class="panel page">
 
-<h2>✚ Soins professionnels</h2>
+<h2>✚ Soins</h2>
 
 <p>
-Tous les professionnels sont accessibles ici.
+Sélectionne un cheval pour t'en occuper.
 </p>
-
-<div class="grid">
-
-<div class="card" style="padding:15px">
-
-<h3>🩺 Vétérinaire</h3>
-
-<p>Visite complète de l'écurie.</p>
-
-<p><strong>1 000 €</strong></p>
-
-<button class="action"
-onclick="vetAll()">
-Faire une visite
-</button>
-
-</div>
-
-
-<div class="card" style="padding:15px">
-
-<h3>🦷 Dentiste</h3>
-
-<p>Contrôle dentaire.</p>
-
-<p><strong>350 €</strong></p>
-
-<button class="action"
-onclick="professional('dentiste',350)">
-Faire intervenir
-</button>
-
-</div>
-
-
-<div class="card" style="padding:15px">
-
-<h3>🧲 Maréchal-ferrant</h3>
-
-<p>Parage et ferrure.</p>
-
-<p><strong>120 €</strong></p>
-
-<button class="action"
-onclick="professional('marechal',120)">
-Faire intervenir
-</button>
-
-</div>
-
-
-<div class="card" style="padding:15px">
-
-<h3>👐 Ostéopathe</h3>
-
-<p>Séance de récupération.</p>
-
-<p><strong>250 €</strong></p>
-
-<button class="action"
-onclick="professional('osteopathe',250)">
-Faire intervenir
-</button>
-
-</div>
-
-</div>
 
 <div class="grid" id="careGrid"></div>
 
 </section>
 
 
-<section id="gear" class="panelPage">
+<section id="pros" class="panel page">
 
-<h2>🧰 Matériel & Stocks</h2>
+<h2>🩺 Professionnels</h2>
+
+<p>
+Les professionnels interviennent sur le cheval sélectionné.
+</p>
+
+<div class="profGrid">
+
+<div class="infoCard">
+
+<h3>🩺 Vétérinaire</h3>
+
+<p>
+Bilan et soins généraux.
+</p>
+
+<button class="action" onclick="chooseHorse('vet')">
+Visite — 1 000 €
+</button>
+
+</div>
+
+
+<div class="infoCard">
+
+<h3>🦷 Dentiste</h3>
+
+<p>
+Contrôle dentaire.
+</p>
+
+<button class="action" onclick="chooseHorse('dentiste')">
+Intervention — 350 €
+</button>
+
+</div>
+
+
+<div class="infoCard">
+
+<h3>🧲 Maréchal-ferrant</h3>
+
+<p>
+Parage / ferrure.
+</p>
+
+<button class="action" onclick="chooseHorse('marechal')">
+Intervention — 180 €
+</button>
+
+</div>
+
+
+<div class="infoCard">
+
+<h3>👐 Ostéopathe</h3>
+
+<p>
+Récupération et mobilité.
+</p>
+
+<button class="action" onclick="chooseHorse('osteopathe')">
+Séance — 250 €
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="gear" class="panel page">
+
+<h2>🧰 Matériel</h2>
 
 <div class="grid">
 
-<div class="card" style="padding:15px">
-
-<h3>🌾 Foin</h3>
-
-<p id="hayDetail">
-1 200 / 2 000 kg
-</p>
-
-<button class="action"
-onclick="buyHay()">
-Acheter 500 kg — 250 €
-</button>
-
-</div>
-
-
-<div class="card" style="padding:15px">
-
-<h3>🌽 Grain</h3>
-
-<p id="grainDetail">
-800 / 1 500 kg
-</p>
-
-<button class="action"
-onclick="buyGrain()">
-Acheter 300 kg — 180 €
-</button>
-
-</div>
-
-
-<div class="card" style="padding:15px">
-
-<h3>🟫 Paille</h3>
-
-<p>
-600 / 1 500 kg
-</p>
-
-<button class="action"
-onclick="msg('🟫 300 kg de paille ajoutés.')">
-Acheter — 150 €
-</button>
-
-</div>
-
-
-<div class="card" style="padding:15px">
+<div class="infoCard">
 
 <h3>🚚 Transport</h3>
 
 <p>
-Camion actuel :
-<strong>2 chevaux</strong>
+Camion actuel : 2 chevaux.
 </p>
 
-<button class="action"
-onclick="msg('🚚 Le camion est prêt.')">
+<button class="action" onclick="toast('🚚 Camion prêt.')">
 Vérifier
 </button>
 
 </div>
 
+
+<div class="infoCard">
+
+<h3>🏇 Matériel de concours</h3>
+
+<p>
+Matériel standard disponible.
+</p>
+
+<button class="action" onclick="toast('🧰 Matériel vérifié.')">
+Vérifier
+</button>
+
+</div>
+
+
+<div class="infoCard">
+
+<h3>🏗️ Installations</h3>
+
+<p>
+6 boxes · carrière · prés.
+</p>
+
+<button class="action" onclick="toast('🏡 Installations en bon état.')">
+Inspecter
+</button>
+
+</div>
+
 </div>
 
 </section>
 
 
-<section id="staff" class="panelPage">
+<section id="resources" class="panel page">
 
-<h2>👥 Professionnels</h2>
+<h2>🌾 Ressources</h2>
 
 <div class="grid">
 
-<div class="card" style="padding:15px">
+<div class="infoCard">
+
+<h3>🌾 Foin</h3>
+
+<p id="hayDetail"></p>
+
+<button class="action" onclick="buyHay()">
+Acheter +500 kg — 250 €
+</button>
+
+</div>
+
+
+<div class="infoCard">
+
+<h3>🌽 Grain</h3>
+
+<p id="grainDetail"></p>
+
+<button class="action" onclick="buyGrain()">
+Acheter +300 kg — 180 €
+</button>
+
+</div>
+
+
+<div class="infoCard">
+
+<h3>🟫 Paille</h3>
+
+<p id="strawDetail"></p>
+
+<button class="action" onclick="buyStraw()">
+Acheter +300 kg — 150 €
+</button>
+
+</div>
+
+
+<div class="infoCard">
+
+<h3>📊 Consommation hebdomadaire</h3>
+
+<p id="consumptionDetail"></p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="staff" class="panel page">
+
+<h2>👥 Personnel</h2>
+
+<div class="grid">
+
+<div class="infoCard">
 
 <h3>👨‍🌾 Palefrenier</h3>
 
-<p>
-S'occupe quotidiennement des chevaux.
-</p>
+<p>800 €/mois.</p>
 
-<p>800 €/mois</p>
-
-<button class="action"
-onclick="hire('Palefrenier',800)">
+<button class="action" onclick="hire('Palefrenier')">
 Embaucher
 </button>
 
 </div>
 
 
-<div class="card" style="padding:15px">
+<div class="infoCard">
 
-<h3>🏇 Cavalier professionnel</h3>
+<h3>🏇 Cavalier</h3>
 
-<p>
-Améliore les performances.
-</p>
+<p>1 200 €/mois.</p>
 
-<p>1 200 €/mois</p>
-
-<button class="action"
-onclick="hire('Cavalier',1200)">
+<button class="action" onclick="hire('Cavalier')">
 Embaucher
 </button>
 
 </div>
 
 
-<div class="card" style="padding:15px">
+<div class="infoCard">
 
-<h3>🩺 Vétérinaire</h3>
+<h3>👨‍🌾 Gérant</h3>
 
-<p>
-Interventions ponctuelles.
-</p>
+<p>1 500 €/mois.</p>
 
-<button class="action"
-onclick="showPage('care')">
-Voir les soins
+<button class="action" onclick="hire('Gérant')">
+Embaucher
 </button>
 
 </div>
 
 </div>
+
+<h3>Personnel actuel</h3>
+
+<div id="staffList"></div>
 
 </section>
 
 </main>
+
+<aside class="right" id="rightList"></aside>
+
+</div>
 
 
 <div class="modal" id="modal">
 
 <div class="modalBox">
 
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-">
+<div style="display:flex;justify-content:space-between;align-items:center">
 
 <h2 id="modalTitle">
-🐴 Choisir un cheval
+Choisir un cheval
 </h2>
 
-<button
-onclick="closeModal()"
-style="
-background:#713d3d;
-border-radius:8px;
-padding:7px 10px;
-">
+<button onclick="closeModal()" style="background:#6b3c3c;border-radius:8px;padding:6px 10px">
 ✕
 </button>
 
@@ -1190,319 +968,254 @@ padding:7px 10px;
 </div>
 
 
+<div class="toast" id="toast"></div>
+
+
 <script>
 
 const defaultHorses=[
 
 {
-id:1,
-name:"Luna",
-race:"Selle Français",
-age:8,
-sex:"Jument",
-color:"🐴",
-place:"box",
-form:82,
-health:95,
-fatigue:18,
-discipline:"CSO",
-price:8000
+id:1,name:"Luna",race:"Selle Français",age:8,
+sex:"Jument",color:"bai",form:82,health:95,
+fatigue:18,place:"box",discipline:"CSO"
 },
 
 {
-id:2,
-name:"Caramel",
-race:"Anglo-Arabe",
-age:12,
-sex:"Hongre",
-color:"🐎",
-place:"box",
-form:76,
-health:92,
-fatigue:12,
-discipline:"Complet",
-price:6500
+id:2,name:"Caramel",race:"Anglo-Arabe",age:12,
+sex:"Hongre",color:"alezan",form:76,health:92,
+fatigue:12,place:"box",discipline:"CSO"
 },
 
 {
-id:3,
-name:"Jasper",
-race:"Quarter Horse",
-age:6,
-sex:"Hongre",
-color:"🐴",
-place:"pasture",
-form:85,
-health:94,
-fatigue:22,
-discipline:"Poly.",
-price:9000
+id:3,name:"Jasper",race:"Quarter Horse",age:6,
+sex:"Hongre",color:"gris",form:85,health:94,
+fatigue:9,place:"pasture",discipline:"Western"
 },
 
 {
-id:4,
-name:"Étoile",
-race:"Connemara",
-age:4,
-sex:"Jument",
-color:"🐎",
-place:"pasture",
-form:79,
-health:91,
-fatigue:17,
-discipline:"CSO",
-price:5000
+id:4,name:"Étoile",race:"Connemara",age:4,
+sex:"Jument",color:"isabelle",form:79,health:91,
+fatigue:20,place:"pasture",discipline:"CSO"
 },
 
 {
-id:5,
-name:"Nova",
-race:"Appaloosa",
-age:3,
-sex:"Jument",
-color:"🐴",
-place:"pasture",
-form:81,
-health:93,
-fatigue:13,
-discipline:"Poly.",
-price:7000
+id:5,name:"Nova",race:"Appaloosa",age:3,
+sex:"Jument",color:"leopard",form:81,health:93,
+fatigue:13,place:"pasture",discipline:"Polyvalent"
 },
 
 {
-id:6,
-name:"Phoenix",
-race:"Pur-sang",
-age:5,
-sex:"Hongre",
-color:"🐎",
-place:"box",
-form:88,
-health:89,
-fatigue:26,
-discipline:"Vitesse",
-price:11000
+id:6,name:"Phoenix",race:"Pur-sang",age:5,
+sex:"Hongre",color:"bai",form:88,health:89,
+fatigue:26,place:"box",discipline:"Vitesse"
 }
 
 ];
 
 
-let game={
+const initial={
 
 money:18450,
-
 reputation:0,
-
 week:12,
-
 year:1,
 
 hay:1200,
-
-grain:800,
-
-straw:600,
-
 maxHay:2000,
 
+grain:800,
 maxGrain:1500,
 
+straw:600,
 maxStraw:1500,
 
 boxes:6,
 
 horses:defaultHorses,
 
-staff:[],
-
-selected:null
+staff:[]
 
 };
+
+
+let game=structuredClone(initial);
 
 
 function loadGame(){
 
 try{
 
-const data=
-localStorage.getItem("monEcurieV3");
+const s=localStorage.getItem("monEcurieV31");
 
-if(data){
+if(s)
+game={...game,...JSON.parse(s)};
 
-const saved=
-JSON.parse(data);
-
-game={
-...game,
-...saved
-};
-
-}
-
-}catch(e){
-
-console.log("Erreur sauvegarde");
-
-}
+}catch(e){}
 
 }
 
 
-function saveGame(){
+function manualSave(){
 
 localStorage.setItem(
-"monEcurieV3",
+"monEcurieV31",
 JSON.stringify(game)
 );
+
+toast("💾 Partie sauvegardée !");
+
+}
+
+
+function resetGame(){
+
+if(confirm("Réinitialiser complètement la partie ?")){
+
+localStorage.removeItem("monEcurieV31");
+
+game=structuredClone(initial);
+
+renderAll();
+
+toast("🔄 Nouvelle partie.");
+
+}
 
 }
 
 
 function money(n){
 
-return Math.round(n)
-.toLocaleString("fr-FR")+" €";
+return Math.round(n).toLocaleString("fr-FR")+" €";
 
 }
 
 
-function msg(text){
+function toast(t){
 
-alert(text);
+const x=document.getElementById("toast");
 
-}
+x.textContent=t;
 
+x.classList.add("show");
 
-function renderHeader(){
+clearTimeout(window.toastTimer);
 
-const m=
-document.getElementById("money");
-
-if(m)
-m.textContent=money(game.money);
-
-const r=
-document.getElementById("rep");
-
-if(r)
-r.textContent=game.reputation;
-
-const w=
-document.getElementById("week");
-
-if(w)
-w.textContent=
-game.week+" / 52";
+window.toastTimer=setTimeout(
+()=>x.classList.remove("show"),
+1800
+);
 
 }
 
 
-function renderScene(){
+function season(){
 
-const boxes=
-document.getElementById("sceneBoxes");
+if(game.week<=13)return"🌸 Printemps";
+if(game.week<=26)return"☀️ Été";
+if(game.week<=39)return"🍂 Automne";
 
-if(!boxes)return;
+return"❄️ Hiver";
 
-boxes.innerHTML="";
+}
 
-const boxHorses=
-game.horses
-.filter(h=>h.place==="box");
 
-for(let i=0;i<game.boxes;i++){
+function showPage(id,btn){
 
-const box=
-document.createElement("div");
+document
+.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
 
-box.className="box";
 
-const h=boxHorses[i];
+const page=document.getElementById(id);
 
-box.innerHTML=`
+if(page)
+page.classList.add("active");
 
-<div class="boxDoor"></div>
 
-<div class="boxName">
-${h?h.name:"Box libre"}
+document
+.querySelectorAll(".menu button")
+.forEach(b=>b.classList.remove("active"));
+
+
+if(btn)
+btn.classList.add("active");
+
+
+closeModal();
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+if(id!=="domain")
+renderAll();
+
+}
+
+
+function horseVisual(h,small=false){
+
+return`
+
+<div class="horse ${h.color}"
+style="${small?"transform:scale(.72);transform-origin:center":""}">
+
+<div class="body"></div>
+<div class="neck"></div>
+<div class="head"></div>
+<div class="ear"></div>
+<div class="mane"></div>
+
+<div class="leg l1"></div>
+<div class="leg l2"></div>
+<div class="leg l3"></div>
+<div class="leg l4"></div>
+
+<div class="tail"></div>
+
 </div>
 
 `;
-
-if(h){
-
-box.onclick=
-()=>chooseHorse(h.id);
-
-}
-
-boxes.appendChild(box);
-
-}
-
-
-const scene=
-document.getElementById("sceneHorses");
-
-if(!scene)return;
-
-scene.innerHTML="";
-
-game.horses
-.filter(h=>h.place==="pasture")
-.slice(0,4)
-.forEach((h,i)=>{
-
-const el=
-document.createElement("div");
-
-el.className=
-"sceneHorse horse"+(i+1);
-
-el.textContent=h.color;
-
-el.onclick=
-()=>chooseHorse(h.id);
-
-scene.appendChild(el);
-
-});
 
 }
 
 
 function horseCard(h){
 
-return `
+return`
 
-<div class="card horseCard">
+<div class="horseCard">
 
-<div class="horsePic">
-${h.color}
+<div class="thumb">
+${horseVisual(h,true)}
 </div>
 
 <div style="flex:1">
 
 <h3>${h.name}</h3>
 
-<small>
-${h.race} · ${h.age} ans · ${h.sex}
-</small>
+<span class="badge">
+${h.race}
+</span>
 
-<p>
+<p style="font-size:11px;margin:6px 0">
 
-Forme : ${h.form}%<br>
-Santé : ${h.health}%<br>
-Fatigue : ${h.fatigue}%<br>
+${h.age} ans · ${h.sex}<br>
 
-📍
-${h.place==="box"?"Box":"Pré"}
+Forme ${h.form}% ·
+Santé ${h.health}% ·
+Fatigue ${h.fatigue}%<br>
+
+📍 ${h.place==="box"?"Box":"Pré"}
 
 </p>
 
 <div class="actions">
 
-<button
+<button class="green"
 onclick="careHorse(${h.id})">
 🧹 S'occuper
 </button>
@@ -1514,9 +1227,11 @@ onclick="trainHorse(${h.id})">
 
 <button
 onclick="togglePlace(${h.id})">
+
 ${h.place==="box"
 ?"🌳 Mettre au pré"
 :"🏠 Rentrer au box"}
+
 </button>
 
 </div>
@@ -1530,26 +1245,305 @@ ${h.place==="box"
 }
 
 
-function renderPanels(){
+function renderHeader(){
 
-const horses=
-document.getElementById("horsesGrid");
+document.getElementById("money").textContent=
+money(game.money);
 
-if(horses){
+document.getElementById("rep").textContent=
+game.reputation;
 
-horses.innerHTML=
-game.horses
-.map(h=>horseCard(h))
-.join("");
+document.getElementById("week").textContent=
+game.week+" / 52";
+
+document.getElementById("year").textContent=
+game.year;
+
+document.getElementById("season").textContent=
+season();
 
 }
 
-const stable=
-document.getElementById("stableGrid");
 
-if(stable){
+function renderResources(){
 
-stable.innerHTML=
+const hp=Math.round(
+game.hay/game.maxHay*100
+);
+
+const gp=Math.round(
+game.grain/game.maxGrain*100
+);
+
+const sp=Math.round(
+game.straw/game.maxStraw*100
+);
+
+
+document.getElementById("hayText").textContent=
+`${game.hay.toLocaleString("fr-FR")} / ${game.maxHay.toLocaleString("fr-FR")} kg`;
+
+document.getElementById("grainText").textContent=
+`${game.grain.toLocaleString("fr-FR")} / ${game.maxGrain.toLocaleString("fr-FR")} kg`;
+
+document.getElementById("strawText").textContent=
+`${game.straw.toLocaleString("fr-FR")} / ${game.maxStraw.toLocaleString("fr-FR")} kg`;
+
+
+document.getElementById("hayBar").style.width=
+hp+"%";
+
+document.getElementById("grainBar").style.width=
+gp+"%";
+
+document.getElementById("strawBar").style.width=
+sp+"%";
+
+
+document.getElementById("hayDetail").textContent=
+`Stock : ${game.hay} / ${game.maxHay} kg`;
+
+document.getElementById("grainDetail").textContent=
+`Stock : ${game.grain} / ${game.maxGrain} kg`;
+
+document.getElementById("strawDetail").textContent=
+`Stock : ${game.straw} / ${game.maxStraw} kg`;
+
+
+document.getElementById("consumptionDetail").textContent=
+`Cette semaine : ${game.horses.length*50} kg de foin, ${game.horses.length*10} kg de grain et ${game.horses.length*30} kg de paille.`;
+
+}
+
+
+function renderScene(){
+
+const boxes=
+document.getElementById("sceneBoxes");
+
+boxes.innerHTML="";
+
+
+for(let i=0;i<game.boxes;i++){
+
+const h=
+game.horses
+.filter(x=>x.place==="box")[i];
+
+const box=document.createElement("div");
+
+box.className=
+"box"+(h?"":" free");
+
+
+box.innerHTML=
+
+h
+
+?
+
+horseVisual(h,true)+
+`<div class="boxName">${h.name}</div>`
+
+:
+
+`<div style="font-size:12px">Box libre</div>`;
+
+
+if(h)
+box.onclick=
+()=>chooseHorse("care",h.id);
+
+
+boxes.appendChild(box);
+
+}
+
+
+const scene=
+document.getElementById("sceneHorses");
+
+scene.innerHTML="";
+
+
+game.horses
+.filter(h=>h.place==="pasture")
+.slice(0,4)
+.forEach((h,i)=>{
+
+const e=
+document.createElement("div");
+
+e.className=
+"sceneHorse sh"+(i+1);
+
+e.innerHTML=
+horseVisual(h,true);
+
+e.onclick=
+()=>chooseHorse("care",h.id);
+
+scene.appendChild(e);
+
+});
+
+}
+
+
+function renderRight(){
+
+const right=
+document.getElementById("rightList");
+
+right.innerHTML="";
+
+
+game.horses.forEach(h=>{
+
+const e=
+document.createElement("div");
+
+e.className="rightHorse";
+
+e.onclick=
+()=>chooseHorse("care",h.id);
+
+
+e.innerHTML=`
+
+<div class="thumb">
+${horseVisual(h,true)}
+</div>
+
+<div class="rhInfo">
+
+<b>${h.name}</b>
+${h.sex==="Jument"?"♀":"♂"}
+
+<br>
+
+${h.race}
+
+<br>
+
+<span class="pill">
+${h.discipline}
+</span>
+
+<br>
+
+Forme ${h.form}%
+
+<div class="meter">
+<i style="width:${h.form}%"></i>
+</div>
+
+Santé ${h.health}%
+
+<div class="meter">
+<i style="width:${h.health}%"></i>
+</div>
+
+Fatigue ${h.fatigue}%
+
+<div class="meter">
+<i style="width:${h.fatigue}%"></i>
+</div>
+
+</div>
+
+`;
+
+right.appendChild(e);
+
+});
+
+}
+
+
+const market=[
+
+{
+name:"Belle",
+race:"Selle Français",
+age:4,
+sex:"Jument",
+color:"bai",
+price:12000,
+form:78,
+health:94,
+fatigue:5,
+discipline:"CSO"
+},
+
+{
+name:"Royal",
+race:"KWPN",
+age:6,
+sex:"Hongre",
+color:"alezan",
+price:18000,
+form:84,
+health:95,
+fatigue:5,
+discipline:"CSO"
+},
+
+{
+name:"Dusty",
+race:"Quarter Horse",
+age:5,
+sex:"Hongre",
+color:"gris",
+price:9000,
+form:80,
+health:93,
+fatigue:5,
+discipline:"Western"
+},
+
+{
+name:"Silver",
+race:"Frison",
+age:7,
+sex:"Jument",
+color:"noir",
+price:15000,
+form:82,
+health:94,
+fatigue:4,
+discipline:"Dressage"
+},
+
+{
+name:"Spot",
+race:"Appaloosa",
+age:3,
+sex:"Hongre",
+color:"leopard",
+price:10000,
+form:77,
+health:91,
+fatigue:4,
+discipline:"Polyvalent"
+}
+
+];
+
+
+function renderPanels(){
+
+const boxH=
+game.horses
+.filter(h=>h.place==="box")
+.length;
+
+
+document.getElementById("boxCount").textContent=
+`${game.boxes-boxH} libres / ${game.boxes} boxes — ${boxH} occupés`;
+
+
+document.getElementById("stableGrid").innerHTML=
 game.horses
 .filter(h=>h.place==="box")
 .map(h=>horseCard(h))
@@ -1557,14 +1551,8 @@ game.horses
 ||
 "<p>Aucun cheval au box.</p>";
 
-}
 
-const pasture=
-document.getElementById("pastureGrid");
-
-if(pasture){
-
-pasture.innerHTML=
+document.getElementById("pastureGrid").innerHTML=
 game.horses
 .filter(h=>h.place==="pasture")
 .map(h=>horseCard(h))
@@ -1572,135 +1560,53 @@ game.horses
 ||
 "<p>Aucun cheval au pré.</p>";
 
-}
 
-const arena=
-document.getElementById("arenaGrid");
-
-if(arena){
-
-arena.innerHTML=
+document.getElementById("arenaGrid").innerHTML=
 game.horses
 .map(h=>horseCard(h))
 .join("");
 
-}
 
-const care=
-document.getElementById("careGrid");
-
-if(care){
-
-care.innerHTML=
+document.getElementById("horsesGrid").innerHTML=
 game.horses
 .map(h=>horseCard(h))
 .join("");
 
-}
 
-const count=
-document.getElementById("boxCount");
-
-if(count){
-
-const occupied=
+document.getElementById("careGrid").innerHTML=
 game.horses
-.filter(h=>h.place==="box")
-.length;
-
-count.textContent=
-`${occupied} / ${game.boxes} occupés`;
-
-}
-
-renderMarket();
-
-}
+.map(h=>horseCard(h))
+.join("");
 
 
-function showPage(id,btn){
+document.getElementById("marketGrid").innerHTML=
+market
+.map((h,i)=>`
 
-document
-.querySelectorAll(".panelPage")
-.forEach(p=>
-p.classList.remove("active")
-);
+<div class="horseCard">
 
-const domain=
-document.getElementById("domain");
-
-if(id==="domain"){
-
-domain.style.display="block";
-
-}else{
-
-domain.style.display="none";
-
-const panel=
-document.getElementById(id);
-
-if(panel)
-panel.classList.add("active");
-
-renderPanels();
-
-}
-
-document
-.querySelectorAll(".menu button")
-.forEach(b=>
-b.classList.remove("active")
-);
-
-if(btn)
-btn.classList.add("active");
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-
-function chooseHorse(id=null){
-
-if(id){
-
-const h=
-game.horses
-.find(x=>x.id===id);
-
-if(h)
-careHorse(h.id);
-
-return;
-
-}
-
-const content=
-document.getElementById("modalContent");
-
-content.innerHTML=
-game.horses
-.map(h=>`
-
-<div class="rightHorse"
-onclick="careHorse(${h.id});closeModal()">
-
-<div class="pic">
-${h.color}
+<div class="thumb">
+${horseVisual(h,true)}
 </div>
 
 <div>
 
-<b>${h.name}</b><br>
+<h3>${h.name}</h3>
 
-${h.race}<br>
+<span class="badge">
+${h.race}
+</span>
 
-${h.age} ans ·
-${h.place==="box"?"Box":"Pré"}
+<p>
+${h.age} ans · ${h.sex}
+<br>
+${money(h.price)}
+</p>
+
+<button class="action"
+onclick="buyHorse(${i})">
+💰 Acheter
+</button>
 
 </div>
 
@@ -1709,9 +1615,31 @@ ${h.place==="box"?"Box":"Pré"}
 `)
 .join("");
 
-document
-.getElementById("modal")
-.classList.add("show");
+
+document.getElementById("staffList").innerHTML=
+
+game.staff.length
+
+?
+
+game.staff
+.map(x=>`<span class="badge">${x}</span> `)
+.join("")
+
+:
+
+"<p>Aucun salarié.</p>";
+
+}
+
+
+function renderAll(){
+
+renderHeader();
+renderResources();
+renderScene();
+renderRight();
+renderPanels();
 
 }
 
@@ -1725,1334 +1653,560 @@ document
 }
 
 
-/*
- /* =====================================================
-   ACTIONS CHEVAUX
-===================================================== */
+function chooseHorse(action,id=null){
+
+if(id){
+
+const h=
+game.horses.find(x=>x.id===id);
+
+if(h)
+executeAction(action,h);
+
+return;
+
+}
+
+
+const content=
+document.getElementById("modalContent");
+
+
+content.innerHTML=
+game.horses
+.map(h=>`
+
+<div class="choice"
+
+onclick="executeAction(
+'${action}',
+game.horses.find(x=>x.id===${h.id})
+)">
+
+<div class="thumb">
+${horseVisual(h,true)}
+</div>
+
+<div>
+
+<b>${h.name}</b>
+<br>
+
+${h.race}
+<br>
+
+📍 ${h.place==="box"?"Box":"Pré"}
+
+</div>
+
+</div>
+
+`)
+.join("");
+
+
+document
+.getElementById("modal")
+.classList.add("show");
+
+}
+
+
+function executeAction(action,h){
+
+closeModal();
+
+if(!h)
+return;
+
+
+if(action==="care")
+careHorse(h.id);
+
+
+if(action==="vet")
+professional("veterinaire",1000,h.id);
+
+
+if(action==="dentiste")
+professional("dentiste",350,h.id);
+
+
+if(action==="marechal")
+professional("marechal",180,h.id);
+
+
+if(action==="osteopathe")
+professional("osteopathe",250,h.id);
+
+}
+
 
 function careHorse(id){
 
- const h=game.horses.find(x=>x.id===id);
+const h=
+game.horses.find(x=>x.id===id);
 
- if(!h)return;
+if(!h)return;
 
- h.form=Math.min(100,h.form+4);
- h.health=Math.min(100,h.health+2);
- h.fatigue=Math.max(0,h.fatigue-6);
 
- game.reputation+=1;
+h.form=
+Math.min(100,h.form+4);
 
- renderAll();
+h.health=
+Math.min(100,h.health+2);
 
- msg("🧹 Tu t'es occupé de "+h.name+" !");
+h.fatigue=
+Math.max(0,h.fatigue-6);
+
+game.reputation++;
+
+renderAll();
+
+toast(
+"🧹 "+h.name+" est bien soigné."
+);
 
 }
 
 
 function trainHorse(id){
 
- const h=game.horses.find(x=>x.id===id);
+const h=
+game.horses.find(x=>x.id===id);
 
- if(!h)return;
+if(!h)return;
 
- if(h.fatigue>=70){
 
-  msg(
-   "😴 "+h.name+
-   " est trop fatigué pour travailler."
-  );
+if(h.fatigue>=70){
 
-  return;
+toast(
+"😴 "+h.name+" est trop fatigué."
+);
 
- }
+return;
 
- h.form=Math.min(100,h.form+6);
+}
 
- h.fatigue=Math.min(100,h.fatigue+14);
 
- game.reputation+=1;
+h.form=
+Math.min(100,h.form+6);
 
- renderAll();
+h.fatigue=
+Math.min(100,h.fatigue+14);
 
- msg(
-  "🏇 "+h.name+
-  " a progressé à l'entraînement !"
- );
+game.reputation++;
+
+renderAll();
+
+toast(
+"🏇 "+h.name+" progresse."
+);
 
 }
 
 
 function togglePlace(id){
 
- const h=
-  game.horses.find(x=>x.id===id);
+const h=
+game.horses.find(x=>x.id===id);
 
- if(!h)return;
+if(!h)return;
 
- if(h.place==="box"){
 
-  h.place="pasture";
+if(h.place==="box"){
 
-  msg(
-   "🌳 "+h.name+
-   " est maintenant au pré."
-  );
+h.place="pasture";
 
- }else{
+}else{
 
-  const occupied=
-   game.horses
-   .filter(x=>x.place==="box")
-   .length;
+if(
+game.horses
+.filter(x=>x.place==="box")
+.length>=game.boxes
+){
 
-  if(occupied>=game.boxes){
+toast(
+"🏠 Tous les boxes sont occupés."
+);
 
-   msg(
-    "🏠 Tous les boxes sont occupés."
-   );
+return;
 
-   return;
+}
 
-  }
-
-  h.place="box";
-
-  msg(
-   "🏠 "+h.name+
-   " est rentré au box."
-  );
-
- }
-
- renderAll();
+h.place="box";
 
 }
 
 
-/* =====================================================
-   STOCKS
-===================================================== */
+renderAll();
+
+toast(
+h.place==="box"
+?
+"🏠 "+h.name+" est au box."
+:
+"🌳 "+h.name+" est au pré."
+);
+
+}
+
 
 function buyHay(){
 
- const price=250;
+if(game.money<250){
 
- if(game.money<price){
+toast("💸 Pas assez d'argent.");
 
-  msg("💸 Tu n'as pas assez d'argent.");
+return;
 
-  return;
+}
 
- }
 
- if(game.hay>=game.maxHay){
+if(game.hay>=game.maxHay){
 
-  msg("🌾 Le stock de foin est déjà plein.");
+toast("🌾 Stock de foin plein.");
 
-  return;
+return;
 
- }
+}
 
- game.money-=price;
 
- game.hay=
-  Math.min(
-   game.maxHay,
-   game.hay+500
-  );
+game.money-=250;
 
- renderAll();
+game.hay=
+Math.min(
+game.maxHay,
+game.hay+500
+);
 
- msg("🌾 500 kg de foin ajoutés au stock.");
+renderAll();
+
+toast("🌾 +500 kg de foin.");
 
 }
 
 
 function buyGrain(){
 
- const price=180;
+if(game.money<180){
 
- if(game.money<price){
+toast("💸 Pas assez d'argent.");
 
-  msg("💸 Tu n'as pas assez d'argent.");
-
-  return;
-
- }
-
- if(game.grain>=game.maxGrain){
-
-  msg("🌽 Le stock de grain est déjà plein.");
-
-  return;
-
- }
-
- game.money-=price;
-
- game.grain=
-  Math.min(
-   game.maxGrain,
-   game.grain+300
-  );
-
- renderAll();
-
- msg("🌽 300 kg de grain ajoutés au stock.");
+return;
 
 }
 
 
-/* =====================================================
-   CONSOMMATION HEBDOMADAIRE
-===================================================== */
+if(game.grain>=game.maxGrain){
 
-function consumeResources(){
+toast("🌽 Stock de grain plein.");
 
- const horseCount=
-  game.horses.length;
-
- /*
-   Consommation moyenne :
-   50 kg de foin / cheval / semaine
-   10 kg de grain / cheval / semaine
- */
-
- const hayNeed=
-  horseCount*50;
-
- const grainNeed=
-  horseCount*10;
-
- game.hay=
-  Math.max(
-   0,
-   game.hay-hayNeed
-  );
-
- game.grain=
-  Math.max(
-   0,
-   game.grain-grainNeed
-  );
+return;
 
 }
 
 
-/* =====================================================
-   PASSAGE D'UNE SEMAINE
-===================================================== */
+game.money-=180;
+
+game.grain=
+Math.min(
+game.maxGrain,
+game.grain+300
+);
+
+renderAll();
+
+toast("🌽 +300 kg de grain.");
+
+}
+
+
+function buyStraw(){
+
+if(game.money<150){
+
+toast("💸 Pas assez d'argent.");
+
+return;
+
+}
+
+
+if(game.straw>=game.maxStraw){
+
+toast("🟫 Stock de paille plein.");
+
+return;
+
+}
+
+
+game.money-=150;
+
+game.straw=
+Math.min(
+game.maxStraw,
+game.straw+300
+);
+
+renderAll();
+
+toast("🟫 +300 kg de paille.");
+
+}
+
 
 function nextWeek(){
 
- const cost=350;
+if(game.money<350){
 
- if(game.money<cost){
+toast("💸 Pas assez d'argent.");
 
-  msg(
-   "💸 Tu n'as pas assez d'argent "+
-   "pour passer la semaine."
-  );
-
-  return;
-
- }
-
- game.money-=cost;
-
- consumeResources();
-
- game.week++;
-
- /*
-   Récupération des chevaux
- */
-
- game.horses.forEach(h=>{
-
-  h.fatigue=
-   Math.max(
-    0,
-    h.fatigue-10
-   );
-
-  if(h.place==="pasture"){
-
-   h.health=
-    Math.min(
-     100,
-     h.health+2
-    );
-
-  }
-
-  /*
-    Si le stock manque,
-    la santé peut commencer
-    à diminuer.
-  */
-
-  if(game.hay===0){
-
-   h.health=
-    Math.max(
-     0,
-     h.health-3
-    );
-
-  }
-
-  if(game.grain===0){
-
-   h.form=
-    Math.max(
-     0,
-     h.form-2
-    );
-
-  }
-
- });
-
-
- /*
-   Nouvelle année
- */
-
- if(game.week>52){
-
-  game.week=1;
-
-  game.year++;
-
-  msg(
-   "🎉 Nouvelle année !\n\n"+
-   "Bienvenue dans l'année "+
-   game.year+"."
-  );
-
- }
-
- renderAll();
+return;
 
 }
 
 
-/* =====================================================
-   CONCOURS
-===================================================== */
+game.money-=350;
 
-function competition(
- level,
- reward,
- reputationGain
+
+const n=
+game.horses.length;
+
+
+game.hay=
+Math.max(0,game.hay-n*50);
+
+game.grain=
+Math.max(0,game.grain-n*10);
+
+game.straw=
+Math.max(0,game.straw-n*30);
+
+
+game.horses.forEach(h=>{
+
+h.fatigue=
+Math.max(0,h.fatigue-10);
+
+if(h.place==="pasture")
+h.health=
+Math.min(100,h.health+2);
+
+if(game.hay===0)
+h.health=
+Math.max(0,h.health-3);
+
+if(game.grain===0)
+h.form=
+Math.max(0,h.form-2);
+
+});
+
+
+game.week++;
+
+
+if(game.week>52){
+
+game.week=1;
+game.year++;
+
+toast("🎉 Nouvelle année !");
+
+}
+
+
+renderAll();
+
+}
+
+
+function competition(level,reward,rep){
+
+const h=
+[...game.horses]
+.sort((a,b)=>b.form-a.form)[0];
+
+if(!h)return;
+
+
+const cost=
+level==="Club"
+?
+250
+:
+level==="Amateur"
+?
+600
+:
+1500;
+
+
+if(game.money<cost){
+
+toast("💸 Pas assez d'argent.");
+
+return;
+
+}
+
+
+if(h.fatigue>=80){
+
+toast(
+"😴 Le meilleur cheval est trop fatigué."
+);
+
+return;
+
+}
+
+
+game.money-=cost;
+
+h.fatigue=
+Math.min(100,h.fatigue+25);
+
+
+if(
+Math.random()*100
+<
+h.form+game.reputation
 ){
 
- const horse=
-  game.horses
-  .slice()
-  .sort(
-   (a,b)=>b.form-a.form
-  )[0];
+game.money+=reward;
 
- if(!horse){
+game.reputation+=rep;
 
-  msg(
-   "🐴 Tu n'as aucun cheval disponible."
-  );
+toast(
+"🏆 "+h.name+
+" réussit son concours ! +"+
+money(reward)
+);
 
-  return;
+}else{
 
- }
-
- if(horse.fatigue>=80){
-
-  msg(
-   "😴 "+horse.name+
-   " est trop fatigué pour concourir."
-  );
-
-  return;
-
- }
-
- const entryCost=
-  level==="Club"
-   ?250
-   :level==="Amateur"
-    ?600
-    :1500;
-
- if(game.money<entryCost){
-
-  msg(
-   "💸 Pas assez d'argent "+
-   "pour engager le cheval."
-  );
-
-  return;
-
- }
-
- game.money-=entryCost;
-
- horse.fatigue=
-  Math.min(
-   100,
-   horse.fatigue+25
-  );
-
- /*
-   Résultat basé sur la forme.
- */
-
- const chance=
-  horse.form+
-  game.reputation;
-
- const success=
-  Math.random()*100<chance;
-
- if(success){
-
-  game.money+=reward;
-
-  game.reputation+=
-   reputationGain;
-
-  horse.form=
-   Math.min(
-    100,
-    horse.form+3
-   );
-
-  msg(
-   "🏆 "+horse.name+
-   " réalise une belle performance !\n\n"+
-   level+
-   "\n+"+
-   money(reward)+
-   "\n+"+
-   reputationGain+
-   " réputation"
-  );
-
- }else{
-
-  msg(
-   "🏇 "+horse.name+
-   " a participé au concours.\n\n"+
-   "Il faudra encore travailler."
-  );
-
- }
-
- renderAll();
+toast(
+"🏇 "+h.name+
+" termine sans gain."
+);
 
 }
 
 
-/* =====================================================
-   PROFESSIONNELS
-===================================================== */
-
-function professional(
- type,
- price
-){
-
- const h=
-  game.horses[0];
-
- if(!h){
-
-  msg("🐴 Aucun cheval disponible.");
-
-  return;
-
- }
-
- if(game.money<price){
-
-  msg("💸 Tu n'as pas assez d'argent.");
-
-  return;
-
- }
-
- game.money-=price;
-
- if(type==="dentiste"){
-
-  h.health=
-   Math.min(
-    100,
-    h.health+5
-   );
-
-  msg(
-   "🦷 Le dentiste est intervenu "+
-   "sur "+h.name+"."
-  );
-
- }
-
- if(type==="marechal"){
-
-  h.health=
-   Math.min(
-    100,
-    h.health+3
-   );
-
-  h.form=
-   Math.min(
-    100,
-    h.form+2
-   );
-
-  msg(
-   "🧲 Le maréchal-ferrant "+
-   "s'est occupé de "+h.name+"."
-  );
-
- }
-
- if(type==="osteopathe"){
-
-  h.fatigue=
-   Math.max(
-    0,
-    h.fatigue-20
-   );
-
-  h.form=
-   Math.min(
-    100,
-    h.form+3
-   );
-
-  msg(
-   "👐 Séance d'ostéopathie terminée "+
-   "pour "+h.name+"."
-  );
-
- }
-
- renderAll();
+renderAll();
 
 }
 
 
-function vetAll(){
+function professional(type,cost,id){
 
- const price=1000;
+const h=
+game.horses.find(x=>x.id===id);
 
- if(game.money<price){
+if(!h)return;
 
-  msg("💸 Tu n'as pas assez d'argent.");
 
-  return;
+if(game.money<cost){
 
- }
+toast("💸 Pas assez d'argent.");
 
- game.money-=price;
-
- game.horses.forEach(h=>{
-
-  h.health=
-   Math.min(
-    100,
-    h.health+8
-   );
-
- });
-
- renderAll();
-
- msg(
-  "🩺 Visite vétérinaire terminée.\n\n"+
-  "Tous les chevaux ont été contrôlés."
- );
+return;
 
 }
 
 
-/* =====================================================
-   PERSONNEL
-===================================================== */
+game.money-=cost;
 
-function hire(name,cost){
 
- if(game.staff.includes(name)){
+if(type==="veterinaire")
+h.health=
+Math.min(100,h.health+8);
 
-  msg(
-   "👥 "+name+
-   " est déjà employé."
-  );
 
-  return;
+if(type==="dentiste")
+h.health=
+Math.min(100,h.health+5);
 
- }
 
- /*
-   Le coût est enregistré
-   comme coût mensuel.
- */
+if(type==="marechal"){
 
- game.staff.push(name);
+h.health=
+Math.min(100,h.health+3);
 
- renderAll();
-
- msg(
-  "👥 "+name+
-  " a été ajouté à ton personnel.\n\n"+
-  "Coût mensuel : "+
-  money(cost)
- );
+h.form=
+Math.min(100,h.form+2);
 
 }
 
 
-/* =====================================================
-   MARCHE AUX CHEVAUX
-===================================================== */
+if(type==="osteopathe"){
 
-const market=[
+h.fatigue=
+Math.max(0,h.fatigue-20);
 
- {
-  name:"Belle",
-  race:"Selle Français",
-  age:4,
-  sex:"Jument",
-  color:"🐴",
-  price:12000,
-  form:78,
-  health:94,
-  fatigue:5,
-  discipline:"CSO"
- },
-
- {
-  name:"Royal",
-  race:"KWPN",
-  age:6,
-  sex:"Hongre",
-  color:"🐎",
-  price:18000,
-  form:84,
-  health:95,
-  fatigue:5,
-  discipline:"CSO"
- },
-
- {
-  name:"Dusty",
-  race:"Quarter Horse",
-  age:5,
-  sex:"Hongre",
-  color:"🐴",
-  price:9000,
-  form:80,
-  health:93,
-  fatigue:5,
-  discipline:"Western"
- },
-
- {
-  name:"Silver",
-  race:"Frison",
-  age:7,
-  sex:"Jument",
-  color:"🐎",
-  price:15000,
-  form:82,
-  health:94,
-  fatigue:4,
-  discipline:"Dressage"
- },
-
- {
-  name:"Spot",
-  race:"Appaloosa",
-  age:3,
-  sex:"Hongre",
-  color:"🐴",
-  price:10000,
-  form:77,
-  health:91,
-  fatigue:4,
-  discipline:"Polyvalent"
- }
-
-];
-
-
-function renderMarket(){
-
- const grid=
-  document.getElementById("marketGrid");
-
- if(!grid)return;
-
- grid.innerHTML=
- market.map((h,i)=>`
-
- <div class="card horseCard">
-
-  <div class="horsePic">
-   ${h.color}
-  </div>
-
-  <div>
-
-   <h3>${h.name}</h3>
-
-   <small>
-    ${h.race}
-   </small>
-
-   <p>
-    ${h.age} ans · ${h.sex}<br>
-    ${money(h.price)}
-   </p>
-
-   <button
-    class="action"
-    onclick="buyHorse(${i})">
-
-    💰 Acheter
-
-   </button>
-
-  </div>
-
- </div>
-
- `).join("");
+h.form=
+Math.min(100,h.form+3);
 
 }
 
 
-function buyHorse(index){
+renderAll();
 
- const h=
-  market[index];
-
- if(!h)return;
-
- if(game.money<h.price){
-
-  msg(
-   "💸 Tu n'as pas assez d'argent."
-  );
-
-  return;
-
- }
-
- const occupied=
-  game.horses
-  .filter(x=>x.place==="box")
-  .length;
-
- let place="pasture";
-
- if(occupied<game.boxes){
-
-  place="box";
-
- }
-
- const newHorse={
-
-  id:
-   Date.now(),
-
-  name:h.name,
-
-  race:h.race,
-
-  age:h.age,
-
-  sex:h.sex,
-
-  color:h.color,
-
-  form:h.form,
-
-  health:h.health,
-
-  fatigue:h.fatigue,
-
-  discipline:h.discipline,
-
-  price:h.price,
-
-  place:place
-
- };
-
- game.money-=h.price;
-
- game.horses.push(newHorse);
-
- renderAll();
-
- msg(
-  "🐎 "+h.name+
-  " rejoint ton écurie !\n\n"+
-  (
-   place==="box"
-    ?"🏠 Un box lui a été attribué."
-    :"🌳 Il est placé au pré."
-  )
- );
+toast(
+"🩺 Intervention terminée pour "+
+h.name+"."
+);
 
 }
 
 
-/* =====================================================
-   STOCKS AFFICHAGE
-===================================================== */
+function hire(name){
 
-function renderResources(){
+if(game.staff.includes(name)){
 
- const hayDetail=
-  document.getElementById("hayDetail");
+toast(
+"👥 "+name+
+" est déjà employé."
+);
 
- if(hayDetail){
-
-  hayDetail.textContent=
-   game.hay+
-   " / "+
-   game.maxHay+
-   " kg";
-
- }
-
- const grainDetail=
-  document.getElementById("grainDetail");
-
- if(grainDetail){
-
-  grainDetail.textContent=
-   game.grain+
-   " / "+
-   game.maxGrain+
-   " kg";
-
- }
-
- const hayText=
-  document.getElementById("hayText");
-
- if(hayText){
-
-  hayText.textContent=
-   game.hay+
-   " kg";
-
- }
-
- const grainText=
-  document.getElementById("grainText");
-
- if(grainText){
-
-  grainText.textContent=
-   game.grain+
-   " kg";
-
- }
+return;
 
 }
 
 
-/* =====================================================
-   RENDU GENERAL
-===================================================== */
+game.staff.push(name);
 
-function renderAll(){
+renderAll();
 
- renderHeader();
-
- renderScene();
-
- renderRight();
-
- renderPanels();
-
- renderResources();
+toast(
+"👥 "+name+
+" a été embauché."
+);
 
 }
 
 
-/* =====================================================
-   INITIALISATION
-===================================================== */
+document
+.getElementById("modal")
+.addEventListener(
+"click",
+e=>{
+
+if(e.target.id==="modal")
+closeModal();
+
+});
+
 
 loadGame();
 
 renderAll();
 
-
-/* =====================================================
-   FIN DU BLOC 3
-===================================================== */
-
-</script>
-<!-- =====================================================
-     CORRECTION V3 — AFFICHAGE DES PAGES + MOBILE
-===================================================== -->
-
-<style>
-
-/* Une seule rubrique visible à la fois */
-.panelPage{
-  display:none !important;
-  grid-column:1 / -1;
-  width:100%;
-  min-height:650px;
-}
-
-.panelPage.active{
-  display:block !important;
-}
-
-/* Le domaine est la seule scène principale */
-#domain{
-  display:block;
-}
-
-/* Évite que les anciennes pages restent visibles */
-main > .panelPage:not(.active){
-  display:none !important;
-}
-
-/* Fenêtre de sélection cheval */
-#modal{
-  display:none !important;
-  position:fixed !important;
-  inset:0 !important;
-  z-index:9999 !important;
-  background:rgba(0,0,0,.78) !important;
-  align-items:center !important;
-  justify-content:center !important;
-  padding:15px !important;
-}
-
-#modal.show{
-  display:flex !important;
-}
-
-#modal .modalBox{
-  width:min(540px,100%) !important;
-  max-height:85vh !important;
-  overflow-y:auto !important;
-  background:#173449 !important;
-  border:2px solid #55798a !important;
-  border-radius:15px !important;
-  padding:15px !important;
-}
-
-/* Évite que la fenêtre bloque les boutons quand elle est fermée */
-#modal:not(.show){
-  pointer-events:none !important;
-}
-
-#modal.show{
-  pointer-events:auto !important;
-}
-
-/* Affichage mobile */
-@media(max-width:720px){
-
-  .layout{
-    display:block !important;
-    width:100% !important;
-    padding:5px !important;
-  }
-
-  .panelPage{
-    width:100% !important;
-    min-height:600px !important;
-    margin:0 !important;
-    padding:12px !important;
-  }
-
-  .grid{
-    grid-template-columns:1fr !important;
-    width:100% !important;
-  }
-
-  .horseCard{
-    width:100% !important;
-    min-width:0 !important;
-  }
-
-  .horseCard .actions{
-    display:flex !important;
-    flex-wrap:wrap !important;
-  }
-
-  .horseCard .actions button{
-    flex:1 1 auto !important;
-    min-height:40px !important;
-  }
-
-  .scene{
-    width:100% !important;
-    min-height:620px !important;
-  }
-
-  /* Les boutons du bas restent accessibles */
-  .bottom{
-    position:absolute !important;
-    left:5px !important;
-    right:5px !important;
-    bottom:8px !important;
-    overflow-x:auto !important;
-    display:flex !important;
-    flex-wrap:nowrap !important;
-    justify-content:flex-start !important;
-    z-index:50 !important;
-  }
-
-  .bottom .action{
-    flex:0 0 145px !important;
-  }
-
-}
-
-/* Les boutons restent au-dessus des éléments graphiques */
-button{
-  position:relative;
-  z-index:20;
-}
-
-</style>
-
-
-<script>
-
-/* =====================================================
-   NOUVELLE NAVIGATION V3
-===================================================== */
-
-function show(id, btn){
-
-  /* Fermer automatiquement une éventuelle fenêtre */
-  const modal=document.getElementById("modal");
-
-  if(modal){
-    modal.classList.remove("show");
-  }
-
-  /* Cacher TOUTES les pages */
-  document.querySelectorAll(".panelPage").forEach(function(panel){
-
-    panel.classList.remove("active");
-
-    panel.style.display="none";
-
-  });
-
-
-  /* Domaine */
-  const domain=document.getElementById("domain");
-
-  if(domain){
-
-    if(id==="domain"){
-
-      domain.style.display="block";
-
-    }else{
-
-      domain.style.display="none";
-
-    }
-
-  }
-
-
-  /* Afficher uniquement la page demandée */
-  if(id!=="domain"){
-
-    const page=document.getElementById(id);
-
-    if(page){
-
-      page.classList.add("active");
-
-      page.style.display="block";
-
-    }
-
-  }
-
-
-  /* Menu actif */
-  document.querySelectorAll(".menu button")
-    .forEach(function(button){
-
-      button.classList.remove("active");
-
-    });
-
-
-  if(btn){
-
-    btn.classList.add("active");
-
-  }else{
-
-    const menuButton=
-      document.querySelector(
-        '.menu button[onclick*="show(\''+id+'\'"]'
-      );
-
-    if(menuButton){
-
-      menuButton.classList.add("active");
-
-    }
-
-  }
-
-
-  /* Fermer la fenêtre de sélection */
-  closeModalSafe();
-
-
-  /* Remonter en haut */
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-
-  /* Actualiser les données */
-  if(id!=="domain" &&
-     typeof renderPanels==="function"){
-
-    renderPanels();
-
-  }
-
-}
-
-
-/* =====================================================
-   FERMETURE SÉCURISÉE DU MODAL
-===================================================== */
-
-function closeModalSafe(){
-
-  const modal=
-    document.getElementById("modal");
-
-  if(modal){
-
-    modal.classList.remove("show");
-
-  }
-
-}
-
-
-/* Remplace aussi la fermeture existante */
-
-function closeModal(){
-
-  closeModalSafe();
-
-}
-
-
-/* Cliquer sur le fond ferme la fenêtre */
-
-document.addEventListener("click",function(e){
-
-  const modal=
-    document.getElementById("modal");
-
-  if(
-    modal &&
-    modal.classList.contains("show") &&
-    e.target===modal
-  ){
-
-    closeModalSafe();
-
-  }
-
-});
-
-
-/* =====================================================
-   CORRECTION CHOIX CHEVAL
-===================================================== */
-
-function chooseHorse(action,id=null){
-
-  /* Si un cheval est directement choisi */
-  if(id){
-
-    const horse=
-      game.horses.find(function(h){
-
-        return h.id===id;
-
-      });
-
-    if(horse){
-
-      executeAction(action,horse);
-
-    }
-
-    return;
-
-  }
-
-
-  const modal=
-    document.getElementById("modal");
-
-  const title=
-    document.getElementById("modalTitle");
-
-  const content=
-    document.getElementById("modalContent");
-
-
-  if(!modal || !content){
-
-    return;
-
-  }
-
-
-  if(title){
-
-    title.textContent=
-      "🐴 Choisir un cheval";
-
-  }
-
-
-  content.innerHTML=
-    game.horses.map(function(h){
-
-      return `
-
-      <div class="choice"
-           onclick="executeAction('${action}',game.horses.find(x=>x.id===${h.id}))">
-
-        <div class="thumb">
-          ${typeof horseVisual==="function"
-            ? horseVisual(h,true)
-            : "🐴"}
-        </div>
-
-        <div>
-          <b>${h.name}</b><br>
-          ${h.race}<br>
-          📍 ${h.place==="box" ? "Box" : "Pré"}
-        </div>
-
-      </div>
-
-      `;
-
-    }).join("");
-
-
-  modal.classList.add("show");
-
-}
-
-
-/* =====================================================
-   PROTECTION DES ACTIONS
-===================================================== */
-
-function executeAction(action,h){
-
-  closeModalSafe();
-
-  if(!h){
-
-    return;
-
-  }
-
-
-  if(action==="care"){
-
-    careHorse(h.id);
-
-  }
-
-}
-
-
-/* =====================================================
-   INITIALISATION CORRIGÉE
-===================================================== */
-
-document.addEventListener("DOMContentLoaded",function(){
-
-  /* Cacher toutes les pages */
-  document
-    .querySelectorAll(".panelPage")
-    .forEach(function(panel){
-
-      panel.classList.remove("active");
-
-      panel.style.display="none";
-
-    });
-
-
-  /* Afficher le domaine */
-  const domain=
-    document.getElementById("domain");
-
-  if(domain){
-
-    domain.style.display="block";
-
-  }
-
-
-  /* Domaine actif dans le menu */
-  document
-    .querySelectorAll(".menu button")
-    .forEach(function(button){
-
-      button.classList.remove("active");
-
-    });
-
-
-  const firstButton=
-    document.querySelector(".menu button");
-
-  if(firstButton){
-
-    firstButton.classList.add("active");
-
-  }
-
-});
-
 </script>
 
-<!-- =====================================================
-     FIN CORRECTION V3
-===================================================== -->
+</div>
 </body>
 </html>
