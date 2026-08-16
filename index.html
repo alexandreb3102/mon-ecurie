@@ -20,7 +20,7 @@ body{margin:0;font-family:system-ui;background:#f3eee6;color:#2d261f}header{back
 <script>
 const s={money:12000,boxes:4,ha:2,q:3,n:2,rest:false,hay:12,w:1,
 horses:[{name:"Luna",age:8,form:82,fat:18,pot:91},{name:"Caramel",age:12,form:76,fat:12,pot:72}],logs:["Bienvenue dans votre première écurie !"]};
-const €=n=>n.toLocaleString("fr-FR")+" €";
+const euro=n=>n.toLocaleString("fr-FR")+" €";
 function say(x){s.logs.unshift(x);s.logs=s.logs.slice(0,6)}
 function render(){
 const cashEl=document.getElementById("cash");
@@ -30,9 +30,7 @@ const feedEl=document.getElementById("feed");
 const timeEl=document.getElementById("time");
 const horsesEl=document.getElementById("horses");
 const logEl=document.getElementById("log");
-
-cashEl.innerHTML="💰 <b>"+€(s.money)+"</b>";
-stableEl.innerHTML=`${s.boxes} boxes · ${s.horses.length}/${s.boxes} chevaux`;
+cashEl.innerHTML="💰 <b>"+euro(s.money)+"</b>";
 fieldEl.innerHTML=`${s.ha} ha · ${"⭐".repeat(s.q)} · ${s.n} chevaux · ${s.rest?"au repos":"pâturage"}`;
 feedEl.innerHTML=`${s.hay} bottes`;
 timeEl.innerHTML=`Semaine ${s.w}/52`;
