@@ -34,7 +34,7 @@ cashEl.innerHTML="💰 <b>"+euro(s.money)+"</b>";
 fieldEl.innerHTML=s.ha+" ha · "+"⭐".repeat(s.q);
 feedEl.innerHTML=`${s.hay} bottes`;
 timeEl.innerHTML=`Semaine ${s.w}/52`;
-horsesEl.innerHTML=s.horses.map((h,i)=>`<div class="horse"><b>${h.name}</b> · ${h.age} ans<br>Forme ${h.form}% · Fatigue ${h.fat}% · Potentiel ${h.pot}%<br><button onclick="train(${i})">Entraîner</button><button onclick="heal(${i})">Repos</button></div>`).join("");
+horsesEl.innerHTML=s.horses.map((h,i)=>"<div class=\"horse\"><b>"+h.name+"</b> · "+h.age+" ans<br>Forme "+h.form+"% · Fatigue "+h.fat+"% · Potentiel "+h.pot+"%</div>").join("");
 logEl.innerHTML=s.logs.join("<br>");
 }
 function box(){if(s.money<4500)return say("❌ Pas assez d'argent");s.money-=4500;s.boxes++;say("🏠 Box construit !");render()}
@@ -44,7 +44,7 @@ function train(i){let h=s.horses[i];if(h.fat>70)return say("😴 "+h.name+" est 
 function heal(i){s.horses[i].fat=Math.max(0,s.horses[i].fat-30);say("😴 "+s.horses[i].name+" récupère.");render()}
 function lesson(){s.money+=120;say("🏇 Cours donné : +120 €.");render()}
 function show(){let h=s.horses[0];if(h.fat>65)return say("😴 "+h.name+" est trop fatigué.");h.fat=Math.min(100,h.fat+35);let score=Math.max(0,Math.round(h.form-Math.random()*35));let g=score>80?700:score>60?300:0;s.money+=g;say(score>80?"🥇 "+h.name+" gagne ! +"+€(g):score>60?"🏅 Bon classement pour "+h.name+". +"+€(g):"❌ Concours difficile pour "+h.name+".");render()}
-function buy(){if(s.horses.length>=s.boxes)return say("🏡 Plus de box disponible.");if(s.money<350)return say("❌ Pas assez d'argent.");s.money-=6000;let names=["Naya","Orion","Jupiter","Volt","Eclipse"],n=names[Math.floor(Math.random()*names.length)];s.horses.push({name:n,age:5+Math.floor(Math.random()*6),form:65,pot:55+Math.floor(Math.random()*40),fat:10});say("🐴 "+n+" rejoint l'écurie.");render()}
+function buy(){if(s.horses.length>=s.boxes)return say("🏡 Plus de box disponible.");if(s.money<6000)return say("❌ Pas assez d'argent.");s.money-=6000;let names=["Naya","Orion","Jupiter","Volt","Eclipse"],n=names[Math.floor(Math.random()*names.length)];s.horses.push({name:n,age:5+Math.floor(Math.random()*6),form:65,pot:55+Math.floor(Math.random()*40),fat:10});say("🐴 "+n+" rejoint l'écurie.");render()}
 function week(){s.w++;s.money-=350;s.horses.forEach(h=>{h.age+=1/52;h.fat=Math.max(0,h.fat-10)});say("📅 Une semaine est passée !");render()}
 render();
 </script></body></html>
