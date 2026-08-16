@@ -3,472 +3,2913 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Mon Écurie — V1.0</title>
+<title>Mon Écurie — V1.1</title>
+
 <style>
 *{box-sizing:border-box}
-:root{--bg:#171b1d;--panel:#173044;--panel2:#21435a;--gold:#e4b64e;--green:#49b96c;--red:#df6b65;--text:#fff;--muted:#b8c6cc}
-body{margin:0;background:#111;color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
-button{border:0;color:#fff;font:inherit;font-weight:800;cursor:pointer}
-.app{min-height:100vh;background:radial-gradient(circle at 50% 30%,#394b40 0,#18211f 46%,#111 100%)}
-.top{height:66px;background:linear-gradient(180deg,#203b4d,#122838);display:flex;align-items:center;padding:6px 10px;gap:10px;border-bottom:2px solid #3d5b6a;position:sticky;top:0;z-index:30}
-.logo{display:flex;align-items:center;gap:8px;min-width:205px}.logoHorse{font-size:42px}.logo b{font-family:Georgia,serif;font-size:23px}.logo small{display:block;color:#d7e1e5;font-size:10px}
-.stats{display:flex;gap:7px;align-items:center;flex:1;justify-content:center}.stat{min-width:105px;padding:6px 10px;border-radius:9px;background:#29495d;border:1px solid #527080;text-align:center;font-size:12px}.stat b{font-size:14px}.money{color:#ffd66b}.rep{color:#ffd66b}
-.level{min-width:120px}.levelbar{height:7px;background:#405866;border-radius:10px;margin-top:3px;overflow:hidden}.levelbar i{display:block;height:100%;width:55%;background:#49a8dc}
-.topBtns{display:flex;gap:5px}.topBtns button{background:#29495d;border:1px solid #527080;border-radius:9px;padding:9px 11px}
-.layout{display:grid;grid-template-columns:185px minmax(500px,1fr) 230px;gap:8px;max-width:1500px;margin:auto;padding:8px}
-.left,.right{display:flex;flex-direction:column;gap:6px}
-.menu button{width:100%;text-align:left;padding:10px 12px;background:linear-gradient(180deg,#294d64,#1b384c);border:1px solid #45677a;border-radius:8px;box-shadow:0 2px 5px #0007}.menu button.active{background:linear-gradient(180deg,#397daf,#285c82)}.menu button span{display:inline-block;width:28px}
-.card{background:linear-gradient(180deg,#17364a,#10283a);border:1px solid #476476;border-radius:10px;box-shadow:0 3px 10px #0008}
-.news{padding:9px;font-size:11px}.news h4{margin:0 0 6px;color:#ffd66b}.news p{margin:5px 0;padding:5px;background:#0e2231;border-radius:6px}
-.install{padding:9px;font-size:11px}.install h4{margin:0 0 6px}.install div{padding:3px 0;border-bottom:1px solid #345160}
-.scene{position:relative;height:650px;min-height:600px;overflow:hidden;border-radius:14px;background:linear-gradient(#80b6d0 0 28%,#6e9659 28% 100%);box-shadow:0 5px 20px #000b;border:2px solid #4a6b73}
-.skyCloud{position:absolute;font-size:42px;opacity:.55}.cloud1{left:8%;top:5%}.cloud2{right:18%;top:10%}
-.horizon{position:absolute;left:-5%;right:-5%;top:24%;height:180px;background:linear-gradient(160deg,#688b59,#52774d);clip-path:polygon(0 70%,18% 35%,34% 60%,49% 22%,64% 55%,78% 30%,100% 60%,100% 100%,0 100%)}
-.land{position:absolute;inset:31% 0 0;background:linear-gradient(145deg,#82a65e,#5c854d)}
-.path{position:absolute;width:75%;height:170px;left:13%;bottom:8%;background:#c9a56c;border:5px solid #8b6a43;border-radius:50%;transform:rotate(-8deg)}
-.fence{position:absolute;border:5px solid #7a593a;border-radius:16px;background:#ffffff12;box-shadow:inset 0 0 0 2px #d3b27c}
-.arena{left:8%;bottom:10%;width:39%;height:180px;border-radius:50%}
-.arena:before{content:"";position:absolute;inset:12px;border:3px solid #e8d0a0;border-radius:50%}
-.paddock{right:4%;top:44%;width:42%;height:205px}.paddock:after{content:"🌳   🌳";position:absolute;right:10px;bottom:5px;font-size:25px}
-.stable{left:8%;top:30%;width:65%;height:210px;background:linear-gradient(180deg,#9a603a,#71452f);border:5px solid #4d3024;border-radius:9px;box-shadow:0 8px 15px #0008}
-.stableRoof{position:absolute;left:-4%;right:-4%;top:-55px;height:65px;background:#45484a;clip-path:polygon(4% 100%,50% 0,96% 100%);border-bottom:7px solid #282b2c}
-.stableText{position:absolute;top:7px;left:0;right:0;text-align:center;font-weight:900;text-shadow:0 2px 3px #000}
-.boxes{position:absolute;left:10px;right:10px;bottom:10px;height:135px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-.box{position:relative;background:#5a3928;border:3px solid #38251c;border-radius:5px;overflow:hidden}.boxName{position:absolute;bottom:2px;left:2px;right:2px;background:#162e3aee;border-radius:4px;text-align:center;font-size:10px;padding:2px;z-index:4}
-.truck{position:absolute;right:2%;top:30%;font-size:62px;filter:drop-shadow(0 5px 4px #0007)}
-.tractor{position:absolute;left:4%;top:48%;font-size:62px;filter:drop-shadow(0 5px 4px #0007)}
-.tree{position:absolute;font-size:40px;filter:drop-shadow(0 4px 3px #0005)}
-.t1{left:3%;top:27%}.t2{right:3%;top:28%}.t3{left:48%;bottom:18%}.t4{right:25%;bottom:5%}
-.sceneHorse{position:absolute;z-index:8}.h1{left:68%;top:51%}.h2{left:77%;top:58%}.h3{left:54%;top:55%}.h4{left:82%;top:72%}
-.clickTag{position:absolute;z-index:12;background:#17364aee;border:1px solid #80a6b5;padding:6px 9px;border-radius:8px;font-size:11px;font-weight:900;cursor:pointer}.tagStable{left:31%;top:45%}.tagPasture{right:14%;top:68%}.tagArena{left:19%;bottom:7%}
-.horse{width:74px;height:62px;position:relative;cursor:pointer;filter:drop-shadow(0 4px 3px #0008)}.horse .body{position:absolute;left:20px;top:23px;width:47px;height:24px;border-radius:55%;background:var(--coat);border:2px solid #32231c}.horse .neck{position:absolute;left:13px;top:7px;width:18px;height:38px;background:var(--coat);border:2px solid #32231c;border-radius:80% 30% 30% 50%;transform:rotate(17deg)}.horse .head{position:absolute;left:1px;top:7px;width:24px;height:17px;background:var(--coat);border:2px solid #32231c;border-radius:60% 45% 50% 45%}.horse .ear{position:absolute;left:5px;top:-3px;width:6px;height:10px;background:var(--coat);border:2px solid #32231c;transform:rotate(-18deg)}.horse .mane{position:absolute;left:15px;top:11px;width:6px;height:31px;background:var(--mane);border-radius:50%}.horse .leg{position:absolute;top:40px;width:6px;height:23px;background:var(--legs);border-radius:5px}.horse .l1{left:25px}.horse .l2{left:38px}.horse .l3{left:51px}.horse .l4{left:62px}.horse .tail{position:absolute;right:-3px;top:20px;width:25px;height:12px;border-bottom:5px solid var(--legs);border-radius:50%;transform:rotate(25deg)}
-.bai{--coat:#8a4d2e;--mane:#241813;--legs:#231813}.alezan{--coat:#b96832;--mane:#4b2415;--legs:#442417}.noir{--coat:#292727;--mane:#111;--legs:#111}.gris{--coat:#aaa9a2;--mane:#5c5b57;--legs:#55544f}.isabelle{--coat:#c89b59;--mane:#4a3523;--legs:#463322}.leopard{--coat:#c6b8a0;--mane:#5a4939;--legs:#514536}
-.rightHorse{display:flex;gap:7px;padding:7px;border-radius:9px;background:linear-gradient(180deg,#21485f,#17364a);border:1px solid #476476;cursor:pointer}.rightHorse:hover{border-color:#e6c267}.thumb{width:63px;height:58px;background:#36525d;border-radius:7px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none}.rhInfo{font-size:10px;line-height:1.35;flex:1}.rhInfo b{font-size:12px}.pill{display:inline-block;padding:2px 5px;border-radius:5px;background:#3c8058;font-size:9px}.meter{height:5px;background:#385463;border-radius:8px;overflow:hidden;margin:2px 0}.meter i{display:block;height:100%;background:#43bd6a}.meter.red i{background:#e16b63}
-.bottom{position:absolute;left:10%;right:10%;bottom:10px;z-index:20;display:flex;gap:6px;justify-content:center}.action{background:linear-gradient(180deg,#1e4b63,#122f40);border:1px solid #537384;border-radius:10px;padding:9px 12px;min-width:120px;text-align:center;box-shadow:0 4px 8px #0007}.action b{display:block}.action small{color:#b9c9ce}.bottomTools{display:flex;justify-content:center;gap:15px;padding:7px}.round{width:48px;height:48px;border-radius:50%;background:#1a4055;border:2px solid #88a6b3;font-size:20px}
-.panelPage{display:none;grid-column:1/-1;background:#102738;padding:20px;border-radius:14px;min-height:650px}.panelPage.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:10px}.horseCard{background:#18394d;border:1px solid #4c6977;border-radius:12px;padding:12px;display:flex;gap:10px}.horseCard .thumb{width:90px;height:85px}.horseCard h3{margin:0 0 3px}.badge{background:#315c70;border-radius:6px;padding:3px 6px;font-size:10px}.actions{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.actions button{padding:7px 9px;border-radius:7px;background:#2d6079}.actions button.green{background:#3f8e59}.actions button.gold{background:#a87a27}
-.modal{display:none;position:fixed;inset:0;background:#000a;z-index:100;align-items:center;justify-content:center;padding:15px}.modal.show{display:flex}.modalBox{width:min(540px,100%);max-height:90vh;overflow:auto;background:#173449;border:1px solid #688493;border-radius:16px;padding:15px;box-shadow:0 15px 45px #000}.modalBox h2{margin-top:0}.choice{display:flex;align-items:center;gap:8px;background:#21465b;border:1px solid #4d7181;border-radius:9px;padding:8px;margin:5px 0;cursor:pointer}.choice:hover{border-color:#e6c267}
-@media(max-width:1050px){.layout{grid-template-columns:145px minmax(430px,1fr)}.right{display:none}.logo{min-width:155px}.stats{overflow:auto;justify-content:flex-start}.stat{min-width:85px}}
-@media(max-width:720px){.top{height:auto;flex-wrap:wrap}.logo{min-width:auto}.stats{order:3;width:100%}.topBtns{position:absolute;right:7px;top:7px}.layout{display:block;padding:5px}.left{display:none}.scene{height:620px}.panelPage{margin-top:5px}.bottom{left:2%;right:2%;overflow:auto;justify-content:flex-start}.action{min-width:110px}.stable{left:5%;width:90%;top:29%;height:205px}.boxes{grid-template-columns:repeat(3,1fr)}.paddock{top:56%;right:5%;width:55%;height:180px}.arena{left:4%;width:43%;height:150px}.tagStable{left:36%;top:45%}.tagPasture{right:10%;top:67%}.truck{font-size:48px}.tractor{font-size:48px}}
+
+:root{
+  --bg:#101719;
+  --panel:#173044;
+  --panel2:#21465b;
+  --gold:#e4b64e;
+  --green:#49b96c;
+  --red:#df6b65;
+  --text:#fff;
+  --muted:#b8c6cc;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:#101719;
+  color:var(--text);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button{
+  border:0;
+  color:white;
+  font:inherit;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.app{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% 20%,#394d40 0,#1a2521 45%,#101719 100%);
+}
+
+/* =========================
+   BARRE DU HAUT
+========================= */
+
+.top{
+  min-height:74px;
+  background:linear-gradient(180deg,#203c4e,#122837);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:7px 10px;
+  border-bottom:2px solid #456575;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:210px;
+}
+
+.logoHorse{
+  font-size:40px;
+}
+
+.logo b{
+  font-family:Georgia,serif;
+  font-size:24px;
+}
+
+.logo small{
+  display:block;
+  color:#cbd9de;
+  font-size:10px;
+}
+
+.stats{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  flex:1;
+  overflow:auto;
+}
+
+.stat{
+  min-width:105px;
+  padding:6px 9px;
+  border-radius:10px;
+  background:#29495d;
+  border:1px solid #527080;
+  text-align:center;
+  font-size:11px;
+  white-space:nowrap;
+}
+
+.stat b{
+  font-size:14px;
+}
+
+.money{
+  color:#ffd66b;
+}
+
+.rep{
+  color:#ffd66b;
+}
+
+.level{
+  min-width:115px;
+}
+
+.levelbar{
+  height:7px;
+  margin-top:3px;
+  background:#405866;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.levelbar i{
+  display:block;
+  height:100%;
+  width:55%;
+  background:#49a8dc;
+}
+
+.topBtns{
+  display:flex;
+  gap:5px;
+}
+
+.topBtns button{
+  background:#29495d;
+  border:1px solid #527080;
+  border-radius:9px;
+  padding:9px 11px;
+}
+
+/* =========================
+   STRUCTURE
+========================= */
+
+.layout{
+  display:grid;
+  grid-template-columns:185px minmax(500px,1fr) 230px;
+  gap:8px;
+  max-width:1500px;
+  margin:auto;
+  padding:8px;
+}
+
+.left,
+.right{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.menu{
+  padding:5px;
+}
+
+.menu button{
+  width:100%;
+  text-align:left;
+  padding:10px 11px;
+  margin-bottom:5px;
+  background:linear-gradient(180deg,#294d64,#1b384c);
+  border:1px solid #45677a;
+  border-radius:8px;
+  box-shadow:0 2px 5px #0007;
+}
+
+.menu button.active{
+  background:linear-gradient(180deg,#397daf,#285c82);
+}
+
+.menu button span{
+  display:inline-block;
+  width:28px;
+}
+
+/* =========================
+   CARTES
+========================= */
+
+.card{
+  background:linear-gradient(180deg,#17364a,#10283a);
+  border:1px solid #476476;
+  border-radius:10px;
+  box-shadow:0 3px 10px #0008;
+}
+
+.news{
+  padding:9px;
+  font-size:11px;
+}
+
+.news h4{
+  margin:0 0 6px;
+  color:#ffd66b;
+}
+
+.news p{
+  margin:5px 0;
+  padding:5px;
+  background:#0e2231;
+  border-radius:6px;
+}
+
+/* =========================
+   DOMAINE
+========================= */
+
+.scene{
+  position:relative;
+  height:650px;
+  overflow:hidden;
+  border-radius:14px;
+  background:
+    linear-gradient(#80b6d0 0 28%,#6e9659 28% 100%);
+  box-shadow:0 5px 20px #000b;
+  border:2px solid #4a6b73;
+}
+
+.skyCloud{
+  position:absolute;
+  font-size:42px;
+  opacity:.55;
+}
+
+.cloud1{
+  left:8%;
+  top:5%;
+}
+
+.cloud2{
+  right:18%;
+  top:10%;
+}
+
+.horizon{
+  position:absolute;
+  left:-5%;
+  right:-5%;
+  top:24%;
+  height:180px;
+  background:linear-gradient(160deg,#688b59,#52774d);
+  clip-path:polygon(
+    0 70%,18% 35%,34% 60%,49% 22%,
+    64% 55%,78% 30%,100% 60%,
+    100% 100%,0 100%
+  );
+}
+
+.land{
+  position:absolute;
+  inset:31% 0 0;
+  background:linear-gradient(145deg,#82a65e,#5c854d);
+}
+
+.path{
+  position:absolute;
+  width:75%;
+  height:170px;
+  left:13%;
+  bottom:8%;
+  background:#c9a56c;
+  border:5px solid #8b6a43;
+  border-radius:50%;
+  transform:rotate(-8deg);
+}
+
+.fence{
+  position:absolute;
+  border:5px solid #7a593a;
+  border-radius:16px;
+  background:#ffffff12;
+  box-shadow:inset 0 0 0 2px #d3b27c;
+}
+
+.arena{
+  left:7%;
+  bottom:10%;
+  width:40%;
+  height:180px;
+  border-radius:50%;
+}
+
+.arena:before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border:3px solid #e8d0a0;
+  border-radius:50%;
+}
+
+.paddock{
+  right:4%;
+  top:46%;
+  width:43%;
+  height:205px;
+}
+
+.paddock:after{
+  content:"🌳   🌳";
+  position:absolute;
+  right:10px;
+  bottom:5px;
+  font-size:25px;
+}
+
+.stable{
+  position:absolute;
+  left:8%;
+  top:30%;
+  width:65%;
+  height:210px;
+  background:linear-gradient(180deg,#9a603a,#71452f);
+  border:5px solid #4d3024;
+  border-radius:9px;
+  box-shadow:0 8px 15px #0008;
+}
+
+.stableRoof{
+  position:absolute;
+  left:-4%;
+  right:-4%;
+  top:-55px;
+  height:65px;
+  background:#45484a;
+  clip-path:polygon(4% 100%,50% 0,96% 100%);
+  border-bottom:7px solid #282b2c;
+}
+
+.stableText{
+  position:absolute;
+  top:7px;
+  left:0;
+  right:0;
+  text-align:center;
+  font-weight:900;
+  text-shadow:0 2px 3px #000;
+}
+
+.boxes{
+  position:absolute;
+  left:10px;
+  right:10px;
+  bottom:10px;
+  height:135px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:6px;
+}
+
+.box{
+  position:relative;
+  background:#5a3928;
+  border:3px solid #38251c;
+  border-radius:5px;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.box:hover{
+  border-color:#e6c267;
+}
+
+.boxName{
+  position:absolute;
+  bottom:2px;
+  left:2px;
+  right:2px;
+  background:#162e3aee;
+  border-radius:4px;
+  text-align:center;
+  font-size:10px;
+  padding:2px;
+  z-index:4;
+}
+
+.truck{
+  position:absolute;
+  right:2%;
+  top:30%;
+  font-size:62px;
+  filter:drop-shadow(0 5px 4px #0007);
+}
+
+.tractor{
+  position:absolute;
+  left:4%;
+  top:48%;
+  font-size:62px;
+  filter:drop-shadow(0 5px 4px #0007);
+}
+
+.tree{
+  position:absolute;
+  font-size:40px;
+  filter:drop-shadow(0 4px 3px #0005);
+}
+
+.t1{left:3%;top:27%}
+.t2{right:3%;top:28%}
+.t3{left:48%;bottom:18%}
+.t4{right:25%;bottom:5%}
+
+/* =========================
+   CHEVAUX VISUELS
+========================= */
+
+.horse{
+  width:74px;
+  height:62px;
+  position:relative;
+  cursor:pointer;
+  filter:drop-shadow(0 4px 3px #0008);
+}
+
+.horse .body{
+  position:absolute;
+  left:20px;
+  top:23px;
+  width:47px;
+  height:24px;
+  border-radius:55%;
+  background:var(--coat);
+  border:2px solid #32231c;
+}
+
+.horse .neck{
+  position:absolute;
+  left:13px;
+  top:7px;
+  width:18px;
+  height:38px;
+  background:var(--coat);
+  border:2px solid #32231c;
+  border-radius:80% 30% 30% 50%;
+  transform:rotate(17deg);
+}
+
+.horse .head{
+  position:absolute;
+  left:1px;
+  top:7px;
+  width:24px;
+  height:17px;
+  background:var(--coat);
+  border:2px solid #32231c;
+  border-radius:60% 45% 50% 45%;
+}
+
+.horse .ear{
+  position:absolute;
+  left:5px;
+  top:-3px;
+  width:6px;
+  height:10px;
+  background:var(--coat);
+  border:2px solid #32231c;
+  transform:rotate(-18deg);
+}
+
+.horse .mane{
+  position:absolute;
+  left:15px;
+  top:11px;
+  width:6px;
+  height:31px;
+  background:var(--mane);
+  border-radius:50%;
+}
+
+.horse .leg{
+  position:absolute;
+  top:40px;
+  width:6px;
+  height:23px;
+  background:var(--legs);
+  border-radius:5px;
+}
+
+.horse .l1{left:25px}
+.horse .l2{left:38px}
+.horse .l3{left:51px}
+.horse .l4{left:62px}
+
+.horse .tail{
+  position:absolute;
+  right:-3px;
+  top:20px;
+  width:25px;
+  height:12px;
+  border-bottom:5px solid var(--legs);
+  border-radius:50%;
+  transform:rotate(25deg);
+}
+
+.bai{
+  --coat:#8a4d2e;
+  --mane:#241813;
+  --legs:#231813;
+}
+
+.alezan{
+  --coat:#b96832;
+  --mane:#4b2415;
+  --legs:#442417;
+}
+
+.noir{
+  --coat:#292727;
+  --mane:#111;
+  --legs:#111;
+}
+
+.gris{
+  --coat:#aaa9a2;
+  --mane:#5c5b57;
+  --legs:#55544f;
+}
+
+.isabelle{
+  --coat:#c89b59;
+  --mane:#4a3523;
+  --legs:#463322;
+}
+
+.leopard{
+  --coat:#c6b8a0;
+  --mane:#5a4939;
+  --legs:#514536;
+}
+
+/* =========================
+   CHEVAUX SUR LE DOMAINE
+========================= */
+
+.sceneHorse{
+  position:absolute;
+  z-index:8;
+}
+
+.h1{left:68%;top:51%}
+.h2{left:77%;top:58%}
+.h3{left:54%;top:55%}
+.h4{left:82%;top:72%}
+
+/* =========================
+   BOUTONS DOMAINE
+========================= */
+
+.clickTag{
+  position:absolute;
+  z-index:12;
+  background:#17364aee;
+  border:1px solid #80a6b5;
+  padding:7px 10px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.clickTag:hover{
+  border-color:#e6c267;
+}
+
+.tagStable{
+  left:31%;
+  top:45%;
+}
+
+.tagPasture{
+  right:14%;
+  top:68%;
+}
+
+.tagArena{
+  left:19%;
+  bottom:7%;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.bottom{
+  position:absolute;
+  left:2%;
+  right:2%;
+  bottom:10px;
+  z-index:20;
+  display:flex;
+  gap:6px;
+  justify-content:center;
+}
+
+.action{
+  background:linear-gradient(180deg,#1e4b63,#122f40);
+  border:1px solid #537384;
+  border-radius:10px;
+  padding:9px 12px;
+  min-width:120px;
+  text-align:center;
+  box-shadow:0 4px 8px #0007;
+}
+
+.action:hover{
+  border-color:#e6c267;
+}
+
+.action b{
+  display:block;
+}
+
+.action small{
+  color:#b9c9ce;
+}
+
+/* =========================
+   LISTE DROITE
+========================= */
+
+.rightHorse{
+  display:flex;
+  gap:7px;
+  padding:7px;
+  border-radius:9px;
+  background:linear-gradient(180deg,#21485f,#17364a);
+  border:1px solid #476476;
+  cursor:pointer;
+}
+
+.rightHorse:hover{
+  border-color:#e6c267;
+}
+
+.thumb{
+  width:63px;
+  height:58px;
+  background:#36525d;
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  flex:none;
+}
+
+.rhInfo{
+  font-size:10px;
+  line-height:1.35;
+  flex:1;
+}
+
+.rhInfo b{
+  font-size:12px;
+}
+
+.pill{
+  display:inline-block;
+  padding:2px 5px;
+  border-radius:5px;
+  background:#3c8058;
+  font-size:9px;
+}
+
+.meter{
+  height:5px;
+  background:#385463;
+  border-radius:8px;
+  overflow:hidden;
+  margin:2px 0;
+}
+
+.meter i{
+  display:block;
+  height:100%;
+  background:#43bd6a;
+}
+
+.meter.red i{
+  background:#e16b63;
+}
+
+/* =========================
+   PAGES
+========================= */
+
+.panelPage{
+  display:none;
+  grid-column:1/-1;
+  background:linear-gradient(180deg,#102d40,#0e2534);
+  padding:20px;
+  border-radius:14px;
+  min-height:650px;
+  border:1px solid #456879;
+}
+
+.panelPage.active{
+  display:block;
+}
+
+.panelHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.panelHead h2{
+  margin:0;
+}
+
+.backBtn{
+  background:#294d64;
+  border:1px solid #628090;
+  padding:8px 13px;
+  border-radius:8px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:10px;
+}
+
+.horseCard{
+  background:#18394d;
+  border:1px solid #4c6977;
+  border-radius:12px;
+  padding:12px;
+  display:flex;
+  gap:10px;
+}
+
+.horseCard .thumb{
+  width:90px;
+  height:85px;
+}
+
+.horseCard h3{
+  margin:0 0 3px;
+}
+
+.badge{
+  background:#315c70;
+  border-radius:6px;
+  padding:3px 6px;
+  font-size:10px;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:7px;
+}
+
+.actions button{
+  padding:7px 9px;
+  border-radius:7px;
+  background:#2d6079;
+}
+
+.actions button.green{
+  background:#3f8e59;
+}
+
+.actions button.gold{
+  background:#a87a27;
+}
+
+/* =========================
+   MODALE CHOIX CHEVAL
+========================= */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#000a;
+  z-index:100;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modalBox{
+  width:min(540px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#173449;
+  border:1px solid #688493;
+  border-radius:16px;
+  padding:15px;
+  box-shadow:0 15px 45px #000;
+}
+
+.modalBox h2{
+  margin-top:0;
+}
+
+.choice{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#21465b;
+  border:1px solid #4d7181;
+  border-radius:9px;
+  padding:8px;
+  margin:5px 0;
+  cursor:pointer;
+}
+
+.choice:hover{
+  border-color:#e6c267;
+}
+
+/* =========================
+   BAS
+========================= */
+
+.bottomTools{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  padding:8px;
+}
+
+.round{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:#1a4055;
+  border:2px solid #88a6b3;
+  font-size:20px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1050px){
+
+  .layout{
+    grid-template-columns:145px minmax(430px,1fr);
+  }
+
+  .right{
+    display:none;
+  }
+
+  .logo{
+    min-width:155px;
+  }
+}
+
+@media(max-width:720px){
+
+  .top{
+    min-height:90px;
+    flex-wrap:wrap;
+  }
+
+  .logo{
+    min-width:auto;
+  }
+
+  .stats{
+    order:3;
+    width:100%;
+    justify-content:flex-start;
+  }
+
+  .topBtns{
+    position:absolute;
+    right:7px;
+    top:7px;
+  }
+
+  .layout{
+    display:block;
+    padding:5px;
+  }
+
+  .left{
+    display:none;
+  }
+
+  .scene{
+    height:620px;
+  }
+
+  .panelPage{
+    margin-top:5px;
+    min-height:600px;
+    padding:12px;
+  }
+
+  .bottom{
+    left:2%;
+    right:2%;
+    overflow-x:auto;
+    justify-content:flex-start;
+  }
+
+  .action{
+    min-width:110px;
+  }
+
+  .stable{
+    left:5%;
+    width:90%;
+    top:29%;
+    height:205px;
+  }
+
+  .boxes{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .paddock{
+    top:56%;
+    right:5%;
+    width:55%;
+    height:180px;
+  }
+
+  .arena{
+    left:4%;
+    width:43%;
+    height:150px;
+  }
+
+  .tagStable{
+    left:36%;
+    top:45%;
+  }
+
+  .tagPasture{
+    right:10%;
+    top:67%;
+  }
+
+  .truck,
+  .tractor{
+    font-size:48px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
 </style>
 </head>
+
 <body>
+
 <div class="app">
+
 <header class="top">
-<div class="logo"><div class="logoHorse">🐎</div><div><b>Mon Écurie</b><small>V0.9 · Domaine & Compétitions</small></div></div>
-<div class="stats">
-<div class="stat">📅 Année 1<br><b>🌸 Printemps</b></div>
-<div class="stat">☀️ Semaine<br><b id="week">12 / 52</b></div>
-<div class="stat">🪙 <b class="money" id="money">18 450 €</b></div>
-<div class="stat">⭐ Réputation<br><b class="rep" id="rep">0</b></div>
-<div class="stat level">🏆 Niveau 2<div class="levelbar"><i></i></div></div>
-</div>
-<div class="topBtns"><button onclick="alert('Sauvegarde automatique activée.')">💾</button><button onclick="resetGame()">⚙️</button></div>
+
+  <div class="logo">
+    <div class="logoHorse">🐎</div>
+    <div>
+      <b>Mon Écurie</b>
+      <small>V1.1 · Domaine & Compétitions</small>
+    </div>
+  </div>
+
+  <div class="stats">
+
+    <div class="stat">
+      📅 Année <b id="year">1</b><br>
+      <b>🌸 Printemps</b>
+    </div>
+
+    <div class="stat">
+      ☀️ Semaine<br>
+      <b id="week">12 / 52</b>
+    </div>
+
+    <div class="stat">
+      🪙 <b class="money" id="money">18 450 €</b>
+    </div>
+
+    <div class="stat">
+      ⭐ Réputation<br>
+      <b class="rep" id="rep">0</b>
+    </div>
+
+    <div class="stat level">
+      🏆 Niveau 2
+      <div class="levelbar">
+        <i id="levelBar"></i>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="topBtns">
+    <button onclick="save()">💾</button>
+    <button onclick="confirmReset()">⚙️</button>
+  </div>
+
 </header>
 
+
 <div class="layout">
+
+<!-- =========================
+     MENU GAUCHE
+========================= -->
+
 <aside class="left">
-<div class="menu card" id="menu">
-<button class="active" onclick="show('domain',this)">🏠 <span>Domaine</span></button>
-<button onclick="show('stable',this)">🏚️ <span>Écurie</span></button>
-<button onclick="show('pasture',this)">🌳 <span>Prés</span></button>
-<button onclick="show('arena',this)">🏇 <span>Carrière</span></button>
-<button onclick="show('shows',this)">🏆 <span>Concours</span></button>
-<button onclick="show('market',this)">🐎 <span>Marché</span></button>
-<button onclick="show('horses',this)">📖 <span>Chevaux</span></button>
-<button onclick="show('care',this)">✚ <span>Soins</span></button>
-<button onclick="show('gear',this)">🧰 <span>Matériel</span></button>
-<button onclick="show('staff',this)">👥 <span>Personnel</span></button>
-</div>
-<div class="news card"><h4>📰 Dernières nouvelles</h4><p>🏅 Luna a terminé 2e en Club ! <b style="color:#62d47c">+250 €</b></p><p>🌾 Foin : 20 bottes</p><p>🏇 Progression à l'entraînement</p></div>
+
+  <div class="menu card">
+
+    <button class="active" onclick="showPage('domain',this)">
+      🏠 <span>Domaine</span>
+    </button>
+
+    <button onclick="showPage('stable',this)">
+      🏚️ <span>Écurie</span>
+    </button>
+
+    <button onclick="showPage('pasture',this)">
+      🌳 <span>Prés</span>
+    </button>
+
+    <button onclick="showPage('arena',this)">
+      🏇 <span>Carrière</span>
+    </button>
+
+    <button onclick="showPage('shows',this)">
+      🏆 <span>Concours</span>
+    </button>
+
+    <button onclick="showPage('market',this)">
+      🐎 <span>Marché</span>
+    </button>
+
+    <button onclick="showPage('horses',this)">
+      📖 <span>Chevaux</span>
+    </button>
+
+    <button onclick="showPage('care',this)">
+      ✚ <span>Soins</span>
+    </button>
+
+    <button onclick="showPage('gear',this)">
+      🧰 <span>Matériel</span>
+    </button>
+
+    <button onclick="showPage('staff',this)">
+      👥 <span>Personnel</span>
+    </button>
+
+  </div>
+
+  <div class="news card">
+
+    <h4>📰 Dernières nouvelles</h4>
+
+    <p>🏅 Luna a terminé 2e en Club !</p>
+
+    <p>🌾 Foin : <span id="newsHay">20</span> bottes</p>
+
+    <p>🏇 Progression à l'entraînement</p>
+
+  </div>
+
 </aside>
 
+
+<!-- =========================
+     DOMAINE
+========================= -->
+
 <section id="domain" class="scene">
-<div class="skyCloud cloud1">☁️</div><div class="skyCloud cloud2">☁️</div><div class="horizon"></div><div class="land"></div><div class="path"></div>
-<div class="tree t1">🌳</div><div class="tree t2">🌳</div><div class="tree t3">🌳</div><div class="tree t4">🌳</div>
-<div class="stable"><div class="stableRoof"></div><div class="stableText">🏠 ÉCURIE DE MON ÉCURIE</div><div class="boxes" id="sceneBoxes"></div></div>
-<div class="paddock fence"></div><div class="arena fence"></div>
-<div class="truck">🚚</div><div class="tractor">🚜</div>
-<div id="sceneHorses"></div>
-<div class="clickTag tagStable" onclick="show('stable')">🏠 Entrer dans l'écurie</div>
-<div class="clickTag tagPasture" onclick="show('pasture')">🌱 Voir le pré</div>
-<div class="clickTag tagArena" onclick="show('arena')">🏇 Voir la carrière</div>
-<div class="bottom">
-<button class="action" onclick="nextWeek()">📅 <b>Passer une semaine</b><small>- 350 €</small></button>
-<button class="action" onclick="buyHay()">🌾 <b>Acheter du foin</b><small>- 250 €</small></button>
-<button class="action" onclick="chooseHorse('care')">🐎 <b>Donner un cours</b><small>+ 120 €</small></button>
-<button class="action" onclick="show('shows')">🏆 <b>Organiser</b><small>un concours</small></</div>
+
+  <div class="skyCloud cloud1">☁️</div>
+  <div class="skyCloud cloud2">☁️</div>
+
+  <div class="horizon"></div>
+  <div class="land"></div>
+  <div class="path"></div>
+
+  <div class="tree t1">🌳</div>
+  <div class="tree t2">🌳</div>
+  <div class="tree t3">🌳</div>
+  <div class="tree t4">🌳</div>
+
+  <div class="stable">
+
+    <div class="stableRoof"></div>
+
+    <div class="stableText">
+      🏠 ÉCURIE DE MON ÉCURIE
+    </div>
+
+    <div class="boxes" id="sceneBoxes"></div>
+
+  </div>
+
+  <div class="paddock fence"></div>
+  <div class="arena fence"></div>
+
+  <div class="truck">🚚</div>
+  <div class="tractor">🚜</div>
+
+  <div id="sceneHorses"></div>
+
+  <div class="clickTag tagStable"
+       onclick="showPage('stable')">
+    🏠 Entrer dans l'écurie
+  </div>
+
+  <div class="clickTag tagPasture"
+       onclick="showPage('pasture')">
+    🌱 Voir le pré
+  </div>
+
+  <div class="clickTag tagArena"
+       onclick="showPage('arena')">
+    🏇 Voir la carrière
+  </div>
+
+  <div class="bottom">
+
+    <button class="action"
+            onclick="nextWeek()">
+      📅
+      <b>Passer une semaine</b>
+      <small>- 350 €</small>
+    </button>
+
+    <button class="action"
+            onclick="buyHay()">
+      🌾
+      <b>Acheter du foin</b>
+      <small>- 250 €</small>
+    </button>
+
+    <button class="action"
+            onclick="chooseHorse('care')">
+      🐎
+      <b>S'occuper d'un cheval</b>
+      <small>Choisir</small>
+    </button>
+
+    <button class="action"
+            onclick="showPage('shows')">
+      🏆
+      <b>Organiser</b>
+      <small>un concours</small>
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     LISTE CHEVAUX DROITE
+========================= -->
+
 <aside class="right" id="rightList"></aside>
 
+
+<!-- =========================
+     PAGE ECURIE
+========================= -->
+
 <section id="stable" class="panelPage">
-  <h2>🏚️ Mon écurie</h2>
-  <p>Choisis un cheval pour t'en occuper.</p>
+
+  <div class="panelHead">
+
+    <h2>🏚️ Mon écurie</h2>
+
+    <button class="backBtn"
+            onclick="showPage('domain')">
+      ← Retour au domaine
+    </button>
+
+  </div>
+
+  <p>
+    Voici tous les chevaux actuellement au box.
+    Clique sur un cheval pour t'en occuper.
+  </p>
+
   <div class="grid" id="stableGrid"></div>
+
 </section>
+
+
+<!-- =========================
+     PAGE PRES
+========================= -->
 
 <section id="pasture" class="panelPage">
-  <h2>🌳 Mes prés</h2>
-  <p>Les chevaux placés au pré restent visibles dans le domaine.</p>
+
+  <div class="panelHead">
+
+    <h2>🌳 Mes prés</h2>
+
+    <button class="backBtn"
+            onclick="showPage('domain')">
+      ← Retour au domaine
+    </button>
+
+  </div>
+
+  <p>
+    Les chevaux au pré restent visibles sur le domaine.
+  </p>
+
   <div class="grid" id="pastureGrid"></div>
+
 </section>
+
+
+<!-- =========================
+     PAGE CARRIERE
+========================= -->
 
 <section id="arena" class="panelPage">
-  <h2>🏇 Carrière</h2>
-  <p>Entraîne tes chevaux pour améliorer leurs performances.</p>
+
+  <div class="panelHead">
+
+    <h2>🏇 Carrière</h2>
+
+    <button class="backBtn"
+            onclick="showPage('domain')">
+      ← Retour au domaine
+    </button>
+
+  </div>
+
+  <p>
+    Sélectionne le cheval que tu veux entraîner.
+  </p>
+
   <div class="grid" id="arenaGrid"></div>
+
 </section>
+
+
+<!-- =========================
+     PAGE CONCOURS
+========================= -->
 
 <section id="shows" class="panelPage">
-  <h2>🏆 Concours</h2>
-  <div class="grid">
-    <div class="card" style="padding:15px">
-      <h3>Club</h3>
-      <p>Concours accessible aux chevaux débutants.</p>
-      <button class="action" onclick="competition('Club',250,2)">Participer — 250 €</button>
-    </div>
-    <div class="card" style="padding:15px">
-      <h3>Amateur</h3>
-      <p>Un niveau plus exigeant.</p>
-      <button class="action" onclick="competition('Amateur',600,5)">Participer — 600 €</button>
-    </div>
-    <div class="card" style="padding:15px">
-      <h3>Championnat</h3>
-      <p>Pour les meilleurs chevaux de l'écurie.</p>
-      <button class="action" onclick="competition('Championnat',1500,10)">Participer — 1 500 €</button>
-    </div>
+
+  <div class="panelHead">
+
+    <h2>🏆 Concours</h2>
+
+    <button class="backBtn"
+            onclick="showPage('domain')">
+      ← Retour
+    </button>
+
   </div>
+
+  <div class="grid">
+
+    <div class="card" style="padding:15px">
+
+      <h3>🏅 Club</h3>
+
+      <p>
+        Concours accessible aux chevaux débutants.
+      </p>
+
+      <button class="action"
+              onclick="chooseHorse('competitionClub')">
+        Participer
+      </button>
+
+    </div>
+
+
+    <div class="card" style="padding:15px">
+
+      <h3>🥈 Amateur</h3>
+
+      <p>
+        Un niveau plus exigeant.
+      </p>
+
+      <button class="action"
+              onclick="chooseHorse('competitionAmateur')">
+        Participer
+      </button>
+
+    </div>
+
+
+    <div class="card" style="padding:15px">
+
+      <h3>🏆 Championnat</h3>
+
+      <p>
+        Pour les meilleurs chevaux.
+      </p>
+
+      <button class="action"
+              onclick="chooseHorse('competitionChampionnat')">
+        Participer
+      </button>
+
+    </div>
+
+  </div>
+
 </section>
+
+
+<!-- =========================
+     MARCHE
+========================= -->
 
 <section id="market" class="panelPage">
-  <h2>🐎 Marché aux chevaux</h2>
-  <p>Achète de nouveaux chevaux pour développer ton écurie.</p>
+
+  <div class="panelHead">
+
+    <h2>🐎 Marché aux chevaux</h2>
+
+    <button class="backBtn"
+            onclick="showPage('domain')">
+      ← Retour
+    </button>
+
+  </div>
+
+  <p>
+    Achète de nouveaux chevaux pour développer ton écurie.
+  </p>
+
   <div class="grid" id="marketGrid"></div>
+
 </section>
+
+
+<!-- =========================
+     MES CHEVAUX
+========================= -->
 
 <section id="horses" class="panelPage">
-  <h2>📖 Mes chevaux</h2>
+
+  <div class="panelHead">
+
+    <h2>📖 Mes chevaux</h2>
+
+    <button class="backBtn"
+            onclick="showPage('domain')">
+      ← Retour
+    </button>
+
+  </div>
+
   <div class="grid" id="horsesGrid"></div>
+
 </section>
+
+
+<!-- =========================
+     SOINS
+========================= -->
 
 <section id="care" class="panelPage">
-  <h2>✚ Soins</h2>
-  <p>Sélectionne un cheval pour effectuer des soins.</p>
+
+  <div class="panelHead">
+
+    <h2>✚ Soins</h2>
+
+    <button class="backBtn"
+            onclick="showPage('domain')">
+      ← Retour
+    </button>
+
+  </div>
+
+  <p>
+    Choisis le cheval dont tu veux t'occuper.
+  </p>
+
   <div class="grid" id="careGrid"></div>
+
 </section>
+
+
+<!-- =========================
+     MATERIEL
+========================= -->
 
 <section id="gear" class="panelPage">
-  <h2>🧰 Matériel</h2>
-  <div class="grid">
-    <div class="card" style="padding:15px">
-      <h3>🌾 Stock de foin</h3>
-      <p id="hayText">20 bottes</p>
-      <button class="action" onclick="buyHay()">Acheter 20 bottes — 250 €</button>
-    </div>
-    <div class="card" style="padding:15px">
-      <h3>🚚 Transport</h3>
-      <p>Camion actuel : 2 chevaux</p>
-      <button class="action" onclick="msg('🚚 Le camion est prêt !')">Vérifier</button>
-    </div>
-    <div class="card" style="padding:15px">
-      <h3>🏇 Matériel de concours</h3>
-      <p>Matériel standard disponible.</p>
-      <button class="action" onclick="msg('🧰 Matériel vérifié !')">Vérifier</button>
-    </div>
+
+  <div class="panelHead">
+
+    <h2>🧰 Matériel</h2>
+
+    <button class="backBtn"
+            onclick="showPage('domain')">
+      ← Retour
+    </button>
+
   </div>
+
+  <div class="grid">
+
+    <div class="card" style="padding:15px">
+
+      <h3>🌾 Stock de foin</h3>
+
+      <p id="hayText">
+        20 bottes
+      </p>
+
+      <button class="action"
+              onclick="buyHay()">
+        Acheter 20 bottes — 250 €
+      </button>
+
+    </div>
+
+
+    <div class="card" style="padding:15px">
+
+      <h3>🚚 Transport</h3>
+
+      <p>
+        Camion actuel : 2 chevaux
+      </p>
+
+      <button class="action"
+              onclick="msg('🚚 Le camion est prêt !')">
+        Vérifier
+      </button>
+
+    </div>
+
+
+    <div class="card" style="padding:15px">
+
+      <h3>🏇 Matériel de concours</h3>
+
+      <p>
+        Matériel standard disponible.
+      </p>
+
+      <button class="action"
+              onclick="msg('🧰 Matériel vérifié !')">
+        Vérifier
+      </button>
+
+    </div>
+
+  </div>
+
 </section>
+
+
+<!-- =========================
+     PERSONNEL
+========================= -->
 
 <section id="staff" class="panelPage">
-  <h2>👥 Personnel</h2>
-  <div class="grid">
-    <div class="card" style="padding:15px">
-      <h3>👨‍🌾 Palefrenier</h3>
-      <p>Coût : 800 €/mois</p>
-      <button class="action" onclick="hire('Palefrenier',800)">Embaucher</button>
-    </div>
-    <div class="card" style="padding:15px">
-      <h3>🏇 Cavalier</h3>
-      <p>Coût : 1 200 €/mois</p>
-      <button class="action" onclick="hire('Cavalier',1200)">Embaucher</button>
-    </div>
-    <div class="card" style="padding:15px">
-      <h3>🩺 Vétérinaire</h3>
-      <p>Intervention ponctuelle.</p>
-      <button class="action" onclick="vetAll()">Faire une visite — 1 000 €</button>
-    </div>
+
+  <div class="panelHead">
+
+    <h2>👥 Personnel</h2>
+
+    <button class="backBtn"
+            onclick="showPage('domain')">
+      ← Retour
+    </button>
+
   </div>
+
+  <div class="grid">
+
+    <div class="card" style="padding:15px">
+
+      <h3>👨‍🌾 Palefrenier</h3>
+
+      <p>
+        Coût : 800 €/mois
+      </p>
+
+      <button class="action"
+              onclick="hire('Palefrenier',800)">
+        Embaucher
+      </button>
+
+    </div>
+
+
+    <div class="card" style="padding:15px">
+
+      <h3>🏇 Cavalier</h3>
+
+      <p>
+        Coût : 1 200 €/mois
+      </p>
+
+      <button class="action"
+              onclick="hire('Cavalier',1200)">
+        Embaucher
+      </button>
+
+    </div>
+
+
+    <div class="card" style="padding:15px">
+
+      <h3>🩺 Vétérinaire</h3>
+
+      <p>
+        Intervention ponctuelle.
+      </p>
+
+      <button class="action"
+              onclick="vetAll()">
+        Visite — 1 000 €
+      </button>
+
+    </div>
+
+  </div>
+
 </section>
 
 </div>
 
+
+<!-- =========================
+     BOUTONS BAS
+========================= -->
+
 <div class="bottomTools">
-  <button class="round" onclick="msg('💬 Aucun nouveau message.')">💬</button>
-  <button class="round" onclick="show('horses')">➕</button>
-  <button class="round" onclick="save()">💾</button>
+
+  <button class="round"
+          onclick="msg('💬 Aucun nouveau message.')">
+    💬
+  </button>
+
+  <button class="round"
+          onclick="showPage('horses')">
+    🐎
+  </button>
+
+  <button class="round"
+          onclick="save()">
+    💾
+  </button>
+
 </div>
+
+
+<!-- =========================
+     MODALE
+========================= -->
 
 <div class="modal" id="modal">
+
   <div class="modalBox">
+
     <div style="display:flex;justify-content:space-between;align-items:center">
-      <h2 id="modalTitle">Choisir un cheval</h2>
-      <button onclick="closeModal()" style="background:#6b3c3c;border-radius:8px;padding:6px 10px">✕</button>
+
+      <h2 id="modalTitle">
+        Choisir un cheval
+      </h2>
+
+      <button onclick="closeModal()"
+              style="background:#6b3c3c;border-radius:8px;padding:6px 10px">
+        ✕
+      </button>
+
     </div>
+
     <div id="modalContent"></div>
+
   </div>
+
 </div>
 
+
 <script>
+
+/* ==========================================
+   CHEVAUX DE DEPART
+========================================== */
+
 const defaultHorses=[
-  {id:1,name:"Luna",race:"Selle Français",age:8,sex:"Jument",color:"bai",form:82,health:95,fatigue:18,place:"box",price:8000,discipline:"CSO"},
-  {id:2,name:"Caramel",race:"Anglo-Arabe",age:12,sex:"Hongre",color:"alezan",form:76,health:92,fatigue:12,place:"box",price:6500,discipline:"CSO"},
-  {id:3,name:"Jasper",race:"Quarter Horse",age:6,sex:"Hongre",color:"gris",form:85,health:94,fatigue:9,place:"pasture",price:9000,discipline:"Western"},
-  {id:4,name:"Étoile",race:"Connemara",age:4,sex:"Jument",color:"isabelle",form:79,health:91,fatigue:20,place:"pasture",price:5000,discipline:"CSO"},
-  {id:5,name:"Nova",race:"Appaloosa",age:3,sex:"Jument",color:"leopard",form:81,health:93,fatigue:13,place:"pasture",price:7000,discipline:"Polyvalent"},
-  {id:6,name:"Phoenix",race:"Pur-sang",age:5,sex:"Hongre",color:"bai",form:88,health:89,fatigue:26,place:"box",price:11000,discipline:"Vitesse"}
+
+{
+ id:1,
+ name:"Luna",
+ race:"Selle Français",
+ age:8,
+ sex:"Jument",
+ color:"bai",
+ form:82,
+ health:95,
+ fatigue:18,
+ place:"box",
+ price:8000,
+ discipline:"CSO"
+},
+
+{
+ id:2,
+ name:"Caramel",
+ race:"Anglo-Arabe",
+ age:12,
+ sex:"Hongre",
+ color:"alezan",
+ form:76,
+ health:92,
+ fatigue:12,
+ place:"box",
+ price:6500,
+ discipline:"CSO"
+},
+
+{
+ id:3,
+ name:"Jasper",
+ race:"Quarter Horse",
+ age:6,
+ sex:"Hongre",
+ color:"gris",
+ form:85,
+ health:94,
+ fatigue:9,
+ place:"pasture",
+ price:9000,
+ discipline:"Polyvalent"
+},
+
+{
+ id:4,
+ name:"Étoile",
+ race:"Connemara",
+ age:4,
+ sex:"Jument",
+ color:"isabelle",
+ form:79,
+ health:91,
+ fatigue:20,
+ place:"pasture",
+ price:5000,
+ discipline:"CSO"
+},
+
+{
+ id:5,
+ name:"Nova",
+ race:"Appaloosa",
+ age:3,
+ sex:"Jument",
+ color:"leopard",
+ form:81,
+ health:93,
+ fatigue:13,
+ place:"pasture",
+ price:7000,
+ discipline:"Polyvalent"
+},
+
+{
+ id:6,
+ name:"Phoenix",
+ race:"Pur-sang",
+ age:5,
+ sex:"Hongre",
+ color:"bai",
+ form:88,
+ health:89,
+ fatigue:26,
+ place:"box",
+ price:11000,
+ discipline:"Vitesse"
+}
+
 ];
+
+
+/* ==========================================
+   ETAT DU JEU
+========================================== */
 
 let game={
+
  money:18450,
+
  reputation:0,
+
  week:12,
+
  year:1,
+
  hay:20,
- horses:defaultHorses,
- staff:[],
- selected:null
+
+ horses:JSON.parse(JSON.stringify(defaultHorses)),
+
+ staff:[]
+
 };
 
+
+/* ==========================================
+   SAUVEGARDE
+========================================== */
+
 function load(){
+
  try{
+
    const saved=localStorage.getItem("monEcurieSave");
+
    if(saved){
+
      const data=JSON.parse(saved);
-     game={...game,...data};
+
+     game={
+
+       ...game,
+
+       ...data
+
+     };
+
    }
- }catch(e){}
+
+ }catch(e){
+
+   console.log("Erreur sauvegarde",e);
+
+ }
+
 }
+
 
 function save(){
- localStorage.setItem("monEcurieSave",JSON.stringify(game));
- msg("💾 Partie sauvegardée !");
+
+ localStorage.setItem(
+   "monEcurieSave",
+   JSON.stringify(game)
+ );
+
 }
+
+
+/* ==========================================
+   UTILITAIRES
+========================================== */
 
 function money(n){
+
  return Math.round(n).toLocaleString("fr-FR")+" €";
+
 }
+
 
 function msg(text){
+
  alert(text);
+
 }
+
+
+function findHorse(id){
+
+ return game.horses.find(
+   h=>h.id===Number(id)
+ );
+
+}
+
+
+/* ==========================================
+   AFFICHAGE
+========================================== */
 
 function renderHeader(){
- document.getElementById("money").textContent=money(game.money);
- document.getElementById("rep").textContent=game.reputation;
- document.getElementById("week").textContent=game.week+" / 52";
+
+ document.getElementById("money").textContent=
+   money(game.money);
+
+ document.getElementById("rep").textContent=
+   game.reputation;
+
+ document.getElementById("week").textContent=
+   game.week+" / 52";
+
+ document.getElementById("year").textContent=
+   game.year;
+
+ document.getElementById("newsHay").textContent=
+   game.hay;
+
+ document.getElementById("hayText").textContent=
+   game.hay+" bottes";
+
 }
+
 
 function horseVisual(h,small=false){
+
  return `
- <div class="horse ${h.color}" style="${small?'transform:scale(.78);transform-origin:center':''}">
+
+ <div class="horse ${h.color}"
+ style="${small?'transform:scale(.78);transform-origin:center':''}">
+
    <div class="body"></div>
+
    <div class="neck"></div>
+
    <div class="head"></div>
+
    <div class="ear"></div>
+
    <div class="mane"></div>
-   <div class="leg l1"></div><div class="leg l2"></div>
-   <div class="leg l3"></div><div class="leg l4"></div>
+
+   <div class="leg l1"></div>
+
+   <div class="leg l2"></div>
+
+   <div class="leg l3"></div>
+
+   <div class="leg l4"></div>
+
    <div class="tail"></div>
- </div>`;
+
+ </div>
+
+ `;
+
 }
+
+
+/* ==========================================
+   DOMAINE
+========================================== */
 
 function renderScene(){
- const boxes=document.getElementById("sceneBoxes");
+
+ const boxes=
+   document.getElementById("sceneBoxes");
+
  boxes.innerHTML="";
- game.horses.filter(h=>h.place==="box").slice(0,5).forEach(h=>{
-   const box=document.createElement("div");
+
+ const boxHorses=
+   game.horses.filter(
+     h=>h.place==="box"
+   );
+
+ boxHorses.slice(0,5).forEach(h=>{
+
+   const box=
+     document.createElement("div");
+
    box.className="box";
-   box.innerHTML=horseVisual(h,true)+`<div class="boxName">${h.name}</div>`;
-   box.onclick=()=>chooseHorse("care",h.id);
+
+   box.innerHTML=
+     horseVisual(h,true)+
+     `<div class="boxName">${h.name}</div>`;
+
+   box.onclick=()=>horseMenu(h.id);
+
    boxes.appendChild(box);
+
  });
 
- const scene=document.getElementById("sceneHorses");
+
+ const scene=
+   document.getElementById("sceneHorses");
+
  scene.innerHTML="";
- const places=game.horses.filter(h=>h.place==="pasture");
- places.slice(0,4).forEach((h,i)=>{
-   const el=document.createElement("div");
-   el.className="sceneHorse h"+(i+1);
-   el.innerHTML=horseVisual(h,true);
-   el.onclick=()=>chooseHorse("care",h.id);
+
+ const pastureHorses=
+   game.horses.filter(
+     h=>h.place==="pasture"
+   );
+
+ pastureHorses.slice(0,4).forEach((h,i)=>{
+
+   const el=
+     document.createElement("div");
+
+   el.className=
+     "sceneHorse h"+(i+1);
+
+   el.innerHTML=
+     horseVisual(h,true);
+
+   el.onclick=()=>horseMenu(h.id);
+
    scene.appendChild(el);
+
  });
+
 }
+
+
+/* ==========================================
+   LISTE DROITE
+========================================== */
 
 function renderRight(){
- const right=document.getElementById("rightList");
+
+ const right=
+   document.getElementById("rightList");
+
  right.innerHTML="";
+
  game.horses.forEach(h=>{
-   const el=document.createElement("div");
+
+   const el=
+     document.createElement("div");
+
    el.className="rightHorse";
-   el.onclick=()=>chooseHorse("care",h.id);
+
+   el.onclick=
+     ()=>horseMenu(h.id);
+
    el.innerHTML=`
-   <div class="thumb">${horseVisual(h,true)}</div>
-   <div class="rhInfo">
-     <b>${h.name}</b> ${h.sex==="Jument"?"♀":"♂"}<br>
-     ${h.race}<br>
-     <span class="pill">${h.discipline}</span>
-     <div>Forme ${h.form}%</div>
-     <div class="meter"><i style="width:${h.form}%"></i></div>
-     <div>Santé ${h.health}%</div>
-     <div class="meter"><i style="width:${h.health}%"></i></div>
-     <div>Fatigue ${h.fatigue}%</div>
-     <div class="meter red"><i style="width:${h.fatigue}%"></i></div>
-   </div>`;
+
+     <div class="thumb">
+       ${horseVisual(h,true)}
+     </div>
+
+     <div class="rhInfo">
+
+       <b>${h.name}</b>
+       ${h.sex==="Jument"?"♀":"♂"}<br>
+
+       ${h.race}<br>
+
+       <span class="pill">
+         ${h.discipline}
+       </span>
+
+       <div>
+         Forme ${h.form}%
+       </div>
+
+       <div class="meter">
+         <i style="width:${h.form}%"></i>
+       </div>
+
+       <div>
+         Santé ${h.health}%
+       </div>
+
+       <div class="meter">
+         <i style="width:${h.health}%"></i>
+       </div>
+
+       <div>
+         Fatigue ${h.fatigue}%
+       </div>
+
+       <div class="meter red">
+         <i style="width:${h.fatigue}%"></i>
+       </div>
+
+     </div>
+
+   `;
+
    right.appendChild(el);
+
  });
+
 }
+
+
+/* ==========================================
+   CARTE CHEVAL
+========================================== */
 
 function horseCard(h){
+
  return `
+
  <div class="horseCard">
-   <div class="thumb">${horseVisual(h,true)}</div>
-   <div style="flex:1">
-     <h3>${h.name}</h3>
-     <span class="badge">${h.race}</span>
-     <p style="font-size:11px;margin:5px 0">
-       ${h.age} ans · ${h.sex}<br>
-       Forme ${h.form}% · Santé ${h.health}% · Fatigue ${h.fatigue}%<br>
-       📍 ${h.place==="box"?"Box":"Pré"}
-     </p>
-     <div class="actions">
-       <button class="green" onclick="careHorse(${h.id})">🧹 S'occuper</button>
-       <button onclick="trainHorse(${h.id})">🏇 Entraîner</button>
-       <button onclick="togglePlace(${h.id})">${h.place==="box"?"🌳 Mettre au pré":"🏠 Rentrer au box"}</button>
-     </div>
+
+   <div class="thumb">
+     ${horseVisual(h,true)}
    </div>
- </div>`;
+
+   <div style="flex:1">
+
+     <h3>${h.name}</h3>
+
+     <span class="badge">
+       ${h.race}
+     </span>
+
+     <p style="font-size:11px;margin:5px 0">
+
+       ${h.age} ans · ${h.sex}
+
+       <br>
+
+       Forme ${h.form}%
+       · Santé ${h.health}%
+       · Fatigue ${h.fatigue}%
+
+       <br>
+
+       📍
+       ${h.place==="box"?"Box":"Pré"}
+
+     </p>
+
+     <div class="actions">
+
+       <button class="green"
+               onclick="careHorse(${h.id})">
+         🧹 S'occuper
+       </button>
+
+       <button
+               onclick="trainHorse(${h.id})">
+         🏇 Entraîner
+       </button>
+
+       <button
+               onclick="togglePlace(${h.id})">
+
+         ${h.place==="box"
+           ?"🌳 Mettre au pré"
+           :"🏠 Rentrer au box"}
+
+       </button>
+
+       <button class="gold"
+               onclick="horseMenu(${h.id})">
+         📋 Fiche
+       </button>
+
+     </div>
+
+   </div>
+
+ </div>
+
+ `;
+
 }
+
+
+/* ==========================================
+   PANNEAUX
+========================================== */
 
 function renderPanels(){
- document.getElementById("horsesGrid").innerHTML=game.horses.map(h=>horseCard(h)).join("");
- document.getElementById("stableGrid").innerHTML=game.horses.filter(h=>h.place==="box").map(h=>horseCard(h)).join("") || "<p>Aucun cheval au box.</p>";
- document.getElementById("pastureGrid").innerHTML=game.horses.filter(h=>h.place==="pasture").map(h=>horseCard(h)).join("") || "<p>Aucun cheval au pré.</p>";
- document.getElementById("arenaGrid").innerHTML=game.horses.map(h=>horseCard(h)).join("");
- document.getElementById("careGrid").innerHTML=game.horses.map(h=>horseCard(h)).join("");
- document.getElementById("hayText").textContent=game.hay+" bottes";
+
+ document.getElementById("horsesGrid").innerHTML=
+   game.horses.map(h=>horseCard(h)).join("");
+
+ document.getElementById("stableGrid").innerHTML=
+   game.horses
+     .filter(h=>h.place==="box")
+     .map(h=>horseCard(h))
+     .join("")
+   ||
+   "<p>Aucun cheval au box.</p>";
+
+ document.getElementById("pastureGrid").innerHTML=
+   game.horses
+     .filter(h=>h.place==="pasture")
+     .map(h=>horseCard(h))
+     .join("")
+   ||
+   "<p>Aucun cheval au pré.</p>";
+
+ document.getElementById("arenaGrid").innerHTML=
+   game.horses.map(h=>horseCard(h)).join("");
+
+ document.getElementById("careGrid").innerHTML=
+   game.horses.map(h=>horseCard(h)).join("");
 
  renderMarket();
+
 }
+
+
+/* ==========================================
+   MARCHE
+========================================== */
 
 const market=[
- {name:"Selle Français",race:"Selle Français",color:"bai",age:4,sex:"Jument",price:12000,form:78,health:92,fatigue:5,discipline:"CSO"},
- {name:"Royal",race:"KWPN",color:"alezan",age:6,sex:"Hongre",price:18000,form:84,health:95,fatigue:5,discipline:"CSO"},
- {name:"Dusty",race:"Quarter Horse",color:"gris",age:5,sex:"Hongre",price:9000,form:80,health:93,fatigue:5,discipline:"Western"},
- {name:"Silver",race:"Frison",color:"noir",age:7,sex:"Jument",price:15000,form:82,health:94,fatigue:4,discipline:"Dressage"},
- {name:"Spot",race:"Appaloosa",color:"leopard",age:3,sex:"Hongre",price:10000,form:77,health:91,fatigue:4,discipline:"Polyvalent"}
+
+ {
+  name:"Selle Français",
+  race:"Selle Français",
+  color:"bai",
+  age:4,
+  sex:"Jument",
+  price:12000,
+  form:78,
+  health:92,
+  fatigue:5,
+  discipline:"CSO"
+ },
+
+ {
+  name:"Royal",
+  race:"KWPN",
+  color:"alezan",
+  age:6,
+  sex:"Hongre",
+  price:18000,
+  form:84,
+  health:95,
+  fatigue:5,
+  discipline:"CSO"
+ },
+
+ {
+  name:"Dusty",
+  race:"Quarter Horse",
+  color:"gris",
+  age:5,
+  sex:"Hongre",
+  price:9000,
+  form:80,
+  health:93,
+  fatigue:5,
+  discipline:"Polyvalent"
+ },
+
+ {
+  name:"Silver",
+  race:"Frison",
+  color:"noir",
+  age:7,
+  sex:"Jument",
+  price:15000,
+  form:82,
+  health:94,
+  fatigue:4,
+  discipline:"Dressage"
+ },
+
+ {
+  name:"Spot",
+  race:"Appaloosa",
+  color:"leopard",
+  age:3,
+  sex:"Hongre",
+  price:10000,
+  form:77,
+  health:91,
+  fatigue:4,
+  discipline:"Polyvalent"
+ }
+
 ];
 
+
 function renderMarket(){
- document.getElementById("marketGrid").innerHTML=market.map((h,i)=>`
+
+ document.getElementById("marketGrid").innerHTML=
+
+ market.map((h,i)=>`
+
  <div class="horseCard">
-  <div class="thumb">${horseVisual(h,true)}</div>
-  <div>
-   <h3>${h.name}</h3>
-   <span class="badge">${h.race}</span>
-   <p>${h.age} ans · ${h.sex}<br>${money(h.price)}</p>
-   <button class="action" onclick="buyHorse(${i})">💰 Acheter</button>
-  </div>
- </div>`).join("");
+
+   <div class="thumb">
+     ${horseVisual(h,true)}
+   </div>
+
+   <div>
+
+     <h3>${h.name}</h3>
+
+     <span class="badge">
+       ${h.race}
+     </span>
+
+     <p>
+       ${h.age} ans · ${h.sex}
+       <br>
+       ${money(h.price)}
+     </p>
+
+     <button class="action"
+             onclick="buyHorse(${i})">
+       💰 Acheter
+     </button>
+
+   </div>
+
+ </div>
+
+ `).join("");
+
 }
 
-function show(id,btn){
- document.querySelectorAll(".panelPage").forEach(p=>p.classList.remove("active"));
- const panel=document.getElementById(id);
- if(panel) panel.classList.add("active");
 
- const scene=document.getElementById("domain");
- scene.style.display=id==="domain"?"block":"none";
+/* ==========================================
+   NAVIGATION
+========================================== */
 
- document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));
- if(btn)btn.classList.add("active");
+function showPage(id,btn=null){
 
- if(id!=="domain") renderPanels();
- window.scrollTo({top:0,behavior:"smooth"});
-}
+ document.querySelectorAll(".panelPage")
+   .forEach(p=>
+     p.classList.remove("active")
+   );
 
-function chooseHorse(action,id=null){
- if(id){
-   const h=game.horses.find(x=>x.id===id);
-   if(h) executeAction(action,h);
-   return;
+ const scene=
+   document.getElementById("domain");
+
+ if(id==="domain"){
+
+   scene.style.display="block";
+
+ }else{
+
+   scene.style.display="none";
+
+   const panel=
+     document.getElementById(id);
+
+   if(panel){
+
+     panel.classList.add("active");
+
+   }
+
+   renderPanels();
+
  }
- document.getElementById("modalTitle").textContent="🐴 Choisir un cheval";
- document.getElementById("modalContent").innerHTML=game.horses.map(h=>`
-   <div class="choice" onclick="executeAction('${action}',game.horses.find(x=>x.id===${h.id}))">
-    <div class="thumb">${horseVisual(h,true)}</div>
-    <div><b>${h.name}</b><br>${h.race} · ${h.place==="box"?"Box":"Pré"}</div>
-   </div>`).join("");
- document.getElementById("modal").classList.add("show");
+
+ document.querySelectorAll(".menu button")
+   .forEach(b=>
+     b.classList.remove("active")
+   );
+
+ if(btn){
+
+   btn.classList.add("active");
+
+ }else{
+
+   const buttons=
+     document.querySelectorAll(".menu button");
+
+   buttons.forEach(b=>{
+
+     if(
+       b.getAttribute("onclick") &&
+       b.getAttribute("onclick").includes(
+         "'"+id+"'"
+       )
+     ){
+       b.classList.add("active");
+     }
+
+   });
+
+ }
+
+ window.scrollTo({
+   top:0,
+   behavior:"smooth"
+ });
+
 }
+
+
+/* ==========================================
+   MENU CHEVAL
+========================================== */
+
+function horseMenu(id){
+
+ const h=findHorse(id);
+
+ if(!h)return;
+
+ document.getElementById("modalTitle")
+   .textContent=
+   "🐴 "+h.name;
+
+ document.getElementById("modalContent")
+   .innerHTML=`
+
+   <div style="text-align:center">
+
+     <div style="
+       display:flex;
+       justify-content:center;
+       margin:5px 0 15px">
+       ${horseVisual(h)}
+     </div>
+
+     <h2>${h.name}</h2>
+
+     <p>
+       ${h.race} · ${h.age} ans · ${h.sex}
+     </p>
+
+     <p>
+       📍 ${h.place==="box"?"Box":"Pré"}
+     </p>
+
+     <p>
+       💪 Forme : ${h.form}%
+       <br>
+       ❤️ Santé : ${h.health}%
+       <br>
+       😴 Fatigue : ${h.fatigue}%
+     </p>
+
+   </div>
+
+   <div class="actions">
+
+     <button class="green"
+             onclick="careHorse(${h.id});closeModal()">
+       🧹 S'occuper
+     </button>
+
+     <button
+             onclick="trainHorse(${h.id});closeModal()">
+       🏇 Entraîner
+     </button>
+
+     <button
+             onclick="togglePlace(${h.id});closeModal()">
+       ${h.place==="box"
+         ?"🌳 Mettre au pré"
+         :"🏠 Rentrer au box"}
+     </button>
+
+   </div>
+
+   `;
+
+ document.getElementById("modal")
+   .classList.add("show");
+
+}
+
 
 function closeModal(){
- document.getElementById("modal").classList.remove("show");
+
+ document.getElementById("modal")
+   .classList.remove("show");
+
 }
 
-function executeAction(action,h){
- closeModal();
- if(!h)return;
- if(action==="care")careHorse(h.id);
+
+/* ==========================================
+   CHOISIR UN CHEVAL
+========================================== */
+
+function chooseHorse(action){
+
+ document.getElementById("modalTitle")
+   .textContent=
+   "🐴 Choisis ton cheval";
+
+ document.getElementById("modalContent")
+   .innerHTML=
+   game.horses.map(h=>`
+
+   <div class="choice"
+        onclick="executeAction('${action}',${h.id})">
+
+     <div class="thumb">
+       ${horseVisual(h,true)}
+     </div>
+
+     <div>
+
+       <b>${h.name}</b>
+
+       <br>
+
+       ${h.race}
+
+       <br>
+
+       ${h.place==="box"
+         ?"🏠 Box"
+         :"🌳 Pré"}
+
+     </div>
+
+   </div>
+
+   `).join("");
+
+ document.getElementById("modal")
+   .classList.add("show");
+
 }
+
+
+function executeAction(action,id){
+
+ const h=findHorse(id);
+
+ closeModal();
+
+ if(!h)return;
+
+ if(action==="care"){
+
+   careHorse(id);
+
+   return;
+
+ }
+
+ if(action==="competitionClub"){
+
+   competition(id,"Club",250,2);
+
+   return;
+
+ }
+
+ if(action==="competitionAmateur"){
+
+   competition(id,"Amateur",600,5);
+
+   return;
+
+ }
+
+ if(action==="competitionChampionnat"){
+
+   competition(id,"Championnat",1500,10);
+
+   return;
+
+ }
+
+}
+
+
+/* ==========================================
+   SOINS
+========================================== */
 
 function careHorse(id){
- const h=game.horses.find(x=>x.id===id);
+
+ const h=findHorse(id);
+
  if(!h)return;
- h.form=Math.min(100,h.form+4);
- h.health=Math.min(100,h.health+2);
- h.fatigue=Math.max(0,h.fatigue-6);
+
+ h.form=
+   Math.min(100,h.form+4);
+
+ h.health=
+   Math.min(100,h.health+2);
+
+ h.fatigue=
+   Math.max(0,h.fatigue-6);
+
  game.reputation+=1;
+
  save();
+
  renderAll();
- msg("🧹 Tu t'es occupé de "+h.name+" !");
+
+ msg(
+   "🧹 Tu t'es occupé de "+h.name+" !"
+ );
+
 }
+
+
+/* ==========================================
+   ENTRAINEMENT
+========================================== */
 
 function trainHorse(id){
- const h=game.horses.find(x=>x.id===id);
+
+ const h=findHorse(id);
+
  if(!h)return;
- if(h.fatigue>70){msg("😴 "+h.name+" est trop fatigué.");return;}
- h.form=Math.min(100,h.form+6);
- h.fatigue=Math.min(100,h.fatigue+14);
+
+ if(h.fatigue>70){
+
+   msg(
+     "😴 "+h.name+
+     " est trop fatigué pour travailler."
+   );
+
+   return;
+
+ }
+
+ h.form=
+   Math.min(100,h.form+6);
+
+ h.fatigue=
+   Math.min(100,h.fatigue+14);
+
  game.reputation+=1;
+
  save();
+
  renderAll();
- msg("🏇 "+h.name+" a progressé à l'entraînement !");
+
+ msg(
+   "🏇 "+h.name+
+   " a progressé à l'entraînement !"
+ );
+
 }
+
+
+/* ==========================================
+   BOX / PRE
+========================================== */
 
 function togglePlace(id){
- const h=game.horses.find(x=>x.id===id);
+
+ const h=findHorse(id);
+
  if(!h)return;
- h.place=h.place==="box"?"pasture":"box";
+
+ h.place=
+   h.place==="box"
+   ?"pasture"
+   :"box";
+
  save();
+
  renderAll();
- msg(h.place==="pasture"?"🌳 "+h.name+" est au pré !":"🏠 "+h.name+" est rentré au box !");
+
+ msg(
+   h.place==="pasture"
+   ?"🌳 "+h.name+" est au pré !"
+   :"🏠 "+h.name+" est rentré au box !"
+ );
+
 }
 
+
+/* ==========================================
+   SEMAINE
+========================================== */
+
 function nextWeek(){
- if(game.money<350){msg("💸 Tu n'as pas assez d'argent.");return;}
- game.money-=350;
- game.week++;
- game.horses.forEach(h=>{
-   h.fatigue=Math.max(0,h.fatigue-10);
-   if(h.place==="pasture")h.health=Math.min(100,h.health+2);
- });
- if(game.week>52){
-   game.week=1;
-   game.year++;
-   msg("🎉 Nouvelle année !");
+
+ if(game.money<350){
+
+   msg(
+     "💸 Tu n'as pas assez d'argent."
+   );
+
+   return;
+
  }
+
+ game.money-=350;
+
+ game.week++;
+
+ game.horses.forEach(h=>{
+
+   h.fatigue=
+     Math.max(0,h.fatigue-10);
+
+   if(h.place==="pasture"){
+
+     h.health=
+       Math.min(100,h.health+2);
+
+   }
+
+ });
+
+ if(game.week>52){
+
+   game.week=1;
+
+   game.year++;
+
+   msg(
+     "🎉 Nouvelle année !"
+   );
+
+ }
+
  save();
+
  renderAll();
+
 }
- </script>
+
+
+/* ==========================================
+   FOIN
+========================================== */
+
+function buyHay(){
+
+ if(game.money<250){
+
+   msg(
+     "💸 Tu n'as pas assez d'argent."
+   );
+
+   return;
+
+ }
+
+ game.money-=250;
+
+ game.hay+=20;
+
+ save();
+
+ renderAll();
+
+ msg(
+   "🌾 20 bottes de foin achetées !"
+ );
+
+}
+
+
+/* ==========================================
+   ACHETER CHEVAL
+========================================== */
+
+function buyHorse(index){
+
+ const h=
+   market[index];
+
+ if(!h)return;
+
+ if(game.money<h.price){
+
+   msg(
+     "💸 Tu n'as pas assez d'argent."
+   );
+
+   return;
+
+ }
+
+ game.money-=h.price;
+
+ const newHorse={
+   ...h,
+   id:Date.now(),
+   name:h.name,
+   place:"box"
+ };
+
+ game.horses.push(newHorse);
+
+ save();
+
+ renderAll();
+
+ msg(
+   "🐎 "+h.name+
+   " rejoint ton écurie !"
+ );
+
+}
+
+
+/* ==========================================
+   CONCOURS
+========================================== */
+
+function competition(id,type,cost,reward){
+
+ const h=findHorse(id);
+
+ if(!h)return;
+
+ if(h.fatigue>75){
+
+   msg(
+     "😴 "+h.name+
+     " est trop fatigué pour concourir."
+   );
+
+   return;
+
+ }
+
+ if(h.form<50){
+
+   msg(
+     "⚠️ "+h.name+
+     " manque encore de forme."
+   );
+
+   return;
+
+ }
+
+ if(game.money<cost){
+
+   msg(
+     "💸 Tu n'as pas assez d'argent."
+   );
+
+   return;
+
+ }
+
+ game.money-=cost;
+
+ h.fatigue=
+   Math.min(100,h.fatigue+20);
+
+ const chance=
+   h.form+
+   h.health-
+   h.fatigue;
+
+ let gain=0;
+
+ if(chance>145){
+
+   gain=reward;
+
+   game.reputation+=3;
+
+   msg(
+     "🏆 "+h.name+
+     " gagne le concours "+type+
+     " ! +"+money(gain)
+   );
+
+ }else{
+
+   gain=
+     Math.round(reward*0.4);
+
+   game.reputation+=1;
+
+   msg(
+     "🥉 "+h.name+
+     " termine le concours "+type+
+     " et rapporte "+money(gain)
+   );
+
+ }
+
+ game.money+=gain;
+
+ save();
+
+ renderAll();
+
+}
+
+
+/* ==========================================
+   PERSONNEL
+========================================== */
+
+function hire(name,cost){
+
+ if(game.money<cost){
+
+   msg(
+     "💸 Tu n'as pas assez d'argent."
+   );
+
+   return;
+
+ }
+
+ game.money-=cost;
+
+ game.staff.push({
+   name,
+   cost
+ });
+
+ save();
+
+ renderAll();
+
+ msg(
+   "👥 "+name+
+   " rejoint ton écurie."
+ );
+
+}
+
+
+function vetAll(){
+
+ if(game.money<1000){
+
+   msg(
+     "💸 Tu n'as pas assez d'argent."
+   );
+
+   return;
+
+ }
+
+ game.money-=1000;
+
+ game.horses.forEach(h=>{
+
+   h.health=
+     Math.min(100,h.health+10);
+
+ });
+
+ save();
+
+ renderAll();
+
+ msg(
+   "🩺 Le vétérinaire a contrôlé tous les chevaux."
+ );
+
+}
+
+
+/* ==========================================
+   RESET
+========================================== */
+
+function confirmReset(){
+
+ const ok=
+   confirm(
+     "Réinitialiser complètement la partie ?"
+   );
+
+ if(!ok)return;
+
+ localStorage.removeItem(
+   "monEcurieSave"
+ );
+
+ location.reload();
+
+}
+
+
+/* ==========================================
+   RENDU GLOBAL
+========================================== */
+
+function renderAll(){
+
+ renderHeader();
+
+ renderScene();
+
+ renderRight();
+
+ renderPanels();
+
+}
+
+
+/* ==========================================
+   INITIALISATION
+========================================== */
+
+load();
+
+renderAll();
+
+</script>
+
 </body>
 </html>
