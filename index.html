@@ -1,434 +1,733 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Mon Écurie — V3.1</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Écurie V3.2</title>
 
 <style>
 *{box-sizing:border-box}
-:root{
---bg:#0d1714;--panel:#17364a;--panel2:#214b62;--line:#55798a;
---gold:#e5b94e;--green:#49bd70;--red:#df6b65;--text:#fff;--muted:#b9c8ce
-}
-html,body{
-margin:0;min-height:100%;background:#0b1113;color:var(--text);
-font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
-}
-button{
-font:inherit;font-weight:800;color:#fff;border:0;cursor:pointer
-}
-button:hover{filter:brightness(1.12)}
 
-.app{
-min-height:100vh;
-background:radial-gradient(circle at 50% 20%,#395342,#13201b 48%,#0b1113)
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#0b1512;
+color:white;
+}
+
+button{
+border:0;
+border-radius:9px;
+padding:10px;
+font-weight:bold;
+color:white;
+background:#214f69;
+cursor:pointer;
+}
+
+button:active{
+transform:scale(.97);
 }
 
 .top{
-height:74px;
-background:linear-gradient(180deg,#24465a,#102a3a);
-border-bottom:2px solid var(--line);
-display:flex;align-items:center;gap:10px;
-padding:7px 10px;position:sticky;top:0;z-index:100
+height:76px;
+background:linear-gradient(#21485c,#102d3d);
+display:flex;
+align-items:center;
+padding:7px;
+gap:8px;
+border-bottom:2px solid #58798a;
+position:sticky;
+top:0;
+z-index:100;
 }
 
 .logo{
-display:flex;align-items:center;gap:8px;min-width:205px
+display:flex;
+align-items:center;
+gap:7px;
+min-width:190px;
 }
-.logoHorse{font-size:39px}
-.logo b{font:700 23px Georgia,serif}
-.logo small{display:block;color:#d3dfe4;font-size:10px}
+
+.logo .horse{
+font-size:35px;
+}
+
+.logo b{
+font-family:Georgia,serif;
+font-size:22px;
+}
+
+.logo small{
+display:block;
+font-size:10px;
+color:#c7d4d9;
+}
 
 .stats{
-display:flex;gap:6px;flex:1;justify-content:center;overflow:auto
+display:flex;
+gap:5px;
+flex:1;
+overflow-x:auto;
 }
-.stat{
-min-width:105px;padding:7px 9px;border-radius:9px;
-background:#29495d;border:1px solid #527080;text-align:center;font-size:11px
-}
-.stat b{font-size:14px}
-.money,.rep{color:#ffd66b}
 
-.topBtns{display:flex;gap:5px}
-.topBtns button{
-background:#29495d;border:1px solid #527080;
-border-radius:9px;padding:9px 11px
+.stat{
+background:#294d61;
+border:1px solid #55798a;
+border-radius:8px;
+padding:7px;
+min-width:95px;
+text-align:center;
+font-size:11px;
+}
+
+.stat strong{
+font-size:14px;
+}
+
+.top-buttons{
+display:flex;
+gap:5px;
 }
 
 .layout{
 display:grid;
-grid-template-columns:180px minmax(0,1fr) 225px;
-gap:8px;max-width:1500px;margin:auto;padding:8px
+grid-template-columns:180px 1fr 220px;
+gap:7px;
+max-width:1500px;
+margin:auto;
+padding:7px;
 }
 
-.left,.right{display:flex;flex-direction:column;gap:7px}
+.menu{
+background:#153347;
+border:1px solid #4c7182;
+border-radius:10px;
+padding:5px;
+}
+
+.menu button{
+width:100%;
+display:block;
+margin-bottom:4px;
+text-align:left;
+background:linear-gradient(#28536b,#193c50);
+}
+
+.menu button.active{
+background:#377da6;
+}
 
 .card{
-background:linear-gradient(180deg,#17364a,#10283a);
-border:1px solid #476476;border-radius:10px;
-box-shadow:0 3px 10px #0008
+background:linear-gradient(#173b50,#102c3c);
+border:1px solid #4c7182;
+border-radius:10px;
+padding:9px;
+margin-bottom:7px;
 }
 
-.menu{padding:5px}
-.menu button{
-width:100%;display:block;text-align:left;padding:10px 9px;
-margin:2px 0;
-background:linear-gradient(180deg,#294d64,#1b384c);
-border:1px solid #45677a;border-radius:8px
-}
-.menu button.active{
-background:linear-gradient(180deg,#397daf,#285c82)
+.resources{
+font-size:10px;
 }
 
-.news{padding:9px;font-size:10px}
-.news h4{margin:0 0 6px;color:#ffd66b}
+.resources h4{
+margin:0 0 8px;
+color:#ffd45d;
+}
+
+.bar{
+height:6px;
+background:#395361;
+border-radius:10px;
+overflow:hidden;
+margin:3px 0 7px;
+}
+
+.bar span{
+display:block;
+height:100%;
+background:#4cbd70;
+}
+
+.news{
+font-size:10px;
+}
+
+.news h4{
+margin:0 0 7px;
+color:#ffd45d;
+}
+
 .news p{
-margin:5px 0;padding:6px;background:#0e2231;border-radius:6px
+background:#102738;
+padding:6px;
+border-radius:5px;
+margin:4px 0;
 }
 
-.resourceCard{padding:9px;font-size:10px}
-.resourceCard h4{margin:0 0 7px;color:#ffd66b}
-.resRow{margin:7px 0}
-.resLabel{display:flex;justify-content:space-between}
-.meter{
-height:6px;background:#385463;border-radius:8px;overflow:hidden
+.page{
+display:none;
 }
-.meter i{display:block;height:100%;background:var(--green)}
+
+.page.active{
+display:block;
+}
+
+/* DOMAINE */
 
 .scene{
-position:relative;height:650px;overflow:hidden;border-radius:14px;
-background:linear-gradient(#80b6d0 0 28%,#789f5e 28% 100%);
-border:2px solid #4a6b73;box-shadow:0 5px 20px #000b
+height:650px;
+position:relative;
+overflow:hidden;
+border:2px solid #4c6d75;
+border-radius:14px;
+background:linear-gradient(#83bad1 0 35%,#7da35d 35%);
+box-shadow:0 5px 20px #0009;
 }
 
 .sky{
-position:absolute;inset:0;
-background:linear-gradient(#84b9d0 0 31%,#789f5e 31% 100%)
+position:absolute;
+inset:0;
+background:linear-gradient(#82b8cf 0 35%,#7ca35c 35%);
 }
-.cloud{position:absolute;font-size:45px;opacity:.6}
-.c1{left:9%;top:7%}.c2{right:15%;top:12%}
+
+.cloud{
+position:absolute;
+font-size:48px;
+opacity:.65;
+}
+
+.cloud1{
+top:7%;
+left:9%;
+}
+
+.cloud2{
+top:13%;
+right:13%;
+}
 
 .hills{
-position:absolute;left:-5%;right:-5%;top:25%;height:160px;
-background:#58794f;
+position:absolute;
+top:28%;
+left:0;
+right:0;
+height:150px;
+background:#5c8052;
 clip-path:polygon(
-0 70%,18% 35%,34% 60%,49% 22%,64% 55%,78% 30%,100% 60%,
-100% 100%,0 100%
-)
-}
-
-.ground{
-position:absolute;inset:31% 0 0;
-background:linear-gradient(145deg,#82a65e,#5d854f)
+0 75%,15% 40%,30% 65%,45% 25%,
+60% 60%,76% 30%,100% 65%,100% 100%,0 100%
+);
 }
 
 .stable{
-position:absolute;left:7%;top:29%;width:68%;height:220px;
-background:linear-gradient(180deg,#9a603a,#70442e);
-border:5px solid #4d3024;border-radius:10px;
-box-shadow:0 8px 15px #0008
+position:absolute;
+top:31%;
+left:7%;
+width:68%;
+height:225px;
+background:linear-gradient(#9d613d,#70432c);
+border:5px solid #4a3024;
+border-radius:11px;
+box-shadow:0 7px 15px #0008;
 }
 
 .roof{
-position:absolute;left:-5%;right:-5%;top:-58px;height:68px;
-background:#45484a;
-clip-path:polygon(3% 100%,50% 0,97% 100%);
-border-bottom:7px solid #282b2c
+position:absolute;
+top:-60px;
+left:-5%;
+width:110%;
+height:70px;
+background:#41474a;
+clip-path:polygon(2% 100%,50% 0,98% 100%);
 }
 
-.stableTitle{
-position:absolute;top:8px;left:0;right:0;text-align:center;
-font-weight:900;text-shadow:0 2px 3px #000
+.stable-title{
+position:absolute;
+top:9px;
+left:0;
+right:0;
+text-align:center;
+font-weight:bold;
+font-size:19px;
+text-shadow:0 2px 3px #000;
 }
 
 .boxes{
-position:absolute;left:9px;right:9px;bottom:9px;height:145px;
-display:grid;grid-template-columns:repeat(6,1fr);gap:6px
+position:absolute;
+left:8px;
+right:8px;
+bottom:8px;
+height:145px;
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:5px;
 }
 
 .box{
-position:relative;background:#543526;border:3px solid #38251c;
-border-radius:5px;overflow:hidden;
-display:flex;align-items:center;justify-content:center
-}
-.box.free{opacity:.6}
-.boxName{
-position:absolute;bottom:2px;left:2px;right:2px;
-background:#162e3aee;border-radius:4px;text-align:center;
-font-size:9px;padding:3px;z-index:5
+background:#543527;
+border:3px solid #39251d;
+border-radius:5px;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
 }
 
-.paddock,.arena{
-position:absolute;border:5px solid #795b3d;border-radius:18px;
-background:#ffffff10;box-shadow:inset 0 0 0 2px #d3b27c
+.box.free{
+opacity:.55;
 }
-.paddock{right:4%;top:48%;width:40%;height:190px}
+
+.box-name{
+position:absolute;
+bottom:2px;
+left:2px;
+right:2px;
+background:#153343;
+text-align:center;
+font-size:9px;
+padding:3px;
+border-radius:3px;
+}
+
+.paddock{
+position:absolute;
+right:5%;
+top:55%;
+width:40%;
+height:180px;
+border:5px solid #795b3e;
+border-radius:20px;
+background:#ffffff12;
+}
+
 .arena{
-left:8%;bottom:7%;width:40%;height:170px;border-radius:50%
+position:absolute;
+left:7%;
+bottom:6%;
+width:40%;
+height:170px;
+border:5px solid #795b3e;
+border-radius:50%;
+background:#c5a77655;
 }
-.arena:before{
-content:"";position:absolute;inset:12px;
-border:3px solid #e8d0a0;border-radius:50%
+
+.arena:after{
+content:"";
+position:absolute;
+inset:13px;
+border:3px solid #e5d09f;
+border-radius:50%;
 }
 
 .tree{
-position:absolute;font-size:38px;
-filter:drop-shadow(0 4px 3px #0005)
+position:absolute;
+font-size:38px;
 }
-.t1{left:3%;top:29%}.t2{right:3%;top:31%}
-.t3{left:48%;bottom:16%}.t4{right:20%;bottom:4%}
+
+.t1{left:3%;top:34%}
+.t2{right:3%;top:35%}
+.t3{left:48%;bottom:15%}
+.t4{right:18%;bottom:5%}
 
 .vehicle{
-position:absolute;font-size:52px;
-filter:drop-shadow(0 5px 4px #0007)
-}
-.truck{right:2%;top:31%}
-.tractor{left:3%;top:50%}
-
-.tag{
-position:absolute;z-index:20;
-background:#17364aee;border:1px solid #80a6b5;
-padding:7px 10px;border-radius:8px;font-size:11px
-}
-.tagStable{left:31%;top:45%}
-.tagPasture{right:10%;top:68%}
-.tagArena{left:18%;bottom:6%}
-
-.horse{
-width:74px;height:62px;position:relative;cursor:pointer;
-filter:drop-shadow(0 4px 3px #0008)
-}
-.horse .body{
-position:absolute;left:20px;top:23px;width:47px;height:24px;
-border-radius:55%;background:var(--coat);
-border:2px solid #32231c
-}
-.horse .neck{
-position:absolute;left:13px;top:7px;width:18px;height:38px;
-background:var(--coat);border:2px solid #32231c;
-border-radius:80% 30% 30% 50%;transform:rotate(17deg)
-}
-.horse .head{
-position:absolute;left:1px;top:7px;width:24px;height:17px;
-background:var(--coat);border:2px solid #32231c;
-border-radius:60% 45% 50% 45%
-}
-.horse .ear{
-position:absolute;left:5px;top:-3px;width:6px;height:10px;
-background:var(--coat);border:2px solid #32231c;
-transform:rotate(-18deg)
-}
-.horse .mane{
-position:absolute;left:15px;top:11px;width:6px;height:31px;
-background:var(--mane);border-radius:50%
-}
-.horse .leg{
-position:absolute;top:40px;width:6px;height:23px;
-background:var(--legs);border-radius:5px
-}
-.horse .l1{left:25px}.horse .l2{left:38px}
-.horse .l3{left:51px}.horse .l4{left:62px}
-.horse .tail{
-position:absolute;right:-3px;top:20px;width:25px;height:12px;
-border-bottom:5px solid var(--legs);border-radius:50%;
-transform:rotate(25deg)
+position:absolute;
+font-size:48px;
+z-index:5;
 }
 
-.bai{--coat:#8a4d2e;--mane:#241813;--legs:#231813}
-.alezan{--coat:#b96832;--mane:#4b2415;--legs:#442417}
-.noir{--coat:#292727;--mane:#111;--legs:#111}
-.gris{--coat:#aaa9a2;--mane:#5c5b57;--legs:#55544f}
-.isabelle{--coat:#c89b59;--mane:#4a3523;--legs:#463322}
-.leopard{--coat:#c6b8a0;--mane:#5a4939;--legs:#514536}
-
-.sceneHorse{
-position:absolute;z-index:8
+.truck{
+right:2%;
+top:33%;
 }
-.sh1{left:68%;top:52%}
-.sh2{left:78%;top:59%}
-.sh3{left:53%;top:56%}
-.sh4{left:82%;top:72%}
 
-.bottom{
-position:absolute;left:2%;right:2%;bottom:8px;z-index:50;
-display:flex;gap:6px;overflow-x:auto
+.tractor{
+left:2%;
+top:51%;
 }
+
+.scene-horse{
+position:absolute;
+z-index:10;
+font-size:45px;
+}
+
+.sh1{right:17%;top:56%}
+.sh2{right:7%;top:65%}
+.sh3{right:25%;top:67%}
+.sh4{right:4%;top:75%}
+
+.scene-button{
+position:absolute;
+z-index:20;
+background:#174159ee;
+border:1px solid #7c9baa;
+}
+
+.enter{
+top:45%;
+left:32%;
+}
+
+.pasture-button{
+right:9%;
+top:69%;
+}
+
+.actions{
+position:absolute;
+bottom:7px;
+left:6px;
+right:6px;
+z-index:30;
+display:flex;
+gap:6px;
+overflow-x:auto;
+}
+
 .action{
-background:linear-gradient(180deg,#1e4b63,#122f40);
-border:1px solid #537384;border-radius:10px;
-padding:9px 11px;min-width:125px;text-align:center;
-box-shadow:0 4px 8px #0007
+min-width:135px;
+background:linear-gradient(#20516a,#123447);
+border:1px solid #5b7b8a;
+text-align:center;
 }
-.action b{display:block}
-.action small{color:#b9c9ce}
+
+.action big{
+display:block;
+font-size:22px;
+}
+
+.action small{
+display:block;
+color:#c4d0d5;
+margin-top:4px;
+}
+
+/* PAGES */
 
 .panel{
-display:none;
-background:linear-gradient(180deg,#102c3d,#0d2230);
-border:1px solid #476476;border-radius:14px;
-padding:15px;min-height:650px
+background:linear-gradient(#122e3e,#0e2634);
+border:1px solid #4b6d7c;
+border-radius:13px;
+padding:15px;
+min-height:650px;
 }
-.panel.active{display:block}
-.panel h2{margin-top:0}
+
+.panel h2{
+margin-top:0;
+}
 
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:10px
+gap:10px;
 }
 
-.horseCard{
-background:#18394d;border:1px solid #4c6977;
-border-radius:12px;padding:11px;display:flex;gap:10px
+.info{
+background:#183c50;
+border:1px solid #4b6d7c;
+border-radius:11px;
+padding:13px;
 }
-.thumb{
-width:82px;height:76px;background:#36525d;border-radius:7px;
-display:flex;align-items:center;justify-content:center;
-overflow:hidden;flex:none
+
+.info h3{
+margin-top:0;
 }
-.horseCard h3{margin:0 0 3px}
+
+.horse-card{
+display:flex;
+gap:10px;
+background:#183c50;
+border:1px solid #4b6d7c;
+border-radius:11px;
+padding:10px;
+}
+
+.horse-picture{
+width:80px;
+height:75px;
+background:#344f5a;
+border-radius:8px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:45px;
+flex-shrink:0;
+}
+
+.horse-info{
+flex:1;
+}
+
+.horse-info h3{
+margin:0 0 5px;
+}
+
 .badge{
-background:#315c70;border-radius:6px;
-padding:3px 6px;font-size:10px
-}
-.actions{
-display:flex;flex-wrap:wrap;gap:5px;margin-top:7px
-}
-.actions button{
-padding:7px 9px;border-radius:7px;background:#2d6079
-}
-.actions .green{background:#3f8e59}
-.actions .gold{background:#a87a27}
-
-.profGrid,.statGrid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:10px
+display:inline-block;
+background:#315f73;
+padding:3px 6px;
+border-radius:5px;
+font-size:10px;
 }
 
-.infoCard{
-padding:14px;background:#18394d;
-border:1px solid #4c6977;border-radius:12px
+.horse-buttons{
+display:flex;
+flex-wrap:wrap;
+gap:4px;
+margin-top:7px;
 }
-.infoCard h3{margin-top:0}
 
-.rightHorse{
-display:flex;gap:7px;padding:7px;border-radius:9px;
-background:linear-gradient(180deg,#21485f,#17364a);
-border:1px solid #476476;cursor:pointer;margin-bottom:6px
+.horse-buttons button{
+font-size:11px;
+padding:7px;
 }
-.rhInfo{font-size:10px;line-height:1.3;flex:1}
-.rhInfo b{font-size:12px}
-.pill{
-display:inline-block;padding:2px 5px;border-radius:5px;
-background:#3c8058;font-size:9px
+
+.right-horse{
+display:flex;
+gap:6px;
+padding:7px;
+margin-bottom:5px;
+background:#17384c;
+border:1px solid #486a79;
+border-radius:8px;
+cursor:pointer;
+}
+
+.right-horse .mini{
+font-size:35px;
+}
+
+.right-horse small{
+font-size:9px;
 }
 
 .modal{
-display:none;position:fixed;inset:0;background:#000b;z-index:9999;
-align-items:center;justify-content:center;padding:15px
+position:fixed;
+inset:0;
+background:#000b;
+z-index:1000;
+display:none;
+align-items:center;
+justify-content:center;
+padding:15px;
 }
-.modal.show{display:flex}
-.modalBox{
-width:min(540px,100%);max-height:85vh;overflow:auto;
-background:#173449;border:1px solid #688493;
-border-radius:16px;padding:15px
+
+.modal.show{
+display:flex;
 }
+
+.modal-box{
+background:#17394d;
+border:1px solid #658493;
+border-radius:14px;
+width:min(500px,100%);
+max-height:85vh;
+overflow:auto;
+padding:15px;
+}
+
 .choice{
-display:flex;align-items:center;gap:8px;
-background:#21465b;border:1px solid #4d7181;
-border-radius:9px;padding:8px;margin:5px 0;cursor:pointer
+display:flex;
+align-items:center;
+gap:10px;
+padding:9px;
+margin:5px 0;
+background:#21495e;
+border-radius:8px;
+cursor:pointer;
 }
 
 .toast{
-position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
-z-index:10000;background:#17364a;border:1px solid #80a6b5;
-border-radius:10px;padding:10px 14px;display:none;
-box-shadow:0 8px 25px #0008
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:#173a4d;
+border:1px solid #7893a0;
+padding:10px 15px;
+border-radius:9px;
+z-index:2000;
+display:none;
 }
-.toast.show{display:block}
 
-@media(max-width:1050px){
-.layout{grid-template-columns:145px minmax(0,1fr)}
-.right{display:none}
-.logo{min-width:155px}
-.stats{justify-content:flex-start}
-.stat{min-width:85px}
+.toast.show{
+display:block;
 }
+
+/* ===== TELEPHONE ===== */
 
 @media(max-width:720px){
-.top{height:auto;flex-wrap:wrap}
-.logo{min-width:auto}
-.logoHorse{font-size:30px}
-.logo b{font-size:20px}
-.stats{order:3;width:100%}
-.topBtns{position:absolute;right:7px;top:7px}
-.layout{display:block;padding:5px}
-.left{display:none}
-.right{display:none}
-.scene{height:620px}
-.panel{min-height:620px;padding:10px}
-.grid,.profGrid,.statGrid{grid-template-columns:1fr}
-.stable{left:5%;width:90%;top:29%;height:205px}
-.boxes{grid-template-columns:repeat(3,1fr);height:140px}
-.paddock{top:56%;right:5%;width:55%;height:175px}
-.arena{left:4%;width:43%;height:150px}
-.tagStable{left:36%;top:45%}
-.tagPasture{right:10%;top:67%}
-.truck,.tractor{font-size:45px}
-.bottom{left:4px;right:4px}
-.bottom .action{min-width:135px}
+
+.top{
+height:auto;
+min-height:78px;
+flex-wrap:wrap;
+position:relative;
+}
+
+.logo{
+min-width:auto;
+flex:1;
+}
+
+.logo b{
+font-size:20px;
+}
+
+.top-buttons{
+position:absolute;
+right:5px;
+top:7px;
+}
+
+.stats{
+width:100%;
+order:3;
+}
+
+.layout{
+display:flex;
+flex-direction:column;
+padding:4px;
+}
+
+/* LE MENU RESTE VISIBLE */
+
+.menu{
+display:flex !important;
+overflow-x:auto;
+gap:5px;
+padding:5px;
+-webkit-overflow-scrolling:touch;
+}
+
+.menu button{
+display:block !important;
+width:auto !important;
+min-width:112px;
+flex-shrink:0;
+text-align:center;
+margin:0;
+white-space:nowrap;
+}
+
+.resources,
+.news{
+display:none;
+}
+
+#content{
+width:100%;
+}
+
+.right{
+display:none;
+}
+
+.scene{
+height:610px;
+}
+
+.stable{
+left:5%;
+width:90%;
+height:215px;
+}
+
+.boxes{
+grid-template-columns:repeat(3,1fr);
+height:140px;
+}
+
+.paddock{
+width:55%;
+right:5%;
+height:175px;
+}
+
+.arena{
+width:44%;
+height:150px;
+}
+
+.enter{
+left:35%;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.panel{
+min-height:610px;
+padding:10px;
+}
+
+.actions{
+bottom:5px;
+}
+
+.action{
+min-width:135px;
+}
+
 }
 </style>
 </head>
 
 <body>
-<div class="app">
 
 <header class="top">
 
 <div class="logo">
-<div class="logoHorse">🐎</div>
+<div class="horse">🐎</div>
 <div>
 <b>Mon Écurie</b>
-<small>V3.1 · Gestion complète de l'écurie</small>
+<small>V3.2 · Gestion complète de l'écurie</small>
 </div>
 </div>
 
 <div class="stats">
+
 <div class="stat">
-📅 Année <b id="year">1</b><br>
-<b id="season">🌸 Printemps</b>
+📅 Année
+<strong id="year">1</strong>
+<br>
+<strong id="season">🌸 Printemps</strong>
 </div>
 
 <div class="stat">
-☀️ Semaine<br>
-<b id="week">12 / 52</b>
+☀️ Semaine
+<strong id="week">12 / 52</strong>
 </div>
 
 <div class="stat">
-🪙 <b class="money" id="money">18 450 €</b>
+🪙
+<strong id="money">18 450 €</strong>
 </div>
 
 <div class="stat">
-⭐ Réputation<br>
-<b class="rep" id="rep">0</b>
-</div>
+⭐ Réputation
+<strong id="rep">0</strong>
 </div>
 
-<div class="topBtns">
-<button onclick="manualSave()">💾</button>
+</div>
+
+<div class="top-buttons">
+<button onclick="saveGame()">💾</button>
 <button onclick="resetGame()">⚙️</button>
 </div>
 
 </header>
 
+
 <div class="layout">
 
-<aside class="left">
+<aside>
 
-<nav class="menu card" id="menu">
+<nav class="menu" id="menu">
 
 <button class="active" onclick="showPage('domain',this)">🏠 Domaine</button>
 <button onclick="showPage('stable',this)">🏚️ Écurie</button>
@@ -437,7 +736,7 @@ box-shadow:0 8px 25px #0008
 <button onclick="showPage('shows',this)">🏆 Concours</button>
 <button onclick="showPage('market',this)">🐎 Marché</button>
 <button onclick="showPage('horses',this)">📖 Chevaux</button>
-<button onclick="showPage('care',this)">✚ Soins</button>
+<button onclick="showPage('care',this)">❤️ Soins</button>
 <button onclick="showPage('pros',this)">🩺 Professionnels</button>
 <button onclick="showPage('gear',this)">🧰 Matériel</button>
 <button onclick="showPage('resources',this)">🌾 Ressources</button>
@@ -445,41 +744,28 @@ box-shadow:0 8px 25px #0008
 
 </nav>
 
-<div class="resourceCard card">
+
+<div class="resources card">
 
 <h4>📦 Ressources</h4>
 
-<div class="resRow">
-<div class="resLabel">
-<span>🌾 Foin</span>
-<b id="hayText">1200 / 2000 kg</b>
-</div>
-<div class="meter"><i id="hayBar" style="width:60%"></i></div>
-</div>
+🌾 Foin
+<div class="bar"><span id="hayBar"></span></div>
 
-<div class="resRow">
-<div class="resLabel">
-<span>🌽 Grain</span>
-<b id="grainText">800 / 1500 kg</b>
-</div>
-<div class="meter"><i id="grainBar" style="width:53%"></i></div>
-</div>
+🌽 Grain
+<div class="bar"><span id="grainBar"></span></div>
 
-<div class="resRow">
-<div class="resLabel">
-<span>🟫 Paille</span>
-<b id="strawText">600 / 1500 kg</b>
-</div>
-<div class="meter"><i id="strawBar" style="width:40%"></i></div>
-</div>
+🟫 Paille
+<div class="bar"><span id="strawBar"></span></div>
 
 </div>
+
 
 <div class="news card">
 
 <h4>📰 Dernières nouvelles</h4>
 
-<p>🏅 Luna a terminé 2e en Club ! <b style="color:#62d47c">+250 €</b></p>
+<p>🏅 Luna a terminé 2e en Club !</p>
 <p>🌾 Stock de foin surveillé.</p>
 <p>🏇 Progression à l'entraînement.</p>
 
@@ -487,17 +773,22 @@ box-shadow:0 8px 25px #0008
 
 </aside>
 
+
 <main id="content">
 
-<section id="domain" class="scene page active">
+
+<!-- DOMAINE -->
+
+<section id="domain" class="page active">
+
+<div class="scene">
 
 <div class="sky"></div>
 
-<div class="cloud c1">☁️</div>
-<div class="cloud c2">☁️</div>
+<div class="cloud cloud1">☁️</div>
+<div class="cloud cloud2">☁️</div>
 
 <div class="hills"></div>
-<div class="ground"></div>
 
 <div class="tree t1">🌳</div>
 <div class="tree t2">🌳</div>
@@ -508,7 +799,7 @@ box-shadow:0 8px 25px #0008
 
 <div class="roof"></div>
 
-<div class="stableTitle">
+<div class="stable-title">
 🏠 ÉCURIE DE MON ÉCURIE
 </div>
 
@@ -517,77 +808,80 @@ box-shadow:0 8px 25px #0008
 </div>
 
 <div class="paddock"></div>
+
 <div class="arena"></div>
 
 <div class="vehicle truck">🚚</div>
 <div class="vehicle tractor">🚜</div>
 
-<div id="sceneHorses"></div>
+<div class="scene-horse sh1">🐎</div>
+<div class="scene-horse sh2">🐴</div>
+<div class="scene-horse sh3">🐎</div>
+<div class="scene-horse sh4">🐴</div>
 
-<button class="tag tagStable" onclick="showPage('stable')">
+<button class="scene-button enter" onclick="showPage('stable')">
 🏠 Entrer dans l'écurie
 </button>
 
-<button class="tag tagPasture" onclick="showPage('pasture')">
+<button class="scene-button pasture-button" onclick="showPage('pasture')">
 🌱 Voir les prés
 </button>
 
-<button class="tag tagArena" onclick="showPage('arena')">
-🏇 Voir la carrière
-</button>
-
-<div class="bottom">
+<div class="actions">
 
 <button class="action" onclick="nextWeek()">
-📅
-<b>Passer une semaine</b>
+<big>📅</big>
+Passer une semaine
 <small>- 350 €</small>
 </button>
 
 <button class="action" onclick="buyHay()">
-🌾
-<b>Acheter du foin</b>
+<big>🌾</big>
+Acheter du foin
 <small>+500 kg / 250 €</small>
 </button>
 
 <button class="action" onclick="buyGrain()">
-🌽
-<b>Acheter du grain</b>
+<big>🌽</big>
+Acheter du grain
 <small>+300 kg / 180 €</small>
 </button>
 
 <button class="action" onclick="chooseHorse('care')">
-🐎
-<b>S'occuper d'un cheval</b>
+<big>🐎</big>
+S'occuper d'un cheval
 <small>Choisir</small>
 </button>
 
 <button class="action" onclick="showPage('shows')">
-🏆
-<b>Organiser</b>
-<small>un concours</small>
+<big>🏆</big>
+Organiser un concours
+<small>Voir</small>
 </button>
+
+</div>
 
 </div>
 
 </section>
 
 
-<section id="stable" class="panel page">
+<!-- ECURIE -->
+
+<section id="stable" class="page panel">
 
 <h2>🏚️ Mon écurie</h2>
 
-<p>
-Boxes disponibles :
-<b id="boxCount"></b>
-</p>
+<p id="boxCount"></p>
 
 <div class="grid" id="stableGrid"></div>
 
 </section>
 
 
-<section id="pasture" class="panel page">
+<!-- PRES -->
+
+<section id="pasture" class="page panel">
 
 <h2>🌳 Mes prés</h2>
 
@@ -598,65 +892,49 @@ Boxes disponibles :
 </section>
 
 
-<section id="arena" class="panel page">
+<!-- CARRIERE -->
+
+<section id="arena" class="page panel">
 
 <h2>🏇 Carrière</h2>
 
-<p>
-Travaille tes chevaux sans dépasser leur niveau de fatigue.
-</p>
+<p>Choisis un cheval et entraîne-le.</p>
 
 <div class="grid" id="arenaGrid"></div>
 
 </section>
 
 
-<section id="shows" class="panel page">
+<!-- CONCOURS -->
+
+<section id="shows" class="page panel">
 
 <h2>🏆 Concours</h2>
 
 <div class="grid">
 
-<div class="infoCard">
-
-<h3>🥇 Club</h3>
-
-<p>
-Accessible aux chevaux débutants.
-</p>
-
-<button class="action" onclick="competition('Club',250,2)">
+<div class="info">
+<h3>🥉 Club</h3>
+<p>Concours accessible aux chevaux débutants.</p>
+<button onclick="competition('Club',250,2)">
 Participer — 250 €
 </button>
-
 </div>
 
-<div class="infoCard">
-
-<h3>🏆 Amateur</h3>
-
-<p>
-Niveau régional plus exigeant.
-</p>
-
-<button class="action" onclick="competition('Amateur',600,5)">
+<div class="info">
+<h3>🥈 Amateur</h3>
+<p>Niveau régional plus exigeant.</p>
+<button onclick="competition('Amateur',600,5)">
 Participer — 600 €
 </button>
-
 </div>
 
-<div class="infoCard">
-
-<h3>🇫🇷 Championnat</h3>
-
-<p>
-Pour les meilleurs chevaux.
-</p>
-
-<button class="action" onclick="competition('Championnat',1500,10)">
+<div class="info">
+<h3>🥇 Championnat de France</h3>
+<p>Pour les meilleurs chevaux.</p>
+<button onclick="competition('France',1500,10)">
 Participer — 1 500 €
 </button>
-
 </div>
 
 </div>
@@ -664,20 +942,22 @@ Participer — 1 500 €
 </section>
 
 
-<section id="market" class="panel page">
+<!-- MARCHE -->
 
-<h2>🐎 Marché aux chevaux</h2>
+<section id="market" class="page panel">
 
-<p>
-Achète un cheval pour développer ton écurie.
-</p>
+<h2>🐎 Marché</h2>
+
+<p>Achète de nouveaux chevaux pour développer ton écurie.</p>
 
 <div class="grid" id="marketGrid"></div>
 
 </section>
 
 
-<section id="horses" class="panel page">
+<!-- CHEVAUX -->
+
+<section id="horses" class="page panel">
 
 <h2>📖 Mes chevaux</h2>
 
@@ -686,86 +966,57 @@ Achète un cheval pour développer ton écurie.
 </section>
 
 
-<section id="care" class="panel page">
+<!-- SOINS -->
 
-<h2>✚ Soins</h2>
+<section id="care" class="page panel">
 
-<p>
-Sélectionne un cheval pour t'en occuper.
-</p>
+<h2>❤️ Soins</h2>
+
+<p>Prends soin de tes chevaux.</p>
 
 <div class="grid" id="careGrid"></div>
 
 </section>
 
 
-<section id="pros" class="panel page">
+<!-- PROFESSIONNELS -->
+
+<section id="pros" class="page panel">
 
 <h2>🩺 Professionnels</h2>
 
-<p>
-Les professionnels interviennent sur le cheval sélectionné.
-</p>
+<div class="grid">
 
-<div class="profGrid">
-
-<div class="infoCard">
-
+<div class="info">
 <h3>🩺 Vétérinaire</h3>
-
-<p>
-Bilan et soins généraux.
-</p>
-
-<button class="action" onclick="chooseHorse('vet')">
+<p>Bilan et soins généraux.</p>
+<button onclick="chooseHorse('vet')">
 Visite — 1 000 €
 </button>
-
 </div>
 
-
-<div class="infoCard">
-
+<div class="info">
 <h3>🦷 Dentiste</h3>
-
-<p>
-Contrôle dentaire.
-</p>
-
-<button class="action" onclick="chooseHorse('dentiste')">
+<p>Contrôle dentaire.</p>
+<button onclick="chooseHorse('dentiste')">
 Intervention — 350 €
 </button>
-
 </div>
 
-
-<div class="infoCard">
-
-<h3>🧲 Maréchal-ferrant</h3>
-
-<p>
-Parage / ferrure.
-</p>
-
-<button class="action" onclick="chooseHorse('marechal')">
+<div class="info">
+<h3>🧲 Maréchal</h3>
+<p>Parage et ferrure.</p>
+<button onclick="chooseHorse('marechal')">
 Intervention — 180 €
 </button>
-
 </div>
 
-
-<div class="infoCard">
-
+<div class="info">
 <h3>👐 Ostéopathe</h3>
-
-<p>
-Récupération et mobilité.
-</p>
-
-<button class="action" onclick="chooseHorse('osteopathe')">
+<p>Récupération et mobilité.</p>
+<button onclick="chooseHorse('osteopathe')">
 Séance — 250 €
 </button>
-
 </div>
 
 </div>
@@ -773,54 +1024,36 @@ Séance — 250 €
 </section>
 
 
-<section id="gear" class="panel page">
+<!-- MATERIEL -->
+
+<section id="gear" class="page panel">
 
 <h2>🧰 Matériel</h2>
 
 <div class="grid">
 
-<div class="infoCard">
-
+<div class="info">
 <h3>🚚 Transport</h3>
-
-<p>
-Camion actuel : 2 chevaux.
-</p>
-
-<button class="action" onclick="toast('🚚 Camion prêt.')">
+<p>Camion actuel : 2 chevaux.</p>
+<button onclick="toast('🚚 Camion prêt.')">
 Vérifier
 </button>
-
 </div>
 
-
-<div class="infoCard">
-
-<h3>🏇 Matériel de concours</h3>
-
-<p>
-Matériel standard disponible.
-</p>
-
-<button class="action" onclick="toast('🧰 Matériel vérifié.')">
+<div class="info">
+<h3>🏇 Matériel concours</h3>
+<p>Matériel standard disponible.</p>
+<button onclick="toast('🧰 Matériel vérifié.')">
 Vérifier
 </button>
-
 </div>
 
-
-<div class="infoCard">
-
+<div class="info">
 <h3>🏗️ Installations</h3>
-
-<p>
-6 boxes · carrière · prés.
-</p>
-
-<button class="action" onclick="toast('🏡 Installations en bon état.')">
+<p>6 boxes · carrière · prés.</p>
+<button onclick="toast('🏡 Installations en bon état.')">
 Inspecter
 </button>
-
 </div>
 
 </div>
@@ -828,57 +1061,30 @@ Inspecter
 </section>
 
 
-<section id="resources" class="panel page">
+<!-- RESSOURCES -->
+
+<section id="resources" class="page panel">
 
 <h2>🌾 Ressources</h2>
 
 <div class="grid">
 
-<div class="infoCard">
-
+<div class="info">
 <h3>🌾 Foin</h3>
-
-<p id="hayDetail"></p>
-
-<button class="action" onclick="buyHay()">
-Acheter +500 kg — 250 €
-</button>
-
+<p id="hayText"></p>
+<button onclick="buyHay()">Acheter +500 kg — 250 €</button>
 </div>
 
-
-<div class="infoCard">
-
+<div class="info">
 <h3>🌽 Grain</h3>
-
-<p id="grainDetail"></p>
-
-<button class="action" onclick="buyGrain()">
-Acheter +300 kg — 180 €
-</button>
-
+<p id="grainText"></p>
+<button onclick="buyGrain()">Acheter +300 kg — 180 €</button>
 </div>
 
-
-<div class="infoCard">
-
+<div class="info">
 <h3>🟫 Paille</h3>
-
-<p id="strawDetail"></p>
-
-<button class="action" onclick="buyStraw()">
-Acheter +300 kg — 150 €
-</button>
-
-</div>
-
-
-<div class="infoCard">
-
-<h3>📊 Consommation hebdomadaire</h3>
-
-<p id="consumptionDetail"></p>
-
+<p id="strawText"></p>
+<button onclick="buyStraw()">Acheter +300 kg — 150 €</button>
 </div>
 
 </div>
@@ -886,48 +1092,30 @@ Acheter +300 kg — 150 €
 </section>
 
 
-<section id="staff" class="panel page">
+<!-- PERSONNEL -->
+
+<section id="staff" class="page panel">
 
 <h2>👥 Personnel</h2>
 
 <div class="grid">
 
-<div class="infoCard">
-
+<div class="info">
 <h3>👨‍🌾 Palefrenier</h3>
-
 <p>800 €/mois.</p>
-
-<button class="action" onclick="hire('Palefrenier')">
-Embaucher
-</button>
-
+<button onclick="hire('Palefrenier')">Embaucher</button>
 </div>
 
-
-<div class="infoCard">
-
+<div class="info">
 <h3>🏇 Cavalier</h3>
-
 <p>1 200 €/mois.</p>
-
-<button class="action" onclick="hire('Cavalier')">
-Embaucher
-</button>
-
+<button onclick="hire('Cavalier')">Embaucher</button>
 </div>
 
-
-<div class="infoCard">
-
-<h3>👨‍🌾 Gérant</h3>
-
+<div class="info">
+<h3>👔 Gérant</h3>
 <p>1 500 €/mois.</p>
-
-<button class="action" onclick="hire('Gérant')">
-Embaucher
-</button>
-
+<button onclick="hire('Gérant')">Embaucher</button>
 </div>
 
 </div>
@@ -940,24 +1128,23 @@ Embaucher
 
 </main>
 
+
 <aside class="right" id="rightList"></aside>
 
 </div>
 
 
+<!-- FENETRE CHOIX CHEVAL -->
+
 <div class="modal" id="modal">
 
-<div class="modalBox">
+<div class="modal-box">
 
-<div style="display:flex;justify-content:space-between;align-items:center">
+<div style="display:flex;justify-content:space-between">
 
-<h2 id="modalTitle">
-Choisir un cheval
-</h2>
+<h2>Choisir un cheval</h2>
 
-<button onclick="closeModal()" style="background:#6b3c3c;border-radius:8px;padding:6px 10px">
-✕
-</button>
+<button onclick="closeModal()">✕</button>
 
 </div>
 
@@ -973,144 +1160,153 @@ Choisir un cheval
 
 <script>
 
-const defaultHorses=[
-
-{
-id:1,name:"Luna",race:"Selle Français",age:8,
-sex:"Jument",color:"bai",form:82,health:95,
-fatigue:18,place:"box",discipline:"CSO"
-},
-
-{
-id:2,name:"Caramel",race:"Anglo-Arabe",age:12,
-sex:"Hongre",color:"alezan",form:76,health:92,
-fatigue:12,place:"box",discipline:"CSO"
-},
-
-{
-id:3,name:"Jasper",race:"Quarter Horse",age:6,
-sex:"Hongre",color:"gris",form:85,health:94,
-fatigue:9,place:"pasture",discipline:"Western"
-},
-
-{
-id:4,name:"Étoile",race:"Connemara",age:4,
-sex:"Jument",color:"isabelle",form:79,health:91,
-fatigue:20,place:"pasture",discipline:"CSO"
-},
-
-{
-id:5,name:"Nova",race:"Appaloosa",age:3,
-sex:"Jument",color:"leopard",form:81,health:93,
-fatigue:13,place:"pasture",discipline:"Polyvalent"
-},
-
-{
-id:6,name:"Phoenix",race:"Pur-sang",age:5,
-sex:"Hongre",color:"bai",form:88,health:89,
-fatigue:26,place:"box",discipline:"Vitesse"
-}
-
-];
-
-
-const initial={
-
+let game={
 money:18450,
 reputation:0,
 week:12,
 year:1,
-
 hay:1200,
 maxHay:2000,
-
 grain:800,
 maxGrain:1500,
-
 straw:600,
 maxStraw:1500,
-
 boxes:6,
-
-horses:defaultHorses,
-
-staff:[]
-
+staff:[],
+horses:[
+{
+id:1,
+name:"Luna",
+race:"Selle Français",
+age:8,
+sex:"Jument",
+form:82,
+health:95,
+fatigue:18,
+place:"box"
+},
+{
+id:2,
+name:"Caramel",
+race:"Anglo-Arabe",
+age:12,
+sex:"Hongre",
+form:76,
+health:92,
+fatigue:12,
+place:"box"
+},
+{
+id:3,
+name:"Jasper",
+race:"Quarter Horse",
+age:6,
+sex:"Hongre",
+form:85,
+health:94,
+fatigue:9,
+place:"pasture"
+},
+{
+id:4,
+name:"Étoile",
+race:"Connemara",
+age:4,
+sex:"Jument",
+form:79,
+health:91,
+fatigue:20,
+place:"pasture"
+},
+{
+id:5,
+name:"Nova",
+race:"Appaloosa",
+age:3,
+sex:"Jument",
+form:81,
+health:93,
+fatigue:13,
+place:"pasture"
+},
+{
+id:6,
+name:"Phoenix",
+race:"Pur-sang",
+age:5,
+sex:"Hongre",
+form:88,
+health:89,
+fatigue:26,
+place:"box"
+}
+]
 };
 
 
-let game=structuredClone(initial);
+function money(n){
+return n.toLocaleString("fr-FR")+" €";
+}
+
+
+function toast(text){
+
+const t=document.getElementById("toast");
+
+t.textContent=text;
+t.classList.add("show");
+
+setTimeout(()=>{
+t.classList.remove("show");
+},1800);
+
+}
+
+
+function saveGame(){
+
+localStorage.setItem(
+"monEcurieV32",
+JSON.stringify(game)
+);
+
+toast("💾 Partie sauvegardée.");
+
+}
 
 
 function loadGame(){
 
 try{
 
-const s=localStorage.getItem("monEcurieV31");
+const saved=
+localStorage.getItem("monEcurieV32");
 
-if(s)
-game={...game,...JSON.parse(s)};
+if(saved){
+
+game=JSON.parse(saved);
+
+}
 
 }catch(e){}
 
 }
 
 
-function manualSave(){
-
-localStorage.setItem(
-"monEcurieV31",
-JSON.stringify(game)
-);
-
-toast("💾 Partie sauvegardée !");
-
-}
-
-
 function resetGame(){
 
-if(confirm("Réinitialiser complètement la partie ?")){
+if(confirm("Réinitialiser la partie ?")){
 
-localStorage.removeItem("monEcurieV31");
+localStorage.removeItem("monEcurieV32");
 
-game=structuredClone(initial);
-
-renderAll();
-
-toast("🔄 Nouvelle partie.");
+location.reload();
 
 }
 
 }
 
 
-function money(n){
-
-return Math.round(n).toLocaleString("fr-FR")+" €";
-
-}
-
-
-function toast(t){
-
-const x=document.getElementById("toast");
-
-x.textContent=t;
-
-x.classList.add("show");
-
-clearTimeout(window.toastTimer);
-
-window.toastTimer=setTimeout(
-()=>x.classList.remove("show"),
-1800
-);
-
-}
-
-
-function season(){
+function getSeason(){
 
 if(game.week<=13)return"🌸 Printemps";
 if(game.week<=26)return"☀️ Été";
@@ -1121,11 +1317,13 @@ return"❄️ Hiver";
 }
 
 
-function showPage(id,btn){
+function showPage(id,button){
 
 document
 .querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
+.forEach(p=>{
+p.classList.remove("active");
+});
 
 
 const page=document.getElementById(id);
@@ -1136,49 +1334,21 @@ page.classList.add("active");
 
 document
 .querySelectorAll(".menu button")
-.forEach(b=>b.classList.remove("active"));
+.forEach(b=>{
+b.classList.remove("active");
+});
 
 
-if(btn)
-btn.classList.add("active");
+if(button)
+button.classList.add("active");
 
-
-closeModal();
 
 window.scrollTo({
 top:0,
 behavior:"smooth"
 });
 
-if(id!=="domain")
 renderAll();
-
-}
-
-
-function horseVisual(h,small=false){
-
-return`
-
-<div class="horse ${h.color}"
-style="${small?"transform:scale(.72);transform-origin:center":""}">
-
-<div class="body"></div>
-<div class="neck"></div>
-<div class="head"></div>
-<div class="ear"></div>
-<div class="mane"></div>
-
-<div class="leg l1"></div>
-<div class="leg l2"></div>
-<div class="leg l3"></div>
-<div class="leg l4"></div>
-
-<div class="tail"></div>
-
-</div>
-
-`;
 
 }
 
@@ -1187,51 +1357,36 @@ function horseCard(h){
 
 return`
 
-<div class="horseCard">
+<div class="horse-card">
 
-<div class="thumb">
-${horseVisual(h,true)}
-</div>
+<div class="horse-picture">🐎</div>
 
-<div style="flex:1">
+<div class="horse-info">
 
 <h3>${h.name}</h3>
 
-<span class="badge">
-${h.race}
-</span>
+<span class="badge">${h.race}</span>
 
-<p style="font-size:11px;margin:6px 0">
-
+<p>
 ${h.age} ans · ${h.sex}<br>
-
-Forme ${h.form}% ·
-Santé ${h.health}% ·
-Fatigue ${h.fatigue}%<br>
-
+💪 Forme : ${h.form}%<br>
+❤️ Santé : ${h.health}%<br>
+😴 Fatigue : ${h.fatigue}%<br>
 📍 ${h.place==="box"?"Box":"Pré"}
-
 </p>
 
-<div class="actions">
+<div class="horse-buttons">
 
-<button class="green"
-onclick="careHorse(${h.id})">
+<button onclick="careHorse(${h.id})">
 🧹 S'occuper
 </button>
 
-<button
-onclick="trainHorse(${h.id})">
+<button onclick="trainHorse(${h.id})">
 🏇 Entraîner
 </button>
 
-<button
-onclick="togglePlace(${h.id})">
-
-${h.place==="box"
-?"🌳 Mettre au pré"
-:"🏠 Rentrer au box"}
-
+<button onclick="togglePlace(${h.id})">
+${h.place==="box"?"🌳 Mettre au pré":"🏠 Rentrer au box"}
 </button>
 
 </div>
@@ -1241,77 +1396,6 @@ ${h.place==="box"
 </div>
 
 `;
-
-}
-
-
-function renderHeader(){
-
-document.getElementById("money").textContent=
-money(game.money);
-
-document.getElementById("rep").textContent=
-game.reputation;
-
-document.getElementById("week").textContent=
-game.week+" / 52";
-
-document.getElementById("year").textContent=
-game.year;
-
-document.getElementById("season").textContent=
-season();
-
-}
-
-
-function renderResources(){
-
-const hp=Math.round(
-game.hay/game.maxHay*100
-);
-
-const gp=Math.round(
-game.grain/game.maxGrain*100
-);
-
-const sp=Math.round(
-game.straw/game.maxStraw*100
-);
-
-
-document.getElementById("hayText").textContent=
-`${game.hay.toLocaleString("fr-FR")} / ${game.maxHay.toLocaleString("fr-FR")} kg`;
-
-document.getElementById("grainText").textContent=
-`${game.grain.toLocaleString("fr-FR")} / ${game.maxGrain.toLocaleString("fr-FR")} kg`;
-
-document.getElementById("strawText").textContent=
-`${game.straw.toLocaleString("fr-FR")} / ${game.maxStraw.toLocaleString("fr-FR")} kg`;
-
-
-document.getElementById("hayBar").style.width=
-hp+"%";
-
-document.getElementById("grainBar").style.width=
-gp+"%";
-
-document.getElementById("strawBar").style.width=
-sp+"%";
-
-
-document.getElementById("hayDetail").textContent=
-`Stock : ${game.hay} / ${game.maxHay} kg`;
-
-document.getElementById("grainDetail").textContent=
-`Stock : ${game.grain} / ${game.maxGrain} kg`;
-
-document.getElementById("strawDetail").textContent=
-`Stock : ${game.straw} / ${game.maxStraw} kg`;
-
-
-document.getElementById("consumptionDetail").textContent=
-`Cette semaine : ${game.horses.length*50} kg de foin, ${game.horses.length*10} kg de grain et ${game.horses.length*30} kg de paille.`;
 
 }
 
@@ -1323,225 +1407,41 @@ document.getElementById("sceneBoxes");
 
 boxes.innerHTML="";
 
+let boxHorses=
+game.horses.filter(h=>h.place==="box");
+
 
 for(let i=0;i<game.boxes;i++){
 
-const h=
-game.horses
-.filter(x=>x.place==="box")[i];
+const div=document.createElement("div");
 
-const box=document.createElement("div");
+div.className="box";
 
-box.className=
-"box"+(h?"":" free");
+const h=boxHorses[i];
 
+if(h){
 
-box.innerHTML=
+div.innerHTML=
+`<div style="font-size:40px">🐎</div>
+<div class="box-name">${h.name}</div>`;
 
-h
+}else{
 
-?
+div.classList.add("free");
 
-horseVisual(h,true)+
-`<div class="boxName">${h.name}</div>`
+div.innerHTML=
+`<span>Box libre</span>`;
 
-:
+}
 
-`<div style="font-size:12px">Box libre</div>`;
+boxes.appendChild(div);
 
-
-if(h)
-box.onclick=
-()=>chooseHorse("care",h.id);
-
-
-boxes.appendChild(box);
+}
 
 }
 
 
-const scene=
-document.getElementById("sceneHorses");
-
-scene.innerHTML="";
-
-
-game.horses
-.filter(h=>h.place==="pasture")
-.slice(0,4)
-.forEach((h,i)=>{
-
-const e=
-document.createElement("div");
-
-e.className=
-"sceneHorse sh"+(i+1);
-
-e.innerHTML=
-horseVisual(h,true);
-
-e.onclick=
-()=>chooseHorse("care",h.id);
-
-scene.appendChild(e);
-
-});
-
-}
-
-
-function renderRight(){
-
-const right=
-document.getElementById("rightList");
-
-right.innerHTML="";
-
-
-game.horses.forEach(h=>{
-
-const e=
-document.createElement("div");
-
-e.className="rightHorse";
-
-e.onclick=
-()=>chooseHorse("care",h.id);
-
-
-e.innerHTML=`
-
-<div class="thumb">
-${horseVisual(h,true)}
-</div>
-
-<div class="rhInfo">
-
-<b>${h.name}</b>
-${h.sex==="Jument"?"♀":"♂"}
-
-<br>
-
-${h.race}
-
-<br>
-
-<span class="pill">
-${h.discipline}
-</span>
-
-<br>
-
-Forme ${h.form}%
-
-<div class="meter">
-<i style="width:${h.form}%"></i>
-</div>
-
-Santé ${h.health}%
-
-<div class="meter">
-<i style="width:${h.health}%"></i>
-</div>
-
-Fatigue ${h.fatigue}%
-
-<div class="meter">
-<i style="width:${h.fatigue}%"></i>
-</div>
-
-</div>
-
-`;
-
-right.appendChild(e);
-
-});
-
-}
-
-
-const market=[
-
-{
-name:"Belle",
-race:"Selle Français",
-age:4,
-sex:"Jument",
-color:"bai",
-price:12000,
-form:78,
-health:94,
-fatigue:5,
-discipline:"CSO"
-},
-
-{
-name:"Royal",
-race:"KWPN",
-age:6,
-sex:"Hongre",
-color:"alezan",
-price:18000,
-form:84,
-health:95,
-fatigue:5,
-discipline:"CSO"
-},
-
-{
-name:"Dusty",
-race:"Quarter Horse",
-age:5,
-sex:"Hongre",
-color:"gris",
-price:9000,
-form:80,
-health:93,
-fatigue:5,
-discipline:"Western"
-},
-
-{
-name:"Silver",
-race:"Frison",
-age:7,
-sex:"Jument",
-color:"noir",
-price:15000,
-form:82,
-health:94,
-fatigue:4,
-discipline:"Dressage"
-},
-
-{
-name:"Spot",
-race:"Appaloosa",
-age:3,
-sex:"Hongre",
-color:"leopard",
-price:10000,
-form:77,
-health:91,
-fatigue:4,
-discipline:"Polyvalent"
-}
-
-];
-
-
-function renderPanels(){
-
-const boxH=
-game.horses
-.filter(h=>h.place==="box")
-.length;
-
-
-document.getElementById("boxCount").textContent=
-`${game.boxes-boxH} libres / ${game.boxes} boxes — ${boxH} occupés`;
-
+function renderPages(){
 
 document.getElementById("stableGrid").innerHTML=
 game.horses
@@ -1579,165 +1479,167 @@ game.horses
 .join("");
 
 
+document.getElementById("boxCount").textContent=
+`Boxes : ${game.horses.filter(h=>h.place==="box").length} / ${game.boxes} occupés`;
+
+
+document.getElementById("hayText").textContent=
+`Stock : ${game.hay} / ${game.maxHay} kg`;
+
+document.getElementById("grainText").textContent=
+`Stock : ${game.grain} / ${game.maxGrain} kg`;
+
+document.getElementById("strawText").textContent=
+`Stock : ${game.straw} / ${game.maxStraw} kg`;
+
+
+document.getElementById("staffList").innerHTML=
+game.staff.length
+?
+game.staff.map(x=>
+`<span class="badge">${x}</span>`
+).join(" ")
+:
+"<p>Aucun personnel.</p>";
+
+
+renderMarket();
+
+}
+
+
+function renderMarket(){
+
+const horses=[
+{
+name:"Belle",
+race:"Selle Français",
+price:12000,
+age:4
+},
+{
+name:"Royal",
+race:"KWPN",
+price:18000,
+age:6
+},
+{
+name:"Dusty",
+race:"Quarter Horse",
+price:9000,
+age:5
+},
+{
+name:"Silver",
+race:"Frison",
+price:15000,
+age:7
+}
+];
+
+
 document.getElementById("marketGrid").innerHTML=
-market
-.map((h,i)=>`
 
-<div class="horseCard">
+horses.map((h,i)=>`
 
-<div class="thumb">
-${horseVisual(h,true)}
-</div>
+<div class="horse-card">
 
-<div>
+<div class="horse-picture">🐴</div>
+
+<div class="horse-info">
 
 <h3>${h.name}</h3>
 
-<span class="badge">
-${h.race}
-</span>
+<span class="badge">${h.race}</span>
 
 <p>
-${h.age} ans · ${h.sex}
-<br>
-${money(h.price)}
+${h.age} ans<br>
+💰 ${money(h.price)}
 </p>
 
-<button class="action"
-onclick="buyHorse(${i})">
-💰 Acheter
+<button onclick="buyHorse(${i})">
+Acheter
 </button>
 
 </div>
 
 </div>
 
-`)
-.join("");
+`).join("");
+
+}
 
 
-document.getElementById("staffList").innerHTML=
+function renderRight(){
 
-game.staff.length
+const right=
+document.getElementById("rightList");
 
-?
+right.innerHTML="";
 
-game.staff
-.map(x=>`<span class="badge">${x}</span> `)
-.join("")
+game.horses.forEach(h=>{
 
-:
+const div=
+document.createElement("div");
 
-"<p>Aucun salarié.</p>";
+div.className="right-horse";
+
+div.onclick=()=>{
+chooseHorse("care",h.id);
+};
+
+div.innerHTML=`
+
+<div class="mini">🐎</div>
+
+<div>
+<b>${h.name}</b><br>
+<small>${h.race}</small><br>
+<small>Forme ${h.form}%</small><br>
+<small>Santé ${h.health}%</small><br>
+<small>Fatigue ${h.fatigue}%</small>
+</div>
+
+`;
+
+right.appendChild(div);
+
+});
 
 }
 
 
 function renderAll(){
 
-renderHeader();
-renderResources();
+document.getElementById("money").textContent=
+money(game.money);
+
+document.getElementById("rep").textContent=
+game.reputation;
+
+document.getElementById("week").textContent=
+game.week+" / 52";
+
+document.getElementById("year").textContent=
+game.year;
+
+document.getElementById("season").textContent=
+getSeason();
+
+
+document.getElementById("hayBar").style.width=
+(game.hay/game.maxHay*100)+"%";
+
+document.getElementById("grainBar").style.width=
+(game.grain/game.maxGrain*100)+"%";
+
+document.getElementById("strawBar").style.width=
+(game.straw/game.maxStraw*100)+"%";
+
+
 renderScene();
+renderPages();
 renderRight();
-renderPanels();
-
-}
-
-
-function closeModal(){
-
-document
-.getElementById("modal")
-.classList.remove("show");
-
-}
-
-
-function chooseHorse(action,id=null){
-
-if(id){
-
-const h=
-game.horses.find(x=>x.id===id);
-
-if(h)
-executeAction(action,h);
-
-return;
-
-}
-
-
-const content=
-document.getElementById("modalContent");
-
-
-content.innerHTML=
-game.horses
-.map(h=>`
-
-<div class="choice"
-
-onclick="executeAction(
-'${action}',
-game.horses.find(x=>x.id===${h.id})
-)">
-
-<div class="thumb">
-${horseVisual(h,true)}
-</div>
-
-<div>
-
-<b>${h.name}</b>
-<br>
-
-${h.race}
-<br>
-
-📍 ${h.place==="box"?"Box":"Pré"}
-
-</div>
-
-</div>
-
-`)
-.join("");
-
-
-document
-.getElementById("modal")
-.classList.add("show");
-
-}
-
-
-function executeAction(action,h){
-
-closeModal();
-
-if(!h)
-return;
-
-
-if(action==="care")
-careHorse(h.id);
-
-
-if(action==="vet")
-professional("veterinaire",1000,h.id);
-
-
-if(action==="dentiste")
-professional("dentiste",350,h.id);
-
-
-if(action==="marechal")
-professional("marechal",180,h.id);
-
-
-if(action==="osteopathe")
-professional("osteopathe",250,h.id);
 
 }
 
@@ -1749,23 +1651,15 @@ game.horses.find(x=>x.id===id);
 
 if(!h)return;
 
-
-h.form=
-Math.min(100,h.form+4);
-
-h.health=
-Math.min(100,h.health+2);
-
-h.fatigue=
-Math.max(0,h.fatigue-6);
+h.form=Math.min(100,h.form+4);
+h.health=Math.min(100,h.health+2);
+h.fatigue=Math.max(0,h.fatigue-6);
 
 game.reputation++;
 
 renderAll();
 
-toast(
-"🧹 "+h.name+" est bien soigné."
-);
+toast("🧹 "+h.name+" est bien soigné.");
 
 }
 
@@ -1777,31 +1671,20 @@ game.horses.find(x=>x.id===id);
 
 if(!h)return;
 
-
 if(h.fatigue>=70){
 
-toast(
-"😴 "+h.name+" est trop fatigué."
-);
+toast("😴 "+h.name+" est trop fatigué.");
 
 return;
 
 }
 
-
-h.form=
-Math.min(100,h.form+6);
-
-h.fatigue=
-Math.min(100,h.fatigue+14);
-
-game.reputation++;
+h.form=Math.min(100,h.form+6);
+h.fatigue=Math.min(100,h.fatigue+14);
 
 renderAll();
 
-toast(
-"🏇 "+h.name+" progresse."
-);
+toast("🏇 "+h.name+" progresse.");
 
 }
 
@@ -1813,22 +1696,18 @@ game.horses.find(x=>x.id===id);
 
 if(!h)return;
 
-
 if(h.place==="box"){
 
 h.place="pasture";
 
 }else{
 
-if(
-game.horses
-.filter(x=>x.place==="box")
-.length>=game.boxes
-){
+const occupied=
+game.horses.filter(x=>x.place==="box").length;
 
-toast(
-"🏠 Tous les boxes sont occupés."
-);
+if(occupied>=game.boxes){
+
+toast("🏠 Tous les boxes sont occupés.");
 
 return;
 
@@ -1837,7 +1716,6 @@ return;
 h.place="box";
 
 }
-
 
 renderAll();
 
@@ -1862,23 +1740,10 @@ return;
 
 }
 
-
-if(game.hay>=game.maxHay){
-
-toast("🌾 Stock de foin plein.");
-
-return;
-
-}
-
-
 game.money-=250;
 
 game.hay=
-Math.min(
-game.maxHay,
-game.hay+500
-);
+Math.min(game.maxHay,game.hay+500);
 
 renderAll();
 
@@ -1897,23 +1762,10 @@ return;
 
 }
 
-
-if(game.grain>=game.maxGrain){
-
-toast("🌽 Stock de grain plein.");
-
-return;
-
-}
-
-
 game.money-=180;
 
 game.grain=
-Math.min(
-game.maxGrain,
-game.grain+300
-);
+Math.min(game.maxGrain,game.grain+300);
 
 renderAll();
 
@@ -1932,23 +1784,10 @@ return;
 
 }
 
-
-if(game.straw>=game.maxStraw){
-
-toast("🟫 Stock de paille plein.");
-
-return;
-
-}
-
-
 game.money-=150;
 
 game.straw=
-Math.min(
-game.maxStraw,
-game.straw+300
-);
+Math.min(game.maxStraw,game.straw+300);
 
 renderAll();
 
@@ -1967,58 +1806,32 @@ return;
 
 }
 
-
 game.money-=350;
-
-
-const n=
-game.horses.length;
-
-
-game.hay=
-Math.max(0,game.hay-n*50);
-
-game.grain=
-Math.max(0,game.grain-n*10);
-
-game.straw=
-Math.max(0,game.straw-n*30);
-
-
-game.horses.forEach(h=>{
-
-h.fatigue=
-Math.max(0,h.fatigue-10);
-
-if(h.place==="pasture")
-h.health=
-Math.min(100,h.health+2);
-
-if(game.hay===0)
-h.health=
-Math.max(0,h.health-3);
-
-if(game.grain===0)
-h.form=
-Math.max(0,h.form-2);
-
-});
-
 
 game.week++;
 
+game.horses.forEach(h=>{
+
+h.fatigue=Math.max(0,h.fatigue-10);
+
+if(h.place==="pasture"){
+
+h.health=Math.min(100,h.health+2);
+
+}
+
+});
 
 if(game.week>52){
 
 game.week=1;
 game.year++;
 
-toast("🎉 Nouvelle année !");
-
 }
 
-
 renderAll();
+
+toast("📅 Une semaine est passée.");
 
 }
 
@@ -2031,20 +1844,7 @@ const h=
 
 if(!h)return;
 
-
-const cost=
-level==="Club"
-?
-250
-:
-level==="Amateur"
-?
-600
-:
-1500;
-
-
-if(game.money<cost){
+if(game.money<reward){
 
 toast("💸 Pas assez d'argent.");
 
@@ -2052,62 +1852,103 @@ return;
 
 }
 
-
-if(h.fatigue>=80){
-
-toast(
-"😴 Le meilleur cheval est trop fatigué."
-);
-
-return;
-
-}
-
-
-game.money-=cost;
+game.money-=reward;
 
 h.fatigue=
-Math.min(100,h.fatigue+25);
+Math.min(100,h.fatigue+20);
 
+if(Math.random()*100<h.form){
 
-if(
-Math.random()*100
-<
-h.form+game.reputation
-){
-
-game.money+=reward;
-
+game.money+=reward*2;
 game.reputation+=rep;
 
 toast(
-"🏆 "+h.name+
-" réussit son concours ! +"+
-money(reward)
+"🏆 "+h.name+" réussit son concours !"
 );
 
 }else{
 
 toast(
-"🏇 "+h.name+
-" termine sans gain."
+"🏇 "+h.name+" participe au concours."
 );
 
 }
-
 
 renderAll();
 
 }
 
 
-function professional(type,cost,id){
+function chooseHorse(action,id=null){
 
-const h=
-game.horses.find(x=>x.id===id);
+if(id){
 
-if(!h)return;
+executeAction(action,id);
 
+return;
+
+}
+
+const modal=
+document.getElementById("modal");
+
+const content=
+document.getElementById("modalContent");
+
+content.innerHTML=
+game.horses.map(h=>`
+
+<div class="choice"
+onclick="executeAction('${action}',${h.id})">
+
+<div style="font-size:40px">🐎</div>
+
+<div>
+<b>${h.name}</b><br>
+${h.race}<br>
+📍 ${h.place==="box"?"Box":"Pré"}
+</div>
+
+</div>
+
+`).join("");
+
+modal.classList.add("show");
+
+}
+
+
+function executeAction(action,id){
+
+closeModal();
+
+if(action==="care"){
+careHorse(id);
+return;
+}
+
+let cost=0;
+let message="";
+
+if(action==="vet"){
+cost=1000;
+message="🩺 Visite vétérinaire terminée.";
+}
+
+if(action==="dentiste"){
+cost=350;
+message="🦷 Dentiste terminé.";
+}
+
+if(action==="marechal"){
+cost=180;
+message="🧲 Maréchal terminé.";
+}
+
+if(action==="osteopathe"){
+cost=250;
+message="👐 Séance d'ostéopathie terminée.";
+}
 
 if(game.money<cost){
 
@@ -2117,48 +1958,92 @@ return;
 
 }
 
+const h=
+game.horses.find(x=>x.id===id);
 
 game.money-=cost;
 
-
-if(type==="veterinaire")
-h.health=
-Math.min(100,h.health+8);
-
-
-if(type==="dentiste")
-h.health=
-Math.min(100,h.health+5);
-
-
-if(type==="marechal"){
-
-h.health=
-Math.min(100,h.health+3);
-
-h.form=
-Math.min(100,h.form+2);
-
+if(action==="vet"){
+h.health=Math.min(100,h.health+10);
 }
 
-
-if(type==="osteopathe"){
-
-h.fatigue=
-Math.max(0,h.fatigue-20);
-
-h.form=
-Math.min(100,h.form+3);
-
+if(action==="dentiste"){
+h.health=Math.min(100,h.health+5);
 }
 
+if(action==="marechal"){
+h.health=Math.min(100,h.health+4);
+}
+
+if(action==="osteopathe"){
+h.fatigue=Math.max(0,h.fatigue-20);
+}
 
 renderAll();
 
-toast(
-"🩺 Intervention terminée pour "+
-h.name+"."
-);
+toast(message);
+
+}
+
+
+function closeModal(){
+
+document
+.getElementById("modal")
+.classList.remove("show");
+
+}
+
+
+function buyHorse(index){
+
+const market=[
+["Belle","Selle Français",12000,4],
+["Royal","KWPN",18000,6],
+["Dusty","Quarter Horse",9000,5],
+["Silver","Frison",15000,7]
+];
+
+const h=market[index];
+
+if(!h)return;
+
+if(game.money<h[2]){
+
+toast("💸 Pas assez d'argent.");
+
+return;
+
+}
+
+if(game.horses.length>=game.boxes){
+
+toast("🏚️ Plus de place dans l'écurie.");
+
+return;
+
+}
+
+game.money-=h[2];
+
+game.horses.push({
+
+id:Date.now(),
+name:h[0],
+race:h[1],
+price:h[2],
+age:h[3],
+sex:"Hongre",
+form:75,
+health:92,
+fatigue:5,
+place:"box"
+
+});
+
+renderAll();
+
+toast("🐎 "+h[0]+" rejoint ton écurie !");
 
 }
 
@@ -2167,36 +2052,28 @@ function hire(name){
 
 if(game.staff.includes(name)){
 
-toast(
-"👥 "+name+
-" est déjà employé."
-);
+toast("👥 Cette personne est déjà embauchée.");
 
 return;
 
 }
 
-
 game.staff.push(name);
 
 renderAll();
 
-toast(
-"👥 "+name+
-" a été embauché."
-);
+toast("👥 "+name+" a été embauché.");
 
 }
 
 
 document
 .getElementById("modal")
-.addEventListener(
-"click",
-e=>{
+.addEventListener("click",function(e){
 
-if(e.target.id==="modal")
+if(e.target===this){
 closeModal();
+}
 
 });
 
@@ -2207,6 +2084,5 @@ renderAll();
 
 </script>
 
-</div>
 </body>
 </html>
