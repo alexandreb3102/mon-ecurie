@@ -2602,6 +2602,457 @@ renderAll();
 ===================================================== */
 
 </script>
+<!-- =====================================================
+     CORRECTION V3 — AFFICHAGE DES PAGES + MOBILE
+===================================================== -->
 
+<style>
+
+/* Une seule rubrique visible à la fois */
+.panelPage{
+  display:none !important;
+  grid-column:1 / -1;
+  width:100%;
+  min-height:650px;
+}
+
+.panelPage.active{
+  display:block !important;
+}
+
+/* Le domaine est la seule scène principale */
+#domain{
+  display:block;
+}
+
+/* Évite que les anciennes pages restent visibles */
+main > .panelPage:not(.active){
+  display:none !important;
+}
+
+/* Fenêtre de sélection cheval */
+#modal{
+  display:none !important;
+  position:fixed !important;
+  inset:0 !important;
+  z-index:9999 !important;
+  background:rgba(0,0,0,.78) !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding:15px !important;
+}
+
+#modal.show{
+  display:flex !important;
+}
+
+#modal .modalBox{
+  width:min(540px,100%) !important;
+  max-height:85vh !important;
+  overflow-y:auto !important;
+  background:#173449 !important;
+  border:2px solid #55798a !important;
+  border-radius:15px !important;
+  padding:15px !important;
+}
+
+/* Évite que la fenêtre bloque les boutons quand elle est fermée */
+#modal:not(.show){
+  pointer-events:none !important;
+}
+
+#modal.show{
+  pointer-events:auto !important;
+}
+
+/* Affichage mobile */
+@media(max-width:720px){
+
+  .layout{
+    display:block !important;
+    width:100% !important;
+    padding:5px !important;
+  }
+
+  .panelPage{
+    width:100% !important;
+    min-height:600px !important;
+    margin:0 !important;
+    padding:12px !important;
+  }
+
+  .grid{
+    grid-template-columns:1fr !important;
+    width:100% !important;
+  }
+
+  .horseCard{
+    width:100% !important;
+    min-width:0 !important;
+  }
+
+  .horseCard .actions{
+    display:flex !important;
+    flex-wrap:wrap !important;
+  }
+
+  .horseCard .actions button{
+    flex:1 1 auto !important;
+    min-height:40px !important;
+  }
+
+  .scene{
+    width:100% !important;
+    min-height:620px !important;
+  }
+
+  /* Les boutons du bas restent accessibles */
+  .bottom{
+    position:absolute !important;
+    left:5px !important;
+    right:5px !important;
+    bottom:8px !important;
+    overflow-x:auto !important;
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    justify-content:flex-start !important;
+    z-index:50 !important;
+  }
+
+  .bottom .action{
+    flex:0 0 145px !important;
+  }
+
+}
+
+/* Les boutons restent au-dessus des éléments graphiques */
+button{
+  position:relative;
+  z-index:20;
+}
+
+</style>
+
+
+<script>
+
+/* =====================================================
+   NOUVELLE NAVIGATION V3
+===================================================== */
+
+function show(id, btn){
+
+  /* Fermer automatiquement une éventuelle fenêtre */
+  const modal=document.getElementById("modal");
+
+  if(modal){
+    modal.classList.remove("show");
+  }
+
+  /* Cacher TOUTES les pages */
+  document.querySelectorAll(".panelPage").forEach(function(panel){
+
+    panel.classList.remove("active");
+
+    panel.style.display="none";
+
+  });
+
+
+  /* Domaine */
+  const domain=document.getElementById("domain");
+
+  if(domain){
+
+    if(id==="domain"){
+
+      domain.style.display="block";
+
+    }else{
+
+      domain.style.display="none";
+
+    }
+
+  }
+
+
+  /* Afficher uniquement la page demandée */
+  if(id!=="domain"){
+
+    const page=document.getElementById(id);
+
+    if(page){
+
+      page.classList.add("active");
+
+      page.style.display="block";
+
+    }
+
+  }
+
+
+  /* Menu actif */
+  document.querySelectorAll(".menu button")
+    .forEach(function(button){
+
+      button.classList.remove("active");
+
+    });
+
+
+  if(btn){
+
+    btn.classList.add("active");
+
+  }else{
+
+    const menuButton=
+      document.querySelector(
+        '.menu button[onclick*="show(\''+id+'\'"]'
+      );
+
+    if(menuButton){
+
+      menuButton.classList.add("active");
+
+    }
+
+  }
+
+
+  /* Fermer la fenêtre de sélection */
+  closeModalSafe();
+
+
+  /* Remonter en haut */
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+
+  /* Actualiser les données */
+  if(id!=="domain" &&
+     typeof renderPanels==="function"){
+
+    renderPanels();
+
+  }
+
+}
+
+
+/* =====================================================
+   FERMETURE SÉCURISÉE DU MODAL
+===================================================== */
+
+function closeModalSafe(){
+
+  const modal=
+    document.getElementById("modal");
+
+  if(modal){
+
+    modal.classList.remove("show");
+
+  }
+
+}
+
+
+/* Remplace aussi la fermeture existante */
+
+function closeModal(){
+
+  closeModalSafe();
+
+}
+
+
+/* Cliquer sur le fond ferme la fenêtre */
+
+document.addEventListener("click",function(e){
+
+  const modal=
+    document.getElementById("modal");
+
+  if(
+    modal &&
+    modal.classList.contains("show") &&
+    e.target===modal
+  ){
+
+    closeModalSafe();
+
+  }
+
+});
+
+
+/* =====================================================
+   CORRECTION CHOIX CHEVAL
+===================================================== */
+
+function chooseHorse(action,id=null){
+
+  /* Si un cheval est directement choisi */
+  if(id){
+
+    const horse=
+      game.horses.find(function(h){
+
+        return h.id===id;
+
+      });
+
+    if(horse){
+
+      executeAction(action,horse);
+
+    }
+
+    return;
+
+  }
+
+
+  const modal=
+    document.getElementById("modal");
+
+  const title=
+    document.getElementById("modalTitle");
+
+  const content=
+    document.getElementById("modalContent");
+
+
+  if(!modal || !content){
+
+    return;
+
+  }
+
+
+  if(title){
+
+    title.textContent=
+      "🐴 Choisir un cheval";
+
+  }
+
+
+  content.innerHTML=
+    game.horses.map(function(h){
+
+      return `
+
+      <div class="choice"
+           onclick="executeAction('${action}',game.horses.find(x=>x.id===${h.id}))">
+
+        <div class="thumb">
+          ${typeof horseVisual==="function"
+            ? horseVisual(h,true)
+            : "🐴"}
+        </div>
+
+        <div>
+          <b>${h.name}</b><br>
+          ${h.race}<br>
+          📍 ${h.place==="box" ? "Box" : "Pré"}
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+
+  modal.classList.add("show");
+
+}
+
+
+/* =====================================================
+   PROTECTION DES ACTIONS
+===================================================== */
+
+function executeAction(action,h){
+
+  closeModalSafe();
+
+  if(!h){
+
+    return;
+
+  }
+
+
+  if(action==="care"){
+
+    careHorse(h.id);
+
+  }
+
+}
+
+
+/* =====================================================
+   INITIALISATION CORRIGÉE
+===================================================== */
+
+document.addEventListener("DOMContentLoaded",function(){
+
+  /* Cacher toutes les pages */
+  document
+    .querySelectorAll(".panelPage")
+    .forEach(function(panel){
+
+      panel.classList.remove("active");
+
+      panel.style.display="none";
+
+    });
+
+
+  /* Afficher le domaine */
+  const domain=
+    document.getElementById("domain");
+
+  if(domain){
+
+    domain.style.display="block";
+
+  }
+
+
+  /* Domaine actif dans le menu */
+  document
+    .querySelectorAll(".menu button")
+    .forEach(function(button){
+
+      button.classList.remove("active");
+
+    });
+
+
+  const firstButton=
+    document.querySelector(".menu button");
+
+  if(firstButton){
+
+    firstButton.classList.add("active");
+
+  }
+
+});
+
+</script>
+
+<!-- =====================================================
+     FIN CORRECTION V3
+===================================================== -->
 </body>
 </html>
