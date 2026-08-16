@@ -31,7 +31,7 @@ const timeEl=document.getElementById("time");
 const horsesEl=document.getElementById("horses");
 const logEl=document.getElementById("log");
 cashEl.innerHTML="💰 <b>"+euro(s.money)+"</b>";
-fieldEl.innerHTML=`${s.ha} ha · ${"⭐".repeat(s.q)} · ${s.n} chevaux · ${s.rest?"au repos":"pâturage"}`;
+fieldEl.innerHTML=s.ha+" ha · "+"⭐".repeat(s.q);
 feedEl.innerHTML=`${s.hay} bottes`;
 timeEl.innerHTML=`Semaine ${s.w}/52`;
 horsesEl.innerHTML=s.horses.map((h,i)=>`<div class="horse"><b>${h.name}</b> · ${h.age} ans<br>Forme ${h.form}% · Fatigue ${h.fat}% · Potentiel ${h.pot}%<br><button onclick="train(${i})">Entraîner</button><button onclick="heal(${i})">Repos</button></div>`).join("");
