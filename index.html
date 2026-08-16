@@ -3,201 +3,701 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mon Écurie — V0.2</title>
+<title>Mon Écurie — V0.3</title>
 <style>
-body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#f3eee6;color:#2d261f}
-header{background:#604633;color:#fff;padding:18px;text-align:center}
-header h1{margin:0 0 8px}.money{font-size:28px;font-weight:800}
-main{max-width:900px;margin:auto;padding:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
-.card{background:#fff;padding:14px;border-radius:12px;box-shadow:0 2px 8px #0001}
-button{border:0;border-radius:8px;padding:10px 12px;margin:3px;background:#604633;color:#fff;font-size:15px}
-.horse{border-top:1px solid #ddd;padding:10px 0}
-.log{background:#211c18;color:#eee;padding:12px;border-radius:10px;line-height:1.6}
+*{box-sizing:border-box}
+:root{--bg:#efe7dc;--panel:#fffdf9;--ink:#302821;--muted:#746a61;--accent:#604633;--accent2:#8d7868;--line:#e6ddd2;--good:#477a50;--bad:#9a4b43}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(135deg,#4d382b,#74523c);color:#fff;padding:16px 14px 14px;position:sticky;top:0;z-index:10;box-shadow:0 3px 14px #0003}
+.topbar{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand h1{margin:0;font-size:25px}.brand .sub{opacity:.8;font-size:13px}
+.wallet{background:#ffffff18;border:1px solid #ffffff30;border-radius:12px;padding:9px 13px;text-align:right}
+.money{font-size:22px;font-weight:850}.season{font-size:12px;opacity:.85}
+nav{max-width:1050px;margin:12px auto 0;display:flex;gap:7px;overflow:auto;padding-bottom:2px}
+nav button{white-space:nowrap;margin:0;background:#ffffff18;border:1px solid #ffffff25}
+main{max-width:1050px;margin:auto;padding:15px}
+.hero{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:13px;box-shadow:0 3px 12px #0000000d}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.kpi{background:#f7f1e9;border-radius:12px;padding:10px}.kpi b{display:block;font-size:18px}.kpi span{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:12px}
+.card{background:var(--panel);padding:15px;border-radius:16px;border:1px solid var(--line);box-shadow:0 3px 12px #0000000d;margin-bottom:12px}
+.card h2{margin:0 0 9px;font-size:19px}.card p{color:var(--muted);margin-top:6px}
+button{border:0;border-radius:10px;padding:10px 13px;margin:4px 3px;background:var(--accent);color:#fff;font-size:14px;font-weight:650;cursor:pointer}
+button.secondary{background:var(--accent2)}button.green{background:var(--good)}button.red{background:var(--bad)}
+button:active{transform:translateY(1px)}button:disabled{opacity:.45}
+.stat{font-size:18px;font-weight:750}
+.horse{border:1px solid var(--line);background:#fff;border-radius:13px;padding:13px;margin:9px 0}
+.horse-head{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.horse-name{font-size:18px;font-weight:800}.horse-meta{color:var(--muted);font-size:13px}
+.progress{height:7px;background:#eee7de;border-radius:99px;overflow:hidden;margin:5px 0 8px}.progress i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.badge{display:inline-block;padding:4px 8px;border-radius:12px;background:#eee1d4;margin:2px;font-size:12px}
+.log{background:#211c18;color:#eee;padding:12px;border-radius:12px;line-height:1.6;min-height:60px}
+.small{font-size:13px;color:var(--muted)}.notice{background:#fff4cf;padding:10px;border-radius:10px;margin:8px 0}
+@media(max-width:650px){.topbar{align-items:flex-start}.kpis{grid-template-columns:repeat(2,1fr)}.brand h1{font-size:21px}.wallet{min-width:105px}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <header>
-<h1>🐴 Mon Écurie — V0.2</h1>
-<div id="money" class="money"></div>
+<div class="topbar">
+ <div class="brand"><h1>🐴 Mon Écurie</h1><div class="sub">Gestion de centre équestre · V0.3</div></div>
+ <div class="wallet"><div id="money" class="money"></div><div id="season" class="season"></div></div>
+</div>
+<nav>
+ <button onclick="document.getElementById('stablePanel').scrollIntoView({behavior:'smooth'})">🏡 Écurie</button>
+ <button onclick="document.getElementById('horsesPanel').scrollIntoView({behavior:'smooth'})">🐎 Chevaux</button>
+ <button onclick="document.getElementById('marketPanel').scrollIntoView({behavior:'smooth'})">🛒 Marché</button>
+ <button onclick="document.getElementById('competitionPanel').scrollIntoView({behavior:'smooth'})">🏆 Concours</button>
+</nav>
 </header>
 
 <main>
+<section class="hero">
+ <div class="kpis">
+  <div class="kpi"><b id="kpiHorses">0</b><span>Chevaux</span></div>
+  <div class="kpi"><b id="kpiBoxes">0</b><span>Boxes</span></div>
+  <div class="kpi"><b id="kpiHay">0</b><span>Bottes de foin</span></div>
+  <div class="kpi"><b id="kpiRep">0</b><span>Réputation</span></div>
+ </div>
+</section>
+
 <div class="grid">
 
-<div class="card">
+<section class="card" id="stablePanel">
 <h2>🏡 Écurie</h2>
 <div id="stable"></div>
 <button onclick="buildBox()">Construire un box · 4 500 €</button>
-</div>
+<button onclick="boardHorse()" class="secondary">Accueillir un pensionnaire</button>
+</section>
 
-<div class="card">
+<section class="card">
 <h2>🌱 Prairie</h2>
 <div id="field"></div>
-<button onclick="restField()">Repos de la prairie</button>
-</div>
+<button onclick="restField()">Mettre la prairie au repos</button>
+</section>
 
-<div class="card">
+<section class="card">
 <h2>🌾 Fourrage</h2>
 <div id="feed"></div>
 <button onclick="buyHay()">Acheter 10 bottes · 250 €</button>
-</div>
+</section>
 
-<div class="card">
+<section class="card">
 <h2>📅 Temps</h2>
 <div id="time"></div>
 <button onclick="nextWeek()">Passer une semaine · 350 €</button>
-</div>
+</section>
 
 </div>
 
-<h2>🐎 Chevaux</h2>
-<div id="horses" class="card"></div>
+<section class="card" id="horsesPanel">
+<h2>🐎 Mes chevaux</h2>
+<div id="horses"></div>
+</section>
 
-<h2>🏆 Activités</h2>
-<button onclick="trainHorse(0)">Entraîner Luna</button>
-<button onclick="competition()">Faire un concours</button>
-<button onclick="buyHorse()">Acheter un cheval · 6 000 €</button>
-<button onclick="lesson()">Donner un cours · +120 €</button>
+<section class="card" id="marketPanel">
+<h2>🛒 Marché</h2>
+<p>Acheter un cheval ou un poulain. Tu peux essayer le cheval avant achat.</p>
+<button onclick="buyAdult()">Voir des chevaux adultes</button>
+<button onclick="buyFoal()">Voir des poulains</button>
+</section>
 
+<section class="card">
+<h2>🏇 Activités</h2>
+<div id="activities"></div>
+</section>
+
+<section class="card">
+<h2>🧬 Élevage</h2>
+<p class="small">Pas de consanguinité. L'amélioration des performances s'arrête après 13 ans.</p>
+<button onclick="breed()">Faire naître un poulain</button>
+</section>
+
+<section class="card" id="competitionPanel">
+<h2>🏆 Compétitions</h2>
+<div id="competitions"></div>
+</section>
+
+<section class="card">
+<h2>📈 Écurie & réputation</h2>
+<div id="reputation"></div>
+</section>
+
+<section class="card">
 <h2>📜 Journal</h2>
 <div id="log" class="log"></div>
+</section>
+
 </main>
 
 <script>
-const game={
+const SAVE_KEY="mon-ecurie-v03";
+
+const freshGame=()=>({
  money:12000,
  boxes:4,
  hectares:2,
  grass:3,
  hay:12,
  week:1,
+ year:1,
+ reputation:0,
+ boarders:0,
+ boarderMax:0,
+ competitionWeek:false,
+ olympicQualification:false,
+ frenchQualified:false,
+ logs:["🐴 Bienvenue dans Mon Écurie !"],
  horses:[
-  {name:"Luna",age:8,form:82,fatigue:18,potential:91},
-  {name:"Caramel",age:12,form:76,fatigue:12,potential:72}
+  {id:1,name:"Luna",age:8,form:82,fatigue:18,health:95,potential:91,genetics:91,discipline:88,gender:"jument",retired:false,foal:false},
+  {id:2,name:"Caramel",age:12,form:76,fatigue:12,health:92,potential:72,genetics:72,discipline:76,gender:"hongre",retired:false,foal:false}
  ],
- logs:["Bienvenue dans votre première écurie !"]
-};
+ nextId:3
+});
 
-const euro=n=>n.toLocaleString("fr-FR")+" €";
+let game=loadGame();
 
-function message(txt){
- game.logs.unshift(txt);
- game.logs=game.logs.slice(0,6);
+function loadGame(){
+ try{
+  const x=JSON.parse(localStorage.getItem(SAVE_KEY));
+  if(x)return x;
+ }catch(e){}
+ return freshGame();
+}
+
+function saveGame(){
+ localStorage.setItem(SAVE_KEY,JSON.stringify(game));
+}
+
+function euro(n){
+ return Math.round(n).toLocaleString("fr-FR")+" €";
+}
+
+function msg(t){
+ game.logs.unshift(t);
+ game.logs=game.logs.slice(0,8);
+ saveGame();
  render();
 }
 
-function render(){
- document.getElementById("money").textContent="💰 "+euro(game.money);
- document.getElementById("stable").textContent=
-  game.boxes+" boxes · "+game.horses.length+"/"+game.boxes+" chevaux";
- document.getElementById("field").textContent=
-  game.hectares+" ha · "+"⭐".repeat(game.grass)+" · "+game.horses.length+" chevaux";
- document.getElementById("feed").textContent=game.hay+" bottes";
- document.getElementById("time").textContent="Semaine "+game.week+"/52";
+function rand(a,b){
+ return Math.floor(Math.random()*(b-a+1))+a;
+}
 
- document.getElementById("horses").innerHTML=game.horses.map((h,i)=>
-  "<div class='horse'><b>"+h.name+"</b> · "+h.age+" ans<br>"+
-  "Forme "+h.form+"% · Fatigue "+h.fatigue+"% · Potentiel "+h.potential+"%<br>"+
-  "<button onclick='trainHorse("+i+")'>Entraîner</button>"+
-  "<button onclick='healHorse("+i+")'>Repos</button></div>"
- ).join("");
+function seasonName(){
+ return ["Hiver","Printemps","Été","Automne"][Math.floor(((game.week-1)%52)/13)];
+}
+
+function activeHorses(){
+ return game.horses.filter(h=>!h.retired);
+}
+
+function canBuy(){
+ return game.horses.length<game.boxes;
+}
+
+function render(){
+
+ document.getElementById("money").textContent="💰 "+euro(game.money);
+
+ document.getElementById("season").textContent=
+  "Année "+game.year+" · "+seasonName();
+
+ document.getElementById("kpiHorses").textContent=game.horses.length;
+ document.getElementById("kpiBoxes").textContent=game.boxes;
+ document.getElementById("kpiHay").textContent=game.hay;
+ document.getElementById("kpiRep").textContent=game.reputation;
+
+ document.getElementById("stable").innerHTML=
+  `<div class="stat">${game.boxes} boxes · ${game.horses.length}/${game.boxes} occupés</div>
+   <div>${game.boarders}/${game.boarderMax} pensionnaires · Réputation ${game.reputation}</div>`;
+
+ document.getElementById("field").innerHTML=
+  `<div class="stat">${game.hectares} ha · ${"⭐".repeat(game.grass)}</div>
+   <div>${game.grass<=1?"Herbe pauvre":game.grass>=4?"Herbe très riche":"Herbe correcte"}</div>`;
+
+ document.getElementById("feed").innerHTML=
+  `<div class="stat">${game.hay} bottes</div>
+   <div class="small">1 botte par cheval est consommée chaque semaine.</div>`;
+
+ document.getElementById("time").innerHTML=
+  `<div class="stat">Semaine ${game.week}/52</div>
+   <div>${game.competitionWeek?"🏆 Concours déjà disputé":"🏇 Concours disponible"}</div>`;
+
+ document.getElementById("horses").innerHTML=game.horses.map((h,i)=>{
+
+  const status=h.retired?"🧓 Retraité":h.age>=20?"⚠️ Retraite conseillée":"Actif";
+
+  return `<div class="horse">
+
+   <div class="horse-head">
+    <div>
+     <span class="horse-name">🐴 ${h.name}</span><br>
+     <span class="horse-meta">${h.gender} · ${h.age.toFixed(1)} ans</span>
+    </div>
+    <div><span class="badge">${status}</span></div>
+   </div>
+
+   <div class="horse-meta">Forme ${h.form}%</div>
+   <div class="progress"><i style="width:${h.form}%"></i></div>
+
+   <div class="horse-meta">Fatigue ${h.fatigue}% · Santé ${h.health}%</div>
+   <div class="progress"><i style="width:${h.health}%"></i></div>
+
+   <div class="small">
+    Potentiel ${h.potential}% · Génétique ${h.genetics}% · Discipline ${h.discipline}%
+   </div>
+
+   ${!h.retired?`
+   <button onclick="train(${i})">🏇 Entraîner</button>
+   <button onclick="restHorse(${i})" class="secondary">😴 Repos</button>
+   <button onclick="vet(${i})" class="secondary">🩺 Vétérinaire · 1 000 €</button>
+   ${h.age>=18?`<button onclick="retire(${i})" class="red">🧓 Retraite</button>`:""}
+   `:
+   `<button onclick="sellRetired(${i})" class="secondary">Placer / vendre</button>`}
+
+  </div>`;
+
+ }).join("");
+
+ document.getElementById("activities").innerHTML=
+  `<div>Concours cette semaine : ${game.competitionWeek?"oui":"non"}</div>
+   <button onclick="lesson()">🎓 Donner un cours · +120 €</button>
+   <button onclick="competitionMenu()">🏆 Choisir un concours</button>`;
+
+ document.getElementById("competitions").innerHTML=
+  `<b>Club</b> · local<br>
+   <b>Amateur / Régional</b> · niveau supérieur<br>
+   <b>National</b> · bon niveau requis<br>
+   <b>Championnat de France</b> · qualification<br>
+   <b>Jeux Olympiques</b> · qualification rare<br><br>
+   ${game.frenchQualified?"🇫🇷 Qualification France acquise.<br>":""}
+   ${game.olympicQualification?"🌍 Qualification olympique acquise !<br>":""}
+   <button onclick="competitionMenu()">Choisir</button>`;
+
+ document.getElementById("reputation").innerHTML=
+  `Réputation : <b>${game.reputation}</b><br>
+   Capacité pensionnaires : <b>${game.boarderMax}</b><br>
+   <span class="small">La réputation permet surtout d'attirer davantage de pensionnaires.</span>`;
 
  document.getElementById("log").innerHTML=game.logs.join("<br>");
 }
 
 function buildBox(){
- if(game.money<4500)return message("❌ Pas assez d'argent.");
+ if(game.money<4500)return msg("❌ Pas assez d'argent.");
  game.money-=4500;
  game.boxes++;
- message("🏠 Nouveau box construit : -4 500 €.");
+ msg("🏠 Box construit : -4 500 €.");
 }
 
 function buyHay(){
- if(game.money<250)return message("❌ Pas assez d'argent.");
+ if(game.money<250)return msg("❌ Pas assez d'argent.");
  game.money-=250;
  game.hay+=10;
- message("🌾 10 bottes achetées : -250 €.");
+ msg("🌾 10 bottes achetées : -250 €.");
 }
 
 function restField(){
  game.grass=Math.min(4,game.grass+1);
- message("🌱 Prairie mise au repos.");
+ msg("🌱 Prairie mise au repos.");
 }
 
-function trainHorse(i){
+function boardHorse(){
+ if(game.reputation<5)
+  return msg("❌ Il faut davantage de réputation.");
+
+ if(game.boarders>=game.boarderMax)
+  return msg("🏡 Plus de place pour les pensionnaires.");
+
+ game.boarders++;
+ game.money+=250;
+
+ msg("🐴 Nouveau pensionnaire accueilli : +250 €.");
+}
+
+function train(i){
+
  const h=game.horses[i];
- if(!h)return;
- if(h.fatigue>70)return message("😴 "+h.name+" est trop fatigué.");
- h.form=Math.min(100,h.form+4);
+
+ if(!h||h.retired)return;
+
+ if(h.fatigue>70)
+  return msg("😴 "+h.name+" est trop fatigué.");
+
  h.fatigue=Math.min(100,h.fatigue+16);
- message("🏇 Bonne séance pour "+h.name+".");
+ h.form=Math.min(100,h.form+4);
+
+ if(h.age<=13)
+  h.discipline=Math.min(100,h.discipline+1);
+
+ msg("🏇 Bonne séance pour "+h.name+".");
 }
 
-function healHorse(i){
+function restHorse(i){
+
  const h=game.horses[i];
+
+ if(!h)return;
+
  h.fatigue=Math.max(0,h.fatigue-30);
- message("😴 "+h.name+" récupère.");
+ h.form=Math.min(100,h.form+2);
+
+ msg("😴 "+h.name+" récupère.");
+}
+
+function vet(i){
+
+ const h=game.horses[i];
+
+ if(game.money<1000)
+  return msg("❌ Pas assez d'argent.");
+
+ game.money-=1000;
+ h.health=Math.min(100,h.health+12);
+ h.fatigue=Math.max(0,h.fatigue-5);
+
+ msg("🩺 Visite vétérinaire : -1 000 €.");
 }
 
 function lesson(){
  game.money+=120;
- message("🏇 Cours donné : +120 €.");
+ msg("🎓 Cours donné : +120 €.");
 }
 
-function competition(){
- const h=game.horses[0];
- if(h.fatigue>65)return message("😴 "+h.name+" est trop fatigué.");
+function buyAdult(){
+
+ if(!canBuy())
+  return msg("🏡 Aucun box libre.");
+
+ const prices=[2500,5000,8000,12000,18000];
+ const price=prices[rand(0,prices.length-1)];
+
+ const potential=Math.min(98,45+Math.floor(price/500)+rand(-8,8));
+
+ const names=["Naya","Orion","Jupiter","Volt","Eclipse","Tornado","Belle","Rivière"];
+
+ const name=names[rand(0,names.length-1)];
+
+ const gender=Math.random()<.5?"jument":"hongre";
+ const age=rand(4,15);
+
+ const horse={
+  id:game.nextId++,
+  name:name,
+  age:age,
+  form:Math.min(95,50+Math.floor(potential/4)+rand(-8,8)),
+  fatigue:10,
+  health:90,
+  potential:potential,
+  genetics:potential,
+  discipline:rand(55,85),
+  gender:gender,
+  retired:false,
+  foal:false
+ };
+
+ const tryIt=confirm(
+  "🐴 "+name+
+  "\\nPrix : "+euro(price)+
+  "\\nPotentiel estimé : "+potential+
+  "%\\n\\nOK = essayer le cheval\\nAnnuler = ne pas acheter"
+ );
+
+ if(!tryIt)
+  return msg("👀 Cheval observé sans achat.");
+
+ const buy=confirm(
+  "Après essai, acheter "+name+
+  " pour "+euro(price)+" ?"
+ );
+
+ if(!buy)
+  return msg("❌ Achat annulé.");
+
+ if(game.money<price)
+  return msg("❌ Pas assez d'argent.");
+
+ game.money-=price;
+ game.horses.push(horse);
+
+ msg("🐴 "+name+" rejoint l'écurie pour "+euro(price)+".");
+}
+
+function buyFoal(){
+
+ if(!canBuy())
+  return msg("🏡 Aucun box libre.");
+
+ const price=[2000,5000,10000,20000][rand(0,3)];
+
+ const potential=
+  price>=20000?rand(82,98):
+  price>=10000?rand(68,94):
+  rand(45,82);
+
+ const names=["Naya","Orion","Jupiter","Volt","Eclipse","Nova","Rêve"];
+ const name=names[rand(0,names.length-1)];
+
+ const foal={
+  id:game.nextId++,
+  name:name,
+  age:.1,
+  form:45,
+  fatigue:0,
+  health:96,
+  potential:potential,
+  genetics:potential,
+  discipline:20,
+  gender:Math.random()<.5?"jument":"hongre",
+  retired:false,
+  foal:true
+ };
+
+ const buy=confirm(
+  "🐴 Poulain "+name+
+  "\\nPrix : "+euro(price)+
+  "\\nPotentiel : "+potential+
+  "%\\n\\nAcheter ?"
+ );
+
+ if(!buy)
+  return msg("❌ Poulain non acheté.");
+
+ if(game.money<price)
+  return msg("❌ Pas assez d'argent.");
+
+ game.money-=price;
+ game.horses.push(foal);
+
+ msg("🐴 Poulain "+name+" acheté pour "+euro(price)+".");
+}
+
+function competitionMenu(){
+
+ if(game.competitionWeek)
+  return msg("📅 Un seul concours par semaine.");
+
+ const choice=prompt(
+  "Choisis : 1 Club · 2 Amateur/Régional · 3 National · 4 Championnat de France · 5 Jeux Olympiques"
+ );
+
+ if(!choice)return;
+
+ const type=Number(choice);
+
+ if(type===1)return compete("club",50,55,0);
+ if(type===2)return compete("amateur",100,65,3);
+ if(type===3)return compete("national",200,78,7);
+ if(type===4)return compete("france",300,84,10);
+ if(type===5)return compete("olympics",500,92,20);
+
+ msg("❌ Choix invalide.");
+}
+
+function compete(type,entry,minScore,repGain){
+
+ const h=activeHorses()[0];
+
+ if(!h)
+  return msg("❌ Aucun cheval actif.");
+
+ if(h.fatigue>65)
+  return msg("😴 "+h.name+" est trop fatigué.");
+
+ if(type!=="club"&&h.potential<minScore)
+  return msg("❌ "+h.name+" n'a pas encore les moyens nécessaires.");
+
+ if(game.money<entry)
+  return msg("❌ Pas assez d'argent.");
+
+ game.money-=entry;
+
+ const score=Math.max(
+  0,
+  Math.round((h.form+h.discipline+h.genetics)/3-Math.random()*25)
+ );
+
  h.fatigue=Math.min(100,h.fatigue+35);
- const score=Math.max(0,Math.round(h.form-Math.random()*35));
- const gain=score>80?700:score>60?300:0;
+ game.competitionWeek=true;
+
+ let gain=0;
+
+ if(score>=90)
+  gain=type==="olympics"?5000:700;
+ else if(score>=80)
+  gain=type==="france"?1500:type==="national"?900:300;
+ else if(score>=65)
+  gain=type==="club"?120:0;
+
  game.money+=gain;
 
- if(score>80)message("🥇 "+h.name+" gagne ! +"+euro(gain)+".");
- else if(score>60)message("🏅 Bon classement ! +"+euro(gain)+".");
- else message("❌ Concours difficile pour "+h.name+".");
+ if(score>=80)
+  game.reputation+=repGain;
+
+ if(type==="france"&&score>=85)
+  game.frenchQualified=true;
+
+ if(type==="olympics"&&score>=92)
+  game.olympicQualification=true;
+
+ const label={
+  club:"Club",
+  amateur:"Amateur/Régional",
+  national:"National",
+  france:"Championnat de France",
+  olympics:"Jeux Olympiques"
+ }[type];
+
+ msg(
+  "🏆 "+label+" : "+h.name+
+  " obtient "+score+"/100"+
+  (gain?" · +"+euro(gain):"")
+ );
 }
 
-function buyHorse(){
- if(game.horses.length>=game.boxes)
-  return message("🏡 Plus de box disponible.");
+function breed(){
 
- if(game.money<6000)
-  return message("❌ Pas assez d'argent.");
+ const mares=game.horses.filter(
+  h=>!h.retired&&h.gender==="jument"&&h.age>=3&&h.age<=18
+ );
 
- game.money-=6000;
+ const stallions=game.horses.filter(
+  h=>!h.retired&&["étalon","mâle"].includes(h.gender)&&h.age>=3&&h.age<=18
+ );
 
- const names=["Naya","Orion","Jupiter","Volt","Eclipse"];
- const name=names[Math.floor(Math.random()*names.length)];
+ if(!mares.length||!stallions.length)
+  return msg("🧬 Il faut une jument et un mâle/étalon compatibles.");
 
- game.horses.push({
+ if(!canBuy())
+  return msg("🏡 Aucun box libre pour le poulain.");
+
+ const mare=mares[0];
+ const stallion=stallions[0];
+
+ const genetics=Math.min(
+  99,
+  Math.round((mare.genetics+stallion.genetics)/2)+rand(-10,10)
+ );
+
+ const name=prompt("Nom du poulain :");
+
+ if(!name)
+  return msg("❌ Naissance annulée.");
+
+ const foal={
+  id:game.nextId++,
   name:name,
-  age:5+Math.floor(Math.random()*6),
-  form:65,
-  potential:55+Math.floor(Math.random()*40),
-  fatigue:10
- });
+  age:0,
+  form:40,
+  fatigue:0,
+  health:96,
+  potential:genetics,
+  genetics:genetics,
+  discipline:10,
+  gender:Math.random()<.5?"jument":"hongre",
+  retired:false,
+  foal:true
+ };
 
- message("🐴 "+name+" rejoint l'écurie : -6 000 €.");
+ game.horses.push(foal);
+
+ msg("🍼 "+name+" est né ! Potentiel : "+genetics+"%.");
+}
+
+function retire(i){
+
+ const h=game.horses[i];
+
+ if(!h)return;
+
+ h.retired=true;
+
+ msg("🧓 "+h.name+" prend sa retraite.");
+}
+
+function sellRetired(i){
+
+ const h=game.horses[i];
+
+ if(!h||!h.retired)return;
+
+ game.money+=500;
+ game.horses.splice(i,1);
+
+ msg("🏡 "+h.name+" quitte l'écurie : +500 €.");
 }
 
 function nextWeek(){
+
  if(game.money<350)
-  return message("❌ Pas assez d'argent pour les charges.");
+  return msg("❌ Pas assez d'argent pour les charges.");
 
  game.money-=350;
  game.week++;
+ game.competitionWeek=false;
 
  game.horses.forEach(h=>{
-  h.fatigue=Math.max(0,h.fatigue-20);
-  h.form=Math.min(100,h.form+2);
+
+  if(!h.retired){
+
+   h.age+=1/52;
+   h.fatigue=Math.max(0,h.fatigue-20);
+
+   if(Math.random()<.03)
+    h.health=Math.max(0,h.health-rand(1,5));
+
+   if(h.fatigue<35)
+    h.form=Math.min(100,h.form+2);
+
+   if(h.age<=13&&h.form>50&&h.health>70)
+    h.potential=Math.min(100,h.potential+.2);
+
+   if(h.age>=20)
+    h.health=Math.max(0,h.health-1);
+  }
  });
 
- if(game.hay>0)
-  game.hay=Math.max(0,game.hay-game.horses.length);
+ const active=game.horses.filter(h=>!h.retired).length;
 
- message("📅 Une semaine passe : -350 €.");
+ if(game.hay>=active)
+  game.hay-=active;
+ else{
+
+  game.hay=0;
+
+  game.horses.forEach(h=>{
+   if(!h.retired)
+    h.health=Math.max(0,h.health-4);
+  });
+
+  game.logs.unshift(
+   "⚠️ Plus assez de fourrage : la santé des chevaux baisse."
+  );
+ }
+
+ if(game.week>52){
+
+  game.week=1;
+  game.year++;
+
+  game.frenchQualified=false;
+  game.olympicQualification=false;
+
+  game.horses.forEach(h=>{
+   if(h.age>=18)
+    game.logs.unshift("🧓 "+h.name+" approche de la retraite.");
+  });
+
+  if(game.reputation>=10)game.boarderMax=1;
+  if(game.reputation>=25)game.boarderMax=2;
+  if(game.reputation>=50)game.boarderMax=4;
+
+  msg("🎉 Nouvelle année !");
+ }
+ else{
+  saveGame();
+  render();
+ }
 }
 
 render();
