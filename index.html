@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mon Écurie — V0.1</title>
+<style>
+body{margin:0;font-family:system-ui;background:#f3eee6;color:#2d261f}header{background:#604633;color:#fff;padding:16px}main{max-width:900px;margin:auto;padding:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.card{background:#fff;padding:14px;border-radius:12px;box-shadow:0 2px 8px #0001}button{border:0;border-radius:8px;padding:10px;margin:3px;background:#604633;color:#fff}button:disabled{opacity:.45}
+.stat{font-size:18px}.horse{border-top:1px solid #ddd;padding:10px 0}.log{background:#211c18;color:#eee;padding:12px;border-radius:10px;line-height:1.6}
+</style><body><header><h1>🐴 Mon Écurie — V0.1</h1><div id="cash"></div></header><main>
+<div class="grid">
+<div class="card"><h2>🏡 Écurie</h2><div id="stable"></div><button onclick="box()">Construire un box · 4 500 €</button></div>
+<div class="card"><h2>🌱 Prairie</h2><div id="field"></div><button onclick="rest()">Repos de la prairie</button></div>
+<div class="card"><h2>🌾 Fourrage</h2><div id="feed"></div><button onclick="hay()">Acheter 10 bottes · 250 €</button></div>
+<div class="card"><h2>📅 Temps</h2><div id="time"></div><button onclick="week()">Passer une semaine</button></div>
+</div>
+<h2>🐎 Chevaux</h2><div id="horses" class="card"></div>
+<h2>🏆 Activités</h2><button onclick="train(0)">Entraîner Luna</button><button onclick="show()">Faire un concours</button><button onclick="buy()">Acheter un cheval · 6 000 €</button><button onclick="lesson()">Donner un cours · +120 €</button>
+<h2>📜 Journal</h2><div id="log" class="log"></div>
+</main>
+<script>
+const s={money:12000,boxes:4,ha:2,q:3,n:2,rest:false,hay:12,w:1,
+horses:[{name:"Luna",age:8,form:82,fat:18,pot:91},{name:"Caramel",age:12,form:76,fat:12,pot:72}],logs:["Bienvenue dans votre première écurie !"]};
+const €=n=>n.toLocaleString("fr-FR")+" €";
+function say(x){s.logs.unshift(x);s.logs=s.logs.slice(0,6)}
+function render(){cash.innerHTML="💰 <b>"+€(s.money)+"</b>";stable.innerHTML=`${s.boxes} boxes · ${s.horses.length}/${s.boxes} chevaux`;field.innerHTML=`${s.ha} ha · ${"⭐".repeat(s.q)} · ${s.n} chevaux · ${s.rest?"au repos":"pâturage"}`;feed.innerHTML=`${s.hay} bottes`;time.innerHTML=`Semaine ${s.w}/52`;
+horses.innerHTML=s.horses.map((h,i)=>`<div class="horse"><b>${h.name}</b> · ${h.age} ans<br>Forme ${h.form}% · Fatigue ${h.fat}% · Potentiel ${h.pot}%<br><button onclick="train(${i})">Entraîner</button><button onclick="heal(${i})">Repos</button></div>`).join("");log.innerHTML=s.logs.join("<br>")}
+function box(){if(s.money<4500)return say("❌ Pas assez d'argent.");s.money-=4500;s.boxes++;say("🏡 Nouveau box construit.");render()}
+function hay(){if(s.money<250)return say("❌ Pas assez d'argent.");s.money-=250;s.hay+=10;say("🌾 10 bottes achetées.");render()}
+function rest(){s.rest=true;s.q=Math.min(4,s.q+1);say("🌱 Prairie mise au repos.");render()}
+function train(i){let h=s.horses[i];if(h.fat>70)return say("😴 "+h.name+" est trop fatigué.");h.form=Math.min(100,h.form+4);h.fat=Math.min(100,h.fat+16);say("🏇 Bonne séance pour "+h.name+".");render()}
+function heal(i){s.horses[i].fat=Math.max(0,s.horses[i].fat-30);say("😴 "+s.horses[i].name+" récupère.");render()}
+function lesson(){s.money+=120;say("🏇 Cours donné : +120 €.");render()}
+function show(){let h=s.horses[0];if(h.fat>65)return say("😴 "+h.name+" est trop fatigué.");h.fat=Math.min(100,h.fat+35);let score=Math.max(0,Math.round(h.form-Math.random()*35));let g=score>80?700:score>60?300:0;s.money+=g;say(score>80?"🥇 "+h.name+" gagne ! +"+€(g):score>60?"🏅 Bon classement pour "+h.name+". +"+€(g):"❌ Concours difficile pour "+h.name+".");render()}
+function buy(){if(s.horses.length>=s.boxes)return say("🏡 Plus de box disponible.");if(s.money<6000)return say("❌ Pas assez d'argent.");s.money-=6000;let names=["Naya","Orion","Jupiter","Volt","Eclipse"],n=names[Math.floor(Math.random()*names.length)];s.horses.push({name:n,age:5+Math.floor(Math.random()*6),form:65,pot:55+Math.floor(Math.random()*40),fat:10});say("🐴 "+n+" rejoint l'écurie.");render()}
+function week(){s.w++;s.money-=350;s.horses.forEach(h=>{h.fat=Math.max(0,h.fat-20);h.form=Math.min(100,h.form+2)});if(!s.rest&&s.n/s.ha>3)s.q=Math.max(1,s.q-1);if(s.rest){s.q=Math.min(4,s.q+1);if(s.q>=3)s.rest=false}if(s.hay>0)s.hay=Math.max(0,s.hay-s.horses.length);say("📅 Une semaine passe. Charges : 350 €.");render()}
+render();
+</script></body></html>
