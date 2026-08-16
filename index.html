@@ -18,7 +18,7 @@ body{margin:0;font-family:system-ui;background:#f3eee6;color:#2d261f}header{back
 <h2>📜 Journal</h2><div id="log" class="log"></div>
 </main>
 <script>
-const s={money:12000,boxes:4,ha:2,q:3,n:2,rest:false,hay:12,w:1,
+const s={money:12000,boxes:4,ha:2,q:3,n:2,rest:false,hay:12,w:1,logs:[],
 horses:[{name:"Luna",age:8,form:82,fat:18,pot:91},{name:"Caramel",age:12,form:76,fat:12,pot:72}],logs:["Bienvenue dans votre première écurie !"]};
 const euro=n=>n.toLocaleString("fr-FR")+" €";
 function say(x){s.logs.unshift(x);s.logs=s.logs.slice(0,6)}
