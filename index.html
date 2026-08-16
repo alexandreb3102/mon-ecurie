@@ -3,77 +3,75 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mon Écurie — V0.4</title>
+<title>Mon Écurie — V0.6</title>
 <style>
 *{box-sizing:border-box}
-:root{--bg:#e9dfd2;--panel:#fffdf9;--ink:#302821;--muted:#766b61;--brown:#5a4030;--brown2:#80614b;--green:#52734d;--line:#dfd2c4}
+:root{--bg:#e8ddcf;--panel:#fffdf9;--ink:#302821;--muted:#75695f;--brown:#5a4030;--brown2:#80604a;--green:#52734d;--gold:#b88732;--line:#ddcfc0;--danger:#a44b3f}
 body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
-header{background:linear-gradient(135deg,#493428,#79573f);color:#fff;padding:14px;position:sticky;top:0;z-index:20;box-shadow:0 3px 15px #0004}
+header{background:linear-gradient(135deg,#493428,#79573f);color:white;padding:14px;position:sticky;top:0;z-index:20;box-shadow:0 3px 15px #0004}
 .top{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.brand h1{margin:0;font-size:24px}.brand small{opacity:.8}
-.wallet{text-align:right;background:#fff2;border:1px solid #fff3;padding:8px 12px;border-radius:12px}
+.brand h1{margin:0;font-size:25px}.brand small{opacity:.8}
+.wallet{background:#fff2;border:1px solid #fff3;border-radius:12px;padding:7px 12px;text-align:right}
 .money{font-size:22px;font-weight:850}
-nav{max-width:1100px;margin:10px auto 0;display:flex;gap:6px;overflow:auto}
-nav button{white-space:nowrap}
+nav{max-width:1100px;margin:10px auto 0;display:flex;gap:5px;overflow:auto}
+button{border:0;border-radius:10px;padding:10px 13px;margin:3px;background:var(--brown);color:#fff;font-weight:700;cursor:pointer}
+button.green{background:var(--green)}button.gold{background:var(--gold)}button.red{background:var(--danger)}button.light{background:#eee2d5;color:var(--ink)}
 main{max-width:1100px;margin:auto;padding:14px}
-button{border:0;border-radius:10px;padding:10px 13px;margin:3px;background:var(--brown);color:#fff;font-weight:700}
-button.secondary{background:var(--brown2)}
-button.green{background:var(--green)}
+.view{display:none}.view.active{display:block}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:13px;box-shadow:0 3px 14px #0000000c}
-.dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.kpi{background:#f5eee6;border-radius:12px;padding:10px}
-.kpi b{display:block;font-size:19px}
-.kpi span{font-size:12px;color:var(--muted)}
+.dashboard{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.kpi{background:#f5eee6;border-radius:12px;padding:10px}.kpi b{display:block;font-size:19px}.kpi span{font-size:12px;color:var(--muted)}
+.location-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.location{background:#f5eee6;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;cursor:pointer}
+.location .icon{font-size:34px}.location b{display:block;margin-top:4px}
 .scene{min-height:330px;border-radius:16px;position:relative;overflow:hidden;border:3px solid #c8b39c}
 .stable{background:linear-gradient(#b8d0df 0 35%,#9c7758 35% 39%,#6e4932 39% 100%)}
 .field{background:linear-gradient(#a9d0e2 0 35%,#78a55d 35% 100%)}
 .arena{background:linear-gradient(#a9d0e2 0 35%,#d7c09b 35% 100%)}
-.sun{position:absolute;right:25px;top:22px;font-size:38px}
-.cloud{position:absolute;left:20px;top:30px;font-size:35px;opacity:.7}
-.stable-building{position:absolute;left:8%;right:8%;bottom:18px;height:190px;background:#765039;border:5px solid #4e3526;border-radius:8px 8px 3px 3px}
-.roof{position:absolute;left:-3%;right:-3%;top:-28px;height:38px;background:#543a2b;clip-path:polygon(4% 100%,50% 0,96% 100%)}
-.boxes{height:100%;display:grid;grid-template-columns:repeat(4,1fr);padding:24px 10px 10px;gap:8px}
-.box{background:#5c3c2b;border:3px solid #39261c;border-radius:5px;position:relative;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;cursor:pointer}
+.sun{position:absolute;right:25px;top:22px;font-size:38px}.cloud{position:absolute;left:20px;top:30px;font-size:35px;opacity:.7}
+.stable-building{position:absolute;left:7%;right:7%;bottom:18px;height:205px;background:#765039;border:5px solid #4e3526;border-radius:8px}
+.roof{position:absolute;left:-3%;right:-3%;top:-31px;height:43px;background:#543a2b;clip-path:polygon(4% 100%,50% 0,96% 100%)}
+.boxes{height:100%;display:grid;grid-template-columns:repeat(4,1fr);padding:27px 10px 10px;gap:8px}
+.box{background:#5c3c2b;border:3px solid #39261c;border-radius:5px;position:relative;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;cursor:pointer;overflow:hidden}
 .door{position:absolute;left:8px;right:8px;bottom:8px;height:70%;border:3px solid #2f2018;background:#7a563c}
-.horseEmoji{font-size:38px;position:relative;z-index:2}
-.nameplate{position:absolute;top:5px;left:4px;right:4px;text-align:center;background:#e8d6ae;color:#3d2c20;border-radius:4px;font-size:11px;font-weight:800;padding:2px}
+.horseEmoji{font-size:39px;position:relative;z-index:2}.nameplate{position:absolute;top:5px;left:4px;right:4px;text-align:center;background:#e8d6ae;color:#3d2c20;border-radius:4px;font-size:11px;font-weight:800;padding:2px;z-index:3}
 .fence{position:absolute;left:3%;right:3%;bottom:12%;height:60%;border:5px solid #f2eadc;box-shadow:inset 0 0 0 4px #b89b77}
-.tree{position:absolute;font-size:58px}
-.tree.one{left:5%;bottom:12%}.tree.two{right:6%;bottom:18%}
-.water{position:absolute;left:42%;bottom:12%;font-size:42px}
-.fieldHorse{position:absolute;font-size:48px;cursor:pointer}
-.fieldHorse.a{left:28%;bottom:28%}.fieldHorse.b{right:25%;bottom:38%}
-.arenaFence{position:absolute;left:12%;right:12%;bottom:12%;height:55%;border:8px solid #eee0c6}
-.jump{position:absolute;left:44%;bottom:28%;font-size:72px}
-.arenaHorse{position:absolute;left:24%;bottom:31%;font-size:52px}
-.location-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.location{background:#f5eee6;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;cursor:pointer}
-.location b{display:block;margin-top:5px}
-.horse-card{border:1px solid var(--line);background:#fff;border-radius:13px;padding:12px;margin:8px 0}
-.horse-head{display:flex;justify-content:space-between}
-.badge{display:inline-block;background:#eee2d5;padding:4px 8px;border-radius:12px;font-size:12px;margin:2px}
-.bar{height:7px;background:#eee7de;border-radius:99px;overflow:hidden;margin:3px 0 7px}
-.bar i{display:block;height:100%;background:var(--brown)}
-.log{background:#211c18;color:#eee;border-radius:12px;padding:12px;line-height:1.6}
-.small{font-size:13px;color:var(--muted)}
-@media(max-width:700px){
+.tree{position:absolute;font-size:58px}.tree.one{left:5%;bottom:12%}.tree.two{right:6%;bottom:18%}
+.water{position:absolute;left:42%;bottom:12%;font-size:42px}.fieldHorse{position:absolute;font-size:48px;cursor:pointer}
+.fieldHorse.a{left:28%;bottom:28%}.fieldHorse.b{right:25%;bottom:38%}.arenaFence{position:absolute;left:12%;right:12%;bottom:12%;height:55%;border:8px solid #eee0c6}
+.jump{position:absolute;left:44%;bottom:28%;font-size:72px}.arenaHorse{position:absolute;left:24%;bottom:31%;font-size:52px}
+.horse-card{border:1px solid var(--line);background:white;border-radius:13px;padding:12px;margin:8px 0}
+.horse-head{display:flex;justify-content:space-between;gap:8px}.badge{display:inline-block;background:#eee2d5;padding:4px 8px;border-radius:12px;font-size:12px;margin:2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.bar{height:8px;background:#eee7de;border-radius:99px;overflow:hidden;margin:3px 0 8px}.bar i{display:block;height:100%;background:var(--brown)}
+.small{font-size:13px;color:var(--muted)}.log{background:#211c18;color:#eee;border-radius:12px;padding:12px;line-height:1.6}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.stat{background:#f5eee6;border-radius:10px;padding:9px}.stat b{font-size:18px}.stat span{display:block;font-size:11px;color:var(--muted)}
+.facility-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.facility{background:#f5eee6;border:1px solid var(--line);border-radius:12px;padding:12px}
+.horse-actions{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left}th{background:#f5eee6}
+@media(max-width:750px){
 .dashboard{grid-template-columns:repeat(2,1fr)}
 .location-grid{grid-template-columns:repeat(2,1fr)}
+.grid2{grid-template-columns:1fr}
 .boxes{grid-template-columns:repeat(2,1fr)}
-.stable-building{height:220px}
+.stable-building{height:235px}
 .top{align-items:flex-start}
 .brand h1{font-size:20px}
+.facility-grid{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
+
 <body>
 
 <header>
 <div class="top">
 <div class="brand">
 <h1>🐴 Mon Écurie</h1>
-<small>Ton domaine équestre · V0.4</small>
+<small>Gestion de ton domaine · V0.6</small>
 </div>
+
 <div class="wallet">
 <div id="money" class="money"></div>
 <div id="date"></div>
@@ -86,52 +84,83 @@ button.green{background:var(--green)}
 <button onclick="show('field')">🌳 Prés</button>
 <button onclick="show('arena')">🏇 Carrière</button>
 <button onclick="show('horses')">📋 Chevaux</button>
+<button onclick="show('services')">🩺 Soins</button>
 <button onclick="show('market')">🛒 Marché</button>
 </nav>
 </header>
 
 <main>
 
-<section id="home" class="view">
+<section id="home" class="view active">
 
 <div class="panel">
 <h2>🌅 Mon domaine</h2>
 
 <div class="dashboard">
+<div class="kpi"><b id="kMoney">0 €</b><span>Trésorerie</span></div>
 <div class="kpi"><b id="kHorses">0</b><span>Chevaux</span></div>
 <div class="kpi"><b id="kBoxes">0</b><span>Boxes</span></div>
-<div class="kpi"><b id="kHay">0</b><span>Bottes</span></div>
+<div class="kpi"><b id="kHay">0</b><span>Bottes de foin</span></div>
 <div class="kpi"><b id="kRep">0</b><span>Réputation</span></div>
 </div>
 </div>
 
 <div class="panel">
-<h2>🗺️ Vue du domaine</h2>
+<h2>🗺️ Ton domaine</h2>
 
 <div class="location-grid">
 
 <div class="location" onclick="show('stable')">
-🏡
+<div class="icon">🏡</div>
 <b>Écurie</b>
-<span class="small">Tes boxes</span>
+<span class="small">Boxes et chevaux</span>
 </div>
 
 <div class="location" onclick="show('field')">
-🌳
+<div class="icon">🌳</div>
 <b>Prés</b>
 <span class="small">Pâturage</span>
 </div>
 
 <div class="location" onclick="show('arena')">
-🏇
+<div class="icon">🏇</div>
 <b>Carrière</b>
-<span class="small">Entraînement</span>
+<span class="small">Travail et concours</span>
+</div>
+
+<div class="location" onclick="show('services')">
+<div class="icon">🩺</div>
+<b>Soins</b>
+<span class="small">Vétérinaire et maréchal</span>
 </div>
 
 <div class="location" onclick="show('market')">
-🛒
+<div class="icon">🛒</div>
 <b>Marché</b>
-<span class="small">Chevaux</span>
+<span class="small">Acheter un cheval</span>
+</div>
+
+</div>
+</div>
+
+<div class="panel">
+<h2>🏗️ Installations</h2>
+
+<div class="facility-grid">
+
+<div class="facility">
+<b>🏡 Écurie</b><br>
+<span id="facBoxes" class="small"></span>
+</div>
+
+<div class="facility">
+<b>🌳 Prés</b><br>
+<span id="facField" class="small"></span>
+</div>
+
+<div class="facility">
+<b>🏇 Carrière</b><br>
+<span id="facArena" class="small"></span>
 </div>
 
 </div>
@@ -144,7 +173,8 @@ button.green{background:var(--green)}
 
 </section>
 
-<section id="stable" class="view" style="display:none">
+
+<section id="stable" class="view">
 
 <div class="panel">
 
@@ -166,27 +196,23 @@ button.green{background:var(--green)}
 </div>
 
 <p class="small">
-Clique sur un box pour consulter le cheval qui s'y trouve.
+Clique sur un box pour consulter et gérer le cheval qui s'y trouve.
 </p>
 
-<button onclick="buildBox()">
-➕ Construire un box · 4 500 €
-</button>
-
-<button onclick="buyHay()" class="secondary">
-🌾 Acheter 10 bottes · 250 €
-</button>
+<button onclick="buildBox()">➕ Construire un box · 4 500 €</button>
+<button onclick="buyHay()" class="light">🌾 Acheter 10 bottes · 250 €</button>
 
 </div>
 
 <div class="panel">
-<h2>🧹 Gestion</h2>
+<h2>🧹 Gestion de l'écurie</h2>
 <div id="stableInfo"></div>
 </div>
 
 </section>
 
-<section id="field" class="view" style="display:none">
+
+<section id="field" class="view">
 
 <div class="panel">
 
@@ -207,13 +233,8 @@ Clique sur un box pour consulter le cheval qui s'y trouve.
 
 </div>
 
-<button onclick="restField()">
-🌱 Mettre le pré au repos
-</button>
-
-<button onclick="moveHorseToField()" class="green">
-🐴 Mettre un cheval au pré
-</button>
+<button onclick="restField()">🌱 Mettre le pré au repos</button>
+<button onclick="moveHorseToField()" class="green">🐴 Mettre un cheval au pré</button>
 
 <div id="fieldInfo"></div>
 
@@ -221,7 +242,8 @@ Clique sur un box pour consulter le cheval qui s'y trouve.
 
 </section>
 
-<section id="arena" class="view" style="display:none">
+
+<section id="arena" class="view">
 
 <div class="panel">
 
@@ -236,27 +258,32 @@ Clique sur un box pour consulter le cheval qui s'y trouve.
 
 </div>
 
-<button onclick="train(0)">
-🏇 Entraîner Luna
-</button>
-
-<button onclick="competitionMenu()">
-🏆 Faire un concours
-</button>
+<button onclick="train(0)">🏇 Entraîner Luna</button>
+<button onclick="competitionMenu()" class="gold">🏆 Concours</button>
 
 <div class="small">
-La carrière sert à améliorer la forme et la discipline.
+L'entraînement améliore la forme et la discipline mais augmente la fatigue.
 </div>
 
+</div>
+
+<div class="panel">
+<h2>🏆 Progression</h2>
+<div id="competitionInfo"></div>
 </div>
 
 </section>
 
-<section id="horses" class="view" style="display:none">
+
+<section id="horses" class="view">
 
 <div class="panel">
 
 <h2>🐎 Mes chevaux</h2>
+
+<div class="small">
+V0.6 · Chaque cheval peut maintenant être géré individuellement depuis sa fiche.
+</div>
 
 <div id="horseList"></div>
 
@@ -264,23 +291,62 @@ La carrière sert à améliorer la forme et la discipline.
 
 </section>
 
-<section id="market" class="view" style="display:none">
+
+<section id="services" class="view">
+
+<div class="panel">
+
+<h2>🩺 Soins et professionnels</h2>
+
+<div class="grid2">
+
+<div class="horse-card">
+<h3>🩺 Vétérinaire</h3>
+<p>Récupère 30 points de santé.</p>
+<button onclick="vet()">Visite · 250 €</button>
+</div>
+
+<div class="horse-card">
+<h3>🔨 Maréchal-ferrant</h3>
+<p>Améliore la forme et la condition du cheval.</p>
+<button onclick="farrier()">Ferrure · 180 €</button>
+</div>
+
+<div class="horse-card">
+<h3>🦷 Dentiste</h3>
+<p>Entretien et amélioration de la santé.</p>
+<button onclick="dentist()">Soins dentaires · 220 €</button>
+</div>
+
+<div class="horse-card">
+<h3>💆 Ostéopathe</h3>
+<p>Réduit fortement la fatigue.</p>
+<button onclick="osteo()">Séance · 200 €</button>
+</div>
+
+</div>
+</div>
+
+<div class="panel">
+<h2>📖 Carnet du dernier cheval</h2>
+<div id="careInfo"></div>
+</div>
+
+</section>
+
+
+<section id="market" class="view">
 
 <div class="panel">
 
 <h2>🛒 Marché aux chevaux</h2>
 
 <p class="small">
-Les prix et les qualités varient. Les poulains peuvent avoir un gros potentiel.
+Les prix et qualités sont variables. Les meilleurs chevaux sont rares.
 </p>
 
-<button onclick="buyAdult()">
-🐴 Chercher un cheval adulte
-</button>
-
-<button onclick="buyFoal()">
-🍼 Chercher un poulain
-</button>
+<button onclick="buyAdult()">🐴 Chercher un cheval adulte</button>
+<button onclick="buyFoal()">🍼 Chercher un poulain</button>
 
 </div>
 
@@ -288,17 +354,13 @@ Les prix et les qualités varient. Les poulains peuvent avoir un gros potentiel.
 
 <h2>🏗️ Développement</h2>
 
-<button onclick="buildBox()">
-Construire un box · 4 500 €
-</button>
-
-<button onclick="buyHay()">
-Acheter du fourrage · 250 €
-</button>
+<button onclick="buildBox()">Construire un box · 4 500 €</button>
+<button onclick="buyHay()">Acheter du fourrage · 250 €</button>
 
 </div>
 
 </section>
+
 
 <section class="panel">
 
@@ -306,15 +368,11 @@ Acheter du fourrage · 250 €
 
 <div id="weekInfo"></div>
 
-<button onclick="nextWeek()">
-⏭️ Passer une semaine · 350 €
-</button>
-
-<button onclick="lesson()">
-🎓 Donner un cours · +120 €
-</button>
+<button onclick="nextWeek()">⏭️ Passer une semaine · 350 €</button>
+<button onclick="lesson()">🎓 Donner un cours · +120 €</button>
 
 </section>
+
 
 <section class="panel">
 
@@ -326,28 +384,53 @@ Acheter du fourrage · 250 €
 
 </main>
 
+
+<div id="horseModal" style="display:none;position:fixed;inset:0;background:#0008;z-index:50;padding:18px;overflow:auto">
+
+<div class="panel" style="max-width:650px;margin:5vh auto">
+
+<div style="display:flex;justify-content:space-between;align-items:center">
+
+<h2 id="modalTitle">🐴 Cheval</h2>
+
+<button class="light" onclick="closeHorse()">✕</button>
+
+</div>
+
+<div id="modalBody"></div>
+
+</div>
+
+</div>
+
+
 <script>
 
-const KEY="mon-ecurie-v04";
+const KEY="mon-ecurie-v06";
 
 const fresh=()=>({
 
 money:12000,
+
 boxes:4,
+
 hectares:2,
+
 grass:3,
+
 hay:12,
+
 week:1,
+
 year:1,
+
 reputation:0,
-boarders:0,
-boarderMax:0,
-competitionWeek:false,
+
 nextId:3,
 
-logs:[
-"🐴 Bienvenue dans ton nouveau domaine !"
-],
+lastHorse:1,
+
+logs:["🐴 Bienvenue dans ton nouveau domaine !"],
 
 horses:[
 
@@ -361,8 +444,7 @@ health:95,
 potential:91,
 genetics:91,
 discipline:88,
-gender:"jument",
-retired:false,
+gender:"Jument",
 field:false
 },
 
@@ -376,14 +458,14 @@ health:92,
 potential:72,
 genetics:72,
 discipline:76,
-gender:"hongre",
-retired:false,
+gender:"Hongre",
 field:false
 }
 
 ]
 
 });
+
 
 let g=(()=>{
 
@@ -396,21 +478,28 @@ return fresh();
 
 })();
 
-const euro=n=>Math.round(n).toLocaleString("fr-FR")+" €";
+
+const euro=n=>
+Math.round(n).toLocaleString("fr-FR")+" €";
+
 
 const season=()=>
 ["Hiver","Printemps","Été","Automne"]
 [Math.floor(((g.week-1)%52)/13)];
 
+
 const msg=t=>{
 
 g.logs.unshift(t);
-g.logs=g.logs.slice(0,8);
+
+g.logs=g.logs.slice(0,10);
 
 save();
+
 render();
 
 };
+
 
 function save(){
 
@@ -418,56 +507,87 @@ localStorage.setItem(KEY,JSON.stringify(g));
 
 }
 
+
 function show(id){
 
 document.querySelectorAll(".view")
-.forEach(x=>x.style.display="none");
+.forEach(x=>x.classList.remove("active"));
 
-document.getElementById(id).style.display="block";
+document.getElementById(id)
+.classList.add("active");
 
 render();
 
 }
 
+
 function render(){
 
-document.getElementById("money").textContent=
+money.textContent=
 "💰 "+euro(g.money);
 
-document.getElementById("date").textContent=
-"Année "+g.year+" · "+season()+" · Semaine "+g.week+"/52";
+date.textContent=
+"Année "+g.year+
+" · "+season()+
+" · Semaine "+g.week+"/52";
 
-document.getElementById("kHorses").textContent=
+kMoney.textContent=euro(g.money);
+
+kHorses.textContent=
 g.horses.length;
 
-document.getElementById("kBoxes").textContent=
+kBoxes.textContent=
 g.boxes;
 
-document.getElementById("kHay").textContent=
+kHay.textContent=
 g.hay;
 
-document.getElementById("kRep").textContent=
+kRep.textContent=
 g.reputation;
 
-document.getElementById("homeLog").innerHTML=
-g.logs.slice(0,4).join("<br>");
+homeLog.innerHTML=
+g.logs.slice(0,5).join("<br>");
 
-document.getElementById("log").innerHTML=
+log.innerHTML=
 g.logs.join("<br>");
 
-document.getElementById("weekInfo").innerHTML=
-`<b>Semaine ${g.week}/52</b> · ${season()} · ${g.hay} bottes`;
+weekInfo.innerHTML=
+`<b>Semaine ${g.week}/52</b> · ${season()} · ${g.hay} bottes de foin`;
 
-document.getElementById("stableInfo").innerHTML=
-`${g.boxes} boxes · ${g.horses.length}/${g.boxes} occupés · ${g.hectares} ha de prés`;
+stableInfo.innerHTML=
+`🏡 ${g.boxes} boxes ·
+${g.horses.filter(h=>!h.field).length} à l'écurie ·
+${g.horses.filter(h=>h.field).length} au pré`;
 
-document.getElementById("fieldInfo").innerHTML=
-`🌱 Herbe : ${g.grass}/4 · ${g.horses.filter(h=>h.field).length} cheval(aux) au pré`;
+fieldInfo.innerHTML=
+`<p>🌱 Herbe : ${g.grass}/4 ·
+${g.horses.filter(h=>h.field).length} cheval(aux) au pré.</p>`;
 
-document.getElementById("boxView").innerHTML=
+competitionInfo.innerHTML=
+`🏆 Réputation : <b>${g.reputation}</b><br>
+<span class="small">
+Club → Amateur → National → Championnat de France
+</span>`;
+
+careInfo.innerHTML=
+g.horses.find(h=>h.id===g.lastHorse)?.name||
+"Aucun cheval";
+
+facBoxes.textContent=
+`${g.boxes} boxes · ${g.horses.length}/${g.boxes} occupés`;
+
+facField.textContent=
+`${g.hectares} hectare(s) · herbe ${g.grass}/4`;
+
+facArena.textContent=
+`Disponible · niveau ${Math.max(1,Math.floor(g.reputation/10)+1)}`;
+
+
+boxView.innerHTML=
 Array.from({length:g.boxes},(_,i)=>{
 
-const h=g.horses[i];
+const h=
+g.horses.filter(x=>!x.field)[i];
 
 return `
 <div class="box"
@@ -479,24 +599,31 @@ ${h?h.name:"Box "+(i+1)}
 
 <div class="door"></div>
 
-${h?`<div class="horseEmoji">🐴</div>`:""}
+${h?
+`<div class="horseEmoji">🐴</div>`:
+""}
 
 </div>
 `;
 
 }).join("");
 
-document.getElementById("fieldHorses").innerHTML=
+
+fieldHorses.innerHTML=
 g.horses
-.filter(h=>h.field&&!h.retired)
+.filter(h=>h.field)
 .map((h,i)=>
 `<div class="fieldHorse ${i%2?"b":"a"}"
-onclick="horseInfo(${h.id})">🐴</div>`
+onclick="horseInfo(${h.id})">
+🐴
+</div>`
 )
 .join("");
 
-document.getElementById("horseList").innerHTML=
+
+horseList.innerHTML=
 g.horses.map(h=>
+
 `<div class="horse-card"
 onclick="horseInfo(${h.id})">
 
@@ -511,7 +638,9 @@ ${h.gender} · ${h.age.toFixed(1)} ans
 </div>
 
 <div class="small">
-Forme ${h.form}% · Santé ${h.health}% · Fatigue ${h.fatigue}%
+Forme ${h.form}% ·
+Santé ${h.health}% ·
+Fatigue ${h.fatigue}%
 </div>
 
 <div class="bar">
@@ -519,44 +648,254 @@ Forme ${h.form}% · Santé ${h.health}% · Fatigue ${h.fatigue}%
 </div>
 
 <div class="small">
-Potentiel ${h.potential}% · Discipline ${h.discipline}% ·
+Potentiel ${h.potential}% ·
+Discipline ${h.discipline}% ·
 ${h.field?"🌳 Au pré":"🏡 À l'écurie"}
 </div>
 
 </div>`
+
 ).join("");
 
 }
 
+
 function horseInfo(id){
 
-const h=g.horses.find(x=>x.id===id);
+const h=
+g.horses.find(x=>x.id===id);
 
 if(!h)return;
 
-alert(
-`🐴 ${h.name}
+g.lastHorse=id;
 
-Âge : ${h.age.toFixed(1)} ans
-Forme : ${h.form}%
-Santé : ${h.health}%
-Fatigue : ${h.fatigue}%
-Potentiel : ${h.potential}%
-Génétique : ${h.genetics}%
-Discipline : ${h.discipline}%
+modalTitle.textContent=
+"🐴 "+h.name;
 
-${h.field?"🌳 Au pré":"🏡 À l'écurie"}`
+modalBody.innerHTML=`
+
+<div class="stat-grid">
+
+<div class="stat">
+<b>${h.age.toFixed(1)} ans</b>
+<span>Âge</span>
+</div>
+
+<div class="stat">
+<b>${h.gender}</b>
+<span>Sexe</span>
+</div>
+
+<div class="stat">
+<b>${h.form}%</b>
+<span>Forme</span>
+</div>
+
+<div class="stat">
+<b>${h.health}%</b>
+<span>Santé</span>
+</div>
+
+<div class="stat">
+<b>${h.fatigue}%</b>
+<span>Fatigue</span>
+</div>
+
+<div class="stat">
+<b>${h.potential}%</b>
+<span>Potentiel</span>
+</div>
+
+<div class="stat">
+<b>${h.genetics}%</b>
+<span>Génétique</span>
+</div>
+
+<div class="stat">
+<b>${h.discipline}%</b>
+<span>Discipline</span>
+</div>
+
+</div>
+
+<p>
+<b>Emplacement :</b>
+${h.field?"🌳 Au pré":"🏡 À l'écurie"}
+</p>
+
+<div class="horse-actions">
+
+<button onclick="groom(${h.id})">
+🧹 Panser · 20 €
+</button>
+
+<button onclick="feedHorse(${h.id})">
+🌾 Nourrir · 1 botte
+</button>
+
+<button onclick="restHorse(${h.id})" class="green">
+😴 Repos
+</button>
+
+<button onclick="toggleField(${h.id})" class="light">
+${h.field?"🏡 Rentrer à l'écurie":"🌳 Mettre au pré"}
+</button>
+
+<button onclick="trainHorse(${h.id})">
+🏇 Entraîner
+</button>
+
+</div>
+
+`;
+
+horseModal.style.display="block";
+
+save();
+
+render();
+
+}
+
+
+function closeHorse(){
+
+horseModal.style.display="none";
+
+}
+
+
+function getHorse(id){
+
+return g.horses.find(h=>h.id===id);
+
+}
+
+
+function groom(id){
+
+const h=getHorse(id);
+
+if(!h)return;
+
+if(g.money<20)
+return msg("❌ Pas assez d'argent.");
+
+g.money-=20;
+
+h.form=Math.min(100,h.form+2);
+
+h.health=Math.min(100,h.health+1);
+
+msg("🧹 "+h.name+" est pansé.");
+
+}
+
+
+function feedHorse(id){
+
+const h=getHorse(id);
+
+if(!h)return;
+
+if(g.hay<1)
+return msg("❌ Plus assez de foin.");
+
+g.hay--;
+
+h.health=Math.min(100,h.health+2);
+
+h.form=Math.min(100,h.form+2);
+
+msg("🌾 "+h.name+" reçoit une botte de foin.");
+
+}
+
+
+function restHorse(id){
+
+const h=getHorse(id);
+
+if(!h)return;
+
+h.fatigue=Math.max(0,h.fatigue-30);
+
+h.form=Math.max(0,h.form-2);
+
+msg("😴 "+h.name+" prend du repos.");
+
+}
+
+
+function toggleField(id){
+
+const h=getHorse(id);
+
+if(!h)return;
+
+if(!h.field &&
+g.horses.filter(x=>x.field).length>=g.hectares*2)
+return msg("🌳 Le pré est plein.");
+
+h.field=!h.field;
+
+h.fatigue=
+Math.max(0,h.fatigue-6);
+
+msg(
+h.field
+?"🌳 "+h.name+" part au pré."
+:"🏡 "+h.name+" rentre à l'écurie."
 );
 
 }
+
+
+function trainHorse(id){
+
+const h=getHorse(id);
+
+if(!h)return;
+
+if(h.fatigue>70)
+return msg("😴 "+h.name+" est trop fatigué.");
+
+h.field=false;
+
+h.fatigue=
+Math.min(100,h.fatigue+15);
+
+h.form=
+Math.min(100,h.form+5);
+
+h.discipline=
+Math.min(100,h.discipline+2);
+
+msg("🏇 Séance réussie pour "+h.name+".");
+
+}
+
 
 function emptyBox(){
 
 alert(
-"🏡 Ce box est vide.\n\nTu pourras y accueillir un nouveau cheval."
+"🏡 Ce box est vide.\n\n"+
+"Tu pourras y accueillir un nouveau cheval."
 );
 
 }
+
+
+function selected(){
+
+return g.horses.find(h=>h.id===g.lastHorse)
+||
+g.horses.find(h=>!h.field)
+||
+g.horses[0];
+
+}
+
 
 function buildBox(){
 
@@ -564,11 +903,13 @@ if(g.money<4500)
 return msg("❌ Pas assez d'argent.");
 
 g.money-=4500;
+
 g.boxes++;
 
 msg("🏠 Nouveau box construit : -4 500 €.");
 
 }
+
 
 function buyHay(){
 
@@ -576,53 +917,66 @@ if(g.money<250)
 return msg("❌ Pas assez d'argent.");
 
 g.money-=250;
+
 g.hay+=10;
 
 msg("🌾 10 bottes achetées : -250 €.");
 
 }
 
+
 function restField(){
 
-g.grass=Math.min(4,g.grass+1);
+g.grass=
+Math.min(4,g.grass+1);
 
 msg("🌱 Le pré est mis au repos.");
 
 }
 
+
 function moveHorseToField(){
 
-const h=g.horses.find(x=>!x.retired&&!x.field);
+const h=
+g.horses.find(x=>!x.field);
 
 if(!h)
 return msg("🌳 Tous tes chevaux sont déjà au pré.");
 
 h.field=true;
-h.fatigue=Math.max(0,h.fatigue-8);
+
+h.fatigue=
+Math.max(0,h.fatigue-8);
 
 msg("🌳 "+h.name+" part au pré.");
 
 }
 
+
 function train(i){
 
 const h=g.horses[i];
 
-if(!h||h.retired)return;
+if(!h)return;
 
 if(h.fatigue>70)
 return msg("😴 "+h.name+" est trop fatigué.");
 
 h.field=false;
-h.fatigue=Math.min(100,h.fatigue+16);
-h.form=Math.min(100,h.form+4);
 
-if(h.age<=13)
-h.discipline=Math.min(100,h.discipline+1);
+h.fatigue=
+Math.min(100,h.fatigue+16);
+
+h.form=
+Math.min(100,h.form+4);
+
+h.discipline=
+Math.min(100,h.discipline+1);
 
 msg("🏇 Bonne séance pour "+h.name+".");
 
 }
+
 
 function lesson(){
 
@@ -632,46 +986,100 @@ msg("🎓 Cours donné : +120 €.");
 
 }
 
-function buyAdult(){
+
+function vet(){
+
+const h=selected();
+
+if(g.money<250)
+return msg("❌ Pas assez d'argent.");
+
+g.money-=250;
+
+h.health=
+Math.min(100,h.health+30);
+
+h.fatigue=
+Math.max(0,h.fatigue-5);
+
+msg(
+"🩺 Le vétérinaire soigne "+
+h.name+" : -250 €."
+);
+
+}
+
+
+function farrier(){
+
+const h=selected();
+
+if(g.money<180)
+return msg("❌ Pas assez d'argent.");
+
+g.money-=180;
+
+h.form=
+Math.min(100,h.form+5);
+
+h.health=
+Math.min(100,h.health+3);
+
+msg(
+"🔨 Ferrure de "+
+h.name+" : -180 €."
+);
+
+}
+
+
+function dentist(){
+
+const h=selected();
+
+if(g.money<220)
+return msg("❌ Pas assez d'argent.");
+
+g.money-=220;
+
+h.health=
+Math.min(100,h.health+8);
+
+msg(
+"🦷 Dentiste pour "+
+h.name+" : -220 €."
+);
+
+}
+
+
+function osteo(){
+
+const h=selected();
+
+if(g.money<200)
+return msg("❌ Pas assez d'argent.");
+
+g.money-=200;
+
+h.fatigue=
+Math.max(0,h.fatigue-25);
+
+h.form=
+Math.min(100,h.form+3);
+
+msg(
+"💆 Ostéopathe pour "+
+h.name+" : -200 €."
+);
+
+}
+
+
+function addHorse(name,price,pot,age){
 
 if(g.horses.length>=g.boxes)
 return msg("🏡 Aucun box libre.");
-
-const prices=[2500,5000,8000,12000,18000];
-
-const price=
-prices[Math.floor(Math.random()*5)];
-
-const pot=
-Math.min(
-98,
-45+
-Math.floor(price/500)+
-Math.floor(Math.random()*17)-8
-);
-
-const names=[
-"Naya",
-"Orion",
-"Jupiter",
-"Volt",
-"Eclipse",
-"Tornado",
-"Belle",
-"Rivière"
-];
-
-const name=
-names[Math.floor(Math.random()*names.length)];
-
-if(!confirm(
-`🐴 ${name}
-Prix : ${euro(price)}
-Potentiel : ${pot}%
-
-Acheter ?`
-))
-return;
 
 if(g.money<price)
 return msg("❌ Pas assez d'argent.");
@@ -682,15 +1090,14 @@ g.horses.push({
 
 id:g.nextId++,
 name,
-age:4+Math.floor(Math.random()*12),
+age,
 form:60+Math.floor(Math.random()*25),
-fatigue:10,
-health:90,
+fatigue:5,
+health:95,
 potential:pot,
 genetics:pot,
-discipline:55+Math.floor(Math.random()*31),
-gender:"jument",
-retired:false,
+discipline:45+Math.floor(Math.random()*40),
+gender:Math.random()>.5?"Jument":"Hongre",
 field:false
 
 });
@@ -703,15 +1110,55 @@ euro(price)+"."
 
 }
 
-function buyFoal(){
 
-if(g.horses.length>=g.boxes)
-return msg("🏡 Aucun box libre.");
+function buyAdult(){
 
-const prices=[2000,5000,10000,20000];
+const names=[
+"Naya","Orion","Jupiter","Volt",
+"Eclipse","Tornado","Belle","Rivière"
+];
 
 const price=
-prices[Math.floor(Math.random()*4)];
+[2500,5000,8000,12000,18000]
+[Math.floor(Math.random()*5)];
+
+const pot=
+Math.min(
+98,
+45+
+Math.floor(price/500)+
+Math.floor(Math.random()*17)-8
+);
+
+const name=
+names[Math.floor(Math.random()*names.length)];
+
+if(confirm(
+`🐴 ${name}
+Prix : ${euro(price)}
+Potentiel : ${pot}%
+
+Acheter ?`
+))
+addHorse(
+name,
+price,
+pot,
+4+Math.floor(Math.random()*12)
+);
+
+}
+
+
+function buyFoal(){
+
+const names=[
+"Nova","Rêve","Étoile","Phoenix","Saphir"
+];
+
+const price=
+[2000,5000,10000,20000]
+[Math.floor(Math.random()*4)];
 
 const pot=
 price>=20000
@@ -720,55 +1167,25 @@ price>=20000
 ?68+Math.floor(Math.random()*27)
 :45+Math.floor(Math.random()*38);
 
-const names=[
-"Nova",
-"Rêve",
-"Étoile",
-"Phoenix",
-"Saphir"
-];
-
 const name=
 names[Math.floor(Math.random()*5)];
 
-if(!confirm(
+if(confirm(
 `🍼 Poulain ${name}
 Prix : ${euro(price)}
 Potentiel : ${pot}%
 
 Acheter ?`
 ))
-return;
-
-if(g.money<price)
-return msg("❌ Pas assez d'argent.");
-
-g.money-=price;
-
-g.horses.push({
-
-id:g.nextId++,
+addHorse(
 name,
-age:.1,
-form:45,
-fatigue:0,
-health:96,
-potential:pot,
-genetics:pot,
-discipline:20,
-gender:"jument",
-retired:false,
-field:false
-
-});
-
-msg(
-"🍼 "+name+
-" arrive à l'écurie pour "+
-euro(price)+"."
+price,
+pot,
+.1
 );
 
 }
+
 
 function competitionMenu(){
 
@@ -776,8 +1193,7 @@ const c=prompt(
 "1 Club\n"+
 "2 Amateur / Régional\n"+
 "3 National\n"+
-"4 Championnat de France\n"+
-"5 Jeux Olympiques"
+"4 Championnat de France"
 );
 
 if(!c)return;
@@ -787,8 +1203,7 @@ const vals={
 1:[50,55,0,"Club"],
 2:[100,65,3,"Amateur"],
 3:[200,78,7,"National"],
-4:[300,84,10,"Championnat de France"],
-5:[500,92,20,"Jeux Olympiques"]
+4:[300,84,10,"Championnat de France"]
 
 };
 
@@ -797,11 +1212,10 @@ const v=vals[c];
 if(!v)
 return msg("❌ Choix invalide.");
 
-const h=
-g.horses.find(x=>!x.retired);
+const h=selected();
 
 if(!h)
-return msg("❌ Aucun cheval actif.");
+return msg("❌ Aucun cheval.");
 
 if(h.fatigue>65)
 return msg("😴 "+h.name+" est trop fatigué.");
@@ -815,24 +1229,22 @@ return msg("❌ Pas assez d'argent.");
 g.money-=v[0];
 
 h.fatigue=
-Math.min(100,h.fatigue+35);
-
-g.competitionWeek=true;
+Math.min(100,h.fatigue+30);
 
 const score=
 Math.max(
 0,
 Math.round(
 (h.form+h.discipline+h.genetics)/3-
-Math.random()*25
+Math.random()*20
 )
 );
 
 let gain=
 score>=90
-?(c==5?5000:700)
+?700
 :score>=80
-?(c==4?1500:c==3?900:300)
+?300
 :score>=65&&c==1
 ?120
 :0;
@@ -843,12 +1255,14 @@ if(score>=80)
 g.reputation+=v[2];
 
 msg(
-`🏆 ${v[3]} : ${h.name} obtient ${score}/100`+
-(gain?" · +"+euro(gain):"")+
-"."
+`🏆 ${v[3]} : ${h.name} obtient ${score}/100`
++
+(gain?" · +"+euro(gain):"")
++"."
 );
 
 }
+
 
 function nextWeek(){
 
@@ -856,12 +1270,10 @@ if(g.money<350)
 return msg("❌ Pas assez d'argent pour les charges.");
 
 g.money-=350;
+
 g.week++;
-g.competitionWeek=false;
 
 g.horses.forEach(h=>{
-
-if(!h.retired){
 
 h.age+=1/52;
 
@@ -872,32 +1284,27 @@ if(h.field)
 h.form=
 Math.min(100,h.form+2);
 
-if(h.age<=13&&h.health>70)
-h.potential=
-Math.min(100,h.potential+.2);
-
-}
-
 });
 
 const active=
-g.horses.filter(h=>!h.retired);
+g.horses.length;
 
-if(g.hay>=active.length){
+if(g.hay>=active){
 
-g.hay-=active.length;
+g.hay-=active;
 
 }
 else{
 
 g.hay=0;
 
-active.forEach(h=>
-h.health=Math.max(0,h.health-4)
+g.horses.forEach(h=>
+h.health=
+Math.max(0,h.health-4)
 );
 
 g.logs.unshift(
-"⚠️ Plus assez de fourrage."
+"⚠️ Pas assez de fourrage : la santé des chevaux baisse."
 );
 
 }
@@ -905,6 +1312,7 @@ g.logs.unshift(
 if(g.week>52){
 
 g.week=1;
+
 g.year++;
 
 g.logs.unshift(
@@ -914,9 +1322,11 @@ g.logs.unshift(
 }
 
 save();
+
 render();
 
 }
+
 
 render();
 
