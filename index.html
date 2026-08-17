@@ -1,3488 +1,3359 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width,initial-scale=1,viewport-fit=cover"
->
-
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mon Écurie V6</title>
 
 <style>
-
 *{
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
+ box-sizing:border-box;
+ -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
-margin:0;
-padding:0;
-width:100%;
-min-height:100%;
-background:#07170d;
-font-family:Arial,sans-serif;
+html,body{
+ margin:0;
+ padding:0;
+ width:100%;
+ min-height:100%;
+ background:#07170d;
+ font-family:Arial,sans-serif;
 }
 
 body{
-display:flex;
-justify-content:center;
+ display:flex;
+ justify-content:center;
 }
 
 #app{
-position:relative;
-width:100%;
-max-width:430px;
-min-height:100vh;
-overflow:hidden;
-background:#111;
+ width:100%;
+ max-width:430px;
+ min-height:100vh;
+ overflow:hidden;
+ background:#111;
 }
 
 #screen{
-
-position:relative;
-
-width:100%;
-
-aspect-ratio:853/1844;
-
-background-image:url("v6-maquette.jpg");
-
-background-size:100% 100%;
-
-background-position:center;
-
-background-repeat:no-repeat;
-
+ position:relative;
+ width:100%;
+ aspect-ratio:853/1844;
+ background:url("v6-maquette.jpg") center/100% 100% no-repeat;
 }
 
-/* =====================================================
-BOUTONS INVISIBLES DE LA MAQUETTE
-===================================================== */
-
 .hit{
-
-position:absolute;
-
-border:0;
-
-background:transparent;
-
-border-radius:18px;
-
-cursor:pointer;
-
--webkit-appearance:none;
-
+ position:absolute;
+ border:0;
+ background:transparent;
+ border-radius:18px;
 }
 
 .hit:active{
-
-background:#ffffff20;
-
+ background:#ffffff20;
 }
 
+/* BOUTONS DE LA MAQUETTE */
 
-/* =====================================================
-ACTIONS
-===================================================== */
+#weekBtn{left:2.5%;top:43%;width:18%;height:11%}
+#hayBtn{left:21%;top:43%;width:18%;height:11%}
+#grainBtn{left:40%;top:43%;width:18%;height:11%}
+#careBtn{left:59%;top:43%;width:18%;height:11%}
+#showBtn{left:78%;top:43%;width:19%;height:11%}
 
-#weekBtn{
+#horse1{left:3%;top:57%;width:23%;height:12%}
+#horse2{left:27%;top:57%;width:23%;height:12%}
+#horse3{left:51%;top:57%;width:23%;height:12%}
+#horse4{left:75%;top:57%;width:22%;height:12%}
 
-left:2.5%;
-top:43%;
-width:18%;
-height:11%;
+#domain{left:2%;bottom:0;width:18%;height:8%}
+#stable{left:21%;bottom:0;width:18%;height:8%}
+#horses{left:40%;bottom:0;width:18%;height:8%}
+#shows{left:59%;bottom:0;width:18%;height:8%}
+#care{left:78%;bottom:0;width:19%;height:8%}
 
-}
-
-#hayBtn{
-
-left:21%;
-top:43%;
-width:18%;
-height:11%;
-
-}
-
-#grainBtn{
-
-left:40%;
-top:43%;
-width:18%;
-height:11%;
-
-}
-
-#careBtn{
-
-left:59%;
-top:43%;
-width:18%;
-height:11%;
-
-}
-
-#showBtn{
-
-left:78%;
-top:43%;
-width:19%;
-height:11%;
-
-}
-
-
-/* =====================================================
-CHEVAUX
-===================================================== */
-
-#horse1{
-
-left:3%;
-top:57%;
-width:23%;
-height:12%;
-
-}
-
-#horse2{
-
-left:27%;
-top:57%;
-width:23%;
-height:12%;
-
-}
-
-#horse3{
-
-left:51%;
-top:57%;
-width:23%;
-height:12%;
-
-}
-
-#horse4{
-
-left:75%;
-top:57%;
-width:22%;
-height:12%;
-
-}
-
-
-/* =====================================================
-MENU BAS
-===================================================== */
-
-#domain{
-
-left:2%;
-bottom:0;
-width:18%;
-height:8%;
-
-}
-
-#stable{
-
-left:21%;
-bottom:0;
-width:18%;
-height:8%;
-
-}
-
-#horses{
-
-left:40%;
-bottom:0;
-width:18%;
-height:8%;
-
-}
-
-#shows{
-
-left:59%;
-bottom:0;
-width:18%;
-height:8%;
-
-}
-
-#care{
-
-left:78%;
-bottom:0;
-width:19%;
-height:8%;
-
-}
-
-
-/* =====================================================
-MODAL
-===================================================== */
+/* MODALES */
 
 #modal{
-
-position:fixed;
-
-inset:0;
-
-display:none;
-
-align-items:center;
-
-justify-content:center;
-
-padding:15px;
-
-background:#000b;
-
-z-index:1000;
-
+ position:fixed;
+ inset:0;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ padding:12px;
+ background:#000b;
+ z-index:1000;
 }
 
 #modal.show{
-
-display:flex;
-
+ display:flex;
 }
-
 
 .modalBox{
-
-width:min(400px,94vw);
-
-max-height:90vh;
-
-overflow:auto;
-
-padding:18px;
-
-border-radius:22px;
-
-background:
-linear-gradient(
-145deg,
-#f8f1df,
-#dfe8d7
-);
-
-color:#294b38;
-
-box-shadow:0 20px 60px #000;
-
-border:2px solid #b99d5b;
-
+ width:min(410px,95vw);
+ max-height:92vh;
+ overflow:auto;
+ padding:17px;
+ border-radius:22px;
+ background:linear-gradient(145deg,#f8f1df,#dfe8d7);
+ color:#294b38;
+ border:2px solid #b99d5b;
+ box-shadow:0 20px 60px #000;
 }
-
 
 .modalHead{
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-gap:10px;
-
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ margin-bottom:10px;
 }
-
 
 .modalHead h2{
-
-margin:0;
-
-font:700 24px Georgia,serif;
-
+ margin:0;
+ font:700 23px Georgia,serif;
 }
-
 
 .close{
-
-border:0;
-
-border-radius:10px;
-
-padding:8px 11px;
-
-background:#d5d1c5;
-
-font-size:18px;
-
+ border:0;
+ border-radius:10px;
+ padding:8px 11px;
+ background:#d5d1c5;
+ font-size:18px;
 }
-
 
 .primary{
-
-width:100%;
-
-padding:12px;
-
-border:0;
-
-border-radius:12px;
-
-background:#315f3c;
-
-color:white;
-
-font-weight:900;
-
+ width:100%;
+ padding:11px;
+ border:0;
+ border-radius:12px;
+ background:#315f3c;
+ color:white;
+ font-weight:900;
+ margin-top:6px;
 }
-
 
 .choice{
-
-display:flex;
-
-gap:10px;
-
-align-items:center;
-
-padding:11px;
-
-margin:7px 0;
-
-border-radius:12px;
-
-background:#eef2e8;
-
-border:1px solid #d4ddcf;
-
+ padding:11px;
+ margin:7px 0;
+ border-radius:12px;
+ background:#eef2e8;
+ border:1px solid #d4ddcf;
 }
 
+.choiceLine{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:8px;
+}
 
 .choice button{
-
-margin-left:auto;
-
-border:0;
-
-border-radius:9px;
-
-padding:8px;
-
-background:#315f3c;
-
-color:white;
-
-font-weight:800;
-
+ border:0;
+ border-radius:9px;
+ padding:8px 10px;
+ background:#315f3c;
+ color:white;
+ font-weight:800;
 }
-
 
 .notice{
-
-padding:10px;
-
-margin:8px 0;
-
-border-radius:10px;
-
-background:#fff9e8;
-
-border:1px solid #dfd0a8;
-
+ padding:11px;
+ margin:8px 0;
+ border-radius:11px;
+ background:#fff9e8;
+ border:1px solid #dfd0a8;
 }
-
-
-.statLine{
-
-display:flex;
-
-justify-content:space-between;
-
-margin:7px 0;
-
-}
-
-
-.progress{
-
-height:8px;
-
-background:#d5dbd0;
-
-border-radius:10px;
-
-overflow:hidden;
-
-}
-
-
-.progress span{
-
-display:block;
-
-height:100%;
-
-background:#5d8b5e;
-
-}
-
 
 .sectionTitle{
-
-font-family:Georgia,serif;
-
-font-size:18px;
-
-margin:17px 0 8px;
-
-color:#355d40;
-
+ font:700 18px Georgia,serif;
+ color:#355d40;
+ margin:17px 0 8px;
 }
 
+.statLine{
+ display:flex;
+ justify-content:space-between;
+ margin:7px 0;
+}
+
+.progress{
+ height:8px;
+ background:#d5dbd0;
+ border-radius:10px;
+ overflow:hidden;
+}
+
+.progress span{
+ display:block;
+ height:100%;
+ background:#5d8b5e;
+}
 
 .value{
-
-font-size:21px;
-
-font-weight:900;
-
-color:#80621b;
-
+ font-size:21px;
+ font-weight:900;
+ color:#80621b;
 }
 
-
 .small{
+ font-size:12px;
+ color:#687668;
+}
 
-font-size:12px;
+.marketTabs{
+ display:flex;
+ gap:5px;
+ margin:8px 0 12px;
+}
 
-color:#617061;
+.marketTabs button{
+ flex:1;
+ padding:9px 4px;
+ border:0;
+ border-radius:10px;
+ background:#d8e1d3;
+ color:#294b38;
+ font-weight:800;
+}
 
+.marketTabs button.active{
+ background:#315f3c;
+ color:white;
+}
+
+.horseMarketCard{
+ padding:12px;
+ margin:9px 0;
+ border-radius:15px;
+ background:#f1f0e7;
+ border:1px solid #d0c9ad;
+}
+
+.horseImage{
+ height:115px;
+ border-radius:12px;
+ background:linear-gradient(135deg,#80927c,#d6c9a5);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:70px;
+ margin-bottom:9px;
+}
+
+.badge{
+ display:inline-block;
+ padding:4px 7px;
+ border-radius:8px;
+ background:#dfe8d7;
+ font-size:11px;
+ font-weight:800;
+}
+
+.price{
+ font-size:19px;
+ font-weight:900;
+ color:#80621b;
+}
+
+.resultRow{
+ padding:8px;
+ margin:5px 0;
+ border-radius:9px;
+ background:#f1f3ed;
+}
+
+.rating{
+ font-weight:900;
+ color:#496d4d;
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
 <div id="app">
-
 
 <div id="screen">
 
+<button class="hit" id="weekBtn"></button>
+<button class="hit" id="hayBtn"></button>
+<button class="hit" id="grainBtn"></button>
+<button class="hit" id="careBtn"></button>
+<button class="hit" id="showBtn"></button>
 
-<!-- ACTIONS -->
+<button class="hit" id="horse1"></button>
+<button class="hit" id="horse2"></button>
+<button class="hit" id="horse3"></button>
+<button class="hit" id="horse4"></button>
 
-<button
-class="hit"
-id="weekBtn"
-aria-label="Passer une semaine">
-</button>
-
-
-<button
-class="hit"
-id="hayBtn"
-aria-label="Acheter du foin">
-</button>
-
-
-<button
-class="hit"
-id="grainBtn"
-aria-label="Acheter du grain">
-</button>
-
-
-<button
-class="hit"
-id="careBtn"
-aria-label="Soins">
-</button>
-
-
-<button
-class="hit"
-id="showBtn"
-aria-label="Concours">
-</button>
-
-
-<!-- CHEVAUX -->
-
-<button
-class="hit"
-id="horse1"
-aria-label="Luna">
-</button>
-
-
-<button
-class="hit"
-id="horse2"
-aria-label="Caramel">
-</button>
-
-
-<button
-class="hit"
-id="horse3"
-aria-label="Jasper">
-</button>
-
-
-<button
-class="hit"
-id="horse4"
-aria-label="Étoile">
-</button>
-
-
-<!-- MENU -->
-
-<button
-class="hit"
-id="domain"
-aria-label="Domaine">
-</button>
-
-
-<button
-class="hit"
-id="stable"
-aria-label="Écurie">
-</button>
-
-
-<button
-class="hit"
-id="horses"
-aria-label="Chevaux">
-</button>
-
-
-<button
-class="hit"
-id="shows"
-aria-label="Concours">
-</button>
-
-
-<button
-class="hit"
-id="care"
-aria-label="Soins">
-</button>
-
+<button class="hit" id="domain"></button>
+<button class="hit" id="stable"></button>
+<button class="hit" id="horses"></button>
+<button class="hit" id="shows"></button>
+<button class="hit" id="care"></button>
 
 </div>
-
 </div>
-
-
-<!-- MODAL -->
 
 <div id="modal">
 
-
 <div class="modalBox">
-
 
 <div class="modalHead">
 
-<h2 id="modalTitle">
-Mon Écurie
-</h2>
+<h2 id="modalTitle">Mon Écurie</h2>
 
-
-<button
-class="close"
-onclick="closeModal()">
-
-✕
-
-</button>
+<button class="close" onclick="closeModal()">✕</button>
 
 </div>
-
 
 <div id="modalContent"></div>
 
-
 </div>
-
 </div>
-
 
 <script>
 
-
 /* =====================================================
-DONNÉES DE BASE
+ DONNÉES
 ===================================================== */
 
 const initialGame={
 
-
-money:18450,
-
-
-reputation:0,
-
-
-year:1,
-
-
-week:12,
-
-
-hay:1200,
-
-
-grain:800,
-
-
-straw:600,
-
-
-maxHay:2000,
-
-
-maxGrain:1500,
-
-
-maxStraw:1500,
-
-
-boxes:6,
-
-
-staff:[],
-
-
-horses:[
-
-
-{
-
-id:1,
-
-name:"Luna",
-
-race:"Selle Français",
-
-age:8,
-
-sex:"Jument",
-
-form:82,
-
-health:95,
-
-fatigue:18,
-
-place:"box",
-
-potential:84,
-
-realPotential:88,
-
-currentLevel:78,
-
-experience:62,
-
-technique:82,
-
-strength:79,
-
-endurance:81,
-
-regularity:80,
-
-mental:82,
-
-gentleness:78,
-
-calm:76,
-
-courage:84,
-
-concentration:82,
-
-courseUse:72,
-
-competitionUse:82,
-
-breedingUse:78
-
-},
-
-
-{
-
-id:2,
-
-name:"Caramel",
-
-race:"Anglo-Arabe",
-
-age:12,
-
-sex:"Hongre",
-
-form:76,
-
-health:92,
-
-fatigue:12,
-
-place:"box",
-
-potential:72,
-
-realPotential:74,
-
-currentLevel:69,
-
-experience:81,
-
-technique:70,
-
-strength:67,
-
-endurance:78,
-
-regularity:76,
-
-mental:88,
-
-gentleness:91,
-
-calm:89,
-
-courage:82,
-
-concentration:84,
-
-courseUse:91,
-
-competitionUse:74,
-
-breedingUse:63
-
-},
-
-
-{
-
-id:3,
-
-name:"Jasper",
-
-race:"Quarter Horse",
-
-age:6,
-
-sex:"Hongre",
-
-form:85,
-
-health:94,
-
-fatigue:9,
-
-place:"pasture",
-
-potential:80,
-
-realPotential:84,
-
-currentLevel:74,
-
-experience:48,
-
-technique:76,
-
-strength:86,
-
-endurance:83,
-
-regularity:72,
-
-mental:79,
-
-gentleness:80,
-
-calm:78,
-
-courage:82,
-
-concentration:77,
-
-courseUse:76,
-
-competitionUse:78,
-
-breedingUse:75
-
-},
-
-
-{
-
-id:4,
-
-name:"Étoile",
-
-race:"Connemara",
-
-age:4,
-
-sex:"Jument",
-
-form:79,
-
-health:91,
-
-fatigue:20,
-
-place:"pasture",
-
-potential:73,
-
-realPotential:88,
-
-currentLevel:59,
-
-experience:21,
-
-technique:66,
-
-strength:71,
-
-endurance:70,
-
-regularity:61,
-
-mental:90,
-
-gentleness:94,
-
-calm:92,
-
-courage:80,
-
-concentration:87,
-
-courseUse:94,
-
-competitionUse:63,
-
-breedingUse:76
-
-}
+ money:18450,
+ reputation:0,
+ year:1,
+ week:12,
+
+ hay:1200,
+ grain:800,
+ straw:600,
+
+ maxHay:2000,
+ maxGrain:1500,
+ maxStraw:1500,
+
+ boxes:6,
+
+ marketCycle:1,
+
+ horses:[
+
+ {
+  id:1,
+  name:"Luna",
+  race:"Selle Français",
+  age:8,
+  sex:"Jument",
+
+  form:82,
+  health:95,
+  fatigue:18,
+
+  place:"box",
+
+  potential:86,
+  realPotential:89,
+  currentLevel:76,
+  experience:67,
+
+  technique:84,
+  strength:81,
+  endurance:78,
+  regularity:86,
+
+  mental:84,
+  gentleness:72,
+  calm:68,
+  courage:91,
+  concentration:88,
+  willpower:86,
+  reactivity:74,
+
+  courseUse:72,
+  competitionUse:88,
+  breedingUse:80,
+
+  winsClub:4,
+  winsAmateur:5,
+  winsNational:2,
+
+  secondClub:3,
+  secondAmateur:4,
+  secondNational:2,
+
+  thirdClub:2,
+  thirdAmateur:3,
+  thirdNational:1,
+
+  totalCourses:31,
+
+  championships:[
+   {
+    category:"National",
+    year:2025,
+    rank:6,
+    starters:48
+   }
+  ],
+
+  father:{
+   name:"Vagabond du Bois",
+   results:[
+    "3 victoires en National",
+    "2 deuxièmes places en National",
+    "5 victoires en Amateur",
+    "Champion de France National 2022"
+   ]
+  },
+
+  mother:{
+   name:"Belle Étoile",
+   results:[
+    "2 victoires en Amateur",
+    "6 victoires en Club",
+    "Championne de France Amateur 2021"
+   ]
+  }
+ },
+
+ {
+  id:2,
+  name:"Caramel",
+  race:"Anglo-Arabe",
+  age:12,
+  sex:"Hongre",
+
+  form:76,
+  health:92,
+  fatigue:12,
+
+  place:"box",
+
+  potential:74,
+  realPotential:76,
+  currentLevel:69,
+  experience:82,
+
+  technique:70,
+  strength:67,
+  endurance:79,
+  regularity:63,
+
+  mental:92,
+  gentleness:95,
+  calm:94,
+  courage:78,
+  concentration:86,
+  willpower:76,
+  reactivity:55,
+
+  courseUse:96,
+  competitionUse:70,
+  breedingUse:55,
+
+  winsClub:10,
+  winsAmateur:5,
+  winsNational:0,
+
+  secondClub:8,
+  secondAmateur:3,
+  secondNational:0,
+
+  thirdClub:5,
+  thirdAmateur:5,
+  thirdNational:1,
+
+  totalCourses:50,
+
+  championships:[
+   {
+    category:"Club",
+    year:2024,
+    rank:9,
+    starters:52
+   }
+  ],
+
+  father:{
+   name:"Prince Ardent",
+   results:[
+    "1 victoire en National",
+    "4 victoires en Amateur",
+    "9 victoires en Club"
+   ]
+  },
+
+  mother:{
+   name:"Mélodie",
+   results:[
+    "8 victoires en Club",
+    "Très réputée pour son mental"
+   ]
+  }
+ },
+
+ {
+  id:3,
+  name:"Jasper",
+  race:"Quarter Horse",
+  age:6,
+  sex:"Hongre",
+
+  form:85,
+  health:94,
+  fatigue:9,
+
+  place:"pasture",
+
+  potential:81,
+  realPotential:86,
+  currentLevel:72,
+  experience:42,
+
+  technique:75,
+  strength:92,
+  endurance:88,
+  regularity:58,
+
+  mental:73,
+  gentleness:58,
+  calm:54,
+  courage:96,
+  concentration:76,
+  willpower:91,
+  reactivity:89,
+
+  courseUse:59,
+  competitionUse:82,
+  breedingUse:76,
+
+  winsClub:3,
+  winsAmateur:2,
+  winsNational:0,
+
+  secondClub:2,
+  secondAmateur:1,
+  secondNational:0,
+
+  thirdClub:2,
+  thirdAmateur:2,
+  thirdNational:0,
+
+  totalCourses:25,
+
+  championships:[],
+
+  father:{
+   name:"Red Storm",
+   results:[
+    "6 victoires en National",
+    "Champion de France National 2023"
+   ]
+  },
+
+  mother:{
+   name:"Texas Queen",
+   results:[
+    "3 victoires en Amateur",
+    "Très bonne endurance"
+   ]
+  }
+ },
+
+ {
+  id:4,
+  name:"Étoile",
+  race:"Connemara",
+  age:4,
+  sex:"Jument",
+
+  form:79,
+  health:91,
+  fatigue:20,
+
+  place:"pasture",
+
+  potential:73,
+  realPotential:91,
+  currentLevel:48,
+  experience:15,
+
+  technique:61,
+  strength:66,
+  endurance:71,
+  regularity:52,
+
+  mental:91,
+  gentleness:96,
+  calm:94,
+  courage:79,
+  concentration:92,
+  willpower:75,
+  reactivity:42,
+
+  courseUse:98,
+  competitionUse:60,
+  breedingUse:83,
+
+  winsClub:1,
+  winsAmateur:0,
+  winsNational:0,
+
+  secondClub:2,
+  secondAmateur:0,
+  secondNational:0,
+
+  thirdClub:1,
+  thirdAmateur:0,
+  thirdNational:0,
+
+  totalCourses:8,
+
+  championships:[],
+
+  father:{
+   name:"Golden Boy",
+   results:[
+    "5 victoires en Amateur",
+    "Champion de France Club 2020"
+   ]
+  },
+
+  mother:{
+   name:"Perle",
+   results:[
+    "10 victoires en Club",
+    "Très bonne jument de cours"
+   ]
+  }
+ }
 
 ]
 
 };
 
 
+/* =====================================================
+ CHARGEMENT
+===================================================== */
+
 let game=loadGame();
 
 
-/* =====================================================
-SAUVEGARDE
-===================================================== */
-
 function loadGame(){
 
-try{
+ try{
 
-const saved=
-localStorage.getItem("monEcurieV6");
+  const saved=
+   localStorage.getItem("monEcurieV6");
 
-if(saved){
+  if(saved){
 
-const data=JSON.parse(saved);
+   const data=JSON.parse(saved);
 
-return normalizeGame(data);
+   return normalizeGame(data);
 
-}
+  }
 
-}catch(e){
+ }catch(e){
 
-console.log(e);
+  console.log(e);
 
-}
+ }
 
-return normalizeGame(
-JSON.parse(
-JSON.stringify(initialGame)
-)
-);
+ return normalizeGame(
+  JSON.parse(
+   JSON.stringify(initialGame)
+  )
+ );
 
 }
 
 
 function saveGame(){
 
-localStorage.setItem(
-"monEcurieV6",
-JSON.stringify(game)
-);
+ localStorage.setItem(
+  "monEcurieV6",
+  JSON.stringify(game)
+ );
 
 }
 
 
 /* =====================================================
-NORMALISATION
+ NORMALISATION
 ===================================================== */
 
 function normalizeGame(data){
 
-if(!data.horses)
-data.horses=[];
+ if(!data.horses)
+  data.horses=[];
 
-if(!data.staff)
-data.staff=[];
+ data.horses.forEach(normalizeHorse);
 
-data.horses.forEach(
-normalizeHorse
-);
+ if(!data.marketCycle)
+  data.marketCycle=1;
 
-return data;
+ return data;
 
 }
 
-
-/* =====================================================
-CHEVAL
-===================================================== */
 
 function normalizeHorse(h){
 
-if(h.potential===undefined)
-h.potential=60;
+ const defaults={
 
-if(h.realPotential===undefined)
-h.realPotential=h.potential;
+  potential:60,
+  realPotential:65,
+  currentLevel:45,
+  experience:10,
 
-if(h.currentLevel===undefined)
-h.currentLevel=h.form||50;
+  technique:60,
+  strength:60,
+  endurance:60,
+  regularity:60,
 
-if(h.experience===undefined)
-h.experience=20;
+  mental:60,
+  gentleness:60,
+  calm:60,
+  courage:60,
+  concentration:60,
+  willpower:60,
+  reactivity:60,
 
-if(h.technique===undefined)
-h.technique=60;
+  courseUse:60,
+  competitionUse:60,
+  breedingUse:60,
 
-if(h.strength===undefined)
-h.strength=60;
+  winsClub:0,
+  winsAmateur:0,
+  winsNational:0,
 
-if(h.endurance===undefined)
-h.endurance=60;
+  secondClub:0,
+  secondAmateur:0,
+  secondNational:0,
 
-if(h.regularity===undefined)
-h.regularity=60;
+  thirdClub:0,
+  thirdAmateur:0,
+  thirdNational:0,
 
-if(h.mental===undefined)
-h.mental=60;
+  totalCourses:0,
 
-if(h.gentleness===undefined)
-h.gentleness=60;
+  championships:[]
 
-if(h.calm===undefined)
-h.calm=60;
+ };
 
-if(h.courage===undefined)
-h.courage=60;
+ Object.keys(defaults).forEach(key=>{
 
-if(h.concentration===undefined)
-h.concentration=60;
+  if(h[key]===undefined)
+   h[key]=defaults[key];
 
-if(h.courseUse===undefined)
-h.courseUse=60;
+ });
 
-if(h.competitionUse===undefined)
-h.competitionUse=60;
+ if(!h.father){
 
-if(h.breedingUse===undefined)
-h.breedingUse=60;
+  h.father={
+   name:"Origine inconnue",
+   results:[]
+  };
 
-if(h.familyBonus===undefined)
-h.familyBonus=0;
+ }
 
-calculateHorseValue(h);
+ if(!h.mother){
 
-return h;
+  h.mother={
+   name:"Origine inconnue",
+   results:[]
+  };
+
+ }
+
+ /* RÈGLE IMPORTANTE :
+    LE NIVEAU NE PEUT JAMAIS DÉPASSER LE POTENTIEL */
+
+ h.currentLevel=
+  Math.min(
+   h.currentLevel,
+   h.realPotential,
+   h.potential
+  );
+
+ calculateHorseValue(h);
+
+ return h;
 
 }
 
 
 /* =====================================================
-OUTILS
+ OUTILS
 ===================================================== */
 
 function money(n){
 
-return Math.round(n)
-.toLocaleString("fr-FR")
-+" €";
+ return Math.round(n)
+  .toLocaleString("fr-FR")+" €";
 
 }
 
 
 function clamp(n,min,max){
 
-return Math.max(
-min,
-Math.min(max,n)
-);
+ return Math.max(
+  min,
+  Math.min(max,n)
+ );
 
 }
 
 
 function season(){
 
-if(game.week<=13)
-return"🌸 Printemps";
+ if(game.week<=13)
+  return "🌸 Printemps";
 
-if(game.week<=26)
-return"☀️ Été";
+ if(game.week<=26)
+  return "☀️ Été";
 
-if(game.week<=39)
-return"🍂 Automne";
+ if(game.week<=39)
+  return "🍂 Automne";
 
-return"❄️ Hiver";
+ return "❄️ Hiver";
 
 }
 
 
 function openModal(title,content){
 
-document
-.getElementById("modalTitle")
-.textContent=title;
+ document
+  .getElementById("modalTitle")
+  .textContent=title;
 
-document
-.getElementById("modalContent")
-.innerHTML=content;
+ document
+  .getElementById("modalContent")
+  .innerHTML=content;
 
-document
-.getElementById("modal")
-.classList.add("show");
+ document
+  .getElementById("modal")
+  .classList.add("show");
 
 }
 
 
 function closeModal(){
 
-document
-.getElementById("modal")
-.classList.remove("show");
+ document
+  .getElementById("modal")
+  .classList.remove("show");
 
 }
 
 
 document
-.getElementById("modal")
-.addEventListener(
-"click",
-function(e){
+ .getElementById("modal")
+ .addEventListener(
+  "click",
+  function(e){
 
-if(e.target===this)
-closeModal();
+   if(e.target===this)
+    closeModal();
 
-}
-);
+  }
+ );
 
 
 /* =====================================================
-SYSTÈME DE VALEUR
-45 SPORT
-20 MENTAL
-15 UTILITÉ
-20 ÂGE/SANTÉ
+ RÉGULARITÉ
+===================================================== */
+
+function getPodiums(h){
+
+ return (
+
+  h.winsClub+
+  h.winsAmateur+
+  h.winsNational+
+
+  h.secondClub+
+  h.secondAmateur+
+  h.secondNational+
+
+  h.thirdClub+
+  h.thirdAmateur+
+  h.thirdNational
+
+ );
+
+}
+
+
+function getWins(h){
+
+ return (
+
+  h.winsClub+
+  h.winsAmateur+
+  h.winsNational
+
+ );
+
+}
+
+
+function getRegularity(h){
+
+ if(h.totalCourses<=0)
+  return 20;
+
+ const podiumRate=
+  getPodiums(h)/
+  h.totalCourses;
+
+ const winRate=
+  getWins(h)/
+  h.totalCourses;
+
+ const experienceBonus=
+  Math.min(
+   15,
+   h.experience/8
+  );
+
+ return clamp(
+  Math.round(
+   podiumRate*70+
+   winRate*20+
+   experienceBonus
+  ),
+  5,
+  99
+ );
+
+}
+
+
+/* =====================================================
+ VALEUR DU CHEVAL
 ===================================================== */
 
 function calculateHorseValue(h){
 
+ const regularity=
+  getRegularity(h);
 
-/* SPORT 45 % */
+ /*
+ SPORT = 45 %
+ */
 
-const sport=
+ const sport=
 
-h.potential*0.40+
+  h.potential*0.30+
+  h.currentLevel*0.18+
+  h.experience*0.08+
+  regularity*0.18+
+  h.technique*0.08+
+  h.strength*0.06+
+  h.endurance*0.05+
+  h.regularity*0.07;
 
-h.currentLevel*0.20+
 
-h.experience*0.10+
+ /*
+ MENTAL = 20 %
+ */
 
-h.technique*0.10+
+ const mental=
 
-h.strength*0.05+
+  h.mental*0.20+
+  h.gentleness*0.20+
+  h.calm*0.16+
+  h.courage*0.14+
+  h.concentration*0.14+
+  h.willpower*0.10+
+  (100-h.reactivity)*0.06;
 
-h.endurance*0.05+
 
-h.regularity*0.10;
+ /*
+ UTILITÉ = 15 %
+ */
 
+ const utility=
 
-/* MENTAL 20 % */
+  h.courseUse*0.40+
+  h.competitionUse*0.40+
+  h.breedingUse*0.20;
 
-const mental=
 
-h.mental*0.30+
+ /*
+ ÂGE + SANTÉ = 20 %
+ */
 
-h.gentleness*0.25+
+ let ageScore=100;
 
-h.calm*0.20+
+ if(h.age<=8)
+  ageScore=100;
+ else if(h.age<=12)
+  ageScore=92;
+ else if(h.age<=15)
+  ageScore=78;
+ else if(h.age<=18)
+  ageScore=60;
+ else
+  ageScore=38;
 
-h.courage*0.15+
+ const ageHealth=
+  ageScore*0.55+
+  h.health*0.45;
 
-h.concentration*0.10;
 
+ const score=
 
-/* UTILITÉ 15 % */
+  sport*0.45+
+  mental*0.20+
+  utility*0.15+
+  ageHealth*0.20;
 
-const utility=
 
-h.courseUse*0.40+
+ let value=
+  2500+
+  Math.pow(score/100,2.7)*65000;
 
-h.competitionUse*0.40+
 
-h.breedingUse*0.20;
+ /*
+ BON CHEVAL DE CLUB
+ */
 
+ if(
+  h.courseUse>=90 &&
+  h.gentleness>=90 &&
+  h.calm>=90
+ ){
 
-/* ÂGE + SANTÉ 20 % */
+  value+=5000;
 
-let ageScore=100;
+ }
 
 
-if(h.age<=8)
-ageScore=100;
+ /*
+ TRÈS BON REPRODUCTEUR
+ */
 
-else if(h.age<=12)
-ageScore=92;
+ if(h.breedingUse>=90)
+  value+=5000;
 
-else if(h.age<=15)
-ageScore=78;
 
-else if(h.age<=18)
-ageScore=60;
+ /*
+ VIEUX CHEVAL
+ */
 
-else
-ageScore=38;
+ if(h.age>=18)
+  value*=0.60;
 
 
-const ageHealth=
+ /*
+ SANTÉ
+ */
 
-ageScore*0.55+
+ if(h.health<70)
+  value*=0.85;
 
-h.health*0.45;
+ if(h.health<50)
+  value*=0.70;
 
 
-/* SCORE FINAL */
+ h.value=Math.round(value);
 
-const score=
-
-sport*0.45+
-
-mental*0.20+
-
-utility*0.15+
-
-ageHealth*0.20;
-
-
-/* BASE */
-
-let value=
-
-2500+
-
-Math.pow(
-score/100,
-2.7
-)*65000;
-
-
-/* BONUS CHEVAL DE CLUB */
-
-if(
-h.courseUse>=90 &&
-h.gentleness>=90 &&
-h.calm>=90
-){
-
-value+=5000;
-
-}
-
-
-/* BONUS ÉLEVAGE */
-
-if(
-h.breedingUse>=90
-){
-
-value+=7000;
-
-}
-
-
-/* VIEIL ÂGE */
-
-if(h.age>=18){
-
-value*=0.60;
-
-}
-
-
-/* SANTÉ */
-
-if(h.health<70){
-
-value*=0.85;
-
-}
-
-if(h.health<50){
-
-value*=0.70;
-
-}
-
-
-/* LÉGÈRE VARIATION DU MARCHÉ */
-
-value*=0.95+
-Math.random()*0.10;
-
-
-h.value=Math.round(value);
-
-
-return h.value;
+ return h.value;
 
 }
 
 
 /* =====================================================
-POTENTIEL ESTIMÉ
+ POTENTIEL VISIBLE
 ===================================================== */
 
-function getPotentialRange(h){
+function potentialRange(h){
 
-let uncertainty;
+ let uncertainty=4;
 
+ if(h.age<=3)
+  uncertainty=18;
+ else if(h.age<=5)
+  uncertainty=14;
+ else if(h.age<=8)
+  uncertainty=8;
 
-if(h.age<=3){
+ return{
 
-uncertainty=18;
+  min:clamp(
+   h.realPotential-uncertainty,
+   40,
+   99
+  ),
 
-}
+  max:clamp(
+   h.realPotential+uncertainty,
+   40,
+   99
+  )
 
-else if(h.age<=5){
-
-uncertainty=14;
-
-}
-
-else if(h.age<=8){
-
-uncertainty=8;
-
-}
-
-else{
-
-uncertainty=4;
-
-}
-
-
-return{
-
-min:clamp(
-h.realPotential-uncertainty,
-40,
-99
-),
-
-max:clamp(
-h.realPotential+uncertainty,
-40,
-99
-)
-
-};
+ };
 
 }
 
 
 /* =====================================================
-CARNET DU CHEVAL
+ CARNET DU CHEVAL
 ===================================================== */
 
 function openHorseBook(id){
 
-const h=
-game.horses.find(
-x=>x.id===id
-);
+ const h=
+  game.horses.find(
+   x=>x.id===id
+  );
 
-if(!h)return;
+ if(!h)return;
 
+ normalizeHorse(h);
 
-normalizeHorse(h);
+ const range=
+  potentialRange(h);
 
-const range=
-getPotentialRange(h);
+ const regularity=
+  getRegularity(h);
 
+ const podiums=
+  getPodiums(h);
 
-openModal(
+ openModal(
 
-"📖 Carnet de "+h.name,
+  "📖 Carnet de "+h.name,
 
-`
+  `
 
-<div class="notice">
+  <div class="notice">
 
-<b>${h.name}</b><br>
+   <b>${h.name}</b><br>
 
-${h.race}<br>
+   ${h.race} · ${h.age} ans · ${h.sex}<br>
 
-${h.age} ans · ${h.sex}<br>
+   ${h.place==="box"
+    ?"🏠 Au box"
+    :"🌳 Au pré"}
 
-${h.place==="box"
-?"🏠 Au box"
-:"🌳 Au pré"}
+  </div>
 
-</div>
 
+  <div class="sectionTitle">
+  🏆 Profil sportif
+  </div>
 
-<div class="sectionTitle">
-🏆 Sport
-</div>
 
+  <div class="choice">
 
-<div class="choice">
+   <div class="choiceLine">
 
-<span>Potentiel estimé</span>
+    <span>Potentiel estimé</span>
 
-<b style="margin-left:auto">
-${range.min} – ${range.max}
-</b>
+    <b>
+    ${range.min} – ${range.max}
+    </b>
 
-</div>
+   </div>
 
+   <div class="small">
+   Potentiel réel non connu avec certitude.
+   </div>
 
-<div class="choice">
+  </div>
 
-<span>Niveau actuel</span>
 
-<b style="margin-left:auto">
-${h.currentLevel}/100
-</b>
+  <div class="choice">
 
-</div>
+   <div class="choiceLine">
 
+    <span>Niveau actuel</span>
 
-<div class="choice">
+    <b>${h.currentLevel}/100</b>
 
-<span>Expérience</span>
+   </div>
 
-<b style="margin-left:auto">
-${h.experience}/100
-</b>
+  </div>
 
-</div>
 
+  <div class="choice">
 
-<div class="choice">
+   <div class="choiceLine">
 
-<span>Technique</span>
+    <span>Expérience</span>
 
-<b style="margin-left:auto">
-${h.technique}/100
-</b>
+    <b>${h.experience}/100</b>
 
-</div>
+   </div>
 
+  </div>
 
-<div class="choice">
 
-<span>Force</span>
+  <div class="choice">
 
-<b style="margin-left:auto">
-${h.strength}/100
-</b>
+   <div class="choiceLine">
 
-</div>
+    <span>Régularité</span>
 
+    <b>${regularity}/100</b>
 
-<div class="choice">
+   </div>
 
-<span>Endurance</span>
+  </div>
 
-<b style="margin-left:auto">
-${h.endurance}/100
-</b>
 
-</div>
+  <div class="choice">
 
+   🐎 ${h.totalCourses} parcours
 
-<div class="choice">
+  </div>
 
-<span>Régularité</span>
 
-<b style="margin-left:auto">
-${h.regularity}/100
-</b>
+  <div class="choice">
 
-</div>
+   🥇 ${getWins(h)} victoires
 
+  </div>
 
-<div class="sectionTitle">
-🧠 Mental
-</div>
 
+  <div class="choice">
 
-<div class="choice">
+   🏅 ${podiums} podiums
 
-<span>Gentillesse</span>
+  </div>
 
-<b style="margin-left:auto">
-${h.gentleness}/100
-</b>
 
-</div>
+  <div class="sectionTitle">
+  📊 Capacités
+  </div>
 
 
-<div class="choice">
+  ${stat("Technique",h.technique)}
+  ${stat("Force",h.strength)}
+  ${stat("Endurance",h.endurance)}
+  ${stat("Régularité naturelle",h.regularity)}
 
-<span>Calme</span>
 
-<b style="margin-left:auto">
-${h.calm}/100
-</b>
+  <div class="sectionTitle">
+  🧠 Mental & caractère
+  </div>
 
-</div>
 
+  ${stat("Mental",h.mental)}
+  ${stat("Gentillesse",h.gentleness)}
+  ${stat("Calme",h.calm)}
+  ${stat("Courage",h.courage)}
+  ${stat("Concentration",h.concentration)}
+  ${stat("Volonté",h.willpower)}
+  ${stat("Réactivité",h.reactivity)}
 
-<div class="choice">
 
-<span>Courage</span>
+  <div class="sectionTitle">
+  🎯 Utilité
+  </div>
 
-<b style="margin-left:auto">
-${h.courage}/100
-</b>
 
-</div>
+  ${stat("Cours",h.courseUse)}
+  ${stat("Compétition",h.competitionUse)}
+  ${stat("Élevage",h.breedingUse)}
 
 
-<div class="choice">
+  <div class="sectionTitle">
+  🏆 Palmarès
+  </div>
 
-<span>Concentration</span>
 
-<b style="margin-left:auto">
-${h.concentration}/100
-</b>
+  ${careerSummary(h)}
 
-</div>
 
+  <div class="sectionTitle">
+  🏆 Championnats de France
+  </div>
 
-<div class="sectionTitle">
-🎯 Utilité
-</div>
 
+  ${championships(h)}
 
-<div class="choice">
 
-<span>Cheval de cours</span>
+  <div class="sectionTitle">
+  🧬 Origines
+  </div>
 
-<b style="margin-left:auto">
-${h.courseUse}/100
-</b>
 
-</div>
+  ${parents(h)}
 
 
-<div class="choice">
+  <div class="sectionTitle">
+  💰 Valeur
+  </div>
 
-<span>Compétition</span>
 
-<b style="margin-left:auto">
-${h.competitionUse}/100
-</b>
+  <div class="notice">
 
-</div>
+   <div class="small">
+   Valeur estimée
+   </div>
 
+   <div class="value">
+   ${money(h.value)}
+   </div>
 
-<div class="choice">
+   <br>
 
-<span>Élevage</span>
+   🏆 Sport : <b>45 %</b><br>
+   🧠 Mental : <b>20 %</b><br>
+   🎯 Utilité : <b>15 %</b><br>
+   ❤️ Âge + santé : <b>20 %</b>
 
-<b style="margin-left:auto">
-${h.breedingUse}/100
-</b>
+  </div>
 
-</div>
 
+  <div class="sectionTitle">
+  ❤️ Santé
+  </div>
 
-<div class="sectionTitle">
-❤️ État
-</div>
 
+  ${stat("Forme",h.form)}
+  ${stat("Santé",h.health)}
+  ${stat("Fatigue",h.fatigue)}
 
-<div class="choice">
 
-<span>Forme</span>
+  <div class="sectionTitle">
+  🩺 Carnet sanitaire
+  </div>
 
-<b style="margin-left:auto">
-${h.form}%
-</b>
 
-</div>
+  <div class="choice">
+   💉 Vaccins
+   <span class="small">Suivi à venir</span>
+  </div>
 
+  <div class="choice">
+   🧲 Ferrage / parage
+   <span class="small">Suivi à venir</span>
+  </div>
 
-<div class="progress">
-<span style="width:${h.form}%"></span>
-</div>
+  <div class="choice">
+   🦷 Dentiste
+   <span class="small">Suivi à venir</span>
+  </div>
 
+  <div class="choice">
+   👐 Ostéopathe
+   <span class="small">Suivi à venir</span>
+  </div>
 
-<div class="choice">
+  `
 
-<span>Santé</span>
-
-<b style="margin-left:auto">
-${h.health}%
-</b>
-
-</div>
-
-
-<div class="progress">
-<span style="width:${h.health}%"></span>
-</div>
-
-
-<div class="choice">
-
-<span>Fatigue</span>
-
-<b style="margin-left:auto">
-${h.fatigue}%
-</b>
-
-</div>
-
-
-<div class="progress">
-<span style="width:${h.fatigue}%"></span>
-</div>
-
-
-<div class="sectionTitle">
-💰 Valeur
-</div>
-
-
-<div class="notice">
-
-<div class="small">
-Valeur estimée du marché
-</div>
-
-<div class="value">
-${money(h.value)}
-</div>
-
-</div>
-
-
-<div class="notice">
-
-<b>Comment est calculée la valeur ?</b>
-
-<br><br>
-
-🏆 Sport : <b>45 %</b><br>
-
-🧠 Mental : <b>20 %</b><br>
-
-🎯 Utilité : <b>15 %</b><br>
-
-❤️ Âge + santé : <b>20 %</b>
-
-</div>
-
-
-<div class="sectionTitle">
-🩺 Carnet sanitaire
-</div>
-
-
-<div class="choice">
-
-💉 Vaccins
-
-<span
-style="margin-left:auto"
-class="small">
-
-Suivi à venir
-
-</span>
-
-</div>
-
-
-<div class="choice">
-
-🧲 Ferrage / parage
-
-<span
-style="margin-left:auto"
-class="small">
-
-Suivi à venir
-
-</span>
-
-</div>
-
-
-<div class="choice">
-
-🦷 Dentiste
-
-<span
-style="margin-left:auto"
-class="small">
-
-Suivi à venir
-
-</span>
-
-</div>
-
-
-<div class="choice">
-
-👐 Ostéopathe
-
-<span
-style="margin-left:auto"
-class="small">
-
-Suivi à venir
-
-</span>
-
-</div>
-
-
-<div class="sectionTitle">
-🧬 Origines
-</div>
-
-
-<div class="notice">
-
-Père : à définir<br>
-
-Mère : à définir<br>
-
-Famille : à définir
-
-<br><br>
-
-<span class="small">
-
-Les origines influenceront progressivement
-le potentiel estimé des jeunes chevaux.
-
-</span>
-
-</div>
-
-`
-
-);
+ );
 
 }
 
 
 /* =====================================================
-CARTE CHEVAL
+ STATISTIQUE
+===================================================== */
+
+function stat(name,value){
+
+ return `
+
+ <div class="choice">
+
+  <div class="statLine">
+
+   <span>${name}</span>
+
+   <b>${Math.round(value)}/100</b>
+
+  </div>
+
+  <div class="progress">
+
+   <span
+   style="width:${clamp(value,0,100)}%">
+   </span>
+
+  </div>
+
+ </div>
+
+ `;
+
+}
+
+
+/* =====================================================
+ PALMARÈS
+===================================================== */
+
+function careerSummary(h){
+
+ return `
+
+ <div class="choice">
+
+  🥇 <b>${h.winsNational}</b>
+  victoire(s) National
+
+ </div>
+
+ <div class="choice">
+
+  🥇 <b>${h.winsAmateur}</b>
+  victoire(s) Amateur
+
+ </div>
+
+ <div class="choice">
+
+  🥇 <b>${h.winsClub}</b>
+  victoire(s) Club
+
+ </div>
+
+
+ <div class="choice">
+
+  🥈 <b>${h.secondNational}</b>
+  deuxième(s) National
+
+ </div>
+
+ <div class="choice">
+
+  🥈 <b>${h.secondAmateur}</b>
+  deuxième(s) Amateur
+
+ </div>
+
+ <div class="choice">
+
+  🥈 <b>${h.secondClub}</b>
+  deuxième(s) Club
+
+ </div>
+
+
+ <div class="choice">
+
+  🥉 <b>${h.thirdNational}</b>
+  troisième(s) National
+
+ </div>
+
+ <div class="choice">
+
+  🥉 <b>${h.thirdAmateur}</b>
+  troisième(s) Amateur
+
+ </div>
+
+ <div class="choice">
+
+  🥉 <b>${h.thirdClub}</b>
+  troisième(s) Club
+
+ </div>
+
+
+ <div class="notice">
+
+  <b>📊 ${getWins(h)} victoires</b>
+  sur ${h.totalCourses} parcours
+
+  <br><br>
+
+  Régularité :
+
+  <b>${getRegularity(h)}/100</b>
+
+ </div>
+
+ `;
+
+}
+
+
+/* =====================================================
+ CHAMPIONNATS
+===================================================== */
+
+function championships(h){
+
+ if(
+  !h.championships ||
+  h.championships.length===0
+ ){
+
+  return `
+
+  <div class="notice">
+
+   Aucun Championnat de France enregistré.
+
+  </div>
+
+  `;
+
+ }
+
+
+ return h.championships.map(c=>`
+
+ <div class="resultRow">
+
+  🏆
+  <b>Championnat de France ${c.category}</b>
+
+  <br>
+
+  ${c.year}
+
+  <br>
+
+  <span class="rating">
+
+  ${c.rank}e / ${c.starters} partants
+
+  </span>
+
+ </div>
+
+ `).join("");
+
+}
+
+
+/* =====================================================
+ PARENTS
+===================================================== */
+
+function parents(h){
+
+ return `
+
+ <div class="choice">
+
+  <b>🐎 Père : ${h.father.name}</b>
+
+  <br><br>
+
+  ${h.father.results
+   .map(x=>"• "+x)
+   .join("<br>")}
+
+ </div>
+
+
+ <div class="choice">
+
+  <b>🐎 Mère : ${h.mother.name}</b>
+
+  <br><br>
+
+  ${h.mother.results
+   .map(x=>"• "+x)
+   .join("<br>")}
+
+ </div>
+
+ `;
+
+}
+
+
+/* =====================================================
+ CARTE CHEVAL
 ===================================================== */
 
 function horseCard(h){
 
-normalizeHorse(h);
+ normalizeHorse(h);
 
-return`
+ const range=
+  potentialRange(h);
 
-<div
-class="choice"
-style="display:block"
->
+ return `
 
+ <div class="choice" style="display:block">
 
-<div
-style="
-display:flex;
-gap:10px;
-align-items:center;
-"
->
+  <div style="font-size:37px">
+  🐎
+  </div>
 
+  <b style="font-size:18px">
+  ${h.name}
+  </b>
 
-<div style="font-size:38px">
+  <br>
 
-🐎
+  ${h.race} · ${h.age} ans
 
-</div>
+  <br>
 
+  Potentiel :
 
-<div>
+  <b>
+  ${range.min}-${range.max}
+  </b>
 
-<b style="font-size:18px">
 
-${h.name}
+  <div class="statLine">
+   <span>Forme</span>
+   <b>${h.form}%</b>
+  </div>
 
-</b>
+  <div class="progress">
+   <span style="width:${h.form}%"></span>
+  </div>
 
 
-<br>
+  <div class="statLine">
+   <span>Santé</span>
+   <b>${h.health}%</b>
+  </div>
 
-${h.race} · ${h.age} ans
+  <div class="progress">
+   <span style="width:${h.health}%"></span>
+  </div>
 
 
-<br>
+  <div class="notice">
 
-${h.sex} ·
+   💰
+   <b>${money(h.value)}</b>
 
-${h.place==="box"
-?"🏠 Box"
-:"🌳 Pré"}
+   <br>
 
-</div>
+   🏆
+   ${getWins(h)}
+   victoires /
+   ${h.totalCourses}
+   parcours
 
+  </div>
 
-</div>
 
+  <button
+  class="primary"
+  onclick="openHorseBook(${h.id})">
 
-<div class="statLine">
+  📖 Ouvrir le carnet
 
-<span>
-💪 Forme
-</span>
+  </button>
 
-<b>
-${h.form}%
-</b>
 
-</div>
+  <button
+  class="primary"
+  onclick="trainHorse(${h.id})">
 
+  🏇 Entraîner
 
-<div class="progress">
+  </button>
 
-<span
-style="width:${h.form}%">
-</span>
 
-</div>
+  <button
+  class="primary"
+  onclick="careHorse(${h.id})">
 
+  ❤️ Soigner
 
-<div class="statLine">
+  </button>
 
-<span>
-❤️ Santé
-</span>
+ </div>
 
-<b>
-${h.health}%
-</b>
-
-</div>
-
-
-<div class="progress">
-
-<span
-style="width:${h.health}%">
-</span>
-
-</div>
-
-
-<div class="statLine">
-
-<span>
-😴 Fatigue
-</span>
-
-<b>
-${h.fatigue}%
-</b>
-
-</div>
-
-
-<div class="progress">
-
-<span
-style="width:${h.fatigue}%">
-</span>
-
-</div>
-
-
-<div class="notice">
-
-💰 Valeur :
-
-<b>
-${money(h.value)}
-</b>
-
-</div>
-
-
-<button
-class="primary"
-onclick="openHorseBook(${h.id})">
-
-📖 Ouvrir le carnet
-
-</button>
-
-
-<div
-style="
-display:flex;
-gap:6px;
-margin-top:6px;
-"
->
-
-
-<button
-class="primary"
-onclick="careHorse(${h.id})">
-
-❤️ Soigner
-
-</button>
-
-
-<button
-class="primary"
-onclick="trainHorse(${h.id})">
-
-🏇 Entraîner
-
-</button>
-
-
-</div>
-
-
-<button
-class="primary"
-style="margin-top:6px"
-onclick="togglePlace(${h.id})">
-
-
-${
-h.place==="box"
-
-?
-
-"🌳 Mettre au pré"
-
-:
-
-"🏠 Rentrer au box"
-
-}
-
-
-</button>
-
-
-</div>
-
-`;
+ `;
 
 }
 
 
 /* =====================================================
-MES CHEVAUX
+ MES CHEVAUX
 ===================================================== */
 
 function horsesPage(){
 
-openModal(
+ openModal(
 
-"🐎 Mes chevaux",
+  "🐎 Mes chevaux",
 
-game.horses
-.map(horseCard)
-.join("")
+  game.horses
+   .map(horseCard)
+   .join("")
 
-);
+ );
 
 }
 
 
 /* =====================================================
-SOINS
+ MARCHÉ
 ===================================================== */
 
-function carePage(){
+function generateMarket(){
 
-openModal(
+ const races=[
+  "Selle Français",
+  "KWPN",
+  "Anglo-Arabe",
+  "Connemara",
+  "Poney Français de Selle",
+  "Hanovrien",
+  "Oldenbourg"
+ ];
 
-"❤️ Soins",
+ const names=[
+  "Jolie Étoile",
+  "Silver Moon",
+  "Golden Dream",
+  "Belle Romance",
+  "Royal Star",
+  "Évidence",
+  "Mystère"
+ ];
 
-`
+ const market=[];
 
-<div class="notice">
+ for(let i=0;i<7;i++){
 
-Prends soin de tes chevaux
-pour améliorer leur santé,
-leur forme et leur récupération.
+  const potential=
+   55+
+   Math.floor(
+    Math.random()*42
+   );
 
-</div>
+  const age=
+   3+
+   Math.floor(
+    Math.random()*13
+   );
 
-${game.horses
-.map(horseCard)
-.join("")}
+  let profile;
 
-`
+  const type=i%4;
 
-);
+  if(type===0){
+
+   profile={
+    mental:90,
+    gentleness:94,
+    calm:92,
+    courseUse:96
+   };
+
+  }
+  else if(type===1){
+
+   profile={
+    mental:72,
+    gentleness:58,
+    calm:55,
+    courseUse:62
+   };
+
+  }
+  else if(type===2){
+
+   profile={
+    mental:84,
+    gentleness:78,
+    calm:76,
+    courseUse:76
+   };
+
+  }
+  else{
+
+   profile={
+    mental:61,
+    gentleness:48,
+    calm:44,
+    courseUse:52
+   };
+
+  }
+
+  const realPotential=
+   clamp(
+    potential+
+    Math.floor(
+     Math.random()*15-7
+    ),
+    40,
+    99
+   );
+
+  const current=
+   Math.min(
+    Math.floor(
+     35+
+     Math.random()*30
+    ),
+    realPotential
+   );
+
+  const h={
+
+   id:
+    "market_"+game.marketCycle+"_"+i,
+
+   name:names[i],
+
+   race:races[i],
+
+   age:age,
+
+   sex:
+    i%2===0
+    ?"Jument"
+    :"Hongre",
+
+   form:
+    70+
+    Math.floor(
+     Math.random()*20
+    ),
+
+   health:
+    82+
+    Math.floor(
+     Math.random()*18
+    ),
+
+   fatigue:
+    5+
+    Math.floor(
+     Math.random()*25
+    ),
+
+   place:"market",
+
+   potential:potential,
+
+   realPotential:realPotential,
+
+   currentLevel:current,
+
+   experience:
+    age>8
+    ?40+Math.floor(Math.random()*40)
+    :5+Math.floor(Math.random()*25),
+
+   technique:
+    clamp(
+     current+
+     Math.floor(Math.random()*20-10),
+     40,
+     realPotential
+    ),
+
+   strength:
+    50+
+    Math.floor(Math.random()*45),
+
+   endurance:
+    50+
+    Math.floor(Math.random()*45),
+
+   regularity:
+    45+
+    Math.floor(Math.random()*50),
+
+   mental:profile.mental,
+
+   gentleness:profile.gentleness,
+
+   calm:profile.calm,
+
+   courage:
+    50+
+    Math.floor(Math.random()*45),
+
+   concentration:
+    50+
+    Math.floor(Math.random()*45),
+
+   willpower:
+    50+
+    Math.floor(Math.random()*45),
+
+   reactivity:
+    35+
+    Math.floor(Math.random()*55),
+
+   courseUse:
+    profile.courseUse,
+
+   competitionUse:
+    potential,
+
+   breedingUse:
+    potential,
+
+   winsClub:
+    Math.floor(Math.random()*8),
+
+   winsAmateur:
+    potential>75
+    ?Math.floor(Math.random()*6)
+    :Math.floor(Math.random()*3),
+
+   winsNational:
+    potential>85
+    ?Math.floor(Math.random()*4)
+    :0,
+
+   secondClub:
+    Math.floor(Math.random()*7),
+
+   secondAmateur:
+    Math.floor(Math.random()*5),
+
+   secondNational:
+    potential>82
+    ?Math.floor(Math.random()*3)
+    :0,
+
+   thirdClub:
+    Math.floor(Math.random()*6),
+
+   thirdAmateur:
+    Math.floor(Math.random()*5),
+
+   thirdNational:
+    potential>82
+    ?Math.floor(Math.random()*3)
+    :0,
+
+   totalCourses:
+    10+
+    Math.floor(Math.random()*50),
+
+   championships:[],
+
+   father:{
+    name:"Père de "+names[i],
+    results:[
+     "Résultats disponibles dans le dossier d'origine"
+    ]
+   },
+
+   mother:{
+    name:"Mère de "+names[i],
+    results:[
+     "Résultats disponibles dans le dossier d'origine"
+    ]
+   }
+
+  };
+
+  normalizeHorse(h);
+
+  market.push(h);
+
+ }
+
+ return market;
 
 }
 
 
-function careHorse(id){
-
-const h=
-game.horses.find(
-x=>x.id===id
-);
-
-if(!h)return;
-
-
-h.form=
-clamp(
-h.form+4,
-0,
-100
-);
-
-
-h.health=
-clamp(
-h.health+3,
-0,
-100
-);
-
-
-h.fatigue=
-clamp(
-h.fatigue-7,
-0,
-100
-);
-
-
-game.reputation++;
-
-
-calculateHorseValue(h);
-
-saveGame();
-
-
-openModal(
-
-"❤️ Soin terminé",
-
-`
-
-<div class="notice">
-
-<b>${h.name}</b>
-a été correctement soigné.
-
-</div>
-
-Forme :
-<b>${h.form}%</b>
-
-<br>
-
-Santé :
-<b>${h.health}%</b>
-
-<br>
-
-Fatigue :
-<b>${h.fatigue}%</b>
-
-<br><br>
-
-<button
-class="primary"
-onclick="closeModal()">
-
-Continuer
-
-</button>
-
-`
-
-);
-
-}
-
-
-/* =====================================================
-ENTRAÎNEMENT
-===================================================== */
-
-function trainHorse(id){
-
-const h=
-game.horses.find(
-x=>x.id===id
-);
-
-if(!h)return;
-
-
-if(h.fatigue>=75){
-
-openModal(
-
-"😴 Cheval fatigué",
-
-`
-
-<div class="notice">
-
-${h.name}
-est trop fatigué pour continuer.
-
-</div>
-
-`
-
-);
-
-return;
-
-}
-
-
-h.currentLevel=
-clamp(
-h.currentLevel+2,
-0,
-h.potential
-);
-
-
-h.form=
-clamp(
-h.form+6,
-0,
-100
-);
-
-
-h.fatigue=
-clamp(
-h.fatigue+14,
-0,
-100
-);
-
-
-h.experience=
-clamp(
-h.experience+2,
-0,
-100
-);
-
-
-h.technique=
-clamp(
-h.technique+1,
-0,
-h.potential
-);
-
-
-h.regularity=
-clamp(
-h.regularity+1,
-0,
-h.potential
-);
-
-
-game.reputation++;
-
-
-calculateHorseValue(h);
-
-saveGame();
-
-
-openModal(
-
-"🏇 Entraînement terminé",
-
-`
-
-<div class="notice">
-
-<b>${h.name}</b>
-progresse.
-
-</div>
-
-Niveau :
-<b>${h.currentLevel}/100</b>
-
-<br>
-
-Expérience :
-<b>${h.experience}/100</b>
-
-<br>
-
-Forme :
-<b>${h.form}%</b>
-
-<br>
-
-Fatigue :
-<b>${h.fatigue}%</b>
-
-`
-
-);
-
-}
-
-
-/* =====================================================
-BOX / PRÉ
-===================================================== */
-
-function togglePlace(id){
-
-const h=
-game.horses.find(
-x=>x.id===id
-);
-
-if(!h)return;
-
-
-if(h.place==="box"){
-
-h.place="pasture";
-
-}else{
-
-
-const occupied=
-game.horses.filter(
-x=>x.place==="box"
-).length;
-
-
-if(occupied>=game.boxes){
-
-openModal(
-
-"🏠 Écurie complète",
-
-`
-
-<div class="notice">
-
-Tous les boxes sont occupés.
-
-</div>
-
-`
-
-);
-
-return;
-
-}
-
-
-h.place="box";
-
-}
-
-
-saveGame();
-
-horsesPage();
+let marketData={
+ breeding:[],
+ auction:[],
+ merchant:[]
+};
+
+
+function ensureMarket(){
+
+ if(
+  !marketData.breeding.length ||
+  marketData.cycle!==game.marketCycle
+ ){
+
+  marketData={
+   cycle:game.marketCycle,
+   breeding:generateMarket(),
+   auction:generateMarket(),
+   merchant:generateMarket()
+  };
+
+ }
 
 }
 
 
 /* =====================================================
-DOMAINE
-===================================================== */
-
-function domainPage(){
-
-openModal(
-
-"🏡 Domaine",
-
-`
-
-<div class="notice">
-
-<b>Mon Écurie</b>
-
-<br>
-
-${season()}
-
-<br>
-
-Semaine ${game.week}/52
-
-<br>
-
-Année ${game.year}
-
-</div>
-
-
-<div class="choice">
-
-💰 Trésorerie
-
-<b style="margin-left:auto">
-
-${money(game.money)}
-
-</b>
-
-</div>
-
-
-<div class="choice">
-
-⭐ Réputation
-
-<b style="margin-left:auto">
-
-${game.reputation}
-
-</b>
-
-</div>
-
-
-<div class="choice">
-
-🏠 Boxes
-
-<b style="margin-left:auto">
-
-${game.horses
-.filter(h=>h.place==="box")
-.length}
-
-/
-
-${game.boxes}
-
-</b>
-
-</div>
-
-
-<button
-class="primary"
-onclick="nextWeek()">
-
-📅 Passer une semaine
-
-<br>
-
-<span
-style="font-size:11px">
-
-350 €
-
-</span>
-
-</button>
-
-`
-
-);
-
-}
-
-
-/* =====================================================
-SEMAINE
-===================================================== */
-
-function nextWeek(){
-
-if(game.money<350){
-
-openModal(
-
-"💸 Argent insuffisant",
-
-"Tu n'as pas assez d'argent."
-
-);
-
-return;
-
-}
-
-
-game.money-=350;
-
-game.week++;
-
-
-if(game.week>52){
-
-game.week=1;
-
-game.year++;
-
-game.horses.forEach(
-h=>{
-h.age++;
-}
-);
-
-}
-
-
-game.horses.forEach(
-h=>{
-
-h.fatigue=
-clamp(
-h.fatigue-12,
-0,
-100
-);
-
-
-if(h.place==="pasture"){
-
-h.health=
-clamp(
-h.health+2,
-0,
-100
-);
-
-}
-
-
-calculateHorseValue(h);
-
-}
-);
-
-
-saveGame();
-
-domainPage();
-
-}
-
-
-/* =====================================================
-FOIN
-===================================================== */
-
-function hayPage(){
-
-if(game.money<250){
-
-openModal(
-"🌾 Foin",
-"Tu n'as pas assez d'argent."
-);
-
-return;
-
-}
-
-
-if(game.hay>=game.maxHay){
-
-openModal(
-"🌾 Stock plein",
-"Le stock de foin est déjà plein."
-);
-
-return;
-
-}
-
-
-game.money-=250;
-
-game.hay=
-Math.min(
-game.maxHay,
-game.hay+500
-);
-
-
-saveGame();
-
-
-openModal(
-
-"🌾 Foin acheté",
-
-`
-
-<div class="notice">
-
-+500 kg de foin
-
-</div>
-
-Stock :
-
-<b>
-${game.hay} kg
-</b>
-
-`
-
-);
-
-}
-
-
-/* =====================================================
-GRAIN
-===================================================== */
-
-function grainPage(){
-
-if(game.money<180){
-
-openModal(
-"🌽 Grain",
-"Tu n'as pas assez d'argent."
-);
-
-return;
-
-}
-
-
-game.money-=180;
-
-game.grain=
-Math.min(
-game.maxGrain,
-game.grain+300
-);
-
-
-saveGame();
-
-
-openModal(
-
-"🌽 Grain acheté",
-
-`
-
-<div class="notice">
-
-+300 kg de grain
-
-</div>
-
-Stock :
-
-<b>
-${game.grain} kg
-</b>
-
-`
-
-);
-
-}
-
-
-/* =====================================================
-CONCOURS
-===================================================== */
-
-function showsPage(){
-
-const best=
-[...game.horses]
-.sort(
-(a,b)=>
-b.currentLevel-
-a.currentLevel
-)[0];
-
-
-openModal(
-
-"🏆 Concours",
-
-`
-
-<div class="notice">
-
-Meilleur cheval :
-
-<b>${best.name}</b>
-
-<br>
-
-Niveau :
-
-${best.currentLevel}/100
-
-<br>
-
-Potentiel :
-
-${getPotentialRange(best).min}
--
-${getPotentialRange(best).max}
-
-</div>
-
-
-<div class="choice">
-
-🥉 Club
-
-<span
-style="margin-left:auto">
-
-250 €
-
-</span>
-
-<button
-onclick="competition('Club',250,2)">
-
-Participer
-
-</button>
-
-</div>
-
-
-<div class="choice">
-
-🥈 Amateur
-
-<span
-style="margin-left:auto">
-
-600 €
-
-</span>
-
-<button
-onclick="competition('Amateur',600,5)">
-
-Participer
-
-</button>
-
-</div>
-
-
-<div class="choice">
-
-🥇 National
-
-<span
-style="margin-left:auto">
-
-1500 €
-
-</span>
-
-<button
-onclick="competition('National',1500,10)">
-
-Participer
-
-</button>
-
-</div>
-
-
-<div class="notice">
-
-Les championnats de France
-seront accessibles uniquement
-avec les qualifications
-du cheval, du cavalier et du couple.
-
-</div>
-
-`
-
-);
-
-}
-
-
-/* =====================================================
-CONCOURS
-===================================================== */
-
-function competition(
-level,
-cost,
-rep
-){
-
-const h=
-[...game.horses]
-.sort(
-(a,b)=>
-b.currentLevel-
-a.currentLevel
-)[0];
-
-
-if(game.money<cost){
-
-openModal(
-"💸 Concours impossible",
-"Tu n'as pas assez d'argent."
-);
-
-return;
-
-}
-
-
-game.money-=cost;
-
-
-h.fatigue=
-clamp(
-h.fatigue+20,
-0,
-100
-);
-
-
-h.experience=
-clamp(
-h.experience+3,
-0,
-100
-);
-
-
-let difficulty=0;
-
-
-if(level==="Club")
-difficulty=0;
-
-if(level==="Amateur")
-difficulty=10;
-
-if(level==="National")
-difficulty=20;
-
-
-let chance=
-
-h.currentLevel*0.55+
-
-h.experience*0.15+
-
-h.regularity*0.15+
-
-h.mental*0.15-
-
-difficulty;
-
-
-chance=
-clamp(
-chance,
-5,
-95
-);
-
-
-const success=
-Math.random()*100<chance;
-
-
-if(success){
-
-const gain=
-cost*2;
-
-
-game.money+=gain;
-
-game.reputation+=rep;
-
-
-calculateHorseValue(h);
-
-saveGame();
-
-
-openModal(
-
-"🏆 Belle performance !",
-
-`
-
-<div class="notice">
-
-<b>${h.name}</b>
-réussit son concours ${level} !
-
-</div>
-
-💰 Gain :
-
-<b>${money(gain)}</b>
-
-<br>
-
-⭐ Réputation :
-
-<b>+${rep}</b>
-
-`
-
-);
-
-}else{
-
-
-calculateHorseValue(h);
-
-saveGame();
-
-
-openModal(
-
-"🏇 Concours terminé",
-
-`
-
-${h.name}
-a participé au concours ${level}.
-
-<br><br>
-
-Cette fois, la performance
-n'a pas permis de gagner.
-
-`
-
-);
-
-}
-
-}
-
-
-/* =====================================================
-MARCHÉ
+ MARCHÉ PRINCIPAL
 ===================================================== */
 
 function marketPage(){
 
-const horses=[
+ ensureMarket();
 
-[
-"Belle",
-"Selle Français",
-12000,
-4,
-72
-],
-
-[
-"Royal",
-"KWPN",
-18000,
-6,
-84
-],
-
-[
-"Dusty",
-"Quarter Horse",
-9000,
-5,
-63
-],
-
-[
-"Silver",
-"Frison",
-15000,
-7,
-76
-]
-
-];
-
-
-openModal(
-
-"🐴 Marché",
-
-horses.map(
-(h,i)=>`
-
-<div class="choice">
-
-<div>
-
-<b>${h[0]}</b>
-
-<br>
-
-${h[1]}
-
-<br>
-
-${h[3]} ans
-
-<br>
-
-Potentiel estimé :
-
-${h[4]-8}
--
-${h[4]+8}
-
-<br>
-
-💰 ${money(h[2])}
-
-</div>
-
-
-<button
-onclick="buyHorse(${i})">
-
-Acheter
-
-</button>
-
-</div>
-
-`
-).join("")
-
-);
+ showMarket("breeding");
 
 }
 
 
 /* =====================================================
-ACHAT
+ AFFICHAGE MARCHÉ
 ===================================================== */
 
-function buyHorse(index){
+function showMarket(type){
 
-const horses=[
+ ensureMarket();
 
-[
-"Belle",
-"Selle Français",
-12000,
-4,
-72
-],
+ const labels={
 
-[
-"Royal",
-"KWPN",
-18000,
-6,
-84
-],
+  breeding:"🧬 Élevages",
+  auction:"🔨 Enchères",
+  merchant:"🐎 Marchands"
 
-[
-"Dusty",
-"Quarter Horse",
-9000,
-5,
-63
-],
+ };
 
-[
-"Silver",
-"Frison",
-15000,
-7,
-76
-]
+ let horses=
+  marketData[type];
 
-];
+ let html=`
 
+ <div class="notice">
 
-const h=horses[index];
+ <b>🐴 Marché des chevaux</b>
 
+ <br><br>
 
-if(!h)return;
+ Les offres sont renouvelées
+ tous les <b>10 semaines</b>.
 
+ <br>
 
-if(game.money<h[2]){
+ Prochain renouvellement :
 
-openModal(
-"💸 Achat impossible",
-"Tu n'as pas assez d'argent."
-);
+ <b>
+ ${10-(game.week%10)} semaines
+ </b>
 
-return;
+ </div>
 
-}
 
+ <div class="marketTabs">
 
-const occupied=
-game.horses.filter(
-x=>x.place==="box"
-).length;
+ <button
+ class="${type==="breeding"?"active":""}"
+ onclick="showMarket('breeding')">
 
+ 🧬 Élevages
 
-if(occupied>=game.boxes){
+ </button>
 
-openModal(
-"🏠 Plus de place",
-"Tous les boxes sont occupés."
-);
+ <button
+ class="${type==="auction"?"active":""}"
+ onclick="showMarket('auction')">
 
-return;
+ 🔨 Enchères
 
-}
+ </button>
 
+ <button
+ class="${type==="merchant"?"active":""}"
+ onclick="showMarket('merchant')">
 
-game.money-=h[2];
+ 🐎 Marchands
 
+ </button>
 
-const realPotential=
-clamp(
-h[4]+
-Math.round(
-Math.random()*16-8
-),
-40,
-99
-);
+ </div>
 
+ `;
 
-const newHorse={
 
-id:Date.now(),
+ horses.forEach((h,index)=>{
 
-name:h[0],
+  const range=
+   potentialRange(h);
 
-race:h[1],
+  let price=
+   h.value;
 
-age:h[3],
+  if(type==="auction"){
 
-sex:"Hongre",
+   price=
+    Math.round(
+     h.value*0.55
+    );
 
-form:70,
+  }
 
-health:92,
+  if(type==="merchant"){
 
-fatigue:5,
+   price=
+    Math.round(
+     h.value*1.05
+    );
 
-place:"box",
+  }
 
-potential:h[4],
 
-realPotential:realPotential,
+  html+=`
 
-currentLevel:
-Math.max(
-45,
-h[4]-20
-),
+  <div class="horseMarketCard">
 
-experience:10,
+   <div class="horseImage">
+   🐎
+   </div>
 
-technique:
-Math.max(
-45,
-h[4]-15
-),
 
-strength:
-Math.max(
-45,
-h[4]-12
-),
+   <span class="badge">
+   ${h.race}
+   </span>
 
-endurance:
-Math.max(
-45,
-h[4]-10
-),
 
-regularity:
-Math.max(
-45,
-h[4]-15
-),
+   <h3>
+   ${h.name}
+   </h3>
 
-mental:
-60+
-Math.round(Math.random()*25),
 
-gentleness:
-60+
-Math.round(Math.random()*25),
+   ${h.age} ans · ${h.sex}
 
-calm:
-60+
-Math.round(Math.random()*25),
 
-courage:
-60+
-Math.round(Math.random()*25),
+   <br><br>
 
-concentration:
-60+
-Math.round(Math.random()*25),
 
-courseUse:60,
+   🔎 Potentiel estimé :
 
-competitionUse:
-h[4],
+   <b>
+   ${range.min}-${range.max}
+   </b>
 
-breedingUse:
-h[4]
 
-};
+   <br>
 
+   🏆 Niveau actuel :
 
-normalizeHorse(newHorse);
+   <b>
+   ${h.currentLevel}
+   </b>
 
 
-game.horses.push(newHorse);
+   <br>
 
+   📊 Régularité :
 
-saveGame();
+   <b>
+   ${getRegularity(h)}/100
+   </b>
 
 
-openModal(
+   <br><br>
 
-"🐎 Nouveau cheval",
 
-`
+   🏆
+   ${getWins(h)}
+   victoires en
+   ${h.totalCourses}
+   parcours
 
-<div class="notice">
 
-<b>${newHorse.name}</b>
-rejoint ton écurie !
+   <div class="notice">
 
-</div>
+    💰 Prix :
 
+    <span class="price">
+    ${money(price)}
+    </span>
 
-Potentiel estimé :
+   </div>
 
-<b>
 
-${getPotentialRange(newHorse).min}
--
-${getPotentialRange(newHorse).max}
+   <button
+   class="primary"
+   onclick="marketHorseDetails('${type}',${index})">
 
-</b>
+   📖 Voir le cheval
 
-<br><br>
+   </button>
 
-Valeur estimée :
 
-<b>
+   ${
+    type==="auction"
 
-${money(newHorse.value)}
+    ?
 
-</b>
+    `<button
+     class="primary"
+     onclick="buyMarketHorse('${type}',${index},${price})">
 
-`
+     🔨 Enchérir pour ${money(price)}
 
-);
+     </button>`
+
+    :
+
+    `<button
+     class="primary"
+     onclick="buyMarketHorse('${type}',${index},${price})">
+
+     💰 Acheter
+
+     </button>`
+   }
+
+  </div>
+
+  `;
+
+ });
+
+
+ openModal(
+  labels[type],
+  html
+ );
 
 }
 
 
 /* =====================================================
-PROFESSIONNELS
+ DÉTAIL MARCHÉ
 ===================================================== */
 
-function professionalsPage(){
+function marketHorseDetails(type,index){
 
-openModal(
+ ensureMarket();
 
-"🩺 Professionnels",
+ const h=
+  marketData[type][index];
 
-`
-
-<div class="choice">
-
-🩺 Vétérinaire
-
-<span
-style="margin-left:auto">
-
-1 000 €
-
-</span>
-
-<button
-onclick="professional('vet',1000)">
-
-Choisir
-
-</button>
-
-</div>
+ const range=
+  potentialRange(h);
 
 
-<div class="choice">
+ openModal(
 
-🦷 Dentiste
+  "🐎 "+h.name,
 
-<span
-style="margin-left:auto">
+  `
 
-350 €
-
-</span>
-
-<button
-onclick="professional('dent',350)">
-
-Choisir
-
-</button>
-
-</div>
+  <div class="horseImage">
+  🐎
+  </div>
 
 
-<div class="choice">
+  <div class="notice">
 
-🧲 Maréchal
+   <b>${h.race}</b>
 
-<span
-style="margin-left:auto">
+   <br>
 
-180 €
+   ${h.age} ans · ${h.sex}
 
-</span>
-
-<button
-onclick="professional('farrier',180)">
-
-Choisir
-
-</button>
-
-</div>
+  </div>
 
 
-<div class="choice">
+  <div class="sectionTitle">
+  🔎 Potentiel
+  </div>
 
-👐 Ostéopathe
 
-<span
-style="margin-left:auto">
+  <div class="notice">
 
-250 €
+   Estimation :
 
-</span>
+   <b>
+   ${range.min} - ${range.max}
+   </b>
 
-<button
-onclick="professional('osteo',250)">
+   <br>
 
-Choisir
+   Niveau actuel :
 
-</button>
+   <b>
+   ${h.currentLevel}/100
+   </b>
 
-</div>
+  </div>
 
-`
 
-);
+  <div class="sectionTitle">
+  🧠 Profil
+  </div>
+
+
+  ${stat("Mental",h.mental)}
+  ${stat("Gentillesse",h.gentleness)}
+  ${stat("Calme",h.calm)}
+  ${stat("Courage",h.courage)}
+  ${stat("Concentration",h.concentration)}
+
+
+  <div class="sectionTitle">
+  🏆 Carrière
+  </div>
+
+
+  ${careerSummary(h)}
+
+
+  <div class="sectionTitle">
+  🧬 Parents
+  </div>
+
+
+  ${parents(h)}
+
+
+  <div class="notice">
+
+   💰 Valeur estimée :
+
+   <span class="value">
+   ${money(h.value)}
+   </span>
+
+  </div>
+
+  `
+
+ );
 
 }
 
 
-function professional(
-type,
-cost
+/* =====================================================
+ ACHAT MARCHÉ
+===================================================== */
+
+function buyMarketHorse(type,index,price){
+
+ ensureMarket();
+
+ const h=
+  marketData[type][index];
+
+
+ if(game.money<price){
+
+  openModal(
+
+   "💸 Achat impossible",
+
+   "Tu n'as pas assez d'argent."
+
+  );
+
+  return;
+
+ }
+
+
+ const occupied=
+  game.horses.filter(
+   x=>x.place==="box"
+  ).length;
+
+
+ if(occupied>=game.boxes){
+
+  openModal(
+
+   "🏠 Écurie complète",
+
+   "Tu n'as plus de box disponible."
+
+  );
+
+  return;
+
+ }
+
+
+ game.money-=price;
+
+ h.id=Date.now();
+
+ h.place="box";
+
+ game.horses.push(h);
+
+
+ marketData[type].splice(index,1);
+
+
+ saveGame();
+
+
+ openHorseBook(h.id);
+
+}
+
+
+/* =====================================================
+ ENTRAÎNEMENT
+===================================================== */
+
+function trainHorse(id){
+
+ const h=
+  game.horses.find(
+   x=>x.id===id
+  );
+
+ if(!h)return;
+
+
+ if(h.fatigue>=75){
+
+  openModal(
+
+   "😴 Cheval fatigué",
+
+   `
+
+   <div class="notice">
+
+   ${h.name}
+   est trop fatigué.
+
+   </div>
+
+   `
+
+  );
+
+  return;
+
+ }
+
+
+ /*
+ Le niveau monte progressivement
+ mais ne dépasse JAMAIS le potentiel.
+ */
+
+ const progression=
+  Math.max(
+   1,
+   Math.round(
+    1+
+    h.experience/35
+   )
+  );
+
+
+ h.currentLevel=
+  clamp(
+   h.currentLevel+progression,
+   0,
+   h.realPotential
+  );
+
+
+ h.experience=
+  clamp(
+   h.experience+2,
+   0,
+   100
+  );
+
+
+ h.form=
+  clamp(
+   h.form+5,
+   0,
+   100
+  );
+
+
+ h.fatigue=
+  clamp(
+   h.fatigue+14,
+   0,
+   100
+  );
+
+
+ h.technique=
+  clamp(
+   h.technique+1,
+   0,
+   h.realPotential
+  );
+
+
+ h.regularity=
+  clamp(
+   h.regularity+1,
+   0,
+   100
+  );
+
+
+ calculateHorseValue(h);
+
+ saveGame();
+
+
+ openModal(
+
+  "🏇 Entraînement terminé",
+
+  `
+
+  <div class="notice">
+
+  <b>${h.name}</b>
+  progresse.
+
+  </div>
+
+  Niveau :
+
+  <b>
+  ${h.currentLevel}/100
+  </b>
+
+  <br>
+
+  Potentiel maximum :
+
+  <b>
+  ${h.realPotential}/100
+  </b>
+
+  <br>
+
+  Expérience :
+
+  <b>
+  ${h.experience}/100
+  </b>
+
+  <br>
+
+  Régularité :
+
+  <b>
+  ${getRegularity(h)}/100
+  </b>
+
+  `
+
+ );
+
+}
+
+
+/* =====================================================
+ SOINS
+===================================================== */
+
+function careHorse(id){
+
+ const h=
+  game.horses.find(
+   x=>x.id===id
+  );
+
+ if(!h)return;
+
+
+ h.form=
+  clamp(
+   h.form+4,
+   0,
+   100
+  );
+
+
+ h.health=
+  clamp(
+   h.health+3,
+   0,
+   100
+  );
+
+
+ h.fatigue=
+  clamp(
+   h.fatigue-8,
+   0,
+   100
+  );
+
+
+ calculateHorseValue(h);
+
+ saveGame();
+
+
+ openModal(
+
+  "❤️ Soins",
+
+  `
+
+  <div class="notice">
+
+  <b>${h.name}</b>
+  va mieux.
+
+  </div>
+
+  Santé :
+  <b>${h.health}%</b>
+
+  <br>
+
+  Forme :
+  <b>${h.form}%</b>
+
+  <br>
+
+  Fatigue :
+  <b>${h.fatigue}%</b>
+
+  `
+
+ );
+
+}
+
+
+/* =====================================================
+ SOINS PAGE
+===================================================== */
+
+function carePage(){
+
+ openModal(
+
+  "❤️ Soins",
+
+  game.horses
+   .map(horseCard)
+   .join("")
+
+ );
+
+}
+
+
+/* =====================================================
+ DOMAINE
+===================================================== */
+
+function domainPage(){
+
+ openModal(
+
+  "🏡 Domaine",
+
+  `
+
+  <div class="notice">
+
+  <b>Mon Écurie</b>
+
+  <br>
+
+  ${season()}
+
+  <br>
+
+  Semaine ${game.week}/52
+
+  <br>
+
+  Année ${game.year}
+
+  </div>
+
+
+  <div class="choice">
+
+  💰 Trésorerie
+
+  <b style="float:right">
+  ${money(game.money)}
+  </b>
+
+  </div>
+
+
+  <div class="choice">
+
+  ⭐ Réputation
+
+  <b style="float:right">
+  ${game.reputation}
+  </b>
+
+  </div>
+
+
+  <div class="choice">
+
+  🏠 Boxes
+
+  <b style="float:right">
+
+  ${
+   game.horses.filter(
+    h=>h.place==="box"
+   ).length
+  }
+
+  /
+
+  ${game.boxes}
+
+  </b>
+
+  </div>
+
+
+  <button
+  class="primary"
+  onclick="marketPage()">
+
+  🐴 Marché des chevaux
+
+  </button>
+
+
+  <button
+  class="primary"
+  onclick="nextWeek()">
+
+  📅 Passer une semaine — 350 €
+
+  </button>
+
+  `
+
+ );
+
+}
+
+
+/* =====================================================
+ SEMAINE
+===================================================== */
+
+function nextWeek(){
+
+ if(game.money<350){
+
+  openModal(
+   "💸 Argent insuffisant",
+   "Tu n'as pas assez d'argent."
+  );
+
+  return;
+
+ }
+
+
+ game.money-=350;
+
+ game.week++;
+
+
+ /*
+ Tous les 10 semaines :
+ nouveau marché.
+ */
+
+ if(game.week%10===0){
+
+  game.marketCycle++;
+
+  marketData={
+   breeding:[],
+   auction:[],
+   merchant:[]
+  };
+
+ }
+
+
+ if(game.week>52){
+
+  game.week=1;
+
+  game.year++;
+
+  game.horses.forEach(
+   h=>h.age++
+  );
+
+ }
+
+
+ game.horses.forEach(h=>{
+
+  h.fatigue=
+   clamp(
+    h.fatigue-12,
+    0,
+    100
+   );
+
+
+  if(h.place==="pasture"){
+
+   h.health=
+    clamp(
+     h.health+2,
+     0,
+     100
+    );
+
+  }
+
+
+  calculateHorseValue(h);
+
+ });
+
+
+ saveGame();
+
+ domainPage();
+
+}
+
+
+/* =====================================================
+ FOINS
+===================================================== */
+
+function hayPage(){
+
+ if(game.money<250){
+
+  openModal(
+   "🌾 Foin",
+   "Tu n'as pas assez d'argent."
+  );
+
+  return;
+
+ }
+
+
+ game.money-=250;
+
+ game.hay=
+  Math.min(
+   game.maxHay,
+   game.hay+500
+  );
+
+
+ saveGame();
+
+
+ openModal(
+
+  "🌾 Foin acheté",
+
+  `
+
+  <div class="notice">
+
+  +500 kg de foin
+
+  </div>
+
+  Stock :
+
+  <b>
+  ${game.hay} kg
+  </b>
+
+  `
+
+ );
+
+}
+
+
+/* =====================================================
+ GRAIN
+===================================================== */
+
+function grainPage(){
+
+ if(game.money<180){
+
+  openModal(
+   "🌽 Grain",
+   "Tu n'as pas assez d'argent."
+  );
+
+  return;
+
+ }
+
+
+ game.money-=180;
+
+ game.grain=
+  Math.min(
+   game.maxGrain,
+   game.grain+300
+  );
+
+
+ saveGame();
+
+
+ openModal(
+
+  "🌽 Grain acheté",
+
+  `
+
+  <div class="notice">
+
+  +300 kg de grain
+
+  </div>
+
+  Stock :
+
+  <b>
+  ${game.grain} kg
+  </b>
+
+  `
+
+ );
+
+}
+
+
+/* =====================================================
+ CONCOURS
+===================================================== */
+
+function showsPage(){
+
+ const best=
+  [...game.horses]
+  .sort(
+   (a,b)=>
+    b.currentLevel-
+    a.currentLevel
+  )[0];
+
+
+ openModal(
+
+  "🏆 Concours",
+
+  `
+
+  <div class="notice">
+
+  Meilleur cheval :
+
+  <b>${best.name}</b>
+
+  <br>
+
+  Niveau :
+
+  ${best.currentLevel}/100
+
+  <br>
+
+  Régularité :
+
+  ${getRegularity(best)}/100
+
+  </div>
+
+
+  <div class="choice">
+
+  🥉 Club
+
+  <button
+  onclick="competition('Club',250,2)">
+
+  Participer
+
+  </button>
+
+  </div>
+
+
+  <div class="choice">
+
+  🥈 Amateur
+
+  <button
+  onclick="competition('Amateur',600,5)">
+
+  Participer
+
+  </button>
+
+  </div>
+
+
+  <div class="choice">
+
+  🥇 National
+
+  <button
+  onclick="competition('National',1500,10)">
+
+  Participer
+
+  </button>
+
+  </div>
+
+
+  <div class="notice">
+
+  Les Championnats de France
+  seront séparés en :
+
+  <br><br>
+
+  🥉 Club
+
+  <br>
+
+  🥈 Amateur
+
+  <br>
+
+  🥇 National
+
+  <br><br>
+
+  Le cheval, le cavalier et le couple
+  devront être qualifiés.
+
+  </div>
+
+  `
+
+ );
+
+}
+
+
+/* =====================================================
+ CONCOURS
+===================================================== */
+
+function competition(
+ level,
+ cost,
+ reputation
 ){
 
-if(game.money<cost){
-
-openModal(
-"💸 Argent insuffisant",
-"Tu n'as pas assez d'argent."
-);
-
-return;
-
-}
+ const h=
+  [...game.horses]
+  .sort(
+   (a,b)=>
+    b.currentLevel-
+    a.currentLevel
+  )[0];
 
 
-game.money-=cost;
+ if(game.money<cost){
+
+  openModal(
+   "💸 Concours impossible",
+   "Tu n'as pas assez d'argent."
+  );
+
+  return;
+
+ }
 
 
-const h=
-game.horses[0];
+ game.money-=cost;
 
 
-if(type==="vet"){
+ let difficulty=0;
 
-h.health=
-clamp(
-h.health+10,
-0,
-100
-);
+ if(level==="Amateur")
+  difficulty=12;
 
-}
+ if(level==="National")
+  difficulty=25;
 
 
-if(type==="dent"){
+ let chance=
 
-h.health=
-clamp(
-h.health+5,
-0,
-100
-);
+  h.currentLevel*0.42+
 
-}
+  h.experience*0.12+
 
+  getRegularity(h)*0.24+
 
-if(type==="farrier"){
+  h.mental*0.12+
 
-h.health=
-clamp(
-h.health+4,
-0,
-100
-);
+  h.concentration*0.10-
 
-}
+  difficulty;
 
 
-if(type==="osteo"){
-
-h.fatigue=
-clamp(
-h.fatigue-20,
-0,
-100
-);
-
-}
+ chance=
+  clamp(
+   chance,
+   3,
+   95
+  );
 
 
-calculateHorseValue(h);
+ const success=
+  Math.random()*100<
+  chance;
 
-saveGame();
+
+ h.totalCourses++;
 
 
-openModal(
+ if(success){
 
-"🩺 Intervention terminée",
+  if(level==="Club")
+   h.winsClub++;
 
-`
+  if(level==="Amateur")
+   h.winsAmateur++;
 
-Le professionnel est intervenu
-sur <b>${h.name}</b>.
+  if(level==="National")
+   h.winsNational++;
 
-<br><br>
 
-Santé :
+  game.money+=cost*2;
 
-${h.health}%
+  game.reputation+=reputation;
 
-<br>
 
-Fatigue :
+  openModal(
 
-${h.fatigue}%
+   "🏆 Victoire !",
 
-`
+   `
 
-);
+   <div class="notice">
+
+   <b>${h.name}</b>
+   gagne son concours
+   <b>${level}</b> !
+
+   </div>
+
+   ${getWins(h)}
+   victoires sur
+   ${h.totalCourses}
+   parcours.
+
+   `
+
+  );
+
+ }
+
+ else{
+
+  if(Math.random()<0.5){
+
+   if(level==="Club")
+    h.thirdClub++;
+
+   if(level==="Amateur")
+    h.thirdAmateur++;
+
+   if(level==="National")
+    h.thirdNational++;
+
+  }
+
+
+  openModal(
+
+   "🏇 Concours terminé",
+
+   `
+
+   ${h.name}
+   a participé au concours
+   ${level}.
+
+   <br><br>
+
+   La performance n'a pas permis
+   de gagner cette fois.
+
+   `
+
+  );
+
+ }
+
+
+ h.fatigue=
+  clamp(
+   h.fatigue+20,
+   0,
+   100
+  );
+
+
+ h.experience=
+  clamp(
+   h.experience+3,
+   0,
+   100
+  );
+
+
+ calculateHorseValue(h);
+
+ saveGame();
 
 }
 
 
 /* =====================================================
-BOUTONS
+ BOX
 ===================================================== */
 
-document.getElementById("weekBtn")
-.onclick=nextWeek;
+function stablePage(){
+
+ const horses=
+  game.horses.filter(
+   h=>h.place==="box"
+  );
 
 
-document.getElementById("hayBtn")
-.onclick=hayPage;
+ openModal(
+
+  "🏚️ Écurie",
+
+  `
+
+  <div class="notice">
+
+  Boxes :
+
+  <b>
+  ${horses.length}/${game.boxes}
+  </b>
+
+  </div>
 
 
-document.getElementById("grainBtn")
-.onclick=grainPage;
+  ${horses
+   .map(horseCard)
+   .join("")}
 
+  `
 
-document.getElementById("careBtn")
-.onclick=carePage;
+ );
 
-
-document.getElementById("showBtn")
-.onclick=showsPage;
-
-
-document.getElementById("horse1")
-.onclick=()=>{
-openHorseBook(1);
-};
-
-
-document.getElementById("horse2")
-.onclick=()=>{
-openHorseBook(2);
-};
-
-
-document.getElementById("horse3")
-.onclick=()=>{
-openHorseBook(3);
-};
-
-
-document.getElementById("horse4")
-.onclick=()=>{
-openHorseBook(4);
-};
-
-
-document.getElementById("domain")
-.onclick=domainPage;
-
-
-document.getElementById("stable")
-.onclick=()=>{
-
-const box=
-game.horses.filter(
-h=>h.place==="box"
-);
-
-
-openModal(
-
-"🏚️ Écurie",
-
-`
-
-<div class="notice">
-
-Boxes occupés :
-
-<b>
-${box.length}/${game.boxes}
-</b>
-
-</div>
-
-
-${box
-.map(horseCard)
-.join("")}
-
-`
-
-);
-
-};
-
-
-document.getElementById("horses")
-.onclick=horsesPage;
-
-
-document.getElementById("shows")
-.onclick=showsPage;
-
-
-document.getElementById("care")
-.onclick=carePage;
+}
 
 
 /* =====================================================
-INITIALISATION
+ BOUTONS
+===================================================== */
+
+document
+ .getElementById("weekBtn")
+ .onclick=nextWeek;
+
+
+document
+ .getElementById("hayBtn")
+ .onclick=hayPage;
+
+
+document
+ .getElementById("grainBtn")
+ .onclick=grainPage;
+
+
+document
+ .getElementById("careBtn")
+ .onclick=carePage;
+
+
+document
+ .getElementById("showBtn")
+ .onclick=showsPage;
+
+
+document
+ .getElementById("horse1")
+ .onclick=()=>openHorseBook(1);
+
+
+document
+ .getElementById("horse2")
+ .onclick=()=>openHorseBook(2);
+
+
+document
+ .getElementById("horse3")
+ .onclick=()=>openHorseBook(3);
+
+
+document
+ .getElementById("horse4")
+ .onclick=()=>openHorseBook(4);
+
+
+document
+ .getElementById("domain")
+ .onclick=domainPage;
+
+
+document
+ .getElementById("stable")
+ .onclick=stablePage;
+
+
+document
+ .getElementById("horses")
+ .onclick=horsesPage;
+
+
+document
+ .getElementById("shows")
+ .onclick=showsPage;
+
+
+document
+ .getElementById("care")
+ .onclick=carePage;
+
+
+/* =====================================================
+ INITIALISATION
 ===================================================== */
 
 game.horses.forEach(
-normalizeHorse
+ normalizeHorse
 );
 
 saveGame();
@@ -3490,5 +3361,4 @@ saveGame();
 </script>
 
 </body>
-
 </html>
