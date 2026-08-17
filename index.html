@@ -2,3479 +2,554 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport"
+content="width=device-width,initial-scale=1,viewport-fit=cover">
 
-<title>Mon Écurie V5.0</title>
+<title>Mon Écurie V6</title>
 
 <style>
-/* =========================================================
-   MON ÉCURIE V5.0
-   MOBILE FIRST
-   ========================================================= */
 
 *{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
 }
 
 html,body{
-    margin:0;
-    padding:0;
-    width:100%;
-    min-height:100%;
+margin:0;
+padding:0;
+width:100%;
+min-height:100%;
+background:#07170d;
+font-family:Arial,sans-serif;
 }
 
 body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-    background:#eee9dc;
-    color:#26352b;
-    overflow-x:hidden;
+display:flex;
+justify-content:center;
 }
 
-button{
-    font-family:inherit;
-    border:0;
-    cursor:pointer;
-    -webkit-appearance:none;
+#app{
+position:relative;
+width:100%;
+max-width:430px;
+min-height:100vh;
+overflow:hidden;
+background:#111;
 }
 
-button:active{
-    transform:scale(.97);
-}
-
-/* =========================================================
-   VARIABLES
-   ========================================================= */
-
-:root{
-    --cream:#f5f1e6;
-    --cream2:#e9e4d5;
-    --green:#315d42;
-    --green2:#426f50;
-    --green3:#6d9162;
-    --dark:#193629;
-    --gold:#c8a65a;
-    --brown:#8c5638;
-    --brown2:#6e402c;
-    --blue:#39758a;
-    --text:#26352b;
-    --muted:#788078;
-    --shadow:0 3px 12px rgba(32,43,34,.16);
-}
-
-/* =========================================================
-   APPLICATION
-   ========================================================= */
-
-.app{
-    width:100%;
-    max-width:720px;
-    margin:0 auto;
-    min-height:100vh;
-    background:#eee9dc;
-    padding-bottom:78px;
-}
-
-/* =========================================================
-   TOP BAR
-   ========================================================= */
-
-.topbar{
-    width:100%;
-    background:#f7f4eb;
-    border-bottom:1px solid #d7d1c2;
-    padding:8px 10px 7px;
-    position:sticky;
-    top:0;
-    z-index:100;
-}
-
-.topline{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.brand{
-    flex:1;
-    min-width:0;
-    display:flex;
-    align-items:center;
-    gap:7px;
-}
-
-.brandHorse{
-    font-size:28px;
-}
-
-.brandText{
-    min-width:0;
-}
-
-.brandTitle{
-    font-family:Georgia,serif;
-    font-size:18px;
-    font-weight:700;
-    color:#31543e;
-    white-space:nowrap;
-}
-
-.version{
-    font-size:9px;
-    color:#8a9089;
-}
-
-.topIcon{
-    width:34px;
-    height:34px;
-    border-radius:9px;
-    background:#e9e7dd;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:17px;
-    box-shadow:inset 0 1px #fff;
-}
-
-.statStrip{
-    display:flex;
-    gap:5px;
-    margin-top:6px;
-    overflow-x:auto;
-    scrollbar-width:none;
-}
-
-.statStrip::-webkit-scrollbar{
-    display:none;
-}
-
-.topStat{
-    flex:1;
-    min-width:88px;
-    background:#fffdf8;
-    border:1px solid #ded8c9;
-    border-radius:9px;
-    padding:4px 7px;
-    text-align:center;
-    line-height:1.1;
-}
-
-.topStat small{
-    display:block;
-    color:#858b84;
-    font-size:8px;
-}
-
-.topStat b{
-    font-size:11px;
-    color:#304b39;
-}
-
-.topStat.season b{
-    color:#315d42;
-}
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-.nav{
-    display:flex;
-    gap:5px;
-    padding:7px 7px 6px;
-    background:#f7f4eb;
-    border-bottom:1px solid #d9d3c5;
-    overflow-x:auto;
-    scrollbar-width:none;
-}
-
-.nav::-webkit-scrollbar{
-    display:none;
-}
-
-.nav button{
-    flex:0 0 auto;
-    min-height:36px;
-    padding:7px 12px;
-    border-radius:9px;
-    background:#fffdf8;
-    border:1px solid #d5d1c5;
-    color:#34483b;
-    font-weight:700;
-    font-size:11px;
-    white-space:nowrap;
-}
-
-.nav button.active{
-    background:linear-gradient(#507c5d,#315d42);
-    color:white;
-    border-color:#315d42;
-    box-shadow:0 2px 6px #315d4238;
-}
-
-/* =========================================================
-   PAGE
-   ========================================================= */
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
-
-/* =========================================================
-   DOMAINE HERO
-   ========================================================= */
-
-.domainHero{
-    margin:8px 5px 0;
-    border-radius:13px 13px 0 0;
-    overflow:hidden;
-    position:relative;
-    background:#80b0be;
-    min-height:450px;
-    box-shadow:var(--shadow);
-}
-
-.sky{
-    position:absolute;
-    inset:0 0 45% 0;
-    background:
-        radial-gradient(circle at 77% 35%,
-        #fff 0 13px,
-        #ffffff55 14px 28px,
-        transparent 29px),
-        linear-gradient(#79b1c2,#a9cdd0);
-}
-
-.cloud{
-    position:absolute;
-    font-size:39px;
-    opacity:.82;
-}
-
-.cloud.one{
-    left:7%;
-    top:9%;
-}
-
-.cloud.two{
-    right:10%;
-    top:13%;
-}
-
-.hills{
-    position:absolute;
-    left:0;
-    right:0;
-    top:30%;
-    height:100px;
-    background:
-        linear-gradient(160deg,
-        transparent 0 22%,
-        #6f965e 23% 52%,
-        #597f4e 53% 100%);
-}
-
-.ground{
-    position:absolute;
-    left:0;
-    right:0;
-    top:42%;
-    bottom:0;
-    background:
-        radial-gradient(circle at 20% 50%,#ffffff1c 0 2px,transparent 3px),
-        radial-gradient(circle at 60% 65%,#ffffff16 0 2px,transparent 3px),
-        linear-gradient(145deg,#8aaa69,#6d965a 60%,#63884e);
-}
-
-.domainTitle{
-    position:absolute;
-    left:13px;
-    right:13px;
-    top:12px;
-    z-index:5;
-}
-
-.domainTitle .eyebrow{
-    font-size:8px;
-    letter-spacing:1px;
-    font-weight:800;
-    color:#fff;
-    opacity:.9;
-}
-
-.domainTitle h1{
-    margin:4px 0 0;
-    color:white;
-    font-family:Georgia,serif;
-    font-size:22px;
-    text-shadow:0 2px 4px #244335;
-}
-
-.domainTitle p{
-    margin:2px 0 0;
-    font-size:9px;
-    color:#edf4ee;
-}
-
-/* =========================================================
-   STABLE
-   ========================================================= */
-
-.stable{
-    position:absolute;
-    left:7%;
-    right:7%;
-    top:29%;
-    height:145px;
-    background:
-        repeating-linear-gradient(
-            90deg,
-            #8d5739 0 31px,
-            #7d4b32 32px 34px
-        );
-    border:4px solid #5b3928;
-    border-radius:7px;
-    box-shadow:0 8px 18px #283c2588;
-    z-index:4;
-}
-
-.roof{
-    position:absolute;
-    left:-2%;
-    right:-2%;
-    top:-51px;
-    height:58px;
-    background:
-        repeating-linear-gradient(
-            90deg,
-            #292d2b 0 10px,
-            #373a38 11px 17px
-        );
-    clip-path:polygon(0 100%,50% 0,100% 100%);
-}
-
-.stableLabel{
-    position:absolute;
-    right:11%;
-    top:7px;
-    background:#6b4729;
-    color:#f8e4a5;
-    padding:4px 9px;
-    border-radius:4px;
-    font:700 9px Georgia,serif;
-}
-
-.boxGrid{
-    position:absolute;
-    left:10px;
-    right:10px;
-    bottom:9px;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:6px;
-}
-
-.box{
-    height:45px;
-    border-radius:5px;
-    border:2px solid #5c3828;
-    background:linear-gradient(#5d3827,#77462f);
-    position:relative;
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#ddd2c3;
-    font-size:9px;
-}
+/* =========================
+   MAQUETTE V6
+========================= */
 
-.boxHorse{
-    font-size:24px;
+#screen{
+position:relative;
+width:100%;
+aspect-ratio:853 / 1844;
+background-image:url("v6-maquette.jpg");
+background-size:100% 100%;
+background-position:center;
+background-repeat:no-repeat;
 }
 
-.boxName{
-    position:absolute;
-    bottom:0;
-    left:0;
-    right:0;
-    padding:2px;
-    text-align:center;
-    background:#244d3ccc;
-    color:#fff;
-    font-size:8px;
-}
-
-.box.free{
-    color:#cfc2b4;
-}
-
-/* =========================================================
-   DOMAIN OBJECTS
-   ========================================================= */
-
-.paddock{
-    position:absolute;
-    right:4%;
-    top:54%;
-    width:47%;
-    height:115px;
-    border:4px solid #705238;
-    border-radius:18px;
-    background:#6c9653aa;
-    z-index:3;
-}
-
-.paddock:after,
-.paddock:before{
-    content:"";
-    position:absolute;
-    left:-3px;
-    right:-3px;
-    height:4px;
-    background:#765b3c;
-}
-
-.paddock:before{
-    top:34%;
-}
-
-.paddock:after{
-    top:68%;
-}
-
-.arena{
-    position:absolute;
-    left:6%;
-    bottom:45px;
-    width:45%;
-    height:95px;
-    border:4px solid #80603c;
-    border-radius:50%;
-    background:#d7bd87;
-    box-shadow:inset 0 0 12px #80603c33;
-    z-index:2;
-}
-
-.arena:after{
-    content:"";
-    position:absolute;
-    inset:11px;
-    border:2px solid #ead8ad;
-    border-radius:50%;
-}
-
-.tree{
-    position:absolute;
-    z-index:5;
-    font-size:35px;
-    filter:drop-shadow(0 4px 3px #31503388);
-}
-
-.tree.a{
-    left:3%;
-    top:45%;
-}
-
-.tree.b{
-    right:3%;
-    top:46%;
-}
-
-.tree.c{
-    right:27%;
-    bottom:7%;
-}
-
-.truck{
-    position:absolute;
-    right:2%;
-    top:40%;
-    font-size:35px;
-    z-index:7;
-}
-
-.sceneHorse{
-    position:absolute;
-    z-index:8;
-    font-size:31px;
-}
-
-.sh1{
-    right:12%;
-    top:61%;
-}
-
-.sh2{
-    right:4%;
-    top:73%;
-}
-
-.sh3{
-    right:24%;
-    top:69%;
-}
-
-/* =========================================================
-   DOMAIN BUTTONS
-   ========================================================= */
-
-.enterButton{
-    position:absolute;
-    z-index:20;
-    left:50%;
-    top:48%;
-    transform:translate(-50%,-50%);
-    white-space:nowrap;
-    background:linear-gradient(#5a8967,#315d42);
-    color:white;
-    border:1px solid #75987c;
-    border-radius:9px;
-    padding:11px 16px;
-    font-weight:800;
-    font-size:12px;
-    box-shadow:0 5px 12px #1c382688;
-}
-
-.pastureButton{
-    position:absolute;
-    z-index:20;
-    right:8%;
-    top:68%;
-    background:linear-gradient(#5a8967,#315d42);
-    color:white;
-    border-radius:9px;
-    padding:10px 13px;
-    font-size:10px;
-    font-weight:800;
-}
-
-/* =========================================================
-   QUICK ACTIONS
-   ========================================================= */
-
-.quickActions{
-    position:absolute;
-    z-index:30;
-    left:7px;
-    right:7px;
-    bottom:7px;
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:5px;
-}
+/* =========================
+   ZONES TACTILES
+========================= */
 
-.quick{
-    min-width:0;
-    min-height:63px;
-    padding:6px 5px;
-    background:linear-gradient(#426f50,#274c37);
-    color:white;
-    border-radius:9px;
-    text-align:left;
-    box-shadow:0 4px 9px #203b2a88;
+.hit{
+position:absolute;
+border:0;
+background:transparent;
+border-radius:18px;
+cursor:pointer;
+-webkit-appearance:none;
 }
 
-.quick .emoji{
-    font-size:15px;
-    display:block;
+.hit:active{
+background:rgba(255,255,255,.12);
 }
 
-.quick strong{
-    display:block;
-    font-size:9px;
-    line-height:1.15;
-}
-
-.quick small{
-    display:block;
-    margin-top:3px;
-    font-size:7px;
-    color:#dce7df;
-}
-
-/* =========================================================
-   WHITE CONTENT CARDS
-   ========================================================= */
-
-.contentCard{
-    margin:7px 5px;
-    background:#faf8f1;
-    border:1px solid #ddd8ca;
-    border-radius:10px;
-    box-shadow:0 2px 8px #3d45381c;
-    padding:10px;
-}
-
-.sectionTitle{
-    margin:0 0 7px;
-    color:#31533d;
-    font-size:15px;
-    font-weight:800;
-}
-
-.horseRow{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:7px 0;
-    border-bottom:1px solid #e2ded4;
-}
-
-.horseRow:last-child{
-    border-bottom:0;
-}
-
-.horseAvatar{
-    width:40px;
-    height:40px;
-    border-radius:10px;
-    background:#e4e5db;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:25px;
-    flex-shrink:0;
-}
-
-.horseMain{
-    min-width:0;
-    flex:1;
-}
-
-.horseMain strong{
-    display:block;
-    font-size:14px;
-    color:#34453a;
-}
-
-.horseMain span{
-    display:block;
-    color:#81867f;
-    font-size:10px;
-    margin-top:2px;
-}
-
-.progressLine{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:6px;
-    margin-top:5px;
-}
-
-.progress{
-    height:4px;
-    border-radius:4px;
-    background:#dedfd7;
-    overflow:hidden;
-}
-
-.progress span{
-    display:block;
-    height:100%;
-    background:#6f9460;
-}
-
-/* =========================================================
-   OBJECTIVE
-   ========================================================= */
-
-.objective{
-    background:#f1f4eb;
-    border-radius:7px;
-    padding:8px;
-    border:1px solid #e0e6d8;
-}
-
-.objectiveTitle{
-    color:#41634d;
-    font-weight:800;
-    font-size:13px;
-}
-
-.objectiveText{
-    margin-top:4px;
-    font-size:11px;
-    color:#58645b;
-}
-
-/* =========================================================
-   ADVICE
-   ========================================================= */
-
-.advice{
-    background:#fff9e7;
-    border:1px solid #eadfbc;
-    border-radius:7px;
-    padding:8px;
-    font-size:9px;
-    color:#7b714e;
-}
-
-/* =========================================================
-   OTHER PAGES
-   ========================================================= */
+/* ACTIONS */
 
-.standardPage{
-    padding:9px 5px;
+#weekBtn{
+left:2.5%;
+top:43%;
+width:18%;
+height:11%;
 }
 
-.pageHeader{
-    background:#faf8f1;
-    border:1px solid #ddd8ca;
-    border-radius:10px;
-    padding:12px;
-    margin-bottom:8px;
-    box-shadow:var(--shadow);
+#hayBtn{
+left:21%;
+top:43%;
+width:18%;
+height:11%;
 }
 
-.pageHeader h2{
-    margin:0;
-    color:#31543e;
-    font-family:Georgia,serif;
-    font-size:22px;
+#grainBtn{
+left:40%;
+top:43%;
+width:18%;
+height:11%;
 }
 
-.pageHeader p{
-    margin:5px 0 0;
-    color:#7c827a;
-    font-size:10px;
+#careBtn{
+left:59%;
+top:43%;
+width:18%;
+height:11%;
 }
 
-.cards{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:7px;
+#showBtn{
+left:78%;
+top:43%;
+width:19%;
+height:11%;
 }
 
-.card{
-    background:#faf8f1;
-    border:1px solid #ddd8ca;
-    border-radius:10px;
-    padding:11px;
-    box-shadow:var(--shadow);
-}
+/* CHEVAUX */
 
-.card h3{
-    margin:0 0 5px;
-    color:#365843;
-    font-size:15px;
+#horse1{
+left:3%;
+top:57%;
+width:23%;
+height:12%;
 }
 
-.card p{
-    color:#727970;
-    font-size:10px;
-    line-height:1.45;
+#horse2{
+left:27%;
+top:57%;
+width:23%;
+height:12%;
 }
 
-.primary{
-    background:linear-gradient(#4e7e5c,#315d42);
-    color:white;
-    border-radius:7px;
-    padding:9px 12px;
-    font-weight:800;
-    font-size:10px;
+#horse3{
+left:51%;
+top:57%;
+width:23%;
+height:12%;
 }
 
-.secondary{
-    background:#e7e5db;
-    color:#405044;
-    border-radius:7px;
-    padding:9px 12px;
-    font-weight:700;
-    font-size:10px;
+#horse4{
+left:75%;
+top:57%;
+width:22%;
+height:12%;
 }
 
-/* =========================================================
-   HORSE DETAIL
-   ========================================================= */
+/* MENU BAS */
 
-.detailHorse{
-    background:#faf8f1;
-    border:1px solid #ddd8ca;
-    border-radius:11px;
-    padding:11px;
-    box-shadow:var(--shadow);
+#domain{
+left:2%;
+bottom:0;
+width:18%;
+height:8%;
 }
 
-.detailTop{
-    display:flex;
-    gap:9px;
+#stable{
+left:21%;
+bottom:0;
+width:18%;
+height:8%;
 }
 
-.detailAvatar{
-    width:56px;
-    height:56px;
-    border-radius:11px;
-    background:#e3e5dc;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:35px;
+#horses{
+left:40%;
+bottom:0;
+width:18%;
+height:8%;
 }
 
-.detailInfo{
-    flex:1;
+#shows{
+left:59%;
+bottom:0;
+width:18%;
+height:8%;
 }
 
-.detailInfo h3{
-    margin:0;
-    color:#304b39;
-    font-size:17px;
+#care{
+left:78%;
+bottom:0;
+width:19%;
+height:8%;
 }
 
-.detailInfo p{
-    margin:3px 0 0;
-    color:#7d837c;
-    font-size:10px;
-}
+/* =========================
+   FENÊTRE
+========================= */
 
-.statBars{
-    margin-top:10px;
-    display:grid;
-    gap:7px;
-}
+#modal{
+position:fixed;
+inset:0;
 
-.statBar{
-    display:grid;
-    grid-template-columns:55px 1fr 32px;
-    align-items:center;
-    gap:5px;
-    font-size:9px;
-    color:#687068;
-}
+display:none;
 
-.statBar .bar{
-    height:6px;
-    background:#dedfd8;
-    border-radius:5px;
-    overflow:hidden;
-}
+align-items:center;
+justify-content:center;
 
-.statBar .bar span{
-    display:block;
-    height:100%;
-    background:#6e9360;
-}
+padding:20px;
 
-/* =========================================================
-   MODAL
-   ========================================================= */
+background:rgba(0,0,0,.72);
 
-.modal{
-    position:fixed;
-    inset:0;
-    z-index:1000;
-    display:none;
-    align-items:flex-end;
-    justify-content:center;
-    background:#16261dcc;
+z-index:1000;
 }
 
-.modal.show{
-    display:flex;
+#modal.show{
+display:flex;
 }
 
 .modalBox{
-    width:100%;
-    max-width:620px;
-    max-height:82vh;
-    overflow:auto;
-    background:#faf8f1;
-    border-radius:18px 18px 0 0;
-    padding:15px;
+width:min(390px,92vw);
+
+padding:22px;
+
+border-radius:22px;
+
+background:
+linear-gradient(
+145deg,
+#f8f1df,
+#dfe8d7
+);
+
+color:#294b38;
+
+box-shadow:
+0 20px 60px #000b;
+
+border:2px solid #b99d5b;
 }
 
-.modalHeader{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:10px;
+.modalBox h2{
+margin:0 0 12px;
+
+font-family:Georgia,serif;
+
+font-size:25px;
 }
 
-.modalHeader h2{
-    margin:0;
-    color:#31543e;
-    font-family:Georgia,serif;
+.modalBox p{
+line-height:1.5;
+margin:0;
 }
 
-.close{
-    width:34px;
-    height:34px;
-    border-radius:50%;
-    background:#e6e3d8;
-    color:#33463a;
-    font-size:18px;
+.modalBox button{
+width:100%;
+
+margin-top:18px;
+
+padding:14px;
+
+border:0;
+
+border-radius:13px;
+
+background:#315f3c;
+
+color:white;
+
+font-weight:800;
+
+font-size:16px;
 }
 
-.choice{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:10px;
-    margin:6px 0;
-    border:1px solid #ddd8ca;
-    border-radius:9px;
-    background:white;
+/* =========================
+   PETITS ECRANS
+========================= */
+
+@media(max-width:350px){
+
+#app{
+max-width:100%;
 }
 
-.choiceAvatar{
-    font-size:30px;
 }
 
-.choice strong{
-    font-size:13px;
-}
-
-.choice small{
-    display:block;
-    color:#838980;
-    margin-top:2px;
-}
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-.toast{
-    position:fixed;
-    z-index:2000;
-    left:50%;
-    bottom:82px;
-    transform:translateX(-50%);
-    background:#315d42;
-    color:white;
-    border-radius:9px;
-    padding:10px 15px;
-    font-size:11px;
-    font-weight:700;
-    box-shadow:0 5px 15px #0005;
-    opacity:0;
-    pointer-events:none;
-    transition:.2s;
-    white-space:nowrap;
-}
-
-.toast.show{
-    opacity:1;
-}
-
-/* =========================================================
-   BOTTOM NAV
-   ========================================================= */
-
-.bottomNav{
-    position:fixed;
-    z-index:150;
-    bottom:0;
-    left:0;
-    right:0;
-    height:68px;
-    background:#f7f4ebee;
-    backdrop-filter:blur(12px);
-    border-top:1px solid #d7d2c5;
-    display:flex;
-    justify-content:center;
-}
-
-.bottomInner{
-    width:100%;
-    max-width:720px;
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    padding:5px 6px;
-    gap:3px;
-}
-
-.bottomNav button{
-    background:transparent;
-    color:#707970;
-    border-radius:9px;
-    font-size:9px;
-    font-weight:700;
-    padding:4px 2px;
-}
-
-.bottomNav button span{
-    display:block;
-    font-size:19px;
-    margin-bottom:2px;
-}
-
-.bottomNav button.active{
-    background:#e3ebdf;
-    color:#315d42;
-}
-
-/* =========================================================
-   TABLET / DESKTOP
-   ========================================================= */
-
-@media(min-width:721px){
-
-    .app{
-        box-shadow:0 0 35px #0002;
-    }
-
-    .bottomNav{
-        display:none;
-    }
-
-    .app{
-        padding-bottom:0;
-    }
-
-    .domainHero{
-        min-height:570px;
-    }
-
-    .stable{
-        height:190px;
-    }
-
-    .box{
-        height:60px;
-    }
-
-    .quick{
-        min-height:72px;
-    }
-
-    .cards{
-        grid-template-columns:repeat(2,1fr);
-    }
-}
-
-/* =========================================================
-   PETITS IPHONE
-   ========================================================= */
-
-@media(max-width:390px){
-
-    .brandTitle{
-        font-size:16px;
-    }
-
-    .brandHorse{
-        font-size:24px;
-    }
-
-    .topStat{
-        min-width:78px;
-    }
-
-    .nav button{
-        padding:7px 10px;
-        font-size:10px;
-    }
-
-    .domainHero{
-        min-height:440px;
-    }
-
-    .stable{
-        top:30%;
-        left:5%;
-        right:5%;
-    }
-
-    .stableLabel{
-        font-size:8px;
-    }
-
-    .enterButton{
-        font-size:10px;
-        padding:10px 12px;
-    }
-
-    .quick{
-        min-height:61px;
-        padding:5px 3px;
-    }
-
-    .quick strong{
-        font-size:8px;
-    }
-
-    .quick small{
-        font-size:6px;
-    }
-}
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div id="app">
 
-<!-- =====================================================
-     HEADER
-     ===================================================== -->
-
-<header class="topbar">
-
-<div class="topline">
-
-<div class="brand">
-
-<div class="brandHorse">🐎</div>
-
-<div class="brandText">
-
-<div class="brandTitle">
-Mon Écurie
-</div>
-
-<div class="version">
-V5.0 · Nouvelle génération
-</div>
-
-</div>
-
-</div>
-
-<button class="topIcon" onclick="saveGame()">
-💾
-</button>
-
-<button class="topIcon" onclick="resetGame()">
-⚙️
-</button>
-
-</div>
-
-<div class="statStrip">
-
-<div class="topStat">
-
-<small>📅 Saison</small>
-
-<b id="season">
-🌸 Printemps
-</b>
-
-</div>
-
-<div class="topStat">
-
-<small>☀️ Semaine</small>
-
-<b id="week">
-12 / 52
-</b>
-
-</div>
-
-<div class="topStat">
-
-<small>💰 Trésorerie</small>
-
-<b id="money">
-18 450 €
-</b>
-
-</div>
-
-<div class="topStat">
-
-<small>⭐ Réputation</small>
-
-<b id="rep">
-0
-</b>
-
-</div>
-
-</div>
-
-</header>
-
-
-<!-- =====================================================
-     NAV
-     ===================================================== -->
-
-<nav class="nav" id="topNav">
-
-<button class="active" onclick="showPage('domain',this)">
-🏠 Domaine
-</button>
-
-<button onclick="showPage('stable',this)">
-🏚️ Écurie
-</button>
-
-<button onclick="showPage('pasture',this)">
-🌳 Prés
-</button>
-
-<button onclick="showPage('arena',this)">
-🏇 Carrière
-</button>
-
-<button onclick="showPage('shows',this)">
-🏆 Concours
-</button>
-
-<button onclick="showPage('market',this)">
-🐎 Marché
-</button>
-
-<button onclick="showPage('horses',this)">
-📖 Chevaux
-</button>
-
-<button onclick="showPage('care',this)">
-❤️ Soins
-</button>
-
-<button onclick="showPage('pros',this)">
-🩺 Pros
-</button>
-
-<button onclick="showPage('gear',this)">
-🧰 Matériel
-</button>
-
-<button onclick="showPage('resources',this)">
-🌾 Ressources
-</button>
-
-<button onclick="showPage('staff',this)">
-👥 Personnel
-</button>
-
-</nav>
-
-
-<!-- =====================================================
-     DOMAIN
-     ===================================================== -->
-
-<section id="domain" class="page active">
-
-<div class="domainHero">
-
-<div class="sky"></div>
-
-<div class="cloud one">☁️</div>
-<div class="cloud two">☁️</div>
-
-<div class="hills"></div>
-<div class="ground"></div>
-
-<div class="domainTitle">
-
-<div class="eyebrow">
-VOTRE DOMAINE ÉQUESTRE
-</div>
-
-<h1>
-Bienvenue à l'écurie
-</h1>
-
-<p>
-Développez votre élevage, entraînez vos chevaux et remportez les concours.
-</p>
-
-</div>
-
-
-<!-- ECURIE -->
-
-<div class="stable">
-
-<div class="roof"></div>
-
-<div class="stableLabel">
-MON ÉCURIE
-</div>
-
-<div class="boxGrid" id="sceneBoxes"></div>
-
-</div>
-
-
-<!-- PRE -->
-
-<div class="paddock"></div>
-
-
-<!-- CARRIERE -->
-
-<div class="arena"></div>
-
-
-<!-- DECOR -->
-
-<div class="tree a">🌳</div>
-<div class="tree b">🌳</div>
-<div class="tree c">🌳</div>
-
-<div class="truck">
-🚚
-</div>
-
-<div class="sceneHorse sh1">
-🐎
-</div>
-
-<div class="sceneHorse sh2">
-🐴
-</div>
-
-<div class="sceneHorse sh3">
-🐎
-</div>
-
-
-<button
-class="enterButton"
-onclick="showPage('stable')">
-
-🏠 Entrer dans l'écurie
-
-</button>
-
-
-<button
-class="pastureButton"
-onclick="showPage('pasture')">
-
-🌱 Voir les prés
-
-</button>
-
+<div id="screen">
 
 <!-- ACTIONS -->
 
-<div class="quickActions">
-
-<button class="quick" onclick="nextWeek()">
-
-<span class="emoji">📅</span>
-
-<strong>
-Passer une semaine
-</strong>
-
-<small>
--350 € · faire évoluer le domaine
-</small>
-
-</button>
-
-
-<button class="quick" onclick="buyHay()">
-
-<span class="emoji">🌾</span>
-
-<strong>
-Acheter du foin
-</strong>
-
-<small>
-+500 kg · 250 €
-</small>
-
-</button>
-
-
-<button class="quick" onclick="buyGrain()">
-
-<span class="emoji">🌽</span>
-
-<strong>
-Acheter du grain
-</strong>
-
-<small>
-+300 kg · 180 €
-</small>
-
-</button>
-
-
-<button class="quick" onclick="chooseHorse('care')">
-
-<span class="emoji">🐎</span>
-
-<strong>
-S'occuper d'un cheval
-</strong>
-
-<small>
-Choisir un cheval
-</small>
-
-</button>
-
-
-<button class="quick" onclick="showPage('shows')">
-
-<span class="emoji">🏆</span>
-
-<strong>
-Voir les concours
-</strong>
-
-<small>
-Préparer la prochaine épreuve
-</small>
-
-</button>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     MES CHEVAUX
-     ===================================================== -->
-
-<div class="contentCard">
-
-<h2 class="sectionTitle">
-🐴 Mes chevaux
-</h2>
-
-<div id="homeHorses"></div>
-
-</div>
-
-
-<!-- =====================================================
-     OBJECTIF
-     ===================================================== -->
-
-<div class="contentCard">
-
-<h2 class="sectionTitle">
-🎯 Objectif
-</h2>
-
-<div class="objective">
-
-<div class="objectiveTitle">
-Développer l'écurie
-</div>
-
-<div class="objectiveText">
-Construis une réputation solide et prépare tes chevaux pour les compétitions.
-</div>
-
-</div>
-
-<div style="height:7px"></div>
-
-<div class="objective">
-
-<div class="objectiveTitle">
-🏆 Prochain objectif
-</div>
-
-<div class="objectiveText" id="objectiveText">
-Améliorer la forme d'un cheval jusqu'à 90%.
-</div>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-     CONSEIL
-     ===================================================== -->
-
-<div class="contentCard">
-
-<h2 class="sectionTitle">
-💡 Conseil du gérant
-</h2>
-
-<div class="advice">
-
-Un cheval fatigué progresse moins bien.
-Alterne entraînement, soins et repos au pré.
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     ECURIE
-     ===================================================== -->
-
-<section id="stable" class="page">
-
-<div class="standardPage">
-
-<div class="pageHeader">
-
-<h2>
-🏚️ Mon écurie
-</h2>
-
-<p id="boxCount">
-</p>
-
-</div>
-
-<div class="cards" id="stableGrid"></div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     PRES
-     ===================================================== -->
-
-<section id="pasture" class="page">
-
-<div class="standardPage">
-
-<div class="pageHeader">
-
-<h2>
-🌳 Mes prés
-</h2>
-
-<p>
-Les chevaux au pré récupèrent progressivement.
-</p>
-
-</div>
-
-<div class="cards" id="pastureGrid"></div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     CARRIERE
-     ===================================================== -->
-
-<section id="arena" class="page">
-
-<div class="standardPage">
-
-<div class="pageHeader">
-
-<h2>
-🏇 Carrière
-</h2>
-
-<p>
-Entraîne tes chevaux et développe leurs performances.
-</p>
-
-</div>
-
-<div class="cards" id="arenaGrid"></div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     CONCOURS
-     ===================================================== -->
-
-<section id="shows" class="page">
-
-<div class="standardPage">
-
-<div class="pageHeader">
-
-<h2>
-🏆 Concours
-</h2>
-
-<p>
-Prépare tes chevaux et tente de gagner des récompenses.
-</p>
-
-</div>
-
-<div class="cards">
-
-<div class="card">
-
-<h3>
-🥉 Club
-</h3>
-
-<p>
-Concours accessible aux chevaux débutants.
-</p>
-
 <button
-class="primary"
-onclick="competition('Club',250,2)">
-Participer · 250 €
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-🥈 Amateur
-</h3>
-
-<p>
-Niveau régional plus exigeant.
-</p>
-
-<button
-class="primary"
-onclick="competition('Amateur',600,5)">
-Participer · 600 €
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-🥇 Championnat de France
-</h3>
-
-<p>
-Réservé aux meilleurs chevaux.
-</p>
-
-<button
-class="primary"
-onclick="competition('France',1500,10)">
-Participer · 1 500 €
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     MARCHE
-     ===================================================== -->
-
-<section id="market" class="page">
-
-<div class="standardPage">
-
-<div class="pageHeader">
-
-<h2>
-🐎 Marché aux chevaux
-</h2>
-
-<p>
-Achète de nouveaux chevaux pour développer ton écurie.
-</p>
-
-</div>
-
-<div class="cards" id="marketGrid"></div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     CHEVAUX
-     ===================================================== -->
-
-<section id="horses" class="page">
-
-<div class="standardPage">
-
-<div class="pageHeader">
-
-<h2>
-📖 Mes chevaux
-</h2>
-
-<p>
-Consulte les caractéristiques et fais progresser tes chevaux.
-</p>
-
-</div>
-
-<div class="cards" id="horsesGrid"></div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     SOINS
-     ===================================================== -->
-
-<section id="care" class="page">
-
-<div class="standardPage">
-
-<div class="pageHeader">
-
-<h2>
-❤️ Soins
-</h2>
-
-<p>
-Prends soin de tes chevaux pour maintenir leur forme.
-</p>
-
-</div>
-
-<div class="cards" id="careGrid"></div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     PROFESSIONNELS
-     ===================================================== -->
-
-<section id="pros" class="page">
-
-<div class="standardPage">
-
-<div class="pageHeader">
-
-<h2>
-🩺 Professionnels
-</h2>
-
-<p>
-Les professionnels permettent de maintenir tes chevaux en bonne santé.
-</p>
-
-</div>
-
-<div class="cards">
-
-<div class="card">
-
-<h3>🩺 Vétérinaire</h3>
-
-<p>
-Bilan complet et soins généraux.
-</p>
-
-<button class="primary" onclick="chooseHorse('vet')">
-Visite · 1 000 €
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>🦷 Dentiste</h3>
-
-<p>
-Contrôle et entretien dentaire.
-</p>
-
-<button class="primary" onclick="chooseHorse('dentiste')">
-Intervention · 350 €
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>🧲 Maréchal-ferrant</h3>
-
-<p>
-Parage et ferrure.
-</p>
-
-<button class="primary" onclick="chooseHorse('marechal')">
-Intervention · 180 €
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>👐 Ostéopathe</h3>
-
-<p>
-Récupération et mobilité.
-</p>
-
-<button class="primary" onclick="chooseHorse('osteopathe')">
-Séance · 250 €
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     MATERIEL
-     ===================================================== -->
-
-<section id="gear" class="page">
-
-<div class="standardPage">
-
-<div class="pageHeader">
-
-<h2>
-🧰 Matériel
-</h2>
-
-<p>
-Gère tes installations et ton matériel.
-</p>
-
-</div>
-
-<div class="cards">
-
-<div class="card">
-
-<h3>
-🚚 Transport
-</h3>
-
-<p>
-Camion actuel : 2 chevaux.
-</p>
-
-<button
-class="secondary"
-onclick="toast('🚚 Camion prêt.')">
-Vérifier
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-🏇 Matériel de concours
-</h3>
-
-<p>
-Matériel standard disponible.
-</p>
-
-<button
-class="secondary"
-onclick="toast('🧰 Matériel vérifié.')">
-Vérifier
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-🏗️ Installations
-</h3>
-
-<p>
-6 boxes · carrière · prés.
-</p>
-
-<button
-class="secondary"
-onclick="toast('🏡 Installations en bon état.')">
-Inspecter
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     RESSOURCES
-     ===================================================== -->
-
-<section id="resources" class="page">
-
-<div class="standardPage">
-
-<div class="pageHeader">
-
-<h2>
-🌾 Ressources
-</h2>
-
-<p>
-Gère les stocks nécessaires à l'écurie.
-</p>
-
-</div>
-
-<div class="cards">
-
-<div class="card">
-
-<h3>🌾 Foin</h3>
-
-<p id="hayText"></p>
-
-<button
-class="primary"
-onclick="buyHay()">
-Acheter +500 kg · 250 €
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>🌽 Grain</h3>
-
-<p id="grainText"></p>
-
-<button
-class="primary"
-onclick="buyGrain()">
-Acheter +300 kg · 180 €
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>🟫 Paille</h3>
-
-<p id="strawText"></p>
-
-<button
-class="primary"
-onclick="buyStraw()">
-Acheter +300 kg · 150 €
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     PERSONNEL
-     ===================================================== -->
-
-<section id="staff" class="page">
-
-<div class="standardPage">
-
-<div class="pageHeader">
-
-<h2>
-👥 Personnel
-</h2>
-
-<p>
-Recrute pour améliorer la gestion de l'écurie.
-</p>
-
-</div>
-
-<div class="cards">
-
-<div class="card">
-
-<h3>
-👨‍🌾 Palefrenier
-</h3>
-
-<p>
-800 € / mois.
-</p>
-
-<button
-class="primary"
-onclick="hire('Palefrenier')">
-Embaucher
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-🏇 Cavalier
-</h3>
-
-<p>
-1 200 € / mois.
-</p>
-
-<button
-class="primary"
-onclick="hire('Cavalier')">
-Embaucher
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-👔 Gérant
-</h3>
-
-<p>
-1 500 € / mois.
-</p>
-
-<button
-class="primary"
-onclick="hire('Gérant')">
-Embaucher
-</button>
-
-</div>
-
-</div>
-
-<div class="contentCard" style="margin:8px 0">
-
-<h3 class="sectionTitle">
-Personnel actuel
-</h3>
-
-<div id="staffList"></div>
-
-</div>
-
-</div>
-
-</section>
-
-</div>
-
-
-<!-- =====================================================
-     MOBILE BOTTOM NAV
-     ===================================================== -->
-
-<nav class="bottomNav">
-
-<div class="bottomInner">
-
-<button
-class="active"
-onclick="showPage('domain',null,this)">
-<span>🏠</span>
-Domaine
+class="hit"
+id="weekBtn"
+aria-label="Passer une semaine">
 </button>
 
 <button
-onclick="showPage('stable',null,this)">
-<span>🏚️</span>
-Écurie
+class="hit"
+id="hayBtn"
+aria-label="Acheter du foin">
 </button>
 
 <button
-onclick="showPage('horses',null,this)">
-<span>🐴</span>
-Chevaux
+class="hit"
+id="grainBtn"
+aria-label="Acheter du grain">
 </button>
 
 <button
-onclick="showPage('shows',null,this)">
-<span>🏆</span>
-Concours
+class="hit"
+id="careBtn"
+aria-label="S'occuper d'un cheval">
 </button>
 
 <button
-onclick="showPage('care',null,this)">
-<span>❤️</span>
-Soins
+class="hit"
+id="showBtn"
+aria-label="Voir les concours">
+</button>
+
+
+<!-- CHEVAUX -->
+
+<button
+class="hit"
+id="horse1"
+aria-label="Luna">
+</button>
+
+<button
+class="hit"
+id="horse2"
+aria-label="Caramel">
+</button>
+
+<button
+class="hit"
+id="horse3"
+aria-label="Jasper">
+</button>
+
+<button
+class="hit"
+id="horse4"
+aria-label="Étoile">
+</button>
+
+
+<!-- MENU -->
+
+<button
+class="hit"
+id="domain"
+aria-label="Domaine">
+</button>
+
+<button
+class="hit"
+id="stable"
+aria-label="Écurie">
+</button>
+
+<button
+class="hit"
+id="horses"
+aria-label="Chevaux">
+</button>
+
+<button
+class="hit"
+id="shows"
+aria-label="Concours">
+</button>
+
+<button
+class="hit"
+id="care"
+aria-label="Soins">
 </button>
 
 </div>
 
-</nav>
 
+<!-- MODAL -->
 
-<!-- =====================================================
-     MODAL
-     ===================================================== -->
-
-<div class="modal" id="modal">
+<div id="modal">
 
 <div class="modalBox">
 
-<div class="modalHeader">
-
-<h2>
-Choisir un cheval
+<h2 id="modalTitle">
+Mon Écurie
 </h2>
 
-<button
-class="close"
-onclick="closeModal()">
-✕
+<p id="modalText">
+</p>
+
+<button onclick="closeModal()">
+Fermer
 </button>
 
 </div>
 
-<div id="modalContent"></div>
-
 </div>
 
 </div>
-
-
-<div class="toast" id="toast"></div>
 
 
 <script>
 
-/* =========================================================
+/* =========================
    DONNEES
-   ========================================================= */
+========================= */
 
-const defaultHorses=[
+const actions={
 
-{
-id:1,
-name:"Luna",
-race:"Selle Français",
-age:8,
-sex:"Jument",
-form:82,
-health:95,
-fatigue:18,
-place:"box"
-},
+weekBtn:[
+"Passer une semaine",
+"Une semaine est passée. La gestion complète sera reliée à cette interface."
+],
 
-{
-id:2,
-name:"Caramel",
-race:"Anglo-Arabe",
-age:12,
-sex:"Hongre",
-form:76,
-health:92,
-fatigue:12,
-place:"box"
-},
+hayBtn:[
+"Acheter du foin",
+"+500 kg de foin pour 250 €."
+],
 
-{
-id:3,
-name:"Jasper",
-race:"Quarter Horse",
-age:6,
-sex:"Hongre",
-form:85,
-health:94,
-fatigue:9,
-place:"pasture"
-},
+grainBtn:[
+"Acheter du grain",
+"+300 kg de grain pour 180 €."
+],
 
-{
-id:4,
-name:"Étoile",
-race:"Connemara",
-age:4,
-sex:"Jument",
-form:79,
-health:91,
-fatigue:20,
-place:"pasture"
-},
+careBtn:[
+"S'occuper d'un cheval",
+"Choisis le cheval que tu souhaites soigner ou entraîner."
+],
 
-{
-id:5,
-name:"Nova",
-race:"Appaloosa",
-age:3,
-sex:"Jument",
-form:81,
-health:93,
-fatigue:13,
-place:"pasture"
-},
+showBtn:[
+"Concours",
+"Les prochaines épreuves seront bientôt disponibles."
+],
 
-{
-id:6,
-name:"Phoenix",
-race:"Pur-sang",
-age:5,
-sex:"Hongre",
-form:88,
-health:89,
-fatigue:26,
-place:"box"
-}
+horse1:[
+"Luna",
+"Selle Français · 8 ans · Jument · Box"
+],
 
-];
+horse2:[
+"Caramel",
+"Anglo-Arabe · 12 ans · Hongre · Box"
+],
 
+horse3:[
+"Jasper",
+"Quarter Horse · 6 ans · Hongre · Pré"
+],
 
-let game={
+horse4:[
+"Étoile",
+"Connemara · 4 ans · Jument · Pré"
+],
 
-money:18450,
+domain:[
+"Domaine",
+"Tu es actuellement sur le domaine."
+],
 
-reputation:0,
+stable:[
+"Écurie",
+"Ouverture de l'écurie."
+],
 
-week:12,
+horses:[
+"Chevaux",
+"Ouverture du carnet des chevaux."
+],
 
-year:1,
+shows:[
+"Concours",
+"Ouverture des concours."
+],
 
-hay:1200,
-
-maxHay:2000,
-
-grain:800,
-
-maxGrain:1500,
-
-straw:600,
-
-maxStraw:1500,
-
-boxes:6,
-
-staff:[],
-
-horses:defaultHorses
+care:[
+"Soins",
+"Ouverture des soins."
+]
 
 };
 
 
-/* =========================================================
-   OUTILS
-   ========================================================= */
+/* =========================
+   MODAL
+========================= */
 
-function money(n){
+const modal=
+document.getElementById("modal");
 
-return Math.round(n)
-.toLocaleString("fr-FR")+" €";
+const title=
+document.getElementById("modalTitle");
 
-}
+const text=
+document.getElementById("modalText");
 
 
-function toast(text){
+function openModal(t,p){
 
-const t=document.getElementById("toast");
+title.textContent=t;
 
-t.textContent=text;
+text.textContent=p;
 
-t.classList.add("show");
-
-clearTimeout(window.toastTimer);
-
-window.toastTimer=setTimeout(()=>{
-
-t.classList.remove("show");
-
-},1800);
-
-}
-
-
-function saveGame(){
-
-localStorage.setItem(
-"monEcurieV5",
-JSON.stringify(game)
-);
-
-toast("💾 Partie sauvegardée.");
-
-}
-
-
-function loadGame(){
-
-try{
-
-const saved=
-localStorage.getItem("monEcurieV5");
-
-if(saved){
-
-game=JSON.parse(saved);
-
-}
-
-}catch(e){
-
-console.log(e);
-
-}
-
-}
-
-
-function resetGame(){
-
-if(confirm("Réinitialiser complètement la partie ?")){
-
-localStorage.removeItem("monEcurieV5");
-
-location.reload();
-
-}
-
-}
-
-
-function season(){
-
-if(game.week<=13)
-return"🌸 Printemps";
-
-if(game.week<=26)
-return"☀️ Été";
-
-if(game.week<=39)
-return"🍂 Automne";
-
-return"❄️ Hiver";
-
-}
-
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-function showPage(id,button,bottomButton){
-
-document
-.querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
-
-
-const page=document.getElementById(id);
-
-if(page)
-page.classList.add("active");
-
-
-document
-.querySelectorAll("#topNav button")
-.forEach(b=>b.classList.remove("active"));
-
-
-document
-.querySelectorAll(".bottomNav button")
-.forEach(b=>b.classList.remove("active"));
-
-
-if(button)
-button.classList.add("active");
-
-
-if(bottomButton)
-bottomButton.classList.add("active");
-
-
-if(!button && !bottomButton){
-
-const topButtons=
-document.querySelectorAll("#topNav button");
-
-topButtons.forEach(b=>{
-
-if(
-b.getAttribute("onclick") &&
-b.getAttribute("onclick").includes("'"+id+"'")
-){
-
-b.classList.add("active");
-
-}
-
-});
-
-}
-
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-
-renderAll();
-
-}
-
-
-/* =========================================================
-   HORSE MINI ROW
-   ========================================================= */
-
-function homeHorse(h){
-
-return`
-
-<div class="horseRow">
-
-<div class="horseAvatar">
-🐎
-</div>
-
-<div class="horseMain">
-
-<strong>
-${h.name}
-</strong>
-
-<span>
-${h.race} · ${h.age} ans · ${
-h.place==="box"?"Box":"Pré"
-}
-</span>
-
-<div class="progressLine">
-
-<div class="progress">
-<span style="width:${h.form}%"></span>
-</div>
-
-<div class="progress">
-<span style="width:${h.health}%"></span>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-
-/* =========================================================
-   DETAIL HORSE
-   ========================================================= */
-
-function horseCard(h){
-
-return`
-
-<div class="detailHorse">
-
-<div class="detailTop">
-
-<div class="detailAvatar">
-🐎
-</div>
-
-<div class="detailInfo">
-
-<h3>
-${h.name}
-</h3>
-
-<p>
-${h.race} · ${h.age} ans · ${h.sex}
-</p>
-
-<p>
-📍 ${h.place==="box"?"Box":"Pré"}
-</p>
-
-</div>
-
-</div>
-
-
-<div class="statBars">
-
-<div class="statBar">
-
-<span>
-Forme
-</span>
-
-<div class="bar">
-<span style="width:${h.form}%"></span>
-</div>
-
-<b>${h.form}%</b>
-
-</div>
-
-
-<div class="statBar">
-
-<span>
-Santé
-</span>
-
-<div class="bar">
-<span style="width:${h.health}%"></span>
-</div>
-
-<b>${h.health}%</b>
-
-</div>
-
-
-<div class="statBar">
-
-<span>
-Fatigue
-</span>
-
-<div class="bar">
-<span style="width:${h.fatigue}%"></span>
-</div>
-
-<b>${h.fatigue}%</b>
-
-</div>
-
-</div>
-
-
-<div style="
-display:flex;
-flex-wrap:wrap;
-gap:5px;
-margin-top:10px;
-">
-
-<button
-class="primary"
-onclick="careHorse(${h.id})">
-🧹 Soigner
-</button>
-
-<button
-class="secondary"
-onclick="trainHorse(${h.id})">
-🏇 Entraîner
-</button>
-
-<button
-class="secondary"
-onclick="togglePlace(${h.id})">
-
-${
-h.place==="box"
-?
-"🌳 Mettre au pré"
-:
-"🏠 Rentrer au box"
-}
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-
-/* =========================================================
-   SCENE
-   ========================================================= */
-
-function renderScene(){
-
-const boxes=
-document.getElementById("sceneBoxes");
-
-boxes.innerHTML="";
-
-const boxHorses=
-game.horses.filter(h=>h.place==="box");
-
-
-for(let i=0;i<game.boxes;i++){
-
-const box=document.createElement("div");
-
-box.className="box";
-
-const h=boxHorses[i];
-
-if(h){
-
-box.innerHTML=`
-
-<div class="boxHorse">
-🐎
-</div>
-
-<div class="boxName">
-${h.name}
-</div>
-
-`;
-
-}else{
-
-box.classList.add("free");
-
-box.innerHTML=
-"<span>Box libre</span>";
-
-}
-
-boxes.appendChild(box);
-
-}
-
-}
-
-
-/* =========================================================
-   PAGES
-   ========================================================= */
-
-function renderPages(){
-
-const boxes=
-game.horses.filter(h=>h.place==="box");
-
-document.getElementById("stableGrid").innerHTML=
-
-boxes.map(h=>horseCard(h)).join("")
-
-||
-
-"<div class='card'>Aucun cheval au box.</div>";
-
-
-const pasture=
-game.horses.filter(h=>h.place==="pasture");
-
-document.getElementById("pastureGrid").innerHTML=
-
-pasture.map(h=>horseCard(h)).join("")
-
-||
-
-"<div class='card'>Aucun cheval au pré.</div>";
-
-
-document.getElementById("arenaGrid").innerHTML=
-game.horses.map(h=>horseCard(h)).join("");
-
-
-document.getElementById("horsesGrid").innerHTML=
-game.horses.map(h=>horseCard(h)).join("");
-
-
-document.getElementById("careGrid").innerHTML=
-game.horses.map(h=>horseCard(h)).join("");
-
-
-document.getElementById("boxCount").textContent=
-
-"Boxes : "+
-boxes.length+
-" / "+
-game.boxes+
-" occupés";
-
-
-document.getElementById("hayText").textContent=
-"Stock : "+game.hay+" / "+game.maxHay+" kg";
-
-
-document.getElementById("grainText").textContent=
-"Stock : "+game.grain+" / "+game.maxGrain+" kg";
-
-
-document.getElementById("strawText").textContent=
-"Stock : "+game.straw+" / "+game.maxStraw+" kg";
-
-
-document.getElementById("staffList").innerHTML=
-
-game.staff.length
-
-?
-
-game.staff.map(x=>`
-
-<span style="
-display:inline-block;
-padding:7px 10px;
-margin:3px;
-background:#e7eee3;
-border-radius:7px;
-color:#315d42;
-font-size:10px;
-font-weight:700;
-">
-${x}
-</span>
-
-`).join("")
-
-:
-
-"<p style='font-size:10px;color:#888'>Aucun personnel.</p>";
-
-
-renderMarket();
-
-}
-
-
-/* =========================================================
-   HOME
-   ========================================================= */
-
-function renderHome(){
-
-const list=
-game.horses.slice(0,4);
-
-document.getElementById("homeHorses").innerHTML=
-
-list.map(h=>homeHorse(h)).join("");
-
-let best=
-Math.max(...game.horses.map(h=>h.form));
-
-if(best>=90){
-
-document.getElementById("objectiveText").textContent=
-"Objectif atteint ! Prépare maintenant un cheval pour un concours.";
-
-}else{
-
-document.getElementById("objectiveText").textContent=
-"Améliorer la forme d'un cheval jusqu'à 90%.";
-
-}
-
-}
-
-
-/* =========================================================
-   MARKET
-   ========================================================= */
-
-function renderMarket(){
-
-const market=[
-
-["Belle","Selle Français",12000,4],
-
-["Royal","KWPN",18000,6],
-
-["Dusty","Quarter Horse",9000,5],
-
-["Silver","Frison",15000,7]
-
-];
-
-
-document.getElementById("marketGrid").innerHTML=
-
-market.map((h,i)=>`
-
-<div class="card">
-
-<div class="detailTop">
-
-<div class="detailAvatar">
-🐴
-</div>
-
-<div class="detailInfo">
-
-<h3>
-${h[0]}
-</h3>
-
-<p>
-${h[1]} · ${h[3]} ans
-</p>
-
-<p>
-💰 ${money(h[2])}
-</p>
-
-</div>
-
-</div>
-
-<div style="margin-top:9px">
-
-<button
-class="primary"
-onclick="buyHorse(${i})">
-Acheter
-</button>
-
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* =========================================================
-   GLOBAL RENDER
-   ========================================================= */
-
-function renderAll(){
-
-document.getElementById("money").textContent=
-money(game.money);
-
-document.getElementById("rep").textContent=
-game.reputation;
-
-document.getElementById("week").textContent=
-game.week+" / 52";
-
-document.getElementById("season").textContent=
-season();
-
-document.getElementById("hayText").textContent=
-"Stock : "+game.hay+" / "+game.maxHay+" kg";
-
-document.getElementById("grainText").textContent=
-"Stock : "+game.grain+" / "+game.maxGrain+" kg";
-
-document.getElementById("strawText").textContent=
-"Stock : "+game.straw+" / "+game.maxStraw+" kg";
-
-renderScene();
-renderHome();
-renderPages();
-
-}
-
-
-/* =========================================================
-   SOINS
-   ========================================================= */
-
-function careHorse(id){
-
-const h=
-game.horses.find(x=>x.id===id);
-
-if(!h)return;
-
-h.form=
-Math.min(100,h.form+4);
-
-h.health=
-Math.min(100,h.health+2);
-
-h.fatigue=
-Math.max(0,h.fatigue-6);
-
-game.reputation++;
-
-renderAll();
-
-toast("🧹 "+h.name+" est bien soigné.");
-
-}
-
-
-/* =========================================================
-   TRAINING
-   ========================================================= */
-
-function trainHorse(id){
-
-const h=
-game.horses.find(x=>x.id===id);
-
-if(!h)return;
-
-if(h.fatigue>=70){
-
-toast("😴 "+h.name+" est trop fatigué.");
-
-return;
-
-}
-
-h.form=
-Math.min(100,h.form+6);
-
-h.fatigue=
-Math.min(100,h.fatigue+14);
-
-game.reputation++;
-
-renderAll();
-
-toast("🏇 "+h.name+" progresse.");
-
-}
-
-
-/* =========================================================
-   BOX / PRE
-   ========================================================= */
-
-function togglePlace(id){
-
-const h=
-game.horses.find(x=>x.id===id);
-
-if(!h)return;
-
-if(h.place==="box"){
-
-h.place="pasture";
-
-}else{
-
-const occupied=
-game.horses.filter(x=>x.place==="box").length;
-
-if(occupied>=game.boxes){
-
-toast("🏠 Tous les boxes sont occupés.");
-
-return;
-
-}
-
-h.place="box";
-
-}
-
-renderAll();
-
-toast(
-h.place==="box"
-?
-"🏠 "+h.name+" est au box."
-:
-"🌳 "+h.name+" est au pré."
-);
-
-}
-
-
-/* =========================================================
-   HAY
-   ========================================================= */
-
-function buyHay(){
-
-if(game.money<250){
-
-toast("💸 Pas assez d'argent.");
-
-return;
-
-}
-
-if(game.hay>=game.maxHay){
-
-toast("🌾 Stock de foin plein.");
-
-return;
-
-}
-
-game.money-=250;
-
-game.hay=
-Math.min(game.maxHay,game.hay+500);
-
-renderAll();
-
-toast("🌾 +500 kg de foin.");
-
-}
-
-
-/* =========================================================
-   GRAIN
-   ========================================================= */
-
-function buyGrain(){
-
-if(game.money<180){
-
-toast("💸 Pas assez d'argent.");
-
-return;
-
-}
-
-if(game.grain>=game.maxGrain){
-
-toast("🌽 Stock de grain plein.");
-
-return;
-
-}
-
-game.money-=180;
-
-game.grain=
-Math.min(game.maxGrain,game.grain+300);
-
-renderAll();
-
-toast("🌽 +300 kg de grain.");
-
-}
-
-
-/* =========================================================
-   STRAW
-   ========================================================= */
-
-function buyStraw(){
-
-if(game.money<150){
-
-toast("💸 Pas assez d'argent.");
-
-return;
-
-}
-
-if(game.straw>=game.maxStraw){
-
-toast("🟫 Stock de paille plein.");
-
-return;
-
-}
-
-game.money-=150;
-
-game.straw=
-Math.min(game.maxStraw,game.straw+300);
-
-renderAll();
-
-toast("🟫 +300 kg de paille.");
-
-}
-
-
-/* =========================================================
-   NEXT WEEK
-   ========================================================= */
-
-function nextWeek(){
-
-if(game.money<350){
-
-toast("💸 Pas assez d'argent.");
-
-return;
-
-}
-
-game.money-=350;
-
-game.week++;
-
-game.horses.forEach(h=>{
-
-h.fatigue=
-Math.max(0,h.fatigue-10);
-
-if(h.place==="pasture"){
-
-h.health=
-Math.min(100,h.health+2);
-
-}
-
-});
-
-
-if(game.week>52){
-
-game.week=1;
-
-game.year++;
-
-}
-
-renderAll();
-
-toast("📅 Une semaine est passée.");
-
-}
-
-
-/* =========================================================
-   COMPETITION
-   ========================================================= */
-
-function competition(level,cost,rep){
-
-const h=
-[...game.horses]
-.sort((a,b)=>b.form-a.form)[0];
-
-if(!h)return;
-
-if(game.money<cost){
-
-toast("💸 Pas assez d'argent.");
-
-return;
-
-}
-
-game.money-=cost;
-
-h.fatigue=
-Math.min(100,h.fatigue+20);
-
-if(Math.random()*100<h.form){
-
-game.money+=cost*2;
-
-game.reputation+=rep;
-
-toast(
-"🏆 "+
-h.name+
-" réussit son concours !"
-);
-
-}else{
-
-toast(
-"🏇 "+
-h.name+
-" participe au concours."
-);
-
-}
-
-renderAll();
-
-}
-
-
-/* =========================================================
-   MODAL HORSE
-   ========================================================= */
-
-function chooseHorse(action,id=null){
-
-if(id){
-
-executeAction(action,id);
-
-return;
-
-}
-
-const content=
-document.getElementById("modalContent");
-
-content.innerHTML=
-
-game.horses.map(h=>`
-
-<div
-class="choice"
-onclick="executeAction('${action}',${h.id})">
-
-<div class="choiceAvatar">
-🐎
-</div>
-
-<div>
-
-<strong>
-${h.name}
-</strong>
-
-<small>
-${h.race} · ${h.age} ans
-</small>
-
-<small>
-📍 ${h.place==="box"?"Box":"Pré"}
-</small>
-
-</div>
-
-</div>
-
-`).join("");
-
-document
-.getElementById("modal")
-.classList.add("show");
+modal.classList.add("show");
 
 }
 
 
 function closeModal(){
 
-document
-.getElementById("modal")
-.classList.remove("show");
+modal.classList.remove("show");
 
 }
 
 
-/* =========================================================
-   PROFESSIONAL ACTIONS
-   ========================================================= */
+/* =========================
+   BOUTONS
+========================= */
 
-function executeAction(action,id){
+Object.entries(actions).forEach(
 
-closeModal();
+([id,value])=>{
 
-if(action==="care"){
+const button=
+document.getElementById(id);
 
-careHorse(id);
+if(!button)return;
 
-return;
+button.addEventListener(
+"click",
+()=>{
 
-}
-
-const h=
-game.horses.find(x=>x.id===id);
-
-if(!h)return;
-
-let cost=0;
-
-if(action==="vet")cost=1000;
-if(action==="dentiste")cost=350;
-if(action==="marechal")cost=180;
-if(action==="osteopathe")cost=250;
-
-if(game.money<cost){
-
-toast("💸 Pas assez d'argent.");
-
-return;
+openModal(
+value[0],
+value[1]
+);
 
 }
-
-game.money-=cost;
-
-if(action==="vet"){
-
-h.health=
-Math.min(100,h.health+10);
-
-}
-
-if(action==="dentiste"){
-
-h.health=
-Math.min(100,h.health+5);
-
-}
-
-if(action==="marechal"){
-
-h.health=
-Math.min(100,h.health+4);
-
-}
-
-if(action==="osteopathe"){
-
-h.fatigue=
-Math.max(0,h.fatigue-20);
-
-}
-
-renderAll();
-
-toast(
-"🩺 Intervention terminée pour "+
-h.name+"."
 );
 
 }
 
-
-/* =========================================================
-   BUY HORSE
-   ========================================================= */
-
-function buyHorse(index){
-
-const market=[
-
-["Belle","Selle Français",12000,4],
-
-["Royal","KWPN",18000,6],
-
-["Dusty","Quarter Horse",9000,5],
-
-["Silver","Frison",15000,7]
-
-];
-
-const h=market[index];
-
-if(!h)return;
-
-if(game.money<h[2]){
-
-toast("💸 Pas assez d'argent.");
-
-return;
-
-}
-
-const occupied=
-game.horses.filter(x=>x.place==="box").length;
-
-if(occupied>=game.boxes){
-
-toast("🏚️ Plus de place dans l'écurie.");
-
-return;
-
-}
-
-game.money-=h[2];
-
-game.horses.push({
-
-id:Date.now(),
-
-name:h[0],
-
-race:h[1],
-
-age:h[3],
-
-sex:"Hongre",
-
-form:75,
-
-health:92,
-
-fatigue:5,
-
-place:"box"
-
-});
-
-renderAll();
-
-toast(
-"🐎 "+
-h[0]+
-" rejoint ton écurie !"
 );
 
-}
 
+/* =========================
+   FERMETURE
+========================= */
 
-/* =========================================================
-   STAFF
-   ========================================================= */
+modal.addEventListener(
+"click",
+event=>{
 
-function hire(name){
-
-if(game.staff.includes(name)){
-
-toast("👥 "+name+" est déjà embauché.");
-
-return;
-
-}
-
-game.staff.push(name);
-
-renderAll();
-
-toast("👥 "+name+" a été embauché.");
-
-}
-
-
-/* =========================================================
-   MODAL CLICK OUTSIDE
-   ========================================================= */
-
-document
-.getElementById("modal")
-.addEventListener("click",function(e){
-
-if(e.target===this){
+if(event.target===modal){
 
 closeModal();
 
 }
 
-});
-
-
-/* =========================================================
-   START
-   ========================================================= */
-
-loadGame();
-
-renderAll();
+}
+);
 
 </script>
 
