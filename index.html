@@ -2,20 +2,27 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mon Écurie V3.4</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>Mon Écurie V3.5</title>
 
 <style>
 *{box-sizing:border-box}
 
 :root{
---dark:#08120e;
---blue:#173d50;
---blue2:#2d6d8d;
---gold:#e4bd63;
---cream:#f3dfad;
+--dark:#07110d;
+--dark2:#0c1d16;
+--blue:#12394d;
+--blue2:#2e789b;
+--blue3:#4c9fc1;
+--gold:#e6bf68;
+--cream:#f4e3b5;
 --green:#668f51;
---wood:#77482f;
+--green2:#8eaa5c;
+--wood:#70432c;
+--wood2:#925a39;
+--line:#648694;
+--text:#fff;
+--muted:#c5d5d9;
 }
 
 html,body{
@@ -26,24 +33,38 @@ min-height:100%;
 
 body{
 font-family:Arial,sans-serif;
-color:#fff;
+color:var(--text);
 background:
-radial-gradient(circle at 50% 0%,#2a4c3c,#101f18 45%,#07100d);
+radial-gradient(circle at 50% 0%,#315846 0%,#15291f 38%,#07100d 100%);
 }
 
 button{
 font-family:inherit;
-border:1px solid #6d929f;
-border-radius:11px;
+border:1px solid #7197a5;
+border-radius:12px;
 padding:10px 12px;
-background:linear-gradient(180deg,#34799a,#173d53);
+background:linear-gradient(180deg,#3b83a5,#173f55);
 color:white;
 font-weight:800;
 cursor:pointer;
-box-shadow:0 4px 10px #0008,inset 0 1px #ffffff22;
+box-shadow:
+0 5px 12px #0008,
+inset 0 1px #ffffff25;
+transition:.18s ease;
 }
 
-button:active{transform:scale(.97)}
+button:hover{
+filter:brightness(1.08);
+transform:translateY(-1px);
+}
+
+button:active{
+transform:scale(.97);
+}
+
+/* =========================
+   HEADER
+========================= */
 
 .top{
 min-height:78px;
@@ -51,9 +72,10 @@ display:flex;
 align-items:center;
 gap:8px;
 padding:7px;
-background:linear-gradient(180deg,#315a70,#123344);
-border-bottom:2px solid #668493;
-box-shadow:0 6px 20px #000b;
+background:
+linear-gradient(180deg,#315e73,#123445);
+border-bottom:2px solid #6b8c98;
+box-shadow:0 8px 22px #000b;
 position:sticky;
 top:0;
 z-index:100;
@@ -62,11 +84,11 @@ z-index:100;
 .logo{
 display:flex;
 align-items:center;
-gap:8px;
-min-width:190px;
-padding:4px 8px;
-border-radius:12px;
-background:linear-gradient(135deg,#ffffff0d,#00000018);
+gap:9px;
+min-width:195px;
+padding:5px 9px;
+border-radius:13px;
+background:linear-gradient(135deg,#ffffff0d,#0000001c);
 }
 
 .logo-icon{
@@ -84,7 +106,7 @@ text-shadow:0 2px 3px #0008;
 .logo small{
 display:block;
 font-size:10px;
-color:#d2e0e4;
+color:#d5e1e4;
 margin-top:2px;
 }
 
@@ -96,26 +118,40 @@ overflow-x:auto;
 scrollbar-width:none;
 }
 
-.stats::-webkit-scrollbar{display:none}
+.stats::-webkit-scrollbar{
+display:none;
+}
 
 .stat{
 min-width:105px;
 padding:7px 8px;
 text-align:center;
 font-size:10px;
-background:linear-gradient(180deg,#3b6478,#244859);
-border:1px solid #678796;
-border-radius:10px;
-box-shadow:inset 0 1px #ffffff18,0 3px 8px #0005;
+background:
+linear-gradient(180deg,#416b7f,#234b5d);
+border:1px solid #70909d;
+border-radius:11px;
+box-shadow:
+inset 0 1px #ffffff18,
+0 4px 10px #0005;
 }
 
-.stat b{font-size:14px}
-.stat .gold{color:#ffda68}
+.stat b{
+font-size:14px;
+}
+
+.stat .gold{
+color:#ffda68;
+}
 
 .top-buttons{
 display:flex;
 gap:5px;
 }
+
+/* =========================
+   LAYOUT
+========================= */
 
 .layout{
 display:grid;
@@ -128,10 +164,11 @@ padding:8px;
 
 .menu{
 padding:6px;
-background:linear-gradient(180deg,#193e51,#0e2938);
-border:1px solid #54788a;
-border-radius:12px;
-box-shadow:0 7px 16px #0009;
+background:
+linear-gradient(180deg,#193f52,#0d2937);
+border:1px solid #547b8d;
+border-radius:13px;
+box-shadow:0 8px 18px #0009;
 }
 
 .menu button{
@@ -139,24 +176,27 @@ width:100%;
 display:block;
 margin-bottom:5px;
 text-align:left;
-background:linear-gradient(180deg,#2d607b,#193e52);
-transition:.18s;
+background:
+linear-gradient(180deg,#306984,#193f53);
 }
 
 .menu button:hover{
 transform:translateX(3px);
-filter:brightness(1.08);
 }
 
 .menu button.active{
-background:linear-gradient(135deg,#4b91b6,#255e7d);
-box-shadow:0 5px 13px #0008,inset 0 1px #ffffff25;
+background:
+linear-gradient(135deg,#4c96bc,#255e7e);
+box-shadow:
+0 6px 14px #0008,
+inset 0 1px #ffffff30;
 }
 
 .card{
-background:linear-gradient(180deg,#193e50,#102b3a);
-border:1px solid #557787;
-border-radius:11px;
+background:
+linear-gradient(180deg,#193e50,#102b3a);
+border:1px solid #557987;
+border-radius:12px;
 padding:9px;
 margin-bottom:7px;
 box-shadow:0 6px 14px #0008;
@@ -184,7 +224,8 @@ margin:4px 0 8px;
 .bar span{
 display:block;
 height:100%;
-background:linear-gradient(90deg,#3d8e5a,#7ac45c);
+background:
+linear-gradient(90deg,#3d8e5a,#7ac45c);
 border-radius:10px;
 }
 
@@ -238,11 +279,14 @@ gap:10px;
 
 .info,
 .horse-card{
-background:linear-gradient(145deg,#28566e,#143b4e);
+background:
+linear-gradient(145deg,#28566e,#143b4e);
 border:1px solid #587b8c;
 border-radius:12px;
 padding:12px;
-box-shadow:0 7px 16px #0008,inset 0 1px #ffffff0c;
+box-shadow:
+0 7px 16px #0008,
+inset 0 1px #ffffff0c;
 transition:.18s;
 }
 
@@ -271,7 +315,8 @@ align-items:center;
 justify-content:center;
 font-size:47px;
 border-radius:9px;
-background:radial-gradient(circle at 50% 35%,#5b7d86,#293f47 72%);
+background:
+radial-gradient(circle at 50% 35%,#5b7d86,#293f47 72%);
 box-shadow:inset 0 0 14px #000a;
 }
 
@@ -326,65 +371,120 @@ font-size:9px;
 }
 
 /* =====================================================
-   DOMAINE V3.4
+   DOMAINE V3.5
 ===================================================== */
 
 .scene{
-height:650px;
+height:680px;
 position:relative;
 overflow:hidden;
-border-radius:16px;
-border:2px solid #58747a;
-box-shadow:0 14px 35px #000b,inset 0 0 70px #0002;
-background:#789d59;
+border-radius:17px;
+border:2px solid #5b767b;
+box-shadow:
+0 16px 38px #000b,
+inset 0 0 80px #0002;
+background:#759956;
 }
+
+/* CIEL */
 
 .sky{
 position:absolute;
 inset:0;
 background:
 radial-gradient(
-circle at 76% 15%,
-#ffffffdd 0 18px,
-#ffffff40 19px 31px,
+circle at 78% 17%,
+#fff 0 17px,
+#ffffff55 18px 31px,
 transparent 32px
 ),
 linear-gradient(
 180deg,
-#68a4c1 0%,
-#9fcbd9 31%,
-#c8dce0 44%,
-#88a965 44%,
-#638b50 100%
+#62a0c0 0%,
+#8fc1d3 29%,
+#c3d8dc 43%,
+#8aaa69 43%,
+#658d51 100%
 );
 }
+
+.sky:after{
+content:"";
+position:absolute;
+left:0;
+right:0;
+top:0;
+height:44%;
+background:
+linear-gradient(
+180deg,
+transparent,
+#ffffff10
+);
+}
+
+/* NUAGES */
 
 .cloud{
 position:absolute;
-font-size:48px;
-opacity:.7;
-filter:drop-shadow(0 5px 5px #0002);
+width:75px;
+height:28px;
+border-radius:30px;
+background:#ffffffaa;
+filter:blur(.3px) drop-shadow(0 5px 5px #0002);
+z-index:2;
 }
 
-.cloud1{left:8%;top:8%}
-.cloud2{right:10%;top:13%}
+.cloud:before,
+.cloud:after{
+content:"";
+position:absolute;
+background:#ffffffbb;
+border-radius:50%;
+}
+
+.cloud:before{
+width:35px;
+height:35px;
+left:12px;
+top:-18px;
+}
+
+.cloud:after{
+width:43px;
+height:43px;
+right:9px;
+top:-24px;
+}
+
+.cloud1{
+left:9%;
+top:10%;
+}
+
+.cloud2{
+right:9%;
+top:14%;
+transform:scale(.82);
+}
+
+/* COLLINES */
 
 .hills{
 position:absolute;
-top:29%;
+top:30%;
 left:-5%;
 right:-5%;
-height:155px;
-background:linear-gradient(
-155deg,
-transparent 0 10%,
-#4d7047 11% 33%,
-#587b4b 34% 55%,
-#456a43 56% 100%
+height:150px;
+background:
+linear-gradient(
+180deg,
+#4b7146,
+#547a49
 );
 clip-path:polygon(
 0 75%,
-14% 42%,
+14% 43%,
 28% 63%,
 44% 25%,
 59% 58%,
@@ -394,7 +494,10 @@ clip-path:polygon(
 0 100%
 );
 filter:drop-shadow(0 8px 6px #0004);
+z-index:3;
 }
+
+/* TERRAIN */
 
 .ground{
 position:absolute;
@@ -403,28 +506,30 @@ right:0;
 top:35%;
 bottom:0;
 background:
-radial-gradient(circle at 15% 70%,#ffffff12 0 2px,transparent 3px),
-radial-gradient(circle at 55% 58%,#ffffff10 0 2px,transparent 3px),
-radial-gradient(circle at 82% 78%,#ffffff12 0 2px,transparent 3px),
+radial-gradient(circle at 18% 66%,#ffffff12 0 2px,transparent 3px),
+radial-gradient(circle at 54% 56%,#ffffff0e 0 2px,transparent 3px),
+radial-gradient(circle at 83% 77%,#ffffff12 0 2px,transparent 3px),
 repeating-linear-gradient(
 115deg,
-transparent 0 45px,
-#ffffff0c 46px 48px
+transparent 0 42px,
+#ffffff09 43px 45px
 ),
 linear-gradient(
 145deg,
 #91ad68 0%,
-#759b58 45%,
+#789c59 42%,
 #63894d 100%
 );
+z-index:4;
 }
 
 .ground:after{
 content:"";
 position:absolute;
 inset:0;
-opacity:.15;
-background:repeating-linear-gradient(
+opacity:.16;
+background:
+repeating-linear-gradient(
 105deg,
 transparent 0 55px,
 #294c2b 56px 58px,
@@ -432,27 +537,102 @@ transparent 59px 110px
 );
 }
 
+/* CHEMIN */
+
 .path{
 position:absolute;
-height:28px;
-background:linear-gradient(180deg,#cbb07c,#b59661);
+height:34px;
+background:
+linear-gradient(
+180deg,
+#d6bd89,
+#b08d58
+);
 border-radius:50%;
-box-shadow:inset 0 2px 4px #76552d44,0 3px 5px #0002;
+box-shadow:
+inset 0 3px 5px #76552d44,
+0 3px 5px #0002;
 transform:rotate(-8deg);
+z-index:5;
 }
+
+/* PETITS BUISSONS */
+
+.bush{
+position:absolute;
+width:42px;
+height:27px;
+border-radius:50%;
+background:
+radial-gradient(circle at 25% 55%,#9cbf64 0 12px,transparent 13px),
+radial-gradient(circle at 55% 35%,#6e9c4f 0 17px,transparent 18px),
+radial-gradient(circle at 80% 60%,#568544 0 14px,transparent 15px);
+filter:drop-shadow(0 5px 4px #0006);
+z-index:7;
+}
+
+.b1{left:7%;bottom:24%}
+.b2{left:54%;bottom:13%}
+.b3{right:5%;bottom:22%}
+
+/* ARBRES */
+
+.tree{
+position:absolute;
+width:55px;
+height:72px;
+z-index:7;
+filter:drop-shadow(0 8px 5px #0007);
+}
+
+.tree:before{
+content:"";
+position:absolute;
+left:23px;
+bottom:0;
+width:9px;
+height:30px;
+border-radius:5px;
+background:
+linear-gradient(90deg,#593b22,#7c5730,#4d321d);
+}
+
+.tree:after{
+content:"";
+position:absolute;
+left:3px;
+top:0;
+width:50px;
+height:50px;
+border-radius:50%;
+background:
+radial-gradient(circle at 30% 30%,#a4c56a 0 8px,transparent 9px),
+radial-gradient(circle at 60% 27%,#7ca653 0 14px,transparent 15px),
+radial-gradient(circle at 40% 65%,#5d8d48 0 18px,transparent 19px),
+radial-gradient(circle at 72% 65%,#47793e 0 15px,transparent 16px);
+}
+
+.t1{left:3%;top:35%}
+.t2{right:4%;top:35%}
+.t3{left:47%;bottom:11%;transform:scale(.8)}
+.t4{right:19%;bottom:4%;transform:scale(.72)}
+
+/* =========================
+   ECURIE
+========================= */
 
 .stable{
 position:absolute;
 left:6%;
-top:31%;
+top:32%;
 width:88%;
 height:225px;
 background:
 linear-gradient(
 90deg,
-#4c2c1e44,
+#4c2c1e55,
 transparent 18% 82%,
-#321d1538
+#321d1544
 ),
 linear-gradient(
 180deg,
@@ -463,9 +643,10 @@ linear-gradient(
 border:5px solid #4b2d20;
 border-radius:12px;
 box-shadow:
-0 18px 30px #0008,
+0 20px 32px #0009,
 inset 0 2px #ffffff18,
 inset 0 -15px 25px #0003;
+z-index:15;
 }
 
 .stable:after{
@@ -476,27 +657,48 @@ right:0;
 top:0;
 bottom:0;
 pointer-events:none;
-opacity:.13;
-background:repeating-linear-gradient(
+opacity:.14;
+background:
+repeating-linear-gradient(
 90deg,
 #2d170e 0 3px,
 transparent 4px 28px
 );
 }
 
+/* PANNEAUX BOIS */
+
+.stable:before{
+content:"";
+position:absolute;
+left:0;
+right:0;
+top:50px;
+height:3px;
+background:#4b2d20;
+box-shadow:
+0 56px #4b2d20,
+0 112px #4b2d20;
+opacity:.6;
+}
+
+/* TOIT */
+
 .roof{
 position:absolute;
-top:-67px;
+top:-69px;
 left:-5%;
 width:110%;
-height:76px;
-background:repeating-linear-gradient(
+height:79px;
+background:
+repeating-linear-gradient(
 90deg,
-#303234 0 12px,
-#414345 13px 18px
+#292b2c 0 10px,
+#3c3f40 11px 17px
 );
 clip-path:polygon(2% 100%,50% 0,98% 100%);
-filter:drop-shadow(0 7px 6px #000a);
+filter:drop-shadow(0 8px 7px #000a);
+z-index:2;
 }
 
 .roof:after{
@@ -506,8 +708,10 @@ left:0;
 right:0;
 bottom:-2px;
 height:8px;
-background:#252728;
+background:#242526;
 }
+
+/* TITRE */
 
 .stable-title{
 position:absolute;
@@ -520,9 +724,13 @@ font-size:20px;
 font-weight:bold;
 letter-spacing:.8px;
 color:#ffe9b0;
-text-shadow:0 2px 2px #000,0 4px 7px #000b;
-z-index:4;
+text-shadow:
+0 2px 2px #000,
+0 4px 7px #000b;
+z-index:8;
 }
+
+/* BOXES */
 
 .boxes{
 position:absolute;
@@ -533,7 +741,7 @@ height:145px;
 display:grid;
 grid-template-columns:repeat(6,1fr);
 gap:6px;
-z-index:3;
+z-index:8;
 }
 
 .box{
@@ -542,7 +750,8 @@ display:flex;
 align-items:center;
 justify-content:center;
 overflow:hidden;
-background:linear-gradient(
+background:
+linear-gradient(
 90deg,
 #382219,
 #714630 45%,
@@ -550,7 +759,9 @@ background:linear-gradient(
 );
 border:3px solid #392319;
 border-radius:6px;
-box-shadow:inset 0 0 13px #000a,inset 0 1px #ffffff12;
+box-shadow:
+inset 0 0 13px #000a,
+inset 0 1px #ffffff12;
 }
 
 .box:before{
@@ -571,7 +782,8 @@ bottom:2px;
 left:2px;
 right:2px;
 z-index:2;
-background:linear-gradient(
+background:
+linear-gradient(
 90deg,
 #132c38ee,
 #20495cee
@@ -582,20 +794,19 @@ text-align:center;
 font-size:9px;
 }
 
+/* =========================
+   PRE
+========================= */
+
 .paddock{
 position:absolute;
 right:5%;
-top:54%;
+top:55%;
 width:40%;
 height:185px;
-border:4px solid #765535;
+border:0;
 border-radius:20px;
 background:
-repeating-linear-gradient(
-0deg,
-transparent 0 28px,
-#ffffff0b 29px 31px
-),
 linear-gradient(
 145deg,
 #769b52aa,
@@ -604,16 +815,36 @@ linear-gradient(
 box-shadow:
 inset 0 0 25px #0003,
 0 8px 15px #0005;
+z-index:10;
 }
 
 .paddock:before{
 content:"";
 position:absolute;
-inset:-6px;
-border:6px solid #765535;
+inset:-5px;
+border:5px solid #745234;
 border-radius:21px;
-opacity:.85;
+background:
+repeating-linear-gradient(
+0deg,
+transparent 0 24px,
+#765435 25px 28px
+);
+opacity:.95;
 }
+
+.paddock:after{
+content:"";
+position:absolute;
+inset:-8px;
+border:3px solid #b58a50;
+border-radius:23px;
+opacity:.8;
+}
+
+/* =========================
+   CARRIERE
+========================= */
 
 .arena{
 position:absolute;
@@ -633,6 +864,7 @@ ellipse at center,
 box-shadow:
 inset 0 0 25px #4f351e44,
 0 8px 16px #0006;
+z-index:9;
 }
 
 .arena:after{
@@ -645,63 +877,260 @@ box-shadow:inset 0 0 10px #694c2c22;
 }
 
 .arena:before{
-content:"🏇";
+content:"";
 position:absolute;
 left:50%;
-top:43%;
+top:44%;
+width:42px;
+height:20px;
 transform:translate(-50%,-50%);
-font-size:27px;
+border-radius:50%;
+background:#70492d;
+box-shadow:
+-16px -6px 0 -5px #70492d,
+18px -9px 0 -6px #70492d,
+-14px 13px 0 -6px #70492d,
+15px 12px 0 -6px #70492d;
 z-index:5;
-filter:drop-shadow(0 3px 2px #0006);
 }
 
-.tree{
+/* OBSTACLES */
+
+.jump{
 position:absolute;
-font-size:40px;
-filter:drop-shadow(0 7px 4px #0007);
-z-index:4;
+z-index:7;
+width:35px;
+height:8px;
+background:#fff;
+border:2px solid #70452c;
+box-shadow:
+0 8px #d6b04f,
+0 16px #fff;
 }
 
-.t1{left:3%;top:34%}
-.t2{right:3%;top:35%}
-.t3{left:48%;bottom:15%}
-.t4{right:18%;bottom:5%}
+.jump1{
+left:23%;
+top:34%;
+transform:rotate(-7deg);
+}
+
+.jump2{
+right:18%;
+bottom:25%;
+transform:rotate(8deg);
+}
+
+/* =========================
+   VEHICULES
+========================= */
 
 .vehicle{
 position:absolute;
-font-size:50px;
+z-index:20;
 filter:drop-shadow(0 8px 5px #0008);
-z-index:8;
 }
 
 .truck{
 right:2%;
-top:33%;
+top:34%;
+width:62px;
+height:38px;
+}
+
+.truck:before{
+content:"";
+position:absolute;
+left:22px;
+top:4px;
+width:37px;
+height:29px;
+border-radius:3px;
+background:
+linear-gradient(180deg,#f7b11e,#d9770c);
+border:2px solid #713d17;
+box-shadow:inset 0 5px #ffffff33;
+}
+
+.truck:after{
+content:"";
+position:absolute;
+left:0;
+top:11px;
+width:28px;
+height:22px;
+border-radius:5px 2px 2px 5px;
+background:
+linear-gradient(135deg,#8fd2e5,#326f8a);
+border:2px solid #25495b;
+box-shadow:
+5px 26px 0 -5px #252525,
+48px 26px 0 -5px #252525;
 }
 
 .tractor{
 left:2%;
-top:51%;
+top:52%;
+width:60px;
+height:42px;
 }
+
+.tractor:before{
+content:"";
+position:absolute;
+left:20px;
+top:9px;
+width:30px;
+height:23px;
+border-radius:5px;
+background:
+linear-gradient(180deg,#ffd52e,#d59d00);
+border:2px solid #745600;
+box-shadow:
+4px 31px 0 -5px #252525,
+36px 30px 0 -4px #252525;
+}
+
+.tractor:after{
+content:"";
+position:absolute;
+left:0;
+top:18px;
+width:22px;
+height:14px;
+border-radius:4px;
+background:#e2b900;
+border:2px solid #725800;
+}
+
+/* =========================
+   CHEVAUX DU DOMAINE
+========================= */
 
 .scene-horse{
 position:absolute;
-z-index:10;
-font-size:46px;
+z-index:25;
+width:72px;
+height:52px;
 filter:drop-shadow(0 7px 4px #0008);
 }
 
-.sh1{right:17%;top:56%}
-.sh2{right:7%;top:65%}
-.sh3{right:25%;top:67%}
-.sh4{right:4%;top:75%}
+.scene-horse .body{
+position:absolute;
+left:16px;
+top:17px;
+width:42px;
+height:23px;
+border-radius:55% 48% 45% 50%;
+background:
+linear-gradient(180deg,#9b633e,#583822);
+}
+
+.scene-horse .neck{
+position:absolute;
+left:45px;
+top:5px;
+width:16px;
+height:30px;
+border-radius:60% 70% 25% 30%;
+transform:rotate(-17deg);
+background:linear-gradient(180deg,#a86c45,#593922);
+}
+
+.scene-horse .head{
+position:absolute;
+left:55px;
+top:2px;
+width:18px;
+height:15px;
+border-radius:60% 45% 50% 50%;
+transform:rotate(-12deg);
+background:#71452d;
+}
+
+.scene-horse .ear{
+position:absolute;
+left:57px;
+top:-2px;
+width:6px;
+height:9px;
+background:#54321f;
+transform:rotate(-15deg);
+border-radius:80% 20%;
+}
+
+.scene-horse .leg{
+position:absolute;
+top:34px;
+width:5px;
+height:17px;
+background:#4a2d1d;
+border-radius:4px;
+}
+
+.scene-horse .l1{left:22px}
+.scene-horse .l2{left:32px}
+.scene-horse .l3{left:48px}
+.scene-horse .l4{left:55px}
+
+.scene-horse .tail{
+position:absolute;
+left:12px;
+top:19px;
+width:18px;
+height:8px;
+border-radius:50%;
+border-bottom:5px solid #3b261b;
+transform:rotate(25deg);
+}
+
+.scene-horse .saddle{
+position:absolute;
+left:26px;
+top:13px;
+width:22px;
+height:7px;
+border-radius:7px;
+background:#3c6e43;
+border:1px solid #294b30;
+}
+
+.sh1{
+right:17%;
+top:57%;
+transform:scale(.85);
+}
+
+.sh2{
+right:7%;
+top:66%;
+transform:scale(.7);
+}
+
+.sh3{
+right:25%;
+top:68%;
+transform:scale(.62);
+}
+
+.sh4{
+right:4%;
+top:76%;
+transform:scale(.72);
+}
+
+/* =========================
+   BOUTONS DOMAINE
+========================= */
 
 .scene-button{
 position:absolute;
-z-index:20;
-background:linear-gradient(135deg,#326d89,#173d52)!important;
-border:1px solid #7194a2!important;
-box-shadow:0 6px 14px #0009,inset 0 1px #ffffff20;
+z-index:40;
+background:
+linear-gradient(135deg,#347b9e,#173d52)!important;
+border:1px solid #789dab!important;
+box-shadow:
+0 7px 15px #0009,
+inset 0 1px #ffffff20;
 transition:.18s;
 }
 
@@ -717,7 +1146,7 @@ top:45%;
 
 .pasture-button{
 right:9%;
-top:69%;
+top:70%;
 }
 
 .actions{
@@ -725,7 +1154,7 @@ position:absolute;
 left:6px;
 right:6px;
 bottom:7px;
-z-index:30;
+z-index:50;
 display:flex;
 gap:6px;
 overflow-x:auto;
@@ -739,14 +1168,12 @@ display:none;
 
 .action{
 min-width:140px;
-background:linear-gradient(180deg,#347797,#153d52)!important;
-box-shadow:0 7px 15px #0009,inset 0 1px #ffffff20;
+background:
+linear-gradient(180deg,#347797,#153d52)!important;
+box-shadow:
+0 7px 15px #0009,
+inset 0 1px #ffffff20;
 border-radius:13px!important;
-transition:.18s;
-}
-
-.action:hover{
-transform:translateY(-3px);
 }
 
 .action big{
@@ -893,7 +1320,7 @@ display:none;
 }
 
 .scene{
-height:610px;
+height:640px;
 border-radius:13px;
 }
 
@@ -901,7 +1328,7 @@ border-radius:13px;
 left:5%;
 width:90%;
 height:220px;
-top:30%;
+top:31%;
 }
 
 .stable-title{
@@ -917,23 +1344,29 @@ height:138px;
 right:5%;
 width:55%;
 height:165px;
-top:55%;
+top:56%;
 }
 
 .arena{
 left:4%;
 width:44%;
 height:150px;
-bottom:8%;
+bottom:9%;
 }
 
 .scene-horse{
-font-size:39px;
+width:62px;
+height:46px;
 }
 
 .enter{
-left:30%;
-top:44%;
+left:29%;
+top:45%;
+}
+
+.pasture-button{
+right:8%;
+top:70%;
 }
 
 .actions{
@@ -963,6 +1396,21 @@ grid-template-columns:1fr;
 border-radius:12px;
 }
 
+.truck{
+right:2%;
+top:34%;
+transform:scale(.85);
+}
+
+.tractor{
+left:2%;
+top:51%;
+transform:scale(.82);
+}
+
+.t1{left:1%}
+.t2{right:1%}
+
 }
 
 /* =========================
@@ -988,7 +1436,7 @@ min-height:140px;
 
 <div>
 <b>Mon Écurie</b>
-<small>V3.4 · Gestion complète</small>
+<small>V3.5 · Domaine amélioré</small>
 </div>
 
 </div>
@@ -1126,7 +1574,6 @@ min-height:140px;
 
 <main id="content">
 
-
 <!-- =========================
 DOMAINE
 ========================= -->
@@ -1137,21 +1584,25 @@ DOMAINE
 
 <div class="sky"></div>
 
-<div class="cloud cloud1">☁️</div>
-<div class="cloud cloud2">☁️</div>
+<div class="cloud cloud1"></div>
+<div class="cloud cloud2"></div>
 
 <div class="hills"></div>
 <div class="ground"></div>
 
-<div class="path"
+<div
+class="path"
 style="width:55%;left:20%;top:51%;">
 </div>
 
-<div class="tree t1">🌳</div>
-<div class="tree t2">🌳</div>
-<div class="tree t3">🌳</div>
-<div class="tree t4">🌳</div>
+<div class="tree t1"></div>
+<div class="tree t2"></div>
+<div class="tree t3"></div>
+<div class="tree t4"></div>
 
+<div class="bush b1"></div>
+<div class="bush b2"></div>
+<div class="bush b3"></div>
 
 <!-- ECURIE -->
 
@@ -1175,22 +1626,83 @@ style="width:55%;left:20%;top:51%;">
 
 <!-- CARRIERE -->
 
-<div class="arena"></div>
+<div class="arena">
+
+<div class="jump jump1"></div>
+<div class="jump jump2"></div>
+
+</div>
 
 
 <!-- VEHICULES -->
 
-<div class="vehicle truck">🚚</div>
+<div class="vehicle truck"></div>
 
-<div class="vehicle tractor">🚜</div>
+<div class="vehicle tractor"></div>
 
 
 <!-- CHEVAUX -->
 
-<div class="scene-horse sh1">🐎</div>
-<div class="scene-horse sh2">🐴</div>
-<div class="scene-horse sh3">🐎</div>
-<div class="scene-horse sh4">🐴</div>
+<div class="scene-horse sh1">
+
+<div class="body"></div>
+<div class="neck"></div>
+<div class="head"></div>
+<div class="ear"></div>
+<div class="tail"></div>
+<div class="saddle"></div>
+<div class="leg l1"></div>
+<div class="leg l2"></div>
+<div class="leg l3"></div>
+<div class="leg l4"></div>
+
+</div>
+
+
+<div class="scene-horse sh2">
+
+<div class="body"></div>
+<div class="neck"></div>
+<div class="head"></div>
+<div class="ear"></div>
+<div class="tail"></div>
+<div class="leg l1"></div>
+<div class="leg l2"></div>
+<div class="leg l3"></div>
+<div class="leg l4"></div>
+
+</div>
+
+
+<div class="scene-horse sh3">
+
+<div class="body"></div>
+<div class="neck"></div>
+<div class="head"></div>
+<div class="ear"></div>
+<div class="tail"></div>
+<div class="saddle"></div>
+<div class="leg l1"></div>
+<div class="leg l2"></div>
+<div class="leg l3"></div>
+<div class="leg l4"></div>
+
+</div>
+
+
+<div class="scene-horse sh4">
+
+<div class="body"></div>
+<div class="neck"></div>
+<div class="head"></div>
+<div class="ear"></div>
+<div class="tail"></div>
+<div class="leg l1"></div>
+<div class="leg l2"></div>
+<div class="leg l3"></div>
+<div class="leg l4"></div>
+
+</div>
 
 
 <button
@@ -1439,7 +1951,6 @@ PROFESSIONNELS
 
 <div class="grid">
 
-
 <div class="info">
 
 <h3>🩺 Vétérinaire</h3>
@@ -1514,7 +2025,6 @@ MATERIEL
 
 <div class="grid">
 
-
 <div class="info">
 
 <h3>🚚 Transport</h3>
@@ -1574,7 +2084,6 @@ RESSOURCES
 
 <div class="grid">
 
-
 <div class="info">
 
 <h3>🌾 Foin</h3>
@@ -1627,7 +2136,6 @@ PERSONNEL
 <h2>👥 Personnel</h2>
 
 <div class="grid">
-
 
 <div class="info">
 
