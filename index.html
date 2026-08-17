@@ -2,52 +2,58 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mon Écurie V3.3</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mon Écurie V3.4</title>
 
 <style>
 *{box-sizing:border-box}
 
 :root{
---dark:#0b1512;
---blue:#173b4d;
---blue2:#285d77;
---gold:#e2bd61;
---green:#5f8b4c;
---wood:#79482f;
---wood2:#a4683e;
+--dark:#08120e;
+--blue:#173d50;
+--blue2:#2d6d8d;
+--gold:#e4bd63;
+--cream:#f3dfad;
+--green:#668f51;
+--wood:#77482f;
+}
+
+html,body{
+margin:0;
+padding:0;
+min-height:100%;
 }
 
 body{
-margin:0;
 font-family:Arial,sans-serif;
-color:white;
+color:#fff;
 background:
-radial-gradient(circle at 50% 0%,#294b3b,#0b1512 60%);
+radial-gradient(circle at 50% 0%,#2a4c3c,#101f18 45%,#07100d);
 }
 
 button{
-border:1px solid #648493;
-border-radius:10px;
-padding:10px;
-background:linear-gradient(#326d89,#173e54);
+font-family:inherit;
+border:1px solid #6d929f;
+border-radius:11px;
+padding:10px 12px;
+background:linear-gradient(180deg,#34799a,#173d53);
 color:white;
-font-weight:bold;
+font-weight:800;
 cursor:pointer;
-box-shadow:0 4px 10px #0007;
+box-shadow:0 4px 10px #0008,inset 0 1px #ffffff22;
 }
 
 button:active{transform:scale(.97)}
 
 .top{
-min-height:76px;
+min-height:78px;
 display:flex;
 align-items:center;
 gap:8px;
 padding:7px;
-background:linear-gradient(#31586d,#102d3d);
-border-bottom:2px solid #688493;
-box-shadow:0 5px 18px #0009;
+background:linear-gradient(180deg,#315a70,#123344);
+border-bottom:2px solid #668493;
+box-shadow:0 6px 20px #000b;
 position:sticky;
 top:0;
 z-index:100;
@@ -58,22 +64,28 @@ display:flex;
 align-items:center;
 gap:8px;
 min-width:190px;
+padding:4px 8px;
+border-radius:12px;
+background:linear-gradient(135deg,#ffffff0d,#00000018);
 }
 
 .logo-icon{
 font-size:38px;
-filter:drop-shadow(0 3px 3px #0008);
+filter:drop-shadow(0 4px 3px #0009);
 }
 
 .logo b{
+display:block;
 font-family:Georgia,serif;
 font-size:23px;
+text-shadow:0 2px 3px #0008;
 }
 
 .logo small{
 display:block;
 font-size:10px;
-color:#d1dde1;
+color:#d2e0e4;
+margin-top:2px;
 }
 
 .stats{
@@ -81,21 +93,24 @@ display:flex;
 gap:6px;
 flex:1;
 overflow-x:auto;
+scrollbar-width:none;
 }
+
+.stats::-webkit-scrollbar{display:none}
 
 .stat{
-min-width:100px;
-padding:7px;
+min-width:105px;
+padding:7px 8px;
 text-align:center;
 font-size:10px;
-background:linear-gradient(#3b6173,#244658);
-border:1px solid #648493;
-border-radius:9px;
-box-shadow:inset 0 1px #ffffff22;
+background:linear-gradient(180deg,#3b6478,#244859);
+border:1px solid #678796;
+border-radius:10px;
+box-shadow:inset 0 1px #ffffff18,0 3px 8px #0005;
 }
 
-.stat b{font-size:14px;color:#fff}
-.stat .gold{color:#ffd969}
+.stat b{font-size:14px}
+.stat .gold{color:#ffda68}
 
 .top-buttons{
 display:flex;
@@ -113,37 +128,38 @@ padding:8px;
 
 .menu{
 padding:6px;
-background:linear-gradient(#193e51,#102a3a);
-border:1px solid #56798a;
+background:linear-gradient(180deg,#193e51,#0e2938);
+border:1px solid #54788a;
 border-radius:12px;
-box-shadow:0 6px 15px #0008;
+box-shadow:0 7px 16px #0009;
 }
 
 .menu button{
 width:100%;
 display:block;
-margin-bottom:4px;
+margin-bottom:5px;
 text-align:left;
-background:linear-gradient(#2d5c74,#193c50);
+background:linear-gradient(180deg,#2d607b,#193e52);
 transition:.18s;
 }
 
 .menu button:hover{
 transform:translateX(3px);
+filter:brightness(1.08);
 }
 
 .menu button.active{
-background:linear-gradient(135deg,#4b91b6,#255d7b);
-box-shadow:0 4px 12px #0008;
+background:linear-gradient(135deg,#4b91b6,#255e7d);
+box-shadow:0 5px 13px #0008,inset 0 1px #ffffff25;
 }
 
 .card{
-background:linear-gradient(#183c4f,#102c3c);
-border:1px solid #527486;
+background:linear-gradient(180deg,#193e50,#102b3a);
+border:1px solid #557787;
 border-radius:11px;
 padding:9px;
 margin-bottom:7px;
-box-shadow:0 5px 12px #0007;
+box-shadow:0 6px 14px #0008;
 }
 
 .resources{
@@ -154,12 +170,13 @@ font-size:10px;
 .news h4{
 margin:0 0 8px;
 color:var(--gold);
+font-size:13px;
 }
 
 .bar{
 height:7px;
-background:#354f5c;
-border-radius:8px;
+background:#304a56;
+border-radius:10px;
 overflow:hidden;
 margin:4px 0 8px;
 }
@@ -167,7 +184,8 @@ margin:4px 0 8px;
 .bar span{
 display:block;
 height:100%;
-background:linear-gradient(90deg,#47975e,#7bc45e);
+background:linear-gradient(90deg,#3d8e5a,#7ac45c);
+border-radius:10px;
 }
 
 .news{
@@ -177,13 +195,9 @@ font-size:10px;
 .news p{
 margin:5px 0;
 padding:7px;
-background:#102738;
-border-radius:6px;
+background:#102635;
+border-radius:7px;
 }
-
-/* =========================
-   DOMAINE
-========================= */
 
 .page{
 display:none;
@@ -193,43 +207,191 @@ display:none;
 display:block;
 }
 
+.panel{
+min-height:650px;
+padding:16px;
+background:
+radial-gradient(circle at 90% 0%,#5b8ca91a,transparent 35%),
+linear-gradient(180deg,#15394b,#0c2533);
+border:1px solid #587988;
+border-radius:15px;
+box-shadow:0 9px 25px #0009;
+}
+
+.panel h2{
+margin:0 0 12px;
+font-family:Georgia,serif;
+font-size:28px;
+color:var(--cream);
+text-shadow:0 2px 4px #0009;
+}
+
+.panel>p{
+color:#c9d6d9;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:10px;
+}
+
+.info,
+.horse-card{
+background:linear-gradient(145deg,#28566e,#143b4e);
+border:1px solid #587b8c;
+border-radius:12px;
+padding:12px;
+box-shadow:0 7px 16px #0008,inset 0 1px #ffffff0c;
+transition:.18s;
+}
+
+.info:hover,
+.horse-card:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 20px #000a;
+}
+
+.info h3{
+margin-top:0;
+color:var(--cream);
+}
+
+.horse-card{
+display:flex;
+gap:10px;
+}
+
+.horse-picture{
+width:82px;
+height:78px;
+flex-shrink:0;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:47px;
+border-radius:9px;
+background:radial-gradient(circle at 50% 35%,#5b7d86,#293f47 72%);
+box-shadow:inset 0 0 14px #000a;
+}
+
+.horse-info{
+flex:1;
+}
+
+.horse-info h3{
+margin:0 0 5px;
+color:#fff;
+}
+
+.badge{
+display:inline-block;
+background:#326277;
+border:1px solid #5f8798;
+border-radius:6px;
+padding:4px 7px;
+font-size:10px;
+}
+
+.horse-buttons{
+display:flex;
+flex-wrap:wrap;
+gap:5px;
+margin-top:8px;
+}
+
+.horse-buttons button{
+font-size:11px;
+padding:7px;
+}
+
+.right-horse{
+display:flex;
+gap:7px;
+padding:8px;
+margin-bottom:6px;
+background:linear-gradient(180deg,#214d64,#17394b);
+border:1px solid #527687;
+border-radius:9px;
+cursor:pointer;
+box-shadow:0 4px 9px #0006;
+}
+
+.right-horse .mini{
+font-size:36px;
+}
+
+.right-horse small{
+font-size:9px;
+}
+
+/* =====================================================
+   DOMAINE V3.4
+===================================================== */
+
 .scene{
 height:650px;
 position:relative;
 overflow:hidden;
 border-radius:16px;
-border:2px solid #536f76;
-box-shadow:0 12px 30px #000b;
-background:#789b59;
+border:2px solid #58747a;
+box-shadow:0 14px 35px #000b,inset 0 0 70px #0002;
+background:#789d59;
 }
 
 .sky{
 position:absolute;
 inset:0;
 background:
-radial-gradient(circle at 75% 15%,#ffffff99 0 2%,transparent 3%),
-linear-gradient(#70a8c3 0%,#b9d4dc 35%,#88a766 35%,#5c814d 100%);
+radial-gradient(
+circle at 76% 15%,
+#ffffffdd 0 18px,
+#ffffff40 19px 31px,
+transparent 32px
+),
+linear-gradient(
+180deg,
+#68a4c1 0%,
+#9fcbd9 31%,
+#c8dce0 44%,
+#88a965 44%,
+#638b50 100%
+);
 }
 
 .cloud{
 position:absolute;
 font-size:48px;
-opacity:.6;
+opacity:.7;
+filter:drop-shadow(0 5px 5px #0002);
 }
 
-.cloud1{left:8%;top:7%}
-.cloud2{right:12%;top:12%}
+.cloud1{left:8%;top:8%}
+.cloud2{right:10%;top:13%}
 
 .hills{
 position:absolute;
-top:28%;
+top:29%;
 left:-5%;
 right:-5%;
 height:155px;
-background:#56794d;
+background:linear-gradient(
+155deg,
+transparent 0 10%,
+#4d7047 11% 33%,
+#587b4b 34% 55%,
+#456a43 56% 100%
+);
 clip-path:polygon(
-0 75%,15% 40%,30% 65%,45% 25%,
-60% 60%,76% 30%,100% 65%,100% 100%,0 100%
+0 75%,
+14% 42%,
+28% 63%,
+44% 25%,
+59% 58%,
+76% 29%,
+100% 64%,
+100% 100%,
+0 100%
 );
 filter:drop-shadow(0 8px 6px #0004);
 }
@@ -241,81 +403,162 @@ right:0;
 top:35%;
 bottom:0;
 background:
+radial-gradient(circle at 15% 70%,#ffffff12 0 2px,transparent 3px),
+radial-gradient(circle at 55% 58%,#ffffff10 0 2px,transparent 3px),
+radial-gradient(circle at 82% 78%,#ffffff12 0 2px,transparent 3px),
 repeating-linear-gradient(
 115deg,
 transparent 0 45px,
 #ffffff0c 46px 48px
 ),
-linear-gradient(145deg,#87aa65,#5b814b);
+linear-gradient(
+145deg,
+#91ad68 0%,
+#759b58 45%,
+#63894d 100%
+);
+}
+
+.ground:after{
+content:"";
+position:absolute;
+inset:0;
+opacity:.15;
+background:repeating-linear-gradient(
+105deg,
+transparent 0 55px,
+#294c2b 56px 58px,
+transparent 59px 110px
+);
+}
+
+.path{
+position:absolute;
+height:28px;
+background:linear-gradient(180deg,#cbb07c,#b59661);
+border-radius:50%;
+box-shadow:inset 0 2px 4px #76552d44,0 3px 5px #0002;
+transform:rotate(-8deg);
 }
 
 .stable{
 position:absolute;
-left:7%;
+left:6%;
 top:31%;
-width:68%;
+width:88%;
 height:225px;
 background:
-linear-gradient(90deg,#4c2c1e33,transparent 20% 80%,#321d1533),
-linear-gradient(#a76a41,#73462f 80%,#533223);
-border:5px solid #4a2e21;
+linear-gradient(
+90deg,
+#4c2c1e44,
+transparent 18% 82%,
+#321d1538
+),
+linear-gradient(
+180deg,
+#a96b42 0%,
+#925b3b 55%,
+#68402c 100%
+);
+border:5px solid #4b2d20;
 border-radius:12px;
 box-shadow:
-0 15px 25px #0008,
-inset 0 2px #ffffff18;
+0 18px 30px #0008,
+inset 0 2px #ffffff18,
+inset 0 -15px 25px #0003;
+}
+
+.stable:after{
+content:"";
+position:absolute;
+left:0;
+right:0;
+top:0;
+bottom:0;
+pointer-events:none;
+opacity:.13;
+background:repeating-linear-gradient(
+90deg,
+#2d170e 0 3px,
+transparent 4px 28px
+);
 }
 
 .roof{
 position:absolute;
-top:-61px;
+top:-67px;
 left:-5%;
 width:110%;
-height:70px;
-background:
-repeating-linear-gradient(
+height:76px;
+background:repeating-linear-gradient(
 90deg,
-#343738 0 15px,
-#494b4c 16px 20px
+#303234 0 12px,
+#414345 13px 18px
 );
 clip-path:polygon(2% 100%,50% 0,98% 100%);
-filter:drop-shadow(0 5px 5px #0009);
+filter:drop-shadow(0 7px 6px #000a);
+}
+
+.roof:after{
+content:"";
+position:absolute;
+left:0;
+right:0;
+bottom:-2px;
+height:8px;
+background:#252728;
 }
 
 .stable-title{
 position:absolute;
-top:9px;
+top:8px;
 left:0;
 right:0;
 text-align:center;
 font-family:Georgia,serif;
-font-size:19px;
+font-size:20px;
 font-weight:bold;
-color:#f4dfaa;
-text-shadow:0 2px 4px #000;
+letter-spacing:.8px;
+color:#ffe9b0;
+text-shadow:0 2px 2px #000,0 4px 7px #000b;
+z-index:4;
 }
 
 .boxes{
 position:absolute;
-left:8px;
-right:8px;
-bottom:8px;
+left:10px;
+right:10px;
+bottom:10px;
 height:145px;
 display:grid;
 grid-template-columns:repeat(6,1fr);
-gap:5px;
+gap:6px;
+z-index:3;
 }
 
 .box{
 position:relative;
-background:
-linear-gradient(90deg,#3d261c,#68412c 50%,#3c251c);
-border:3px solid #39251d;
-border-radius:5px;
 display:flex;
 align-items:center;
 justify-content:center;
 overflow:hidden;
-box-shadow:inset 0 0 10px #0008;
+background:linear-gradient(
+90deg,
+#382219,
+#714630 45%,
+#4a2c20
+);
+border:3px solid #392319;
+border-radius:6px;
+box-shadow:inset 0 0 13px #000a,inset 0 1px #ffffff12;
+}
+
+.box:before{
+content:"";
+position:absolute;
+inset:7px;
+border:2px solid #b9784a33;
+pointer-events:none;
 }
 
 .box.free{
@@ -327,8 +570,13 @@ position:absolute;
 bottom:2px;
 left:2px;
 right:2px;
-background:#173746eF;
-border-radius:3px;
+z-index:2;
+background:linear-gradient(
+90deg,
+#132c38ee,
+#20495cee
+);
+border-radius:4px;
 padding:3px;
 text-align:center;
 font-size:9px;
@@ -340,18 +588,31 @@ right:5%;
 top:54%;
 width:40%;
 height:185px;
-border:5px solid #785b3e;
+border:4px solid #765535;
 border-radius:20px;
 background:
 repeating-linear-gradient(
 0deg,
-transparent 0 30px,
-#ffffff0c 31px 33px
+transparent 0 28px,
+#ffffff0b 29px 31px
 ),
-#ffffff12;
+linear-gradient(
+145deg,
+#769b52aa,
+#527c42bb
+);
 box-shadow:
-inset 0 0 25px #0002,
-0 8px 14px #0004;
+inset 0 0 25px #0003,
+0 8px 15px #0005;
+}
+
+.paddock:before{
+content:"";
+position:absolute;
+inset:-6px;
+border:6px solid #765535;
+border-radius:21px;
+opacity:.85;
 }
 
 .arena{
@@ -360,27 +621,45 @@ left:7%;
 bottom:6%;
 width:40%;
 height:170px;
-border:5px solid #795b3d;
+border:5px solid #705236;
 border-radius:50%;
 background:
-radial-gradient(circle,#d2b57f88,#a8824f55);
+radial-gradient(
+ellipse at center,
+#dcc18c 0%,
+#c6a76f 55%,
+#a98755 100%
+);
 box-shadow:
 inset 0 0 25px #4f351e44,
-0 8px 14px #0005;
+0 8px 16px #0006;
 }
 
 .arena:after{
 content:"";
 position:absolute;
 inset:13px;
-border:3px solid #ead39e;
+border:3px solid #ead5a3;
 border-radius:50%;
+box-shadow:inset 0 0 10px #694c2c22;
+}
+
+.arena:before{
+content:"🏇";
+position:absolute;
+left:50%;
+top:43%;
+transform:translate(-50%,-50%);
+font-size:27px;
+z-index:5;
+filter:drop-shadow(0 3px 2px #0006);
 }
 
 .tree{
 position:absolute;
 font-size:40px;
-filter:drop-shadow(0 5px 3px #0006);
+filter:drop-shadow(0 7px 4px #0007);
+z-index:4;
 }
 
 .t1{left:3%;top:34%}
@@ -391,7 +670,8 @@ filter:drop-shadow(0 5px 3px #0006);
 .vehicle{
 position:absolute;
 font-size:50px;
-filter:drop-shadow(0 6px 4px #0008);
+filter:drop-shadow(0 8px 5px #0008);
+z-index:8;
 }
 
 .truck{
@@ -408,7 +688,7 @@ top:51%;
 position:absolute;
 z-index:10;
 font-size:46px;
-filter:drop-shadow(0 5px 3px #0008);
+filter:drop-shadow(0 7px 4px #0008);
 }
 
 .sh1{right:17%;top:56%}
@@ -419,7 +699,15 @@ filter:drop-shadow(0 5px 3px #0008);
 .scene-button{
 position:absolute;
 z-index:20;
-background:linear-gradient(135deg,#1e526d,#123548);
+background:linear-gradient(135deg,#326d89,#173d52)!important;
+border:1px solid #7194a2!important;
+box-shadow:0 6px 14px #0009,inset 0 1px #ffffff20;
+transition:.18s;
+}
+
+.scene-button:hover{
+transform:translateY(-3px);
+filter:brightness(1.1);
 }
 
 .enter{
@@ -442,6 +730,7 @@ display:flex;
 gap:6px;
 overflow-x:auto;
 scrollbar-width:none;
+padding:4px;
 }
 
 .actions::-webkit-scrollbar{
@@ -450,18 +739,20 @@ display:none;
 
 .action{
 min-width:140px;
-background:linear-gradient(#2f6b88,#123649);
-box-shadow:0 6px 12px #0008;
+background:linear-gradient(180deg,#347797,#153d52)!important;
+box-shadow:0 7px 15px #0009,inset 0 1px #ffffff20;
+border-radius:13px!important;
 transition:.18s;
 }
 
 .action:hover{
-transform:translateY(-2px);
+transform:translateY(-3px);
 }
 
 .action big{
 display:block;
 font-size:23px;
+filter:drop-shadow(0 2px 2px #0008);
 }
 
 .action small{
@@ -469,126 +760,6 @@ display:block;
 font-size:10px;
 color:#c8d5d9;
 margin-top:3px;
-}
-
-/* =========================
-   PAGES
-========================= */
-
-.panel{
-min-height:650px;
-padding:16px;
-background:
-radial-gradient(circle at 90% 0%,#4b7c921c,transparent 35%),
-linear-gradient(#143649,#0d2635);
-border:1px solid #557787;
-border-radius:15px;
-box-shadow:0 8px 22px #0008;
-}
-
-.panel h2{
-margin-top:0;
-font-family:Georgia,serif;
-font-size:28px;
-color:#f1ddb0;
-text-shadow:0 2px 4px #0008;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:10px;
-}
-
-.info,
-.horse-card{
-background:
-linear-gradient(145deg,#275168,#153b50);
-border:1px solid #557787;
-border-radius:12px;
-padding:12px;
-box-shadow:
-0 6px 15px #0007,
-inset 0 1px #ffffff0c;
-transition:.18s;
-}
-
-.info:hover,
-.horse-card:hover{
-transform:translateY(-2px);
-box-shadow:0 9px 19px #0009;
-}
-
-.info h3{
-margin-top:0;
-color:#f0dca7;
-}
-
-.horse-card{
-display:flex;
-gap:10px;
-}
-
-.horse-picture{
-width:82px;
-height:78px;
-flex-shrink:0;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:47px;
-border-radius:9px;
-background:
-radial-gradient(circle at 50% 35%,#587780,#293f48);
-box-shadow:inset 0 0 13px #0009;
-}
-
-.horse-info{
-flex:1;
-}
-
-.horse-info h3{
-margin:0 0 5px;
-}
-
-.badge{
-display:inline-block;
-background:#326277;
-border-radius:5px;
-padding:4px 6px;
-font-size:10px;
-}
-
-.horse-buttons{
-display:flex;
-flex-wrap:wrap;
-gap:5px;
-margin-top:8px;
-}
-
-.horse-buttons button{
-font-size:11px;
-padding:7px;
-}
-
-.right-horse{
-display:flex;
-gap:7px;
-padding:8px;
-margin-bottom:6px;
-background:linear-gradient(#21495e,#17384b);
-border:1px solid #527384;
-border-radius:9px;
-cursor:pointer;
-box-shadow:0 4px 9px #0005;
-}
-
-.right-horse .mini{
-font-size:36px;
-}
-
-.right-horse small{
-font-size:9px;
 }
 
 /* =========================
@@ -691,7 +862,7 @@ padding:4px;
 }
 
 .menu{
-display:flex !important;
+display:flex!important;
 overflow-x:auto;
 gap:5px;
 padding:5px;
@@ -699,8 +870,8 @@ padding:5px;
 }
 
 .menu button{
-display:block !important;
-width:auto !important;
+display:block!important;
+width:auto!important;
 min-width:125px;
 flex-shrink:0;
 text-align:center;
@@ -733,25 +904,46 @@ height:220px;
 top:30%;
 }
 
+.stable-title{
+font-size:17px;
+}
+
 .boxes{
 grid-template-columns:repeat(3,1fr);
-height:140px;
+height:138px;
 }
 
 .paddock{
 right:5%;
 width:55%;
-height:175px;
+height:165px;
+top:55%;
 }
 
 .arena{
 left:4%;
 width:44%;
 height:150px;
+bottom:8%;
+}
+
+.scene-horse{
+font-size:39px;
 }
 
 .enter{
-left:35%;
+left:30%;
+top:44%;
+}
+
+.actions{
+left:5px;
+right:5px;
+bottom:5px;
+}
+
+.action{
+min-width:145px;
 }
 
 .panel{
@@ -771,11 +963,18 @@ grid-template-columns:1fr;
 border-radius:12px;
 }
 
-.action{
-min-width:140px;
 }
 
+/* =========================
+   PAGES
+========================= */
+
+#stable .info,
+#pasture .info,
+#arena .info{
+min-height:140px;
 }
+
 </style>
 </head>
 
@@ -784,11 +983,14 @@ min-width:140px;
 <header class="top">
 
 <div class="logo">
+
 <div class="logo-icon">🐎</div>
+
 <div>
 <b>Mon Écurie</b>
-<small>V3.3 · Gestion complète</small>
+<small>V3.4 · Gestion complète</small>
 </div>
+
 </div>
 
 <div class="stats">
@@ -835,18 +1037,53 @@ min-width:140px;
 
 <nav class="menu">
 
-<button class="active" onclick="showPage('domain',this)">🏠 Domaine</button>
-<button onclick="showPage('stable',this)">🏚️ Écurie</button>
-<button onclick="showPage('pasture',this)">🌳 Prés</button>
-<button onclick="showPage('arena',this)">🏇 Carrière</button>
-<button onclick="showPage('shows',this)">🏆 Concours</button>
-<button onclick="showPage('market',this)">🐎 Marché</button>
-<button onclick="showPage('horses',this)">📖 Chevaux</button>
-<button onclick="showPage('care',this)">❤️ Soins</button>
-<button onclick="showPage('pros',this)">🩺 Professionnels</button>
-<button onclick="showPage('gear',this)">🧰 Matériel</button>
-<button onclick="showPage('resources',this)">🌾 Ressources</button>
-<button onclick="showPage('staff',this)">👥 Personnel</button>
+<button class="active" onclick="showPage('domain',this)">
+🏠 Domaine
+</button>
+
+<button onclick="showPage('stable',this)">
+🏚️ Écurie
+</button>
+
+<button onclick="showPage('pasture',this)">
+🌳 Prés
+</button>
+
+<button onclick="showPage('arena',this)">
+🏇 Carrière
+</button>
+
+<button onclick="showPage('shows',this)">
+🏆 Concours
+</button>
+
+<button onclick="showPage('market',this)">
+🐎 Marché
+</button>
+
+<button onclick="showPage('horses',this)">
+📖 Chevaux
+</button>
+
+<button onclick="showPage('care',this)">
+❤️ Soins
+</button>
+
+<button onclick="showPage('pros',this)">
+🩺 Professionnels
+</button>
+
+<button onclick="showPage('gear',this)">
+🧰 Matériel
+</button>
+
+<button onclick="showPage('resources',this)">
+🌾 Ressources
+</button>
+
+<button onclick="showPage('staff',this)">
+👥 Personnel
+</button>
 
 </nav>
 
@@ -855,16 +1092,19 @@ min-width:140px;
 <h4>📦 Ressources</h4>
 
 🌾 Foin
+
 <div class="bar">
 <span id="hayBar"></span>
 </div>
 
 🌽 Grain
+
 <div class="bar">
 <span id="grainBar"></span>
 </div>
 
 🟫 Paille
+
 <div class="bar">
 <span id="strawBar"></span>
 </div>
@@ -884,10 +1124,12 @@ min-width:140px;
 </aside>
 
 
-<main>
+<main id="content">
 
 
-<!-- DOMAINE -->
+<!-- =========================
+DOMAINE
+========================= -->
 
 <section id="domain" class="page active">
 
@@ -901,10 +1143,17 @@ min-width:140px;
 <div class="hills"></div>
 <div class="ground"></div>
 
+<div class="path"
+style="width:55%;left:20%;top:51%;">
+</div>
+
 <div class="tree t1">🌳</div>
 <div class="tree t2">🌳</div>
 <div class="tree t3">🌳</div>
 <div class="tree t4">🌳</div>
+
+
+<!-- ECURIE -->
 
 <div class="stable">
 
@@ -918,58 +1167,104 @@ min-width:140px;
 
 </div>
 
+
+<!-- PRE -->
+
 <div class="paddock"></div>
+
+
+<!-- CARRIERE -->
+
 <div class="arena"></div>
 
+
+<!-- VEHICULES -->
+
 <div class="vehicle truck">🚚</div>
+
 <div class="vehicle tractor">🚜</div>
+
+
+<!-- CHEVAUX -->
 
 <div class="scene-horse sh1">🐎</div>
 <div class="scene-horse sh2">🐴</div>
 <div class="scene-horse sh3">🐎</div>
 <div class="scene-horse sh4">🐴</div>
 
-<button class="scene-button enter"
+
+<button
+class="scene-button enter"
 onclick="showPage('stable')">
+
 🏠 Entrer dans l'écurie
+
 </button>
 
-<button class="scene-button pasture-button"
+
+<button
+class="scene-button pasture-button"
 onclick="showPage('pasture')">
+
 🌱 Voir les prés
+
 </button>
+
 
 <div class="actions">
 
 <button class="action" onclick="nextWeek()">
+
 <big>📅</big>
+
 Passer une semaine
+
 <small>- 350 €</small>
+
 </button>
+
 
 <button class="action" onclick="buyHay()">
+
 <big>🌾</big>
+
 Acheter du foin
+
 <small>+500 kg / 250 €</small>
+
 </button>
+
 
 <button class="action" onclick="buyGrain()">
+
 <big>🌽</big>
+
 Acheter du grain
+
 <small>+300 kg / 180 €</small>
+
 </button>
+
 
 <button class="action" onclick="chooseHorse('care')">
+
 <big>🐎</big>
+
 S'occuper d'un cheval
+
 <small>Choisir</small>
+
 </button>
 
-<button class="action"
-onclick="showPage('shows')">
+
+<button class="action" onclick="showPage('shows')">
+
 <big>🏆</big>
+
 Concours
+
 <small>Voir les épreuves</small>
+
 </button>
 
 </div>
@@ -979,7 +1274,9 @@ Concours
 </section>
 
 
-<!-- ECURIE -->
+<!-- =========================
+ECURIE
+========================= -->
 
 <section id="stable" class="page panel">
 
@@ -992,7 +1289,9 @@ Concours
 </section>
 
 
-<!-- PRES -->
+<!-- =========================
+PRES
+========================= -->
 
 <section id="pasture" class="page panel">
 
@@ -1007,7 +1306,9 @@ Les chevaux au pré récupèrent progressivement.
 </section>
 
 
-<!-- CARRIERE -->
+<!-- =========================
+CARRIERE
+========================= -->
 
 <section id="arena" class="page panel">
 
@@ -1022,7 +1323,9 @@ Travaille tes chevaux et développe leurs performances.
 </section>
 
 
-<!-- CONCOURS -->
+<!-- =========================
+CONCOURS
+========================= -->
 
 <section id="shows" class="page panel">
 
@@ -1044,6 +1347,7 @@ Participer — 250 €
 
 </div>
 
+
 <div class="info">
 
 <h3>🥈 Amateur</h3>
@@ -1057,6 +1361,7 @@ Participer — 600 €
 </button>
 
 </div>
+
 
 <div class="info">
 
@@ -1077,7 +1382,9 @@ Participer — 1 500 €
 </section>
 
 
-<!-- MARCHE -->
+<!-- =========================
+MARCHE
+========================= -->
 
 <section id="market" class="page panel">
 
@@ -1092,7 +1399,9 @@ Trouve de nouveaux chevaux pour développer ton écurie.
 </section>
 
 
-<!-- CHEVAUX -->
+<!-- =========================
+CHEVAUX
+========================= -->
 
 <section id="horses" class="page panel">
 
@@ -1103,7 +1412,9 @@ Trouve de nouveaux chevaux pour développer ton écurie.
 </section>
 
 
-<!-- SOINS -->
+<!-- =========================
+SOINS
+========================= -->
 
 <section id="care" class="page panel">
 
@@ -1118,7 +1429,9 @@ Prends soin de tes chevaux.
 </section>
 
 
-<!-- PROFESSIONNELS -->
+<!-- =========================
+PROFESSIONNELS
+========================= -->
 
 <section id="pros" class="page panel">
 
@@ -1126,36 +1439,64 @@ Prends soin de tes chevaux.
 
 <div class="grid">
 
+
 <div class="info">
+
 <h3>🩺 Vétérinaire</h3>
-<p>Bilan et soins généraux.</p>
+
+<p>
+Bilan et soins généraux.
+</p>
+
 <button onclick="chooseHorse('vet')">
 Visite — 1 000 €
 </button>
+
 </div>
 
+
 <div class="info">
+
 <h3>🦷 Dentiste</h3>
-<p>Contrôle dentaire.</p>
+
+<p>
+Contrôle dentaire.
+</p>
+
 <button onclick="chooseHorse('dentiste')">
 Intervention — 350 €
 </button>
+
 </div>
 
+
 <div class="info">
+
 <h3>🧲 Maréchal-ferrant</h3>
-<p>Parage et ferrure.</p>
+
+<p>
+Parage et ferrure.
+</p>
+
 <button onclick="chooseHorse('marechal')">
 Intervention — 180 €
 </button>
+
 </div>
 
+
 <div class="info">
+
 <h3>👐 Ostéopathe</h3>
-<p>Récupération et mobilité.</p>
+
+<p>
+Récupération et mobilité.
+</p>
+
 <button onclick="chooseHorse('osteopathe')">
 Séance — 250 €
 </button>
+
 </div>
 
 </div>
@@ -1163,7 +1504,9 @@ Séance — 250 €
 </section>
 
 
-<!-- MATERIEL -->
+<!-- =========================
+MATERIEL
+========================= -->
 
 <section id="gear" class="page panel">
 
@@ -1171,28 +1514,49 @@ Séance — 250 €
 
 <div class="grid">
 
+
 <div class="info">
+
 <h3>🚚 Transport</h3>
-<p>Camion actuel : 2 chevaux.</p>
+
+<p>
+Camion actuel : 2 chevaux.
+</p>
+
 <button onclick="toast('🚚 Camion prêt.')">
 Vérifier
 </button>
+
 </div>
 
+
 <div class="info">
+
 <h3>🏇 Matériel de concours</h3>
-<p>Matériel standard disponible.</p>
+
+<p>
+Matériel standard disponible.
+</p>
+
 <button onclick="toast('🧰 Matériel vérifié.')">
 Vérifier
 </button>
+
 </div>
 
+
 <div class="info">
+
 <h3>🏗️ Installations</h3>
-<p>6 boxes · carrière · prés.</p>
+
+<p>
+6 boxes · carrière · prés.
+</p>
+
 <button onclick="toast('🏡 Installations en bon état.')">
 Inspecter
 </button>
+
 </div>
 
 </div>
@@ -1200,13 +1564,16 @@ Inspecter
 </section>
 
 
-<!-- RESSOURCES -->
+<!-- =========================
+RESSOURCES
+========================= -->
 
 <section id="resources" class="page panel">
 
 <h2>🌾 Ressources</h2>
 
 <div class="grid">
+
 
 <div class="info">
 
@@ -1220,6 +1587,7 @@ Acheter +500 kg — 250 €
 
 </div>
 
+
 <div class="info">
 
 <h3>🌽 Grain</h3>
@@ -1231,6 +1599,7 @@ Acheter +300 kg — 180 €
 </button>
 
 </div>
+
 
 <div class="info">
 
@@ -1249,7 +1618,9 @@ Acheter +300 kg — 150 €
 </section>
 
 
-<!-- PERSONNEL -->
+<!-- =========================
+PERSONNEL
+========================= -->
 
 <section id="staff" class="page panel">
 
@@ -1257,28 +1628,49 @@ Acheter +300 kg — 150 €
 
 <div class="grid">
 
+
 <div class="info">
+
 <h3>👨‍🌾 Palefrenier</h3>
-<p>800 €/mois.</p>
+
+<p>
+800 €/mois.
+</p>
+
 <button onclick="hire('Palefrenier')">
 Embaucher
 </button>
+
 </div>
 
+
 <div class="info">
+
 <h3>🏇 Cavalier</h3>
-<p>1 200 €/mois.</p>
+
+<p>
+1 200 €/mois.
+</p>
+
 <button onclick="hire('Cavalier')">
 Embaucher
 </button>
+
 </div>
 
+
 <div class="info">
+
 <h3>👔 Gérant</h3>
-<p>1 500 €/mois.</p>
+
+<p>
+1 500 €/mois.
+</p>
+
 <button onclick="hire('Gérant')">
 Embaucher
 </button>
+
 </div>
 
 </div>
@@ -1297,11 +1689,17 @@ Embaucher
 </div>
 
 
+<!-- MODAL -->
+
 <div class="modal" id="modal">
 
 <div class="modal-box">
 
-<div style="display:flex;justify-content:space-between;align-items:center">
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+">
 
 <h2>Choisir un cheval</h2>
 
@@ -1399,18 +1797,25 @@ place:"box"
 
 
 let game={
+
 money:18450,
+
 reputation:0,
+
 week:12,
+
 year:1,
 
 hay:1200,
+
 maxHay:2000,
 
 grain:800,
+
 maxGrain:1500,
 
 straw:600,
+
 maxStraw:1500,
 
 boxes:6,
@@ -1418,19 +1823,22 @@ boxes:6,
 staff:[],
 
 horses:defaultHorses
+
 };
 
 
 function money(n){
 
-return Math.round(n).toLocaleString("fr-FR")+" €";
+return Math.round(n)
+.toLocaleString("fr-FR")+" €";
 
 }
 
 
 function toast(text){
 
-const t=document.getElementById("toast");
+const t=
+document.getElementById("toast");
 
 t.textContent=text;
 
@@ -1438,9 +1846,13 @@ t.classList.add("show");
 
 clearTimeout(window.toastTimer);
 
-window.toastTimer=setTimeout(()=>{
+window.toastTimer=
+setTimeout(
+()=>{
 t.classList.remove("show");
-},1800);
+},
+1800
+);
 
 }
 
@@ -1448,7 +1860,7 @@ t.classList.remove("show");
 function saveGame(){
 
 localStorage.setItem(
-"monEcurieV33",
+"monEcurieV34",
 JSON.stringify(game)
 );
 
@@ -1462,7 +1874,7 @@ function loadGame(){
 try{
 
 const saved=
-localStorage.getItem("monEcurieV33");
+localStorage.getItem("monEcurieV34");
 
 if(saved){
 
@@ -1477,9 +1889,13 @@ game=JSON.parse(saved);
 
 function resetGame(){
 
-if(confirm("Réinitialiser complètement la partie ?")){
+if(
+confirm(
+"Réinitialiser complètement la partie ?"
+)
+){
 
-localStorage.removeItem("monEcurieV33");
+localStorage.removeItem("monEcurieV34");
 
 location.reload();
 
@@ -1508,9 +1924,9 @@ function showPage(id,button){
 
 document
 .querySelectorAll(".page")
-.forEach(p=>{
-p.classList.remove("active");
-});
+.forEach(
+p=>p.classList.remove("active")
+);
 
 
 const page=
@@ -1522,9 +1938,9 @@ page.classList.add("active");
 
 document
 .querySelectorAll(".menu button")
-.forEach(b=>{
-b.classList.remove("active");
-});
+.forEach(
+b=>b.classList.remove("active")
+);
 
 
 if(button)
@@ -1563,15 +1979,19 @@ ${h.race}
 <p>
 
 ${h.age} ans · ${h.sex}
+
 <br>
 
 💪 Forme : ${h.form}%
+
 <br>
 
 ❤️ Santé : ${h.health}%
+
 <br>
 
 😴 Fatigue : ${h.fatigue}%
+
 <br>
 
 📍 ${h.place==="box"?"Box":"Pré"}
@@ -1580,18 +2000,23 @@ ${h.age} ans · ${h.sex}
 
 <div class="horse-buttons">
 
-<button onclick="careHorse(${h.id})">
+<button
+onclick="careHorse(${h.id})">
 🧹 S'occuper
 </button>
 
-<button onclick="trainHorse(${h.id})">
+<button
+onclick="trainHorse(${h.id})">
 🏇 Entraîner
 </button>
 
-<button onclick="togglePlace(${h.id})">
+<button
+onclick="togglePlace(${h.id})">
+
 ${h.place==="box"
 ?"🌳 Mettre au pré"
 :"🏠 Rentrer au box"}
+
 </button>
 
 </div>
@@ -1613,23 +2038,33 @@ document.getElementById("sceneBoxes");
 boxes.innerHTML="";
 
 const boxHorses=
-game.horses.filter(h=>h.place==="box");
+game.horses.filter(
+h=>h.place==="box"
+);
 
 
-for(let i=0;i<game.boxes;i++){
+for(
+let i=0;
+i<game.boxes;
+i++
+){
 
 const box=
 document.createElement("div");
 
 box.className="box";
 
-const h=boxHorses[i];
+const h=
+boxHorses[i];
 
 if(h){
 
 box.innerHTML=`
 
-<div style="font-size:40px">
+<div style="
+font-size:40px;
+filter:drop-shadow(0 4px 3px #0008);
+">
 🐎
 </div>
 
@@ -1657,67 +2092,130 @@ boxes.appendChild(box);
 
 function renderPages(){
 
-document.getElementById("stableGrid").innerHTML=
+document
+.getElementById("stableGrid")
+.innerHTML=
 
 game.horses
-.filter(h=>h.place==="box")
-.map(h=>horseCard(h))
+.filter(
+h=>h.place==="box"
+)
+.map(
+h=>horseCard(h)
+)
 .join("")
 ||
 "<p>Aucun cheval au box.</p>";
 
 
-document.getElementById("pastureGrid").innerHTML=
+document
+.getElementById("pastureGrid")
+.innerHTML=
 
 game.horses
-.filter(h=>h.place==="pasture")
-.map(h=>horseCard(h))
+.filter(
+h=>h.place==="pasture"
+)
+.map(
+h=>horseCard(h)
+)
 .join("")
 ||
 "<p>Aucun cheval au pré.</p>";
 
 
-document.getElementById("arenaGrid").innerHTML=
-game.horses.map(h=>horseCard(h)).join("");
+document
+.getElementById("arenaGrid")
+.innerHTML=
+
+game.horses
+.map(
+h=>horseCard(h)
+)
+.join("");
 
 
-document.getElementById("horsesGrid").innerHTML=
-game.horses.map(h=>horseCard(h)).join("");
+document
+.getElementById("horsesGrid")
+.innerHTML=
+
+game.horses
+.map(
+h=>horseCard(h)
+)
+.join("");
 
 
-document.getElementById("careGrid").innerHTML=
-game.horses.map(h=>horseCard(h)).join("");
+document
+.getElementById("careGrid")
+.innerHTML=
+
+game.horses
+.map(
+h=>horseCard(h)
+)
+.join("");
 
 
-document.getElementById("boxCount").textContent=
+document
+.getElementById("boxCount")
+.textContent=
 
 "Boxes : "+
-game.horses.filter(h=>h.place==="box").length+
+game.horses.filter(
+h=>h.place==="box"
+).length+
 " / "+
 game.boxes+
 " occupés";
 
 
-document.getElementById("hayText").textContent=
-"Stock : "+game.hay+" / "+game.maxHay+" kg";
+document
+.getElementById("hayText")
+.textContent=
+"Stock : "+
+game.hay+
+" / "+
+game.maxHay+
+" kg";
 
-document.getElementById("grainText").textContent=
-"Stock : "+game.grain+" / "+game.maxGrain+" kg";
 
-document.getElementById("strawText").textContent=
-"Stock : "+game.straw+" / "+game.maxStraw+" kg";
+document
+.getElementById("grainText")
+.textContent=
+"Stock : "+
+game.grain+
+" / "+
+game.maxGrain+
+" kg";
 
 
-document.getElementById("staffList").innerHTML=
+document
+.getElementById("strawText")
+.textContent=
+"Stock : "+
+game.straw+
+" / "+
+game.maxStraw+
+" kg";
+
+
+document
+.getElementById("staffList")
+.innerHTML=
 
 game.staff.length
 
 ?
 
 game.staff
-.map(x=>`
-<span class="badge">${x}</span>
-`)
+.map(
+x=>`
+<span class="badge">
+${x}
+</span>
+`
+)
 .join(" ")
 
 :
@@ -1734,17 +2232,44 @@ function renderMarket(){
 
 const market=[
 
-["Belle","Selle Français",12000,4],
-["Royal","KWPN",18000,6],
-["Dusty","Quarter Horse",9000,5],
-["Silver","Frison",15000,7]
+[
+"Belle",
+"Selle Français",
+12000,
+4
+],
+
+[
+"Royal",
+"KWPN",
+18000,
+6
+],
+
+[
+"Dusty",
+"Quarter Horse",
+9000,
+5
+],
+
+[
+"Silver",
+"Frison",
+15000,
+7
+]
 
 ];
 
 
-document.getElementById("marketGrid").innerHTML=
+document
+.getElementById("marketGrid")
+.innerHTML=
 
-market.map((h,i)=>`
+market
+.map(
+(h,i)=>`
 
 <div class="horse-card">
 
@@ -1774,7 +2299,9 @@ ${h[3]} ans
 
 </div>
 
-`).join("");
+`
+)
+.join("");
 
 }
 
@@ -1787,14 +2314,16 @@ document.getElementById("rightList");
 right.innerHTML="";
 
 
-game.horses.forEach(h=>{
+game.horses.forEach(
+h=>{
 
 const div=
 document.createElement("div");
 
 div.className="right-horse";
 
-div.onclick=()=>{
+div.onclick=
+()=>{
 chooseHorse("care",h.id);
 };
 
@@ -1810,19 +2339,27 @@ div.innerHTML=`
 
 <br>
 
-<small>${h.race}</small>
+<small>
+${h.race}
+</small>
 
 <br>
 
-<small>Forme ${h.form}%</small>
+<small>
+Forme ${h.form}%
+</small>
 
 <br>
 
-<small>Santé ${h.health}%</small>
+<small>
+Santé ${h.health}%
+</small>
 
 <br>
 
-<small>Fatigue ${h.fatigue}%</small>
+<small>
+Fatigue ${h.fatigue}%
+</small>
 
 </div>
 
@@ -1837,29 +2374,52 @@ right.appendChild(div);
 
 function renderAll(){
 
-document.getElementById("money").textContent=
+document
+.getElementById("money")
+.textContent=
 money(game.money);
 
-document.getElementById("rep").textContent=
+
+document
+.getElementById("rep")
+.textContent=
 game.reputation;
 
-document.getElementById("week").textContent=
-game.week+" / 52";
 
-document.getElementById("year").textContent=
+document
+.getElementById("week")
+.textContent=
+game.week+
+" / 52";
+
+
+document
+.getElementById("year")
+.textContent=
 game.year;
 
-document.getElementById("season").textContent=
+
+document
+.getElementById("season")
+.textContent=
 season();
 
 
-document.getElementById("hayBar").style.width=
+document
+.getElementById("hayBar")
+.style.width=
 (game.hay/game.maxHay*100)+"%";
 
-document.getElementById("grainBar").style.width=
+
+document
+.getElementById("grainBar")
+.style.width=
 (game.grain/game.maxGrain*100)+"%";
 
-document.getElementById("strawBar").style.width=
+
+document
+.getElementById("strawBar")
+.style.width=
 (game.straw/game.maxStraw*100)+"%";
 
 
@@ -1873,25 +2433,43 @@ renderRight();
 function careHorse(id){
 
 const h=
-game.horses.find(x=>x.id===id);
+game.horses.find(
+x=>x.id===id
+);
 
 if(!h)return;
 
+
 h.form=
-Math.min(100,h.form+4);
+Math.min(
+100,
+h.form+4
+);
+
 
 h.health=
-Math.min(100,h.health+2);
+Math.min(
+100,
+h.health+2
+);
+
 
 h.fatigue=
-Math.max(0,h.fatigue-6);
+Math.max(
+0,
+h.fatigue-6
+);
+
 
 game.reputation++;
 
+
 renderAll();
 
+
 toast(
-"🧹 "+h.name+
+"🧹 "+
+h.name+
 " est bien soigné."
 );
 
@@ -1901,14 +2479,18 @@ toast(
 function trainHorse(id){
 
 const h=
-game.horses.find(x=>x.id===id);
+game.horses.find(
+x=>x.id===id
+);
 
 if(!h)return;
+
 
 if(h.fatigue>=70){
 
 toast(
-"😴 "+h.name+
+"😴 "+
+h.name+
 " est trop fatigué."
 );
 
@@ -1916,18 +2498,30 @@ return;
 
 }
 
+
 h.form=
-Math.min(100,h.form+6);
+Math.min(
+100,
+h.form+6
+);
+
 
 h.fatigue=
-Math.min(100,h.fatigue+14);
+Math.min(
+100,
+h.fatigue+14
+);
+
 
 game.reputation++;
 
+
 renderAll();
 
+
 toast(
-"🏇 "+h.name+
+"🏇 "+
+h.name+
 " progresse."
 );
 
@@ -1937,7 +2531,9 @@ toast(
 function togglePlace(id){
 
 const h=
-game.horses.find(x=>x.id===id);
+game.horses.find(
+x=>x.id===id
+);
 
 if(!h)return;
 
@@ -1949,9 +2545,14 @@ h.place="pasture";
 }else{
 
 const occupied=
-game.horses.filter(x=>x.place==="box").length;
+game.horses.filter(
+x=>x.place==="box"
+).length;
 
-if(occupied>=game.boxes){
+
+if(
+occupied>=game.boxes
+){
 
 toast(
 "🏠 Tous les boxes sont occupés."
@@ -1961,6 +2562,7 @@ return;
 
 }
 
+
 h.place="box";
 
 }
@@ -1968,12 +2570,21 @@ h.place="box";
 
 renderAll();
 
+
 toast(
 h.place==="box"
+
 ?
-"🏠 "+h.name+" est au box."
+
+"🏠 "+
+h.name+
+" est au box."
+
 :
-"🌳 "+h.name+" est au pré."
+
+"🌳 "+
+h.name+
+" est au pré."
 );
 
 }
@@ -1983,28 +2594,43 @@ function buyHay(){
 
 if(game.money<250){
 
-toast("💸 Pas assez d'argent.");
+toast(
+"💸 Pas assez d'argent."
+);
 
 return;
 
 }
 
-if(game.hay>=game.maxHay){
 
-toast("🌾 Stock de foin plein.");
+if(
+game.hay>=game.maxHay
+){
+
+toast(
+"🌾 Stock de foin plein."
+);
 
 return;
 
 }
+
 
 game.money-=250;
 
 game.hay=
-Math.min(game.maxHay,game.hay+500);
+Math.min(
+game.maxHay,
+game.hay+500
+);
+
 
 renderAll();
 
-toast("🌾 +500 kg de foin.");
+
+toast(
+"🌾 +500 kg de foin."
+);
 
 }
 
@@ -2012,102 +2638,6 @@ toast("🌾 +500 kg de foin.");
 function buyGrain(){
 
 if(game.money<180){
-
-toast("💸 Pas assez d'argent.");
-
-return;
-
-}
-
-game.money-=180;
-
-game.grain=
-Math.min(game.maxGrain,game.grain+300);
-
-renderAll();
-
-toast("🌽 +300 kg de grain.");
-
-}
-
-
-function buyStraw(){
-
-if(game.money<150){
-
-toast("💸 Pas assez d'argent.");
-
-return;
-
-}
-
-game.money-=150;
-
-game.straw=
-Math.min(game.maxStraw,game.straw+300);
-
-renderAll();
-
-toast("🟫 +300 kg de paille.");
-
-}
-
-
-function nextWeek(){
-
-if(game.money<350){
-
-toast("💸 Pas assez d'argent.");
-
-return;
-
-}
-
-game.money-=350;
-
-game.week++;
-
-game.horses.forEach(h=>{
-
-h.fatigue=
-Math.max(0,h.fatigue-10);
-
-if(h.place==="pasture"){
-
-h.health=
-Math.min(100,h.health+2);
-
-}
-
-});
-
-
-if(game.week>52){
-
-game.week=1;
-
-game.year++;
-
-}
-
-renderAll();
-
-toast(
-"📅 Une semaine est passée."
-);
-
-}
-
-
-function competition(level,reward,rep){
-
-const h=
-[...game.horses]
-.sort((a,b)=>b.form-a.form)[0];
-
-if(!h)return;
-
-if(game.money<reward){
 
 toast(
 "💸 Pas assez d'argent."
@@ -2117,42 +2647,201 @@ return;
 
 }
 
+
+game.money-=180;
+
+game.grain=
+Math.min(
+game.maxGrain,
+game.grain+300
+);
+
+
+renderAll();
+
+
+toast(
+"🌽 +300 kg de grain."
+);
+
+}
+
+
+function buyStraw(){
+
+if(game.money<150){
+
+toast(
+"💸 Pas assez d'argent."
+);
+
+return;
+
+}
+
+
+game.money-=150;
+
+game.straw=
+Math.min(
+game.maxStraw,
+game.straw+300
+);
+
+
+renderAll();
+
+
+toast(
+"🟫 +300 kg de paille."
+);
+
+}
+
+
+function nextWeek(){
+
+if(game.money<350){
+
+toast(
+"💸 Pas assez d'argent."
+);
+
+return;
+
+}
+
+
+game.money-=350;
+
+game.week++;
+
+
+game.horses.forEach(
+h=>{
+
+h.fatigue=
+Math.max(
+0,
+h.fatigue-10
+);
+
+
+if(
+h.place==="pasture"
+){
+
+h.health=
+Math.min(
+100,
+h.health+2
+);
+
+}
+
+}
+);
+
+
+if(
+game.week>52
+){
+
+game.week=1;
+game.year++;
+
+}
+
+
+renderAll();
+
+
+toast(
+"📅 Une semaine est passée."
+);
+
+}
+
+
+function competition(
+level,
+reward,
+rep
+){
+
+const h=
+[...game.horses]
+.sort(
+(a,b)=>b.form-a.form
+)[0];
+
+
+if(!h)return;
+
+
+if(
+game.money<reward
+){
+
+toast(
+"💸 Pas assez d'argent."
+);
+
+return;
+
+}
+
+
 game.money-=reward;
 
 h.fatigue=
-Math.min(100,h.fatigue+20);
+Math.min(
+100,
+h.fatigue+20
+);
 
 
-if(Math.random()*100<h.form){
+if(
+Math.random()*100<h.form
+){
 
 game.money+=reward*2;
 
 game.reputation+=rep;
 
 toast(
-"🏆 "+h.name+
+"🏆 "+
+h.name+
 " réussit son concours !"
 );
 
 }else{
 
 toast(
-"🏇 "+h.name+
+"🏇 "+
+h.name+
 " participe au concours."
 );
 
 }
+
 
 renderAll();
 
 }
 
 
-function chooseHorse(action,id=null){
+function chooseHorse(
+action,
+id=null
+){
 
 if(id){
 
-executeAction(action,id);
+executeAction(
+action,
+id
+);
 
 return;
 
@@ -2160,20 +2849,27 @@ return;
 
 
 const content=
-document.getElementById("modalContent");
+document.getElementById(
+"modalContent"
+);
+
 
 content.innerHTML=
 
-game.horses.map(h=>`
+game.horses
+.map(
+h=>`
 
-<div class="choice"
-
+<div
+class="choice"
 onclick="executeAction(
 '${action}',
 ${h.id}
 )">
 
-<div style="font-size:40px">
+<div style="
+font-size:40px;
+">
 🐎
 </div>
 
@@ -2187,13 +2883,21 @@ ${h.race}
 
 <br>
 
-📍 ${h.place==="box"?"Box":"Pré"}
+📍 ${
+h.place==="box"
+?
+"Box"
+:
+"Pré"
+}
 
 </div>
 
 </div>
 
-`).join("");
+`
+)
+.join("");
 
 
 document
@@ -2203,11 +2907,17 @@ document
 }
 
 
-function executeAction(action,id){
+function executeAction(
+action,
+id
+){
 
 closeModal();
 
-if(action==="care"){
+
+if(
+action==="care"
+){
 
 careHorse(id);
 
@@ -2217,20 +2927,32 @@ return;
 
 
 const h=
-game.horses.find(x=>x.id===id);
+game.horses.find(
+x=>x.id===id
+);
 
 if(!h)return;
 
 
 let cost=0;
 
-if(action==="vet")cost=1000;
-if(action==="dentiste")cost=350;
-if(action==="marechal")cost=180;
-if(action==="osteopathe")cost=250;
+
+if(action==="vet")
+cost=1000;
+
+if(action==="dentiste")
+cost=350;
+
+if(action==="marechal")
+cost=180;
+
+if(action==="osteopathe")
+cost=250;
 
 
-if(game.money<cost){
+if(
+game.money<cost
+){
 
 toast(
 "💸 Pas assez d'argent."
@@ -2244,24 +2966,60 @@ return;
 game.money-=cost;
 
 
-if(action==="vet")
-h.health=
-Math.min(100,h.health+10);
+if(
+action==="vet"
+){
 
-if(action==="dentiste")
 h.health=
-Math.min(100,h.health+5);
+Math.min(
+100,
+h.health+10
+);
 
-if(action==="marechal")
+}
+
+
+if(
+action==="dentiste"
+){
+
 h.health=
-Math.min(100,h.health+4);
+Math.min(
+100,
+h.health+5
+);
 
-if(action==="osteopathe")
+}
+
+
+if(
+action==="marechal"
+){
+
+h.health=
+Math.min(
+100,
+h.health+4
+);
+
+}
+
+
+if(
+action==="osteopathe"
+){
+
 h.fatigue=
-Math.max(0,h.fatigue-20);
+Math.max(
+0,
+h.fatigue-20
+);
+
+}
 
 
 renderAll();
+
 
 toast(
 "🩺 Intervention terminée pour "+
@@ -2284,19 +3042,47 @@ function buyHorse(index){
 
 const market=[
 
-["Belle","Selle Français",12000,4],
-["Royal","KWPN",18000,6],
-["Dusty","Quarter Horse",9000,5],
-["Silver","Frison",15000,7]
+[
+"Belle",
+"Selle Français",
+12000,
+4
+],
+
+[
+"Royal",
+"KWPN",
+18000,
+6
+],
+
+[
+"Dusty",
+"Quarter Horse",
+9000,
+5
+],
+
+[
+"Silver",
+"Frison",
+15000,
+7
+]
 
 ];
 
-const h=market[index];
+
+const h=
+market[index];
+
 
 if(!h)return;
 
 
-if(game.money<h[2]){
+if(
+game.money<h[2]
+){
 
 toast(
 "💸 Pas assez d'argent."
@@ -2348,8 +3134,10 @@ place:"box"
 
 renderAll();
 
+
 toast(
-"🐎 "+h[0]+
+"🐎 "+
+h[0]+
 " rejoint ton écurie !"
 );
 
@@ -2358,10 +3146,13 @@ toast(
 
 function hire(name){
 
-if(game.staff.includes(name)){
+if(
+game.staff.includes(name)
+){
 
 toast(
-"👥 "+name+
+"👥 "+
+name+
 " est déjà embauché."
 );
 
@@ -2369,12 +3160,16 @@ return;
 
 }
 
+
 game.staff.push(name);
+
 
 renderAll();
 
+
 toast(
-"👥 "+name+
+"👥 "+
+name+
 " a été embauché."
 );
 
@@ -2387,10 +3182,16 @@ document
 "click",
 function(e){
 
-if(e.target===this)
+if(
+e.target===this
+){
+
 closeModal();
 
-});
+}
+
+}
+);
 
 
 loadGame();
