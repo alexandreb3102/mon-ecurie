@@ -3,179 +3,744 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Mon Écurie V13.4</title>
+<title>Mon Écurie V13.3</title>
 
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;background:#07170d;font-family:Arial,sans-serif;color:#294b38}
-body{display:flex;justify-content:center}
-#app{width:100%;max-width:430px;min-height:100vh;background:#edf0e8}
-header{position:sticky;top:0;z-index:50;padding:14px;background:linear-gradient(145deg,#173b25,#315f3c);color:#fff;box-shadow:0 3px 12px #0006}
-h1{font:700 25px Georgia,serif;margin:0 0 8px}
-h2,h3{font-family:Georgia,serif}
-.headerGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.headerStat{background:#ffffff18;border-radius:10px;padding:7px;text-align:center;font-size:11px}
-main{padding:10px 10px 88px}
-.sectionTitle{font:700 18px Georgia,serif;color:#fff;background:linear-gradient(90deg,#315f3c,#6d8c59);padding:8px 10px;border-radius:12px;margin:13px 0 8px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.menuBtn{border:1px solid #c9d3c4;border-radius:14px;min-height:68px;padding:10px;background:linear-gradient(145deg,#fffaf0,#dce8d4);color:#294b38;font-weight:900;box-shadow:0 3px 8px #0002}
-.primary,.secondary,.back,.close{border:0;border-radius:11px;padding:10px;font-weight:900}
-.primary{width:100%;background:#315f3c;color:#fff;margin-top:7px}
-.secondary{width:100%;background:#d9e3d4;color:#294b38;margin-top:7px}
-.back{background:#d9e3d4;color:#294b38;font-size:17px}
-.close{background:#d5d1c5;font-size:17px}
-.choice,.card,.marketCard{padding:11px;margin:7px 0;border-radius:14px;background:#fff;border:1px solid #d2dbce;box-shadow:0 2px 6px #0001}
-.notice{padding:11px;margin:7px 0;border-radius:12px;background:#fff9e8;border:1px solid #dfd0a8}
-.good{background:#edf7ea;border-color:#a9c79f}
-.alert{background:#fff0e8;border-color:#d98d65}
-.info{background:#eaf3f8;border-color:#a9c7d7}
-.badge{display:inline-block;padding:4px 7px;border-radius:8px;background:#dfe8d7;font-size:11px;font-weight:800;margin:2px}
-.badgeGold{background:#f4e3a9}
-.badgeRed{background:#f2c6b8}
-.input{width:100%;padding:10px;border:1px solid #c7d1c1;border-radius:10px;background:#fff}
-.select{width:100%;padding:10px;border:1px solid #c7d1c1;border-radius:10px;background:#fff;font-weight:800}
-.statLine{display:flex;justify-content:space-between;margin:7px 0}
-.progress{height:8px;background:#d5dbd0;border-radius:10px;overflow:hidden}
-.progress span{display:block;height:100%;background:#5d8b5e}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.three{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.tabs{display:flex;gap:5px;overflow:auto;margin:8px 0}
-.tabs button{white-space:nowrap;border:0;border-radius:10px;padding:9px;background:#d8e1d3;color:#294b38;font-weight:800}
-.tabs button.active{background:#315f3c;color:#fff}
-.hero{height:145px;margin:-10px -10px 10px;position:relative;overflow:hidden;background:linear-gradient(#8bb5c7 0 48%,#6f995e 48% 74%,#8a6943 74%);border-bottom:5px solid #584029}
-.hero:before{content:"";position:absolute;left:-10%;bottom:20px;width:120%;height:75px;background:radial-gradient(ellipse at 15% 80%,#355c38 0 35px,transparent 36px),radial-gradient(ellipse at 50% 85%,#426b3e 0 45px,transparent 46px),radial-gradient(ellipse at 85% 80%,#355c38 0 40px,transparent 41px)}
-.stable{position:absolute;left:50%;bottom:25px;transform:translateX(-50%);width:180px;height:70px;background:#875737;border:5px solid #54331f}
-.door{position:absolute;left:64px;bottom:0;width:50px;height:46px;background:#35261f;border:3px solid #d0a66d}
-.hero .horse{position:absolute;right:18px;bottom:18px;font-size:68px}
-.hero h2{position:absolute;left:12px;top:8px;color:#fff;text-shadow:0 2px 4px #000;font:700 21px Georgia,serif}
-.horsePic,.marketPic{height:100px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#a7b997,#607b54 55%,#b59a6b);font-size:65px;margin-bottom:8px}
-.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:10px;background:#000b;z-index:100}
-.modal.show{display:flex}
-.modalBox{width:min(410px,95vw);max-height:92vh;overflow:auto;padding:16px;border-radius:22px;background:linear-gradient(145deg,#f8f1df,#dfe8d7);border:2px solid #b99d5b;box-shadow:0 20px 60px #000}
-.modalHead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
-.modalHead h2{margin:0;font:700 21px Georgia,serif}
-.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:#173b25;padding:5px;z-index:60}
-.bottom button{border:0;background:#315f3c;color:#fff;border-radius:9px;padding:8px 2px;font-size:10px;font-weight:800}
-.rank{text-align:center;font-size:25px;font-weight:900;padding:10px}
-.cleanMap{position:relative;height:360px;border-radius:18px;background:linear-gradient(#b8d6df,#e8efe6);border:1px solid #9db29d;overflow:hidden}
-.cleanMap svg{width:100%;height:100%}
-.mapPin{position:absolute;transform:translate(-50%,-50%);border:0;border-radius:50%;width:38px;height:38px;background:#315f3c;color:#fff;font-size:17px;box-shadow:0 3px 7px #0006}
-.mapPin span{position:absolute;top:37px;left:50%;transform:translateX(-50%);background:#fff;color:#294b38;padding:3px 6px;border-radius:7px;font-size:9px;white-space:nowrap;font-weight:900}
-.small{font-size:12px}
-.muted{opacity:.72}
-.danger{color:#a64224}
-.success{color:#2e6b36}
-.center{text-align:center}
-.potentialBox{padding:9px;border-radius:12px;background:#f3f6ef;margin-top:7px}
-.prob{font-size:12px;line-height:1.6}
-.eventRow{display:flex;justify-content:space-between;gap:8px;align-items:center}
-.check{transform:scale(1.2)}
-.statGrid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.statMini{padding:8px;background:#f3f6ef;border-radius:10px;font-size:12px}
-.timeline{border-left:3px solid #6d8c59;margin-left:7px;padding-left:12px}
-.timelineItem{position:relative;margin:10px 0;padding:9px;background:#fff;border-radius:10px}
-.timelineItem:before{content:"";position:absolute;left:-19px;top:12px;width:9px;height:9px;border-radius:50%;background:#315f3c}
-.resultGood{background:#edf7ea;border:1px solid #a9c79f}
-.resultBad{background:#fff0e8;border:1px solid #d98d65}
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent
+}
+
+html,body{
+margin:0;
+padding:0;
+background:#07170d;
+font-family:Arial,sans-serif;
+color:#294b38
+}
+
+body{
+display:flex;
+justify-content:center
+}
+
+#app{
+width:100%;
+max-width:430px;
+min-height:100vh;
+background:#edf0e8
+}
+
+header{
+position:sticky;
+top:0;
+z-index:50;
+padding:14px;
+background:linear-gradient(145deg,#173b25,#315f3c);
+color:#fff;
+box-shadow:0 3px 12px #0006
+}
+
+h1{
+font:700 25px Georgia,serif;
+margin:0 0 8px
+}
+
+.headerGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:6px
+}
+
+.headerStat{
+background:#ffffff18;
+border-radius:10px;
+padding:7px;
+text-align:center;
+font-size:11px
+}
+
+main{
+padding:10px 10px 88px
+}
+
+.sectionTitle{
+font:700 18px Georgia,serif;
+color:#fff;
+background:linear-gradient(90deg,#315f3c,#6d8c59);
+padding:8px 10px;
+border-radius:12px;
+margin:13px 0 8px
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px
+}
+
+.menuBtn{
+border:1px solid #c9d3c4;
+border-radius:14px;
+min-height:68px;
+padding:10px;
+background:linear-gradient(145deg,#fffaf0,#dce8d4);
+color:#294b38;
+font-weight:900;
+box-shadow:0 3px 8px #0002
+}
+
+.primary,
+.secondary,
+.back,
+.close{
+border:0;
+border-radius:11px;
+padding:10px;
+font-weight:900
+}
+
+.primary{
+width:100%;
+background:#315f3c;
+color:#fff;
+margin-top:7px
+}
+
+.secondary{
+width:100%;
+background:#d9e3d4;
+color:#294b38;
+margin-top:7px
+}
+
+.back{
+background:#d9e3d4;
+color:#294b38;
+font-size:17px
+}
+
+.close{
+background:#d5d1c5;
+font-size:17px
+}
+
+.choice,
+.card,
+.marketCard{
+padding:11px;
+margin:7px 0;
+border-radius:14px;
+background:#fff;
+border:1px solid #d2dbce;
+box-shadow:0 2px 6px #0001
+}
+
+.notice{
+padding:11px;
+margin:7px 0;
+border-radius:12px;
+background:#fff9e8;
+border:1px solid #dfd0a8
+}
+
+.good{
+background:#edf7ea;
+border-color:#a9c79f
+}
+
+.alert{
+background:#fff0e8;
+border-color:#d98d65
+}
+
+.badge{
+display:inline-block;
+padding:4px 7px;
+border-radius:8px;
+background:#dfe8d7;
+font-size:11px;
+font-weight:800;
+margin:2px
+}
+
+.input{
+width:100%;
+padding:10px;
+border:1px solid #c7d1c1;
+border-radius:10px;
+background:#fff
+}
+
+.statLine{
+display:flex;
+justify-content:space-between;
+margin:7px 0
+}
+
+.progress{
+height:8px;
+background:#d5dbd0;
+border-radius:10px;
+overflow:hidden
+}
+
+.progress span{
+display:block;
+height:100%;
+background:#5d8b5e
+}
+
+.two{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:7px
+}
+
+.three{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:6px
+}
+
+.tabs{
+display:flex;
+gap:5px;
+overflow:auto;
+margin:8px 0
+}
+
+.tabs button{
+white-space:nowrap;
+border:0;
+border-radius:10px;
+padding:9px;
+background:#d8e1d3;
+color:#294b38;
+font-weight:800
+}
+
+.tabs button.active{
+background:#315f3c;
+color:#fff
+}
+
+.hero{
+height:145px;
+margin:-10px -10px 10px;
+position:relative;
+overflow:hidden;
+background:linear-gradient(#8bb5c7 0 48%,#6f995e 48% 74%,#8a6943 74%);
+border-bottom:5px solid #584029
+}
+
+.hero:before{
+content:"";
+position:absolute;
+left:-10%;
+bottom:20px;
+width:120%;
+height:75px;
+background:
+radial-gradient(ellipse at 15% 80%,#355c38 0 35px,transparent 36px),
+radial-gradient(ellipse at 50% 85%,#426b3e 0 45px,transparent 46px),
+radial-gradient(ellipse at 85% 80%,#355c38 0 40px,transparent 41px)
+}
+
+.stable{
+position:absolute;
+left:50%;
+bottom:25px;
+transform:translateX(-50%);
+width:180px;
+height:70px;
+background:#875737;
+border:5px solid #54331f
+}
+
+.door{
+position:absolute;
+left:64px;
+bottom:0;
+width:50px;
+height:46px;
+background:#35261f;
+border:3px solid #d0a66d
+}
+
+.hero .horse{
+position:absolute;
+right:18px;
+bottom:18px;
+font-size:68px
+}
+
+.hero h2{
+position:absolute;
+left:12px;
+top:8px;
+color:#fff;
+text-shadow:0 2px 4px #000;
+font:700 21px Georgia,serif
+}
+
+.horsePic,
+.marketPic{
+height:105px;
+border-radius:13px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#a7b997,#607b54 55%,#b59a6b);
+font-size:68px;
+margin-bottom:8px
+}
+
+.modal{
+position:fixed;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+padding:10px;
+background:#000b;
+z-index:100
+}
+
+.modal.show{
+display:flex
+}
+
+.modalBox{
+width:min(410px,95vw);
+max-height:92vh;
+overflow:auto;
+padding:16px;
+border-radius:22px;
+background:linear-gradient(145deg,#f8f1df,#dfe8d7);
+border:2px solid #b99d5b;
+box-shadow:0 20px 60px #000
+}
+
+.modalHead{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:8px;
+margin-bottom:10px
+}
+
+.modalHead h2{
+margin:0;
+font:700 21px Georgia,serif
+}
+
+.bottom{
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+width:min(430px,100%);
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:2px;
+background:#173b25;
+padding:5px;
+z-index:60
+}
+
+.bottom button{
+border:0;
+background:#315f3c;
+color:#fff;
+border-radius:9px;
+padding:8px 2px;
+font-size:10px;
+font-weight:800
+}
+
+.rank{
+text-align:center;
+font-size:25px;
+font-weight:900;
+padding:10px
+}
+
+.map{
+position:relative;
+height:330px;
+border-radius:18px;
+background:linear-gradient(#b8d6df,#dfe8d7);
+border:2px solid #8ca68b;
+overflow:hidden
+}
+
+.map:before{
+content:"🇫🇷";
+position:absolute;
+font-size:230px;
+opacity:.12;
+left:90px;
+top:35px
+}
+
+.pin{
+position:absolute;
+border:0;
+border-radius:50%;
+width:42px;
+height:42px;
+background:#315f3c;
+color:#fff;
+font-size:19px;
+box-shadow:0 3px 7px #0006
+}
+
+.pin span{
+position:absolute;
+top:40px;
+left:50%;
+transform:translateX(-50%);
+background:#fff;
+color:#294b38;
+padding:3px 6px;
+border-radius:7px;
+font-size:9px;
+white-space:nowrap;
+font-weight:900
+}
+
+.potentialBox{
+background:#f6f8f1;
+border:1px solid #cbd7c3;
+border-radius:12px;
+padding:9px;
+margin-top:8px
+}
+
+.potentialTitle{
+font-weight:900;
+margin-bottom:5px
+}
+
+.potentialLine{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:3px 0;
+font-size:12px
+}
+
+.probWrap{
+margin-top:7px;
+padding-top:7px;
+border-top:1px solid #d8dfd3
+}
+
+.probLine{
+font-size:11px;
+line-height:1.65
+}
+
+.smallText{
+font-size:10px;
+color:#657565;
+margin-top:6px
+}
 </style>
 </head>
 
 <body>
+
 <div id="app">
 
 <header>
-<h1>🐴 Mon Écurie <span style="font-size:12px">V13.4</span></h1>
+
+<h1>
+🐴 Mon Écurie
+<span style="font-size:12px">V13.3</span>
+</h1>
+
 <div class="headerGrid">
-<div class="headerStat">📅 <b id="dateLabel"></b><br><span id="dayLabel"></span><br><span id="season"></span></div>
-<div class="headerStat">💰 <b id="money"></b><br><span id="rep"></span></div>
-<div class="headerStat">🐴 <b id="horseCount"></b><br><span id="boxCount"></span></div>
+
+<div class="headerStat">
+📅 <b id="dateLabel"></b>
+<br>
+<span id="dayLabel"></span>
+<br>
+<span id="season"></span>
 </div>
+
+<div class="headerStat">
+💰 <b id="money"></b>
+<br>
+<span id="rep"></span>
+</div>
+
+<div class="headerStat">
+🐴 <b id="horseCount"></b>
+<br>
+<span id="boxCount"></span>
+</div>
+
+</div>
+
 </header>
+
 
 <main>
 
 <div class="hero">
+
 <h2>🌿 La vie à l'écurie</h2>
-<div class="stable"><div class="door"></div></div>
-<div class="horse">🐎</div>
+
+<div class="stable">
+<div class="door"></div>
 </div>
+
+<div class="horse">🐎</div>
+
+</div>
+
 
 <div id="alerts"></div>
 
-<div class="sectionTitle">📅 Gestion quotidienne</div>
-<div class="grid">
-<button class="menuBtn" onclick="nextDay()">⏩<br>Passer 1 jour</button>
-<button class="menuBtn" onclick="calendarPage()">📆<br>Calendrier</button>
-<button class="menuBtn" onclick="financesPage()">💰<br>Finances</button>
-<button class="menuBtn" onclick="saveManual()">💾<br>Sauvegarder</button>
+
+<div class="sectionTitle">
+📅 Gestion quotidienne
 </div>
 
-<div class="sectionTitle">🐴 Mes chevaux</div>
 <div class="grid">
-<button class="menuBtn" onclick="horsesPage()">🐎<br>Mes chevaux</button>
-<button class="menuBtn" onclick="feedPage()">🥕<br>Rations</button>
-<button class="menuBtn" onclick="trainingPage()">🏋️<br>Entraînement</button>
-<button class="menuBtn" onclick="carePage()">❤️<br>Soins</button>
+
+<button class="menuBtn" onclick="nextDay()">
+⏩<br>
+Passer 1 jour
+</button>
+
+<button class="menuBtn" onclick="calendarPage()">
+📆<br>
+Calendrier
+</button>
+
+<button class="menuBtn" onclick="financesPage()">
+💰<br>
+Finances
+</button>
+
+<button class="menuBtn" onclick="saveManual()">
+💾<br>
+Sauvegarder
+</button>
+
 </div>
 
-<div class="sectionTitle">🏪 Marché</div>
-<div class="grid">
-<button class="menuBtn" onclick="marketPage()">🏪<br>Marché</button>
-<button class="menuBtn" onclick="salesPage()">💶<br>Vendre</button>
+
+<div class="sectionTitle">
+🐴 Mes chevaux
 </div>
 
-<div class="sectionTitle">👨‍⚕️ Professionnels</div>
 <div class="grid">
-<button class="menuBtn" onclick="vetPage()">🩺<br>Vétérinaire</button>
-<button class="menuBtn" onclick="farrierPage()">🧲<br>Maréchal</button>
-<button class="menuBtn" onclick="dentistPage()">🦷<br>Dentiste</button>
-<button class="menuBtn" onclick="osteoPage()">👐<br>Ostéopathe</button>
+
+<button class="menuBtn" onclick="horsesPage()">
+🐎<br>
+Mes chevaux
+</button>
+
+<button class="menuBtn" onclick="feedPage()">
+🥕<br>
+Rations
+</button>
+
+<button class="menuBtn" onclick="trainingPage()">
+🏋️<br>
+Entraînement
+</button>
+
+<button class="menuBtn" onclick="carePage()">
+❤️<br>
+Soins
+</button>
+
 </div>
 
-<div class="sectionTitle">🏆 Vie sportive</div>
-<div class="grid">
-<button class="menuBtn" onclick="competitionSetup()">🗺️<br>Concours</button>
-<button class="menuBtn" onclick="championshipPage()">🇫🇷<br>Championnats</button>
-<button class="menuBtn" onclick="breedingPage()">❤️‍🔥<br>Reproduction</button>
-<button class="menuBtn" onclick="transportPage()">🚚<br>Transport</button>
+
+<div class="sectionTitle">
+🏪 Marché
 </div>
 
-<div class="sectionTitle">🏡 Domaine</div>
 <div class="grid">
-<button class="menuBtn" onclick="domainPage()">🏡<br>Domaine</button>
-<button class="menuBtn" onclick="stablePage()">🏚️<br>Boxes</button>
-<button class="menuBtn" onclick="pasturePage()">🌳<br>Pâtures</button>
-<button class="menuBtn" onclick="stocksPage()">📦<br>Stocks</button>
+
+<button class="menuBtn" onclick="marketPage()">
+🏪<br>
+Marché
+</button>
+
+<button class="menuBtn" onclick="salesPage()">
+💶<br>
+Vendre
+</button>
+
+</div>
+
+
+<div class="sectionTitle">
+👨‍⚕️ Professionnels
+</div>
+
+<div class="grid">
+
+<button class="menuBtn" onclick="vetPage()">
+🩺<br>
+Vétérinaire
+</button>
+
+<button class="menuBtn" onclick="farrierPage()">
+🧲<br>
+Maréchal
+</button>
+
+<button class="menuBtn" onclick="dentistPage()">
+🦷<br>
+Dentiste
+</button>
+
+<button class="menuBtn" onclick="osteoPage()">
+👐<br>
+Ostéopathe
+</button>
+
+</div>
+
+
+<div class="sectionTitle">
+🏆 Vie sportive
+</div>
+
+<div class="grid">
+
+<button class="menuBtn" onclick="competitionMap()">
+🗺️<br>
+Concours
+</button>
+
+<button class="menuBtn" onclick="championshipPage()">
+🇫🇷<br>
+Championnats
+</button>
+
+<button class="menuBtn" onclick="breedingPage()">
+❤️‍🔥<br>
+Reproduction
+</button>
+
+<button class="menuBtn" onclick="transportPage()">
+🚚<br>
+Transport
+</button>
+
+</div>
+
+
+<div class="sectionTitle">
+🏡 Domaine
+</div>
+
+<div class="grid">
+
+<button class="menuBtn" onclick="domainPage()">
+🏡<br>
+Domaine
+</button>
+
+<button class="menuBtn" onclick="stablePage()">
+🏚️<br>
+Boxes
+</button>
+
+<button class="menuBtn" onclick="pasturePage()">
+🌳<br>
+Pâtures
+</button>
+
+<button class="menuBtn" onclick="stocksPage()">
+📦<br>
+Stocks
+</button>
+
 </div>
 
 </main>
 
+
 <nav class="bottom">
-<button onclick="horsesPage()">🐴<br>Chevaux</button>
-<button onclick="marketPage()">🏪<br>Marché</button>
-<button onclick="competitionSetup()">🏆<br>Concours</button>
-<button onclick="vetPage()">🩺<br>Pro</button>
-<button onclick="domainPage()">🏡<br>Domaine</button>
+
+<button onclick="horsesPage()">
+🐴<br>
+Chevaux
+</button>
+
+<button onclick="marketPage()">
+🏪<br>
+Marché
+</button>
+
+<button onclick="competitionMap()">
+🏆<br>
+Concours
+</button>
+
+<button onclick="farrierPage()">
+🧲<br>
+Pro
+</button>
+
+<button onclick="domainPage()">
+🏡<br>
+Domaine
+</button>
+
 </nav>
 
 </div>
 
+
 <div id="modal" class="modal">
+
 <div class="modalBox">
+
 <div class="modalHead">
+
 <div style="display:flex;align-items:center;gap:6px">
-<button id="backBtn" class="back" onclick="goBack()">←</button>
-<h2 id="modalTitle">Mon Écurie</h2>
+
+<button id="backBtn"
+class="back"
+onclick="goBack()">
+←
+</button>
+
+<h2 id="modalTitle">
+Mon Écurie
+</h2>
+
 </div>
-<button class="close" onclick="closeModal()">✕</button>
+
+<button class="close"
+onclick="closeModal()">
+✕
+</button>
+
 </div>
+
 <div id="modalContent"></div>
+
 </div>
+
 </div>
+
 
 <script>
 
-const STORAGE="monEcurieV13_4";
+const STORAGE="monEcurieV13_3";
 
 const BREEDS=[
 "Selle Français",
@@ -194,297 +759,625 @@ const NAMES=[
 "Luna","Caramel","Jasper","Étoile","Silver Moon","Golden Dream",
 "Belle Romance","Royal Star","Évidence","Mystère","Opale","Nébuleuse",
 "Rivière","Saphir","Toscane","Violette","Orage","Galaxie","Éclipse",
-"Tempête","Vanille","Praline","Câline","Nikita","Sultan","Atlas",
-"Jazz","Jade","Ambre","Rubis","Topaze","Perle","Safran","Mistral",
-"Phoenix","Volcan","Aria","Bella","Cassandre","Diva","Émeraude",
-"Fleur","Harmonie","Isis","Karma","Légende","Mélodie","Nova","Ondine",
-"Pacha","Quartz","Rêve","Soleil","Tango","Ulysse","Vega","Whisky",
-"Xena","Yoko","Zéphyr","Aube","Bambou","Cobalt","Dune","Flamme",
-"Gatsby","Hélios","Icare","Joy","Kenza","Lilas","Maestro","Nacre",
-"Olympe","Pistache","Roméo","Salsa","Trésor","Utopia","Victoire",
-"Willow","Zara","Altesse","Bounty","César","Darling","Elixir","Fidji",
-"Ginger","Horizon","Jupiter","Kiss","Lancelot","Moka","Nirvana","Oscar",
-"Pépite","Roxane","Titan","Vénus","Wendy","Yasmine","Aquarelle",
-"Bambina","Calypso","Cappuccino","Céleste","Chantilly","Cléopâtre",
-"Comète","Django","Eden","Espoir","Fascination","Gala","Havana",
-"Hermine","Indiana","Jolie","Kheops","Liberté","Majestic","Mango",
-"Maya","Mirage","Navajo","Oasis","Paloma","Pégase","Plume","Rhapsodie",
-"Saphir Bleu","Sirocco","Storm","Talisman","Thémis","Valentine",
-"Velours","Viking","Willow Creek","Zénith"
+"Tempête","Vanille","Praline","Câline","Nikita","Sultan","Atlas","Jazz",
+"Jade","Ambre","Rubis","Topaze","Perle","Safran","Mistral","Phoenix",
+"Volcan","Aria","Bella","Cassandre","Diva","Émeraude","Fleur",
+"Harmonie","Isis","Karma","Légende","Mélodie","Nova","Ondine","Pacha",
+"Quartz","Rêve","Soleil","Tango","Ulysse","Vega","Whisky","Xena",
+"Yoko","Zéphyr","Aube","Bambou","Cobalt","Dune","Flamme","Gatsby",
+"Hélios","Icare","Joy","Kenza","Lilas","Maestro","Nacre","Olympe",
+"Pistache","Roméo","Salsa","Trésor","Utopia","Victoire","Willow",
+"Zara","Altesse","Bounty","César","Darling","Elixir","Fidji","Ginger",
+"Horizon","Jupiter","Kiss","Lancelot","Moka","Nirvana","Oscar",
+"Pépite","Roxane","Titan","Vénus","Wendy","Yasmine"
 ];
 
 const RACE={
 "Selle Français":{CSO:15,CCE:8,Dressage:2},
-"KWPN":{CSO:10,CCE:6,Dressage:15},
+"KWPN":{CSO:10,CCE:5,Dressage:15},
 "Anglo-Arabe":{CSO:7,CCE:17,Dressage:4},
 "Connemara":{CSO:12,CCE:11,Dressage:2},
 "Poney Français de Selle":{CSO:13,CCE:11,Dressage:5},
-"Hanovrien":{CSO:7,CCE:4,Dressage:18},
-"Oldenbourg":{CSO:9,CCE:3,Dressage:15},
-"Quarter Horse":{CSO:2,CCE:5,Dressage:2},
+"Hanovrien":{CSO:6,CCE:3,Dressage:18},
+"Oldenbourg":{CSO:9,CCE:2,Dressage:15},
+"Quarter Horse":{CSO:2,CCE:5,Dressage:1},
 "Lusitanien":{CSO:2,CCE:5,Dressage:18},
 "Frison":{CSO:1,CCE:3,Dressage:15}
 };
 
-const DISC=["CSO","CCE","Dressage"];
-
-const RACE_CHARACTER={
-"Selle Français":{gentillesse:4,calme:2,courage:2,concentration:3,mental:3},
-"KWPN":{gentillesse:2,calme:2,courage:1,concentration:5,mental:3},
-"Anglo-Arabe":{gentillesse:-2,calme:-1,courage:4,concentration:2,mental:2},
-"Connemara":{gentillesse:4,calme:4,courage:0,concentration:3,mental:2},
-"Poney Français de Selle":{gentillesse:4,calme:3,courage:1,concentration:3,mental:2},
-"Hanovrien":{gentillesse:2,calme:2,courage:1,concentration:5,mental:4},
-"Oldenbourg":{gentillesse:2,calme:1,courage:2,concentration:4,mental:3},
-"Quarter Horse":{gentillesse:2,calme:3,courage:3,concentration:1,mental:2},
-"Lusitanien":{gentillesse:3,calme:1,courage:2,concentration:5,mental:4},
-"Frison":{gentillesse:1,calme:1,courage:4,concentration:2,mental:3}
-};
-
-const EVENTS=[
-{id:1,city:"Tours",region:"Centre-Val de Loire",x:50,y:49,discipline:"CSO",days:1,level:"Club",places:58,dateOffset:8},
-{id:2,city:"Saumur",region:"Pays de la Loire",x:43,y:55,discipline:"CCE",days:3,level:"Amateur",places:73,dateOffset:12},
-{id:3,city:"Fontainebleau",region:"Île-de-France",x:58,y:40,discipline:"Dressage",days:2,level:"National",places:62,dateOffset:18},
-{id:4,city:"Deauville",region:"Normandie",x:39,y:28,discipline:"CSO",days:3,level:"Amateur",places:81,dateOffset:25},
-{id:5,city:"Lille",region:"Hauts-de-France",x:59,y:15,discipline:"CCE",days:2,level:"Club",places:64,dateOffset:31},
-{id:6,city:"Rennes",region:"Bretagne",x:29,y:40,discipline:"Dressage",days:1,level:"Club",places:45,dateOffset:39},
-{id:7,city:"Nantes",region:"Pays de la Loire",x:34,y:49,discipline:"CSO",days:2,level:"Amateur",places:76,dateOffset:46},
-{id:8,city:"Bordeaux",region:"Nouvelle-Aquitaine",x:30,y:77,discipline:"CCE",days:3,level:"National",places:92,dateOffset:55},
-{id:9,city:"Pau",region:"Nouvelle-Aquitaine",x:31,y:91,discipline:"CSO",days:1,level:"National",places:67,dateOffset:63},
-{id:10,city:"Toulouse",region:"Occitanie",x:49,y:88,discipline:"Dressage",days:2,level:"Amateur",places:55,dateOffset:70},
-{id:11,city:"Lyon",region:"Auvergne-Rhône-Alpes",x:69,y:73,discipline:"CSO",days:3,level:"National",places:88,dateOffset:78},
-{id:12,city:"Avignon",region:"PACA",x:77,y:89,discipline:"CCE",days:2,level:"Amateur",places:71,dateOffset:86},
-{id:13,city:"Dijon",region:"Bourgogne-Franche-Comté",x:68,y:53,discipline:"Dressage",days:1,level:"Club",places:49,dateOffset:94},
-{id:14,city:"Strasbourg",region:"Grand Est",x:86,y:35,discipline:"CSO",days:3,level:"Amateur",places:83,dateOffset:102},
-{id:15,city:"Le Mans",region:"Pays de la Loire",x:44,y:43,discipline:"CSO",days:1,level:"Club",places:52,dateOffset:110},
-{id:16,city:"Mâcon",region:"Bourgogne-Franche-Comté",x:65,y:64,discipline:"CCE",days:2,level:"Amateur",places:70,dateOffset:118}
-];
-
 const $=x=>document.getElementById(x);
-const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-const money=n=>Math.round(n).toLocaleString("fr-FR")+" €";
+
+const clamp=(n,a,b)=>
+Math.max(a,Math.min(b,n));
+
+const money=n=>
+Math.round(n).toLocaleString("fr-FR")+" €";
 
 let nav=[];
 let currentPage=null;
-let selectedEvent=null;
-let selectedHorses=[];
-let marketCache={};
-let trip=null;
 
-function clone(x){
-return JSON.parse(JSON.stringify(x));
-}
 
-function rand(a,b){
-return Math.floor(Math.random()*(b-a+1))+a;
-}
-
-function chance(p){
-return Math.random()<p;
-}
+/* =========================================================
+   DATES
+========================================================= */
 
 function dateDay(){
-return ((game.day-1)%365)+1;
+
+return((game.day-1)%365)+1;
+
 }
 
 function dateText(){
+
 let d=new Date(2026,8,1);
-d.setDate(d.getDate()+dateDay()-1);
-return d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
+
+d.setDate(
+d.getDate()+dateDay()-1
+);
+
+return d.toLocaleDateString(
+"fr-FR",
+{
+weekday:"long",
+day:"numeric",
+month:"long"
+}
+);
+
 }
 
 function season(){
+
 let d=dateDay();
-return d<=91?"🍂 Automne":d<=182?"❄️ Hiver":d<=274?"🌸 Printemps":"☀️ Été";
+
+return d<=91
+?"🍂 Automne"
+:d<=182
+?"❄️ Hiver"
+:d<=274
+?"🌸 Printemps"
+:"☀️ Été";
+
 }
 
-function ageBand(age){
-return age<=2?25:age<=4?20:age<=6?15:age<=9?10:age<=13?6:3;
+function clone(x){
+
+return JSON.parse(
+JSON.stringify(x)
+);
+
 }
 
-function rawPotential(race){
-let b=RACE[race]||{CSO:4,CCE:4,Dressage:4};
-let quality=rand(45,68);
-let hidden={};
-DISC.forEach(d=>{
-hidden[d]=clamp(quality+(b[d]||0)+rand(-18,18),40,99);
-});
-return hidden;
+
+/* =========================================================
+   POTENTIEL
+========================================================= */
+
+/*
+3 ans ≈ 25 points de fourchette.
+
+Plus le cheval vieillit,
+plus la fourchette se resserre.
+*/
+
+function potentialWidth(age){
+
+age=Number(age)||0;
+
+if(age<=1)return 32;
+if(age===2)return 28;
+if(age===3)return 25;
+if(age===4)return 24;
+if(age===5)return 23;
+if(age===6)return 21;
+if(age===7)return 20;
+if(age===8)return 18;
+if(age===9)return 16;
+if(age===10)return 14;
+if(age===11)return 12;
+if(age===12)return 11;
+if(age===13)return 10;
+if(age===14)return 8;
+if(age===15)return 7;
+if(age===16)return 5;
+if(age===17)return 4;
+if(age===18)return 3;
+if(age===19)return 2;
+
+return 1;
+
 }
 
-function estimateRange(real,age){
-let w=ageBand(age);
-return [
-clamp(real-w,35,99),
-clamp(real+w,40,99)
-];
+
+/*
+Crée la fourchette visible
+à partir du potentiel réel caché.
+*/
+
+function buildPotentialRange(real,age){
+
+real=clamp(
+Math.round(Number(real)||65),
+35,
+98
+);
+
+let width=potentialWidth(age);
+
+let min=Math.max(
+35,
+real-Math.floor(width/2)
+);
+
+let max=Math.min(
+98,
+min+width-1
+);
+
+if(max-min+1<width){
+
+if(min===35){
+
+max=Math.min(
+98,
+35+width-1
+);
+
 }
 
-function rangesFor(p,age){
-let out={};
-DISC.forEach(d=>out[d]=estimateRange(p[d],age));
-return out;
+else if(max===98){
+
+min=Math.max(
+35,
+98-width+1
+);
+
 }
 
-function probabilityProfile(p,price,race){
-let avg=(p.CSO+p.CCE+p.Dressage)/3;
-let elite=clamp((avg-68)/28,0,1);
-let priceBoost=clamp(Math.log10(Math.max(price,1000))-3,0,2)/2;
-let breedBoost=(RACE[race]?Math.max(...Object.values(RACE[race])):5)/18;
-
-let exceptional=clamp(.02+elite*.28+priceBoost*.16+breedBoost*.05,.01,.55);
-let very=clamp(.10+elite*.32+priceBoost*.14,.05,.70);
-let good=clamp(.30+(1-elite)*.28,.15,.65);
-let medium=Math.max(.02,1-exceptional-very-good);
-
-let total=exceptional+very+good+medium;
+}
 
 return{
-exceptional:exceptional/total,
-very:very/total,
-good:good/total,
-medium:medium/total
+min:min,
+max:max
 };
+
 }
 
-function probHTML(p){
-return `
-<div class="potentialBox prob">
-<b>📊 Probabilité estimée</b><br>
-🔥 Exceptionnel : <b>${Math.round(p.exceptional*100)} %</b><br>
-⭐ Très bon : <b>${Math.round(p.very*100)} %</b><br>
-👍 Bon : <b>${Math.round(p.good*100)} %</b><br>
-😐 Moyen : <b>${Math.round(p.medium*100)} %</b>
-</div>`;
+
+/*
+Compatibilité avec les anciennes données.
+*/
+
+function initHorsePotential(h){
+
+if(!h.potentialReal){
+
+if(
+h.potential &&
+typeof h.potential==="object"
+){
+
+h.potentialReal={
+
+CSO:clamp(
+Math.round(
+Number(h.potential.CSO)||65
+),
+35,
+98
+),
+
+CCE:clamp(
+Math.round(
+Number(h.potential.CCE)||65
+),
+35,
+98
+),
+
+Dressage:clamp(
+Math.round(
+Number(h.potential.Dressage)||65
+),
+35,
+98
+)
+
+};
+
+}else{
+
+let p=
+Number(h.realPotential)||65;
+
+h.potentialReal={
+CSO:p,
+CCE:p,
+Dressage:p
+};
+
 }
 
-function potentialHTML(h,showReal=false){
-let r=h.ranges||rangesFor(h.potential,h.age);
-return `
+}
+
+if(!h.potentialReal.CSO)
+h.potentialReal.CSO=65;
+
+if(!h.potentialReal.CCE)
+h.potentialReal.CCE=65;
+
+if(!h.potentialReal.Dressage)
+h.potentialReal.Dressage=65;
+
+h.potentialReal.CSO=
+clamp(h.potentialReal.CSO,35,98);
+
+h.potentialReal.CCE=
+clamp(h.potentialReal.CCE,35,98);
+
+h.potentialReal.Dressage=
+clamp(h.potentialReal.Dressage,35,98);
+
+h.potential=h.potentialReal;
+
+return h;
+
+}
+
+
+function refreshPotentialRange(h){
+
+initHorsePotential(h);
+
+h.potentialRange={
+
+CSO:buildPotentialRange(
+h.potentialReal.CSO,
+h.age
+),
+
+CCE:buildPotentialRange(
+h.potentialReal.CCE,
+h.age
+),
+
+Dressage:buildPotentialRange(
+h.potentialReal.Dressage,
+h.age
+)
+
+};
+
+return h;
+
+}
+
+
+/* =========================================================
+   POURCENTAGES DE CLASSE
+========================================================= */
+
+function potentialProbabilities(range){
+
+let min=clamp(
+Math.round(range.min),
+0,
+100
+);
+
+let max=clamp(
+Math.round(range.max),
+min,
+100
+);
+
+let total=max-min+1;
+
+let crack=0;
+let veryGood=0;
+let good=0;
+let medium=0;
+
+for(
+let p=min;
+p<=max;
+p++
+){
+
+if(p>=90){
+
+crack++;
+
+}
+
+else if(p>=80){
+
+veryGood++;
+
+}
+
+else if(p>=70){
+
+good++;
+
+}
+
+else{
+
+medium++;
+
+}
+
+}
+
+return{
+
+crack:Math.round(
+crack/total*100
+),
+
+veryGood:Math.round(
+veryGood/total*100
+),
+
+good:Math.round(
+good/total*100
+),
+
+medium:Math.round(
+medium/total*100
+)
+
+};
+
+}
+
+
+/* =========================================================
+   AFFICHAGE POTENTIEL
+========================================================= */
+
+function potentialRangeBlock(h){
+
+refreshPotentialRange(h);
+
+let disciplines=[
+
+[
+"CSO",
+"🏇",
+h.potentialRange.CSO
+],
+
+[
+"CCE",
+"🌳",
+h.potentialRange.CCE
+],
+
+[
+"Dressage",
+"💃",
+h.potentialRange.Dressage
+]
+
+];
+
+return`
+
 <div class="potentialBox">
-<b>🔎 Potentiel estimé</b><br>
-🏇 CSO : <b>${r.CSO[0]}–${r.CSO[1]}</b><br>
-🌳 CCE : <b>${r.CCE[0]}–${r.CCE[1]}</b><br>
-💃 Dressage : <b>${r.Dressage[0]}–${r.Dressage[1]}</b>
-${showReal?`<br><span class="muted small">Potentiel réel : CSO ${h.potential.CSO} · CCE ${h.potential.CCE} · Dressage ${h.potential.Dressage}</span>`:""}
-</div>`;
+
+<div class="potentialTitle">
+📊 Potentiel estimé
+</div>
+
+${disciplines.map(
+([name,icon,r])=>{
+
+let p=
+potentialProbabilities(r);
+
+return`
+
+<div class="potentialLine">
+
+<span>
+${icon} ${name}
+</span>
+
+<b>
+${r.min} – ${r.max}
+</b>
+
+</div>
+
+<div class="probLine">
+
+🏆 Crack :
+<b>${p.crack}%</b>
+
+&nbsp;
+
+⭐ Très bon :
+<b>${p.veryGood}%</b>
+
+&nbsp;
+
+👍 Bon :
+<b>${p.good}%</b>
+
+&nbsp;
+
+📊 Moyen :
+<b>${p.medium}%</b>
+
+</div>
+
+`;
+
+}
+).join("")}
+
+<div class="smallText">
+
+À environ 3 ans, le potentiel est encore très incertain.
+Avec l'âge, la fourchette se resserre et devient de plus en plus précise.
+
+</div>
+
+</div>
+
+`;
+
 }
 
-function historyEvent(h,text){
-h.history=h.history||[];
-h.history.push({day:game.day,text});
-}
 
-function uniqueName(){
-let used=new Set(game.horses.map(h=>(h.name||"").toLowerCase()));
-let available=NAMES.filter(n=>!used.has(n.toLowerCase()));
-return available.length?available[rand(0,available.length-1)]:"Étoile "+rand(100,999);
-}
+/* =========================================================
+   POTENTIEL INITIAL
+========================================================= */
 
-function randomBackstory(race,age){
-let origins=[
-"petit élevage familial",
-"élevage reconnu régionalement",
-"élevage spécialisé dans le sport",
-"origine de compétition",
-"élevage de poneys et chevaux de sport",
-"élevage amateur passionné"
-];
+function potentials(r){
 
-let chars=[
-"calme et volontaire",
-"sensible mais très appliqué",
-"énergique et courageux",
-"froid et régulier",
-"réactif avec beaucoup de sang",
-"facile mais parfois distrait",
-"très proche de l'humain",
-"indépendant mais généreux",
-"très compétitif"
-];
+let b=
+RACE[r]||
+{
+CSO:0,
+CCE:0,
+Dressage:0
+};
 
-let strengths=[
-"bonne locomotion",
-"très bon équilibre",
-"excellent coup de saut",
-"beaucoup de courage",
-"bonne récupération",
-"belle technique",
-"grande régularité",
-"forte capacité d'apprentissage",
-"très bon mental"
-];
-
-let weaknesses=[
-"pieds sensibles",
-"tendance à se tendre en concours",
-"petite fragilité musculaire",
-"récupération lente",
-"aucune fragilité particulière",
-"caractère exigeant",
-"dos à surveiller",
-"manque encore d'expérience",
-"fatigue rapidement après un gros effort"
-];
+let base=
+55+
+Math.floor(
+Math.random()*25
+);
 
 return{
-origin:origins[rand(0,origins.length-1)],
-character:chars[rand(0,chars.length-1)],
-strength:strengths[rand(0,strengths.length-1)],
-weakness:weaknesses[rand(0,weaknesses.length-1)],
-race
+
+CSO:clamp(
+base+
+b.CSO+
+Math.floor(
+Math.random()*11-5
+),
+35,
+98
+),
+
+CCE:clamp(
+base+
+b.CCE+
+Math.floor(
+Math.random()*11-5
+),
+35,
+98
+),
+
+Dressage:clamp(
+base+
+b.Dressage+
+Math.floor(
+Math.random()*11-5
+),
+35,
+98
+)
+
 };
+
 }
 
-function buildCharacter(race,age,sex){
-let b=RACE_CHARACTER[race]||{
-gentillesse:0,
-calme:0,
-courage:0,
-concentration:0,
-mental:0
-};
 
-let ageMod={
-gentillesse:age<=3?2:age>=16?-1:0,
-calme:age<=3?-1:age>=16?2:0,
-courage:age<=3?0:age>=16?-1:1,
-concentration:age<=3?1:age>=16?-1:0,
-mental:age<=3?-2:age>=16?-1:0
-};
+/* =========================================================
+   CRÉATION CHEVAL
+========================================================= */
 
-let sexBonus=sex==="Jument"?1:sex==="Entier"?-1:0;
-
-return{
-gentillesse:clamp(50+b.gentillesse+ageMod.gentillesse+sexBonus+rand(-10,10),20,100),
-calme:clamp(50+b.calme+ageMod.calme+sexBonus+rand(-10,10),20,100),
-courage:clamp(50+b.courage+ageMod.courage+rand(-10,10),20,100),
-concentration:clamp(50+b.concentration+ageMod.concentration+sexBonus+rand(-10,10),20,100),
-mental:clamp(50+b.mental+ageMod.mental+rand(-10,10),20,100)
-};
-}
-
-function makeHorse(id,name,race,age,sex,place="pasture",price=0,potential=null){
-
-potential=potential||rawPotential(race);
-
-let h={
+function horse(
 id,
 name,
 race,
 age,
 sex,
 place,
-retired:false,
-away:false,
+p
+){
 
-potential,
-ranges:rangesFor(potential,age),
+p=p||potentials(race);
+
+let h={
+
+id:id,
+
+name:name,
+
+race:race,
+
+age:age,
+
+sex:sex,
+
+place:place||"pasture",
+
+retired:false,
+
+potentialReal:{
+
+CSO:p.CSO,
+
+CCE:p.CCE,
+
+Dressage:p.Dressage
+
+},
+
+potentialRange:{
+
+CSO:buildPotentialRange(
+p.CSO,
+age
+),
+
+CCE:buildPotentialRange(
+p.CCE,
+age
+),
+
+Dressage:buildPotentialRange(
+p.Dressage,
+age
+)
+
+},
+
+potential:p,
 
 current:{
-CSO:clamp(rand(28,55),0,potential.CSO),
-CCE:clamp(rand(28,55),0,potential.CCE),
-Dressage:clamp(rand(28,55),0,potential.Dressage)
+
+CSO:Math.min(
+p.CSO,
+30+
+Math.floor(
+Math.random()*40
+)
+),
+
+CCE:Math.min(
+p.CCE,
+30+
+Math.floor(
+Math.random()*40
+)
+),
+
+Dressage:Math.min(
+p.Dressage,
+30+
+Math.floor(
+Math.random()*40
+)
+)
+
 },
 
 experience:{
@@ -499,11 +1392,13 @@ CCE:50,
 Dressage:50
 },
 
-character:buildCharacter(race,age,sex),
+health:94,
 
-health:rand(86,98),
-form:rand(72,90),
-fatigue:rand(8,20),
+form:80,
+
+fatigue:15,
+
+mental:75,
 
 ration:{
 hay:10,
@@ -512,8 +1407,7 @@ grain:3
 
 hoof:{
 type:"ferrure",
-lastDay:1,
-nextDay:61
+lastDay:1
 },
 
 vet:{
@@ -531,27 +1425,22 @@ lastDay:1,
 nextDay:121
 },
 
-vaccines:{
-grippe:1,
-tetanos:1,
-rhino:1
-},
-
-injuries:[],
-illnesses:[],
-treatments:[],
-
 father:{
 name:"Père d'origine",
-results:["Origines enregistrées"]
+results:[
+"Origines enregistrées"
+]
 },
 
 mother:{
 name:"Mère d'origine",
-results:["Origines enregistrées"]
+results:[
+"Origines enregistrées"
+]
 },
 
 results:[],
+
 qualPoints:{
 CSO:0,
 CCE:0,
@@ -564,853 +1453,1014 @@ CCE:0,
 Dressage:0
 },
 
-career:{
-bestRank:{
-CSO:null,
-CCE:null,
-Dressage:null
-},
-wins:{
-CSO:0,
-CCE:0,
-Dressage:0
-},
-podiums:{
-CSO:0,
-CCE:0,
-Dressage:0
-},
-earnings:0,
-careerStart:game?game.day:1
-},
-
 lastCompetitionDay:-999,
-history:[],
-backstory:randomBackstory(race,age),
-purchasePrice:price||2500
-};
 
-historyEvent(h,`Naissance / arrivée : ${h.backstory.origin}. ${h.backstory.character}.`);
-historyEvent(h,`Particularité : ${h.backstory.strength}. Point à surveiller : ${h.backstory.weakness}.`);
+away:false
+
+};
 
 return h;
+
 }
 
+
+/* =========================================================
+   INITIAL
+========================================================= */
+
 const initial={
-money:100000,
+
+money:18450,
+
 reputation:0,
+
 day:1,
+
 year:1,
 
-boxes:8,
-pastures:2,
-land:2,
-truckCapacity:4,
+boxes:6,
 
-hay:1800,
-grain:1000,
-straw:1000,
+pastures:1,
 
-maxHay:2500,
-maxGrain:1800,
-maxStraw:1800,
+land:1,
+
+truckCapacity:2,
+
+hay:1200,
+
+grain:800,
+
+straw:600,
+
+maxHay:2000,
+
+maxGrain:1500,
+
+maxStraw:1500,
 
 horses:[
-makeHorse(1,"Luna","Selle Français",8,"Jument","box",0,{
-CSO:94,
-CCE:76,
-Dressage:60
-}),
 
-makeHorse(2,"Caramel","Anglo-Arabe",12,"Hongre","box",0,{
-CSO:72,
-CCE:91,
+horse(
+1,
+"Luna",
+"Selle Français",
+8,
+"Jument",
+"box",
+{
+CSO:86,
+CCE:74,
 Dressage:62
-}),
+}
+),
 
-makeHorse(3,"Jasper","Quarter Horse",6,"Hongre","pasture",0,{
-CSO:63,
-CCE:66,
-Dressage:54
-}),
+horse(
+2,
+"Caramel",
+"Anglo-Arabe",
+12,
+"Hongre",
+"box",
+{
+CSO:74,
+CCE:86,
+Dressage:61
+}
+),
 
-makeHorse(4,"Étoile","Connemara",4,"Jument","pasture",0,{
-CSO:82,
-CCE:77,
-Dressage:59
-})
+horse(
+3,
+"Jasper",
+"Quarter Horse",
+6,
+"Hongre",
+"pasture",
+{
+CSO:61,
+CCE:63,
+Dressage:55
+}
+),
+
+horse(
+4,
+"Étoile",
+"Connemara",
+4,
+"Jument",
+"pasture",
+{
+CSO:78,
+CCE:75,
+Dressage:61
+}
+)
+
 ]
+
 };
+
+
+/* =========================================================
+   NORMALISATION
+========================================================= */
 
 function normalize(g){
 
-g=Object.assign(clone(initial),g||{});
+g=Object.assign(
+clone(initial),
+g
+);
 
-g.horses=(g.horses||[]).map(h=>{
+g.horses=
+(g.horses||[]).map(h=>{
 
-h.name=h.name||uniqueName();
+if(
+!h.potential &&
+!h.potentialReal
+){
 
-h.potential=h.potential||{
-CSO:65,
-CCE:65,
-Dressage:65
+let p=
+Number(h.realPotential)||65;
+
+h.potential={
+CSO:p,
+CCE:p,
+Dressage:p
 };
 
-h.ranges=rangesFor(h.potential,h.age||5);
+}
 
-h.current=h.current||{
+if(
+!h.current ||
+typeof h.current!=="object"
+){
+
+h.current={
 CSO:45,
 CCE:45,
 Dressage:45
 };
 
-h.experience=h.experience||{
+}
+
+if(!h.experience){
+
+h.experience={
 CSO:0,
 CCE:0,
 Dressage:0
 };
 
-h.regularity=h.regularity||{
+}
+
+if(!h.regularity){
+
+h.regularity={
 CSO:50,
 CCE:50,
 Dressage:50
 };
 
-h.character=h.character||buildCharacter(h.race,h.age||5,h.sex||"Hongre");
+}
 
-h.qualPoints=h.qualPoints||{
+if(!h.qualPoints){
+
+h.qualPoints={
 CSO:0,
 CCE:0,
 Dressage:0
 };
 
-h.courses=h.courses||{
+}
+
+if(!h.courses){
+
+h.courses={
 CSO:0,
 CCE:0,
 Dressage:0
 };
 
-h.ration=h.ration||{
+}
+
+if(!h.ration){
+
+h.ration={
 hay:10,
 grain:3
 };
 
-h.hoof=h.hoof||{
+}
+
+if(!h.hoof){
+
+h.hoof={
 type:"ferrure",
+lastDay:1
+};
+
+}
+
+if(!h.vet){
+
+h.vet={
 lastDay:1,
-nextDay:61
+nextDay:g.day+90
 };
 
-h.vet=h.vet||{
+}
+
+if(!h.dentist){
+
+h.dentist={
 lastDay:1,
-nextDay:91
+nextDay:g.day+180
 };
 
-h.dentist=h.dentist||{
+}
+
+if(!h.osteo){
+
+h.osteo={
 lastDay:1,
-nextDay:181
+nextDay:g.day+120
 };
 
-h.osteo=h.osteo||{
-lastDay:1,
-nextDay:121
-};
+}
 
-h.vaccines=h.vaccines||{
-grippe:1,
-tetanos:1,
-rhino:1
-};
+if(!h.results)
 
-h.injuries=h.injuries||[];
-h.illnesses=h.illnesses||[];
-h.treatments=h.treatments||[];
+h.results=[];
 
-h.results=h.results||[];
-h.history=h.history||[];
+if(h.lastCompetitionDay==null)
 
-h.backstory=h.backstory||randomBackstory(h.race,h.age);
-
-h.career=h.career||{
-bestRank:{CSO:null,CCE:null,Dressage:null},
-wins:{CSO:0,CCE:0,Dressage:0},
-podiums:{CSO:0,CCE:0,Dressage:0},
-earnings:0,
-careerStart:1
-};
-
-if(!h.lastCompetitionDay&&h.lastCompetitionDay!==0)
 h.lastCompetitionDay=-999;
 
 if(h.away==null)
+
 h.away=false;
 
 if(h.retired==null)
+
 h.retired=false;
 
+initHorsePotential(h);
+
+refreshPotentialRange(h);
+
 return h;
+
 });
 
 return g;
+
 }
 
-let game=loadGame();
 
-function loadGame(){
+/* =========================================================
+   SAUVEGARDE
+========================================================= */
+
+function load(){
+
 try{
-let s=localStorage.getItem(STORAGE);
-if(s)return normalize(JSON.parse(s));
-}catch(e){}
-return normalize(clone(initial));
+
+let s=
+localStorage.getItem(
+STORAGE
+);
+
+if(s)
+
+return normalize(
+JSON.parse(s)
+);
+
+}catch(e){
+
+console.log(
+"Erreur sauvegarde",
+e
+);
+
 }
+
+return normalize(
+clone(initial)
+);
+
+}
+
+let game=load();
+
 
 function save(){
-localStorage.setItem(STORAGE,JSON.stringify(game));
+
+localStorage.setItem(
+STORAGE,
+JSON.stringify(game)
+);
+
 render();
+
 }
+
+
+/* =========================================================
+   RENDER
+========================================================= */
 
 function render(){
 
-$("dateLabel").textContent=dateText();
+$("dateLabel").textContent=
+dateText();
 
 $("dayLabel").textContent=
-"J"+dateDay()+"/365 · Année "+game.year;
+"J"+dateDay()+
+"/365 · Année "+
+game.year;
 
-$("season").textContent=season();
+$("season").textContent=
+season();
 
-$("money").textContent=money(game.money);
+$("money").textContent=
+money(game.money);
 
-$("rep").textContent="⭐ "+game.reputation;
+$("rep").textContent=
+"⭐ "+game.reputation;
 
-$("horseCount").textContent=game.horses.length;
+$("horseCount").textContent=
+game.horses.length;
 
 $("boxCount").textContent=
-game.horses.filter(h=>h.place==="box"&&!h.away).length+
-"/"+game.boxes+" boxes";
 
-let alerts=[];
+game.horses.filter(
+h=>h.place==="box"&&!h.away
+).length
+
++"/"+game.boxes+
+" boxes";
+
+
+let a=[];
 
 game.horses.forEach(h=>{
 
-if(game.day>=h.hoof.nextDay)
-alerts.push(`🧲 <b>${h.name}</b> : maréchal à prévoir.`);
+if(
+game.day>=
+h.hoof.lastDay+60
+)
 
-if(game.day>=h.vet.nextDay)
-alerts.push(`🩺 <b>${h.name}</b> : visite vétérinaire à prévoir.`);
-
-if(game.day>=h.dentist.nextDay)
-alerts.push(`🦷 <b>${h.name}</b> : dentiste à prévoir.`);
-
-if(game.day>=h.osteo.nextDay)
-alerts.push(`👐 <b>${h.name}</b> : ostéopathe à prévoir.`);
+a.push(
+"🚨 <b>"+
+h.name+
+"</b> : maréchal à prévoir."
+);
 
 if(
-h.vaccines.grippe<=game.day||
-h.vaccines.tetanos<=game.day||
-h.vaccines.rhino<=game.day
+game.day>=
+h.vet.nextDay
 )
-alerts.push(`💉 <b>${h.name}</b> : vaccination à renouveler.`);
 
-if(h.injuries.some(i=>i.active))
-alerts.push(`🩹 <b>${h.name}</b> : blessure en cours, repos.`);
-
-if(h.fatigue>=75)
-alerts.push(`😴 <b>${h.name}</b> : fatigue importante.`);
-
-if(h.health<60)
-alerts.push(`❤️ <b>${h.name}</b> : état de santé préoccupant.`);
+a.push(
+"🩺 <b>"+
+h.name+
+"</b> : vétérinaire à prévoir."
+);
 
 });
 
 $("alerts").innerHTML=
-alerts.slice(0,8)
-.map(x=>`<div class="notice alert">${x}</div>`)
+
+a.slice(0,5)
+.map(
+x=>
+`<div class="notice alert">${x}</div>`
+)
 .join("");
+
 }
 
-function open(title,html,back=true){
 
-$("modalTitle").textContent=title;
-$("modalContent").innerHTML=html;
-$("modal").classList.add("show");
+/* =========================================================
+   MODALES / NAVIGATION
+========================================================= */
+
+function open(
+title,
+html,
+back=true
+){
+
+$("modalTitle").textContent=
+title;
+
+$("modalContent").innerHTML=
+html;
+
+$("modal").classList.add(
+"show"
+);
 
 $("backBtn").style.display=
-back&&nav.length?"block":"none";
+back&&nav.length
+?"block"
+:"none";
+
 }
+
 
 function closeModal(){
+
 nav=[];
+
 currentPage=null;
-$("modal").classList.remove("show");
+
+$("modal").classList.remove(
+"show"
+);
+
 }
 
+
 $("modal").onclick=e=>{
-if(e.target===$("modal"))
+
+if(
+e.target===
+$("modal")
+)
+
 closeModal();
+
 };
+
 
 function page(fn){
 
 if(currentPage)
-nav.push(currentPage);
+
+nav.push(
+currentPage
+);
 
 currentPage=fn;
+
 fn();
+
 }
+
 
 function goBack(){
 
 let f=nav.pop();
 
 if(f){
+
 currentPage=f;
+
 f();
-}else{
-closeModal();
-}
+
 }
 
-function stat(n,v){
-return `
-<div class="choice">
-<div class="statLine">
-<span>${n}</span>
-<b>${Math.round(v)}/100</b>
-</div>
-<div class="progress">
-<span style="width:${clamp(v,0,100)}%"></span>
-</div>
-</div>`;
+else{
+
+closeModal();
+
 }
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function stat(n,v){
+
+return`
+
+<div class="choice">
+
+<div class="statLine">
+
+<span>${n}</span>
+
+<b>
+${Math.round(v)}/100
+</b>
+
+</div>
+
+<div class="progress">
+
+<span
+style="width:${clamp(v,0,100)}%">
+</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================================================
+   VALEUR CHEVAL
+========================================================= */
 
 function value(h){
 
-let p=
-(h.potential.CSO+
-h.potential.CCE+
-h.potential.Dressage)/3;
+initHorsePotential(h);
 
-let c=
-(h.current.CSO+
+let p=(
+
+h.potentialReal.CSO+
+h.potentialReal.CCE+
+h.potentialReal.Dressage
+
+)/3;
+
+let c=(
+
+h.current.CSO+
 h.current.CCE+
-h.current.Dressage)/3;
+h.current.Dressage
 
-let mental=h.character?.mental||60;
+)/3;
 
-let base=
-p*.50+
-c*.32+
-mental*.08+
-h.experience.CSO*.03+
-h.experience.CCE*.03+
-h.experience.Dressage*.03;
+let v=
 
-let ageFactor=
-h.age<4?.65:
-h.age<=8?1:
-h.age<=13?.92:
-h.age<=18?.65:.35;
-
-return Math.round(
 2500+
-Math.pow(clamp(base,0,100)/100,2.5)*
-65000*
-ageFactor
-);
+
+Math.pow(
+
+clamp(
+p*.55+
+c*.35+
+h.mental*.1,
+0,
+100
+)/100,
+
+2.5
+
+)*65000;
+
+if(h.race==="OC")
+
+v*=.82;
+
+if(h.age>=18)
+
+v*=.55;
+
+if(h.health<70)
+
+v*=.85;
+
+return Math.round(v);
+
 }
 
-function injuryText(h){
 
-let i=h.injuries.filter(x=>x.active);
-
-return i.length?
-i.map(x=>
-`🩹 ${x.type} · repos jusqu'à J${x.until}`
-).join("<br>"):
-"Aucune blessure active.";
-}
+/* =========================================================
+   CARTE CHEVAL
+========================================================= */
 
 function horseCard(h){
 
-let prob=
-probabilityProfile(
-h.potential,
-value(h),
-h.race
-);
+refreshPotentialRange(h);
 
-return `
+return`
+
 <div class="card">
 
-<div class="horsePic">🐎</div>
+<div class="horsePic">
+🐎
+</div>
 
-<span class="badge">${h.race}</span>
-<span class="badge">${h.age} ans</span>
-<span class="badge">${h.sex}</span>
+<span class="badge">
+${h.race}
+</span>
 
-${h.away?
-'<span class="badge badgeGold">🏆 En concours</span>':
-""}
+<span class="badge">
+${h.age} ans
+</span>
 
-${h.retired?
-'<span class="badge badgeRed">🛑 Retraité</span>':
-""}
+<span class="badge">
+${h.sex}
+</span>
 
-<h3>${h.name}</h3>
+${h.away
+?'<span class="badge">🏆 En concours</span>'
+:""}
 
-${h.place==="box"?"🏠 Box":"🌳 Pré"}
+<h3>
+${h.name}
+</h3>
+
+${h.place==="box"
+?"🏠 Box"
+:"🌳 Pré"}
+
 · 💰 ${money(value(h))}
 
-${stat("🏇 CSO",h.current.CSO)}
-${stat("🌳 CCE",h.current.CCE)}
-${stat("💃 Dressage",h.current.Dressage)}
+${stat(
+"🏇 CSO",
+h.current.CSO
+)}
 
-${potentialHTML(h)}
-${probHTML(prob)}
+${stat(
+"🌳 CCE",
+h.current.CCE
+)}
 
-<button class="primary"
+${stat(
+"💃 Dressage",
+h.current.Dressage
+)}
+
+${potentialRangeBlock(h)}
+
+<button
+class="primary"
 onclick="horseBook('${h.id}')">
+
 📖 Carnet
-</button>
 
-</div>`;
-}
-
-const BOOK_TABS=[
-["id","🐴 Identité"],
-["sport","🏇 Sport"],
-["character","🧠 Mental"],
-["pal","🏆 Palmarès"],
-["orig","🧬 Origines"],
-["health","🩺 Santé"],
-["vacc","💉 Vaccins"],
-["farrier","🧲 Maréchal"],
-["dentist","🦷 Dentiste"],
-["osteo","👐 Ostéo"],
-["food","🥕 Alimentation"],
-["train","🏋️ Entraînement"],
-["career","📜 Carrière"],
-["history","📋 Historique"]
-];
-
-function horseBook(id,tab="id"){
-
-let h=game.horses.find(x=>String(x.id)===String(id));
-
-if(!h)return;
-
-let tabs=
-BOOK_TABS
-.map(t=>
-`<button class="${t[0]===tab?"active":""}"
-onclick="horseBook('${id}','${t[0]}')">${t[1]}</button>`
-)
-.join("");
-
-let body="";
-
-if(tab==="id"){
-
-body=`
-<div class="horsePic">🐎</div>
-
-<div class="notice">
-<b>${h.name}</b><br>
-${h.race} · ${h.age} ans · ${h.sex}<br>
-${h.away?"🏆 En concours":
-h.place==="box"?"🏠 Box":"🌳 Pré"}
-· 💰 ${money(value(h))}
-</div>
-
-<div class="choice">
-<b>Histoire</b><br>
-${h.backstory.origin}.<br>
-${h.backstory.character}.<br>
-${h.backstory.strength}.<br>
-À surveiller : ${h.backstory.weakness}.
-</div>`;
-}
-
-if(tab==="sport"){
-
-body=`
-${stat("🏇 CSO",h.current.CSO)}
-${stat("🌳 CCE",h.current.CCE)}
-${stat("💃 Dressage",h.current.Dressage)}
-
-${potentialHTML(h,true)}
-
-<div class="choice">
-<b>Expérience</b><br>
-CSO ${h.experience.CSO} ·
-CCE ${h.experience.CCE} ·
-Dressage ${h.experience.Dressage}
-</div>
-
-<div class="choice">
-<b>Régularité</b><br>
-CSO ${h.regularity.CSO}/100 ·
-CCE ${h.regularity.CCE}/100 ·
-Dressage ${h.regularity.Dressage}/100
-</div>`;
-}
-
-if(tab==="character"){
-
-body=`
-<div class="notice">
-Le mental influence directement le comportement et les résultats en concours.
-</div>
-
-${stat("🧠 Mental",h.character.mental)}
-${stat("❤️ Gentillesse",h.character.gentillesse)}
-${stat("🧘 Calme",h.character.calme)}
-${stat("🦁 Courage",h.character.courage)}
-${stat("🎯 Concentration",h.character.concentration)}
-
-<div class="choice">
-<b>Profil</b><br>
-${h.character.mental>=75?
-"Très bon mental de compétition.":
-h.character.mental>=55?
-"Mental équilibré.":
-"Cheval sensible qui demande de la confiance."}
-</div>`;
-}
-
-if(tab==="pal"){
-
-body=h.results.length?
-h.results
-.slice()
-.reverse()
-.map(x=>`<div class="choice">${x}</div>`)
-.join(""):
-"<div class='notice'>Aucun concours.</div>";
-
-}
-
-if(tab==="orig"){
-
-body=`
-<div class="choice">
-<b>Père :</b> ${h.father.name}<br>
-${h.father.results.join("<br")}
-
-<br><br>
-
-<b>Mère :</b> ${h.mother.name}<br>
-${h.mother.results.join("<br")}
-</div>`;
-}
-
-if(tab==="health"){
-
-body=`
-${stat("❤️ Santé",h.health)}
-${stat("💪 Forme",h.form)}
-${stat("😴 Fatigue",h.fatigue)}
-
-<div class="choice">
-<b>Blessures</b><br>
-${injuryText(h)}
-</div>
-
-<div class="choice">
-<b>Maladies / traitements</b><br>
-${h.illnesses.length?
-h.illnesses.join("<br>"):
-"Aucun problème enregistré."}
-<br>
-${h.treatments.length?
-h.treatments.join("<br>"):
-"Aucun traitement."}
-</div>
-
-<button class="primary"
-onclick="professional('vet','${h.id}',100,90,8)">
-🩺 Faire venir le vétérinaire — 100 €
-</button>`;
-}
-
-if(tab==="vacc"){
-
-body=[
-"grippe",
-"tetanos",
-"rhino"
-]
-.map(v=>`
-<div class="choice">
-<b>💉 ${
-v==="grippe"?
-"Grippe":
-v==="tetanos"?
-"Tétanos":
-"Rhinopneumonie"
-}</b><br>
-Prochaine échéance : J${h.vaccines[v]}
-
-<button class="primary"
-onclick="vaccinate('${h.id}','${v}')">
-Vacciner — 55 €
 </button>
 
 </div>
-`)
-.join("");
+
+`;
+
 }
 
-if(tab==="farrier"){
-
-body=`
-<div class="choice">
-Type :
-<b>${h.hoof.type}</b><br>
-Prochaine échéance : J${h.hoof.nextDay}
-</div>
-
-<div class="two">
-
-<button class="primary"
-onclick="farrier('${h.id}','ferrure')">
-🔨 Ferrure 110 €
-</button>
-
-<button class="primary"
-onclick="farrier('${h.id}','parage')">
-✂️ Parage 50 €
-</button>
-
-</div>`;
-}
-
-if(tab==="dentist"){
-
-body=`
-<div class="choice">
-Dernier passage : J${h.dentist.lastDay}<br>
-Prochain : J${h.dentist.nextDay}
-</div>
-
-<button class="primary"
-onclick="professional('dentist','${h.id}',70,180,4)">
-🦷 Faire venir — 70 €
-</button>`;
-}
-
-if(tab==="osteo"){
-
-body=`
-<div class="choice">
-Dernier passage : J${h.osteo.lastDay}<br>
-Prochain : J${h.osteo.nextDay}
-</div>
-
-<button class="primary"
-onclick="professional('osteo','${h.id}',90,120,5)">
-👐 Faire venir — 90 €
-</button>`;
-}
-
-if(tab==="food"){
-
-body=`
-<div class="choice">
-🌾 ${h.ration.hay} kg de foin/j<br>
-🌽 ${h.ration.grain} kg de grain/j
-</div>
-
-<button class="primary"
-onclick="setRation('${h.id}')">
-🥕 Modifier la ration
-</button>`;
-}
-
-if(tab==="train"){
-
-body=`
-<div class="choice">
-Les séances augmentent progressivement le niveau.
-La fatigue et le mental influencent la progression.
-</div>
-
-<button class="primary"
-onclick="trainingFor('${h.id}')">
-🏋️ Choisir une discipline
-</button>`;
-}
-
-if(tab==="career"){
-
-body=`
-<div class="choice">
-<b>🏆 Victoires</b><br>
-CSO : ${h.career.wins.CSO}<br>
-CCE : ${h.career.wins.CCE}<br>
-Dressage : ${h.career.wins.Dressage}
-</div>
-
-<div class="choice">
-<b>🥇 Podiums</b><br>
-CSO : ${h.career.podiums.CSO}<br>
-CCE : ${h.career.podiums.CCE}<br>
-Dressage : ${h.career.podiums.Dressage}
-</div>
-
-<div class="choice">
-<b>💰 Gains sportifs</b><br>
-${money(h.career.earnings)}
-</div>`;
-}
-
-if(tab==="history"){
-
-body=
-h.history
-.slice()
-.reverse()
-.map(x=>
-`<div class="choice">
-<b>J${x.day}</b> · ${x.text}
-</div>`
-)
-.join("")||
-"<div class='notice'>Aucun historique.</div>";
-}
-
-open(
-"📖 Carnet de "+h.name,
-`
-<div class="tabs">${tabs}</div>
-${body}
-
-<button class="secondary"
-onclick="togglePlace('${h.id}')">
-${h.place==="box"?
-"🌳 Mettre au pré":
-"🏠 Mettre au box"}
-</button>
-
-${h.age>=20&&!h.retired?
-`<button class="secondary" onclick="retireHorse('${h.id}')">
-🛑 Mettre à la retraite
-</button>`:
-""}
-`
-);
-}
 
 function horsesPage(){
 
 page(()=>open(
 "🐎 Mes chevaux",
+
 game.horses
 .map(horseCard)
-.join("")||
+.join("")
+
+||
+
 "<div class='notice'>Aucun cheval.</div>"
+
 ));
 
 }
+
+
+/* =========================================================
+   CARNET CHEVAL
+========================================================= */
+
+function horseBook(id){
+
+let h=
+game.horses.find(
+x=>String(x.id)===String(id)
+);
+
+if(!h)return;
+
+refreshPotentialRange(h);
+
+open(
+"📖 Carnet de "+h.name,
+
+`
+
+<div class="horsePic">
+🐎
+</div>
+
+
+<div class="notice">
+
+<b>${h.race}</b>
+· ${h.age} ans
+· <b>${h.sex}</b>
+
+<br>
+
+${h.away
+?"🏆 En déplacement"
+:"🏠 "+
+(
+h.place==="box"
+?"Box"
+:"Pré"
+)}
+
+· ${money(value(h))}
+
+</div>
+
+
+<div class="sectionTitle">
+🏆 Disciplines
+</div>
+
+${stat(
+"🏇 CSO",
+h.current.CSO
+)}
+
+${stat(
+"🌳 CCE",
+h.current.CCE
+)}
+
+${stat(
+"💃 Dressage",
+h.current.Dressage
+)}
+
+
+<div class="sectionTitle">
+📊 Potentiel
+</div>
+
+${potentialRangeBlock(h)}
+
+
+${stat(
+"❤️ Santé",
+h.health
+)}
+
+${stat(
+"💪 Forme",
+h.form
+)}
+
+${stat(
+"😴 Fatigue",
+h.fatigue
+)}
+
+
+<div class="sectionTitle">
+🇫🇷 Qualification
+</div>
+
+<div class="choice">
+
+🏇 CSO :
+<b>${h.qualPoints.CSO}</b>
+pts
+
+<br>
+
+🌳 CCE :
+<b>${h.qualPoints.CCE}</b>
+pts
+
+<br>
+
+💃 Dressage :
+<b>${h.qualPoints.Dressage}</b>
+pts
+
+</div>
+
+
+<div class="sectionTitle">
+🧬 Origines
+</div>
+
+<div class="choice">
+
+<b>Père :</b>
+${h.father.name}
+
+<br>
+
+${h.father.results.join("<br>")}
+
+<br><br>
+
+<b>Mère :</b>
+${h.mother.name}
+
+<br>
+
+${h.mother.results.join("<br>")}
+
+</div>
+
+
+<div class="sectionTitle">
+📜 Résultats
+</div>
+
+${
+h.results.length
+
+?
+
+h.results
+.slice()
+.reverse()
+.map(
+x=>
+`<div class="choice">${x}</div>`
+)
+.join("")
+
+:
+
+"<div class='notice'>Aucun résultat.</div>"
+
+}
+
+
+<div class="two">
+
+<button
+class="primary"
+onclick="setRation('${h.id}')">
+
+🥕 Ration
+
+</button>
+
+<button
+class="primary"
+onclick="trainingFor('${h.id}')">
+
+🏋️ Travail
+
+</button>
+
+</div>
+
+
+<button
+class="secondary"
+onclick="togglePlace('${h.id}')">
+
+${
+h.place==="box"
+?"🌳 Mettre au pré"
+:"🏠 Mettre au box"
+}
+
+</button>
+
+`
+
+);
+
+}
+
+
+/* =========================================================
+   ENTRAÎNEMENT
+========================================================= */
 
 function trainingPage(){
 
 page(()=>open(
 "🏋️ Entraînement",
-game.horses
-.filter(h=>!h.away&&!h.retired)
-.map(h=>`
-<div class="card">
-<b>${h.name}</b><br>
-🏇 ${h.current.CSO} ·
-🌳 ${h.current.CCE} ·
-💃 ${h.current.Dressage}<br>
-💪 Forme ${h.form}% ·
-😴 Fatigue ${h.fatigue}%
 
-<button class="primary"
+game.horses
+.filter(h=>!h.away)
+.map(h=>`
+
+<div class="card">
+
+<b>${h.name}</b>
+
+<br>
+
+🏇 CSO ${h.current.CSO}
+· 🌳 CCE ${h.current.CCE}
+· 💃 Dressage ${h.current.Dressage}
+
+<button
+class="primary"
 onclick="trainingFor('${h.id}')">
+
 Choisir une discipline
+
 </button>
-</div>`
-)
-.join("")||
-"<div class='notice'>Aucun cheval disponible.</div>"
+
+</div>
+
+`)
+.join("")
+
 ));
 
 }
 
+
 function trainingFor(id){
 
-let h=game.horses.find(x=>String(x.id)===String(id));
-
-if(!h)return;
+let h=
+game.horses.find(
+x=>String(x.id)===String(id)
+);
 
 open(
 "🏋️ Travail de "+h.name,
-DISC
-.map(d=>`
+
+`
+
 <div class="choice">
 
-${d==="CSO"?"🏇":d==="CCE"?"🌳":"💃"}
+🏇 CSO —
+${h.current.CSO}/${h.potentialReal.CSO}
 
-<b>${d}</b><br>
+<button
+class="primary"
+onclick="train('${h.id}','CSO')">
 
-Niveau :
-<b>${h.current[d]}/100</b><br>
-
-Potentiel :
-${h.ranges[d][0]}–${h.ranges[d][1]}
-
-<button class="primary"
-onclick="train('${h.id}','${d}')">
 Entraîner
+
 </button>
 
-</div>`
-)
-.join("")
+</div>
+
+
+<div class="choice">
+
+🌳 CCE —
+${h.current.CCE}/${h.potentialReal.CCE}
+
+<button
+class="primary"
+onclick="train('${h.id}','CCE')">
+
+Entraîner
+
+</button>
+
+</div>
+
+
+<div class="choice">
+
+💃 Dressage —
+${h.current.Dressage}/${h.potentialReal.Dressage}
+
+<button
+class="primary"
+onclick="train('${h.id}','Dressage')">
+
+Entraîner
+
+</button>
+
+</div>
+
+`
+
 );
 
 }
 
+
 function train(id,d){
 
-let h=game.horses.find(x=>String(x.id)===String(id));
+let h=
+game.horses.find(
+x=>String(x.id)===String(id)
+);
 
 if(!h)return;
 
-if(h.retired){
-open("🛑","Ce cheval est à la retraite.");
-return;
-}
-
-if(h.injuries.some(i=>i.active)){
-open("🩹","Impossible de travailler : le cheval est blessé.");
-return;
-}
-
 if(h.fatigue>=75){
-open("😴","Cheval trop fatigué.");
-return;
-}
 
-let mentalFactor=
-h.character.concentration>=75?1.2:
-h.character.concentration>=55?1:
-.8;
+open(
+"😴",
+"Cheval trop fatigué."
+);
+
+return;
+
+}
 
 let gain=Math.max(
 1,
 Math.round(
-(1+h.experience[d]/45)*mentalFactor
+1+h.experience[d]/45
 )
 );
 
 h.current[d]=clamp(
 h.current[d]+gain,
 0,
-h.potential[d]
+h.potentialReal[d]
 );
 
 h.experience[d]=clamp(
@@ -1419,193 +2469,325 @@ h.experience[d]+2,
 100
 );
 
-h.regularity[d]=clamp(
-h.regularity[d]+1,
+h.form=clamp(
+h.form+3,
 0,
 100
 );
 
-h.form=clamp(h.form+3,0,100);
-h.fatigue=clamp(h.fatigue+14,0,100);
-
-historyEvent(
-h,
-`Séance de travail en ${d} : +${gain} niveau.`
+h.fatigue=clamp(
+h.fatigue+14,
+0,
+100
 );
 
 save();
-horseBook(id,"train");
+
+horseBook(id);
+
 }
 
-function competitionSetup(){
+
+/* =========================================================
+   CONCOURS
+========================================================= */
+
+const EVENTS=[
+
+{
+id:1,
+city:"Tours",
+region:"Centre",
+x:"50%",
+y:"49%",
+discipline:"CSO",
+days:1,
+level:"Club",
+places:58
+},
+
+{
+id:2,
+city:"Saumur",
+region:"Ouest",
+x:"42%",
+y:"54%",
+discipline:"CCE",
+days:3,
+level:"Amateur",
+places:73
+},
+
+{
+id:3,
+city:"Fontainebleau",
+region:"Île-de-France",
+x:"57%",
+y:"39%",
+discipline:"Dressage",
+days:2,
+level:"National",
+places:62
+},
+
+{
+id:4,
+city:"Deauville",
+region:"Normandie",
+x:"39%",
+y:"27%",
+discipline:"CSO",
+days:3,
+level:"Amateur",
+places:81
+},
+
+{
+id:5,
+city:"Lille",
+region:"Hauts-de-France",
+x:"58%",
+y:"13%",
+discipline:"CCE",
+days:2,
+level:"Club",
+places:64
+},
+
+{
+id:6,
+city:"Rennes",
+region:"Bretagne",
+x:"28%",
+y:"39%",
+discipline:"Dressage",
+days:1,
+level:"Club",
+places:45
+},
+
+{
+id:7,
+city:"Nantes",
+region:"Pays de la Loire",
+x:"33%",
+y:"48%",
+discipline:"CSO",
+days:2,
+level:"Amateur",
+places:76
+},
+
+{
+id:8,
+city:"Bordeaux",
+region:"Nouvelle-Aquitaine",
+x:"29%",
+y:"76%",
+discipline:"CCE",
+days:3,
+level:"National",
+places:92
+},
+
+{
+id:9,
+city:"Pau",
+region:"Nouvelle-Aquitaine",
+x:"30%",
+y:"91%",
+discipline:"CSO",
+days:1,
+level:"National",
+places:67
+},
+
+{
+id:10,
+city:"Toulouse",
+region:"Occitanie",
+x:"48%",
+y:"88%",
+discipline:"Dressage",
+days:2,
+level:"Amateur",
+places:55
+},
+
+{
+id:11,
+city:"Lyon",
+region:"Auvergne-Rhône-Alpes",
+x:"69%",
+y:"72%",
+discipline:"CSO",
+days:3,
+level:"National",
+places:88
+},
+
+{
+id:12,
+city:"Avignon",
+region:"PACA",
+x:"76%",
+y:"88%",
+discipline:"CCE",
+days:2,
+level:"Amateur",
+places:71
+},
+
+{
+id:13,
+city:"Dijon",
+region:"Bourgogne",
+x:"67%",
+y:"52%",
+discipline:"Dressage",
+days:1,
+level:"Club",
+places:49
+},
+
+{
+id:14,
+city:"Strasbourg",
+region:"Grand Est",
+x:"86%",
+y:"34%",
+discipline:"CSO",
+days:3,
+level:"Amateur",
+places:83
+}
+
+];
+
+let selectedEvent=null;
+
+let selectedHorses=[];
+
+let trip={
+event:null,
+day:0,
+remaining:0,
+stableHorses:[],
+travelHorses:[],
+palefrenier:false
+};
+
+
+function competitionMap(){
 
 page(()=>open(
-"🏆 Préparer un concours",
+"🗺️ Carte des concours",
+
 `
+
 <div class="notice">
-Choisis d'abord la <b>discipline</b> puis le <b>niveau</b>.
-</div>
 
-<div class="choice">
-<b>1. Discipline</b>
+🏆 Choisis un concours disponible.
 
-<div class="three">
+<br>
 
-<button class="secondary"
-onclick="chooseCompDis('CSO')">
-🏇 CSO
-</button>
+Les concours durent de
+<b>1 à 3 jours</b>.
 
-<button class="secondary"
-onclick="chooseCompDis('CCE')">
-🌳 CCE
-</button>
+<br>
 
-<button class="secondary"
-onclick="chooseCompDis('Dressage')">
-💃 Dressage
-</button>
+Chaque journée correspond à une
+<b>épreuve indépendante</b>.
 
 </div>
-</div>
 
-<div id="compLevelBox"></div>
-`
-));
 
-}
+<div class="map">
 
-function chooseCompDis(d){
+${EVENTS.map(e=>
 
-window.compDis=d;
-
-let box=$("compLevelBox");
-
-box.innerHTML=`
-<div class="choice">
-<b>2. Niveau</b>
-
-<div class="three">
-
-<button class="secondary"
-onclick="showCompMap('Club')">
-🟢 Club
-</button>
-
-<button class="secondary"
-onclick="showCompMap('Amateur')">
-🔵 Amateur
-</button>
-
-<button class="secondary"
-onclick="showCompMap('National')">
-🔴 National
-</button>
-
-</div>
-</div>`;
-}
-
-function showCompMap(level){
-
-window.compLevel=level;
-
-let list=EVENTS.filter(
-e=>e.discipline===window.compDis&&e.level===level
-);
-
-page(()=>open(
-`🗺️ ${window.compDis} · ${level}`,
-`
-<div class="notice">
-${list.length} concours correspondant à tes critères.<br>
-🏆 Un cheval ne peut faire qu'un concours sur une période de 7 jours.
-</div>
-
-<div class="cleanMap">
-
-<svg viewBox="0 0 430 360" aria-hidden="true">
-
-<path
-d="M78 55 L125 28 L185 36 L220 22 L285 42 L345 38 L377 82 L365 125 L390 165 L355 196 L365 235 L328 274 L285 292 L246 326 L205 308 L165 322 L128 294 L91 302 L61 268 L69 226 L43 190 L55 151 L35 118 L61 92Z"
-fill="#d5e4cc"
-stroke="#789176"
-stroke-width="3"/>
-
-<path
-d="M88 72 L145 58 M210 50 L310 75 M92 155 L200 160 M218 115 L345 145 M120 235 L270 215 M255 290 L335 240"
-stroke="#a7b89e"
-stroke-width="2"
-fill="none"/>
-
-</svg>
-
-${list.map(e=>`
-<button
-class="mapPin"
-style="left:${e.x}%;top:${e.y}%"
+`<button
+class="pin"
+style="left:${e.x};top:${e.y}"
 onclick="eventDetails(${e.id})">
+
 🏆
+
 <span>${e.city}</span>
-</button>
-`).join("")}
+
+</button>`
+
+).join("")}
 
 </div>
 
-${list.map(e=>`
-<div class="choice eventRow">
-
-<span>
-<b>${e.city}</b><br>
-<span class="small">
-${e.days} jour${e.days>1?"s":""}
-· ${e.places} places
-· J+${e.dateOffset}
-</span>
-</span>
-
-<button
-class="secondary"
-style="width:auto"
-onclick="eventDetails(${e.id})">
-Voir
-</button>
-
-</div>
-`).join("")||
-"<div class='notice'>Aucun concours avec ces critères.</div>"}
 `
+
 ));
 
 }
+
 
 function eventDetails(id){
 
-selectedEvent=EVENTS.find(e=>e.id===id);
+selectedEvent=
+EVENTS.find(
+e=>e.id===id
+);
 
 let e=selectedEvent;
 
-let engagement=
-e.level==="Club"?250:
-e.level==="Amateur"?600:
-1500;
-
 open(
 "🏆 "+e.city,
+
 `
+
 <div class="notice">
 
-📍 ${e.region}<br>
-🏇 ${e.discipline} · ${e.level}<br>
-📅 ${e.days} jour${e.days>1?"s":""}<br>
-👥 ${e.places} partants maximum<br>
-💰 Engagement : ${engagement} €
+📍 ${e.region}
+
+<br>
+
+🏇 Discipline :
+<b>${e.discipline}</b>
+
+<br>
+
+🏅 Niveau :
+<b>${e.level}</b>
+
+<br>
+
+📅 Durée :
+<b>
+${e.days}
+jour${e.days>1?"s":""}
+</b>
+
+<br>
+
+👥 ${e.places}
+partants maximum
+
+<br>
+
+💰 Engagement :
+${
+e.level==="Club"
+?250
+:e.level==="Amateur"
+?600
+:1500
+} €
 
 </div>
 
+
 <div class="choice">
 
-<b>Programme</b><br>
+<b>Programme</b>
+
+<br>
 
 ${Array.from(
 {length:e.days},
@@ -1615,14 +2797,21 @@ ${Array.from(
 
 </div>
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="chooseCompetitionHorses()">
+
 🐴 Choisir les chevaux
+
 </button>
+
 `
+
 );
 
 }
+
 
 function chooseCompetitionHorses(){
 
@@ -1632,19 +2821,28 @@ selectedHorses=[];
 
 open(
 "🐴 Choisir les chevaux",
+
 `
+
 <div class="notice">
 
 🚚 Camion :
-<b>${game.truckCapacity} places</b><br>
+<b>${game.truckCapacity} places</b>
+
+<br>
 
 Sélectionnés :
-<b id="selectedCount">0</b>/${game.truckCapacity}
+<b id="selectedCount">0</b>
+/
+${game.truckCapacity}
 
 </div>
 
+
 ${game.horses
-.filter(h=>!h.away&&!h.retired)
+.filter(
+h=>!h.away&&!h.retired
+)
 .map(h=>`
 
 <div class="choice">
@@ -1653,7 +2851,7 @@ ${game.horses
 
 <input
 type="checkbox"
-class="horseCheck check"
+class="horseCheck"
 value="${h.id}"
 onchange="updateSelection()">
 
@@ -1663,73 +2861,86 @@ onchange="updateSelection()">
 
 <br>
 
-${h.sex} · ${h.race}<br>
+${h.sex}
+· ${h.race}
+
+<br>
 
 ${
-e.discipline==="CSO"?
-"🏇":
-e.discipline==="CCE"?
-"🌳":
-"💃"
+e.discipline==="CSO"
+?"🏇"
+:e.discipline==="CCE"
+?"🌳"
+:"💃"
 }
 
-Niveau :
+Niveau
 ${h.current[e.discipline]}/100
 
 <br>
 
 ${
-canCompete(h,e)?
-"✅ Disponible":
-"❌ Indisponible cette semaine"
+canCompete(h,e)
+?"✅ Disponible"
+:"❌ Indisponible cette semaine"
 }
 
 </div>
 
-`).join("")}
+`)
+.join("")}
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="prepareTrip()">
+
 🚚 Préparer le départ
+
 </button>
+
 `
+
 );
 
 }
 
+
 function canCompete(h,e){
 
-return
-game.day-h.lastCompetitionDay>=7&&
-!h.away&&
-!h.retired&&
-!h.injuries.some(i=>i.active)&&
-h.current[e.discipline]>0;
+return(
+game.day-h.lastCompetitionDay>=7 &&
+!h.away &&
+!h.retired &&
+h.current[e.discipline]>0
+);
+
 }
+
 
 function updateSelection(){
 
 let checks=[
-...document.querySelectorAll(".horseCheck:checked")
+...document.querySelectorAll(
+".horseCheck:checked"
+)
 ];
 
-if(checks.length>game.truckCapacity){
-
-checks[checks.length-1].checked=false;
-
-return updateSelection();
-}
-
 selectedHorses=
-checks.map(x=>x.value);
+checks.map(
+x=>x.value
+);
 
 $("selectedCount").textContent=
 selectedHorses.length;
+
 }
+
 
 function prepareTrip(){
 
 let e=selectedEvent;
+
 let ids=selectedHorses;
 
 if(!ids.length){
@@ -1740,55 +2951,99 @@ open(
 );
 
 return;
+
+}
+
+if(ids.length>game.truckCapacity){
+
+open(
+"🚚",
+"Le camion n'a pas assez de places."
+);
+
+return;
+
 }
 
 let horses=
-ids.map(id=>
-game.horses.find(
+ids.map(
+id=>game.horses.find(
 h=>String(h.id)===String(id)
 )
 );
 
-if(horses.some(h=>!canCompete(h,e))){
+let unavailable=
+horses.filter(
+h=>!canCompete(h,e)
+);
+
+if(unavailable.length){
 
 open(
 "❌",
-"Un cheval sélectionné est indisponible cette semaine ou blessé."
+"Au moins un cheval ne peut pas participer : il a déjà fait un concours cette semaine."
 );
 
 return;
+
 }
 
 let stable=
 game.horses.filter(
-h=>!h.away&&!ids.includes(String(h.id))
+h=>!h.away &&
+!ids.includes(
+String(h.id)
+)
 );
 
 trip={
+
 event:e,
+
 day:0,
+
 remaining:e.days,
-stableHorses:stable.map(h=>h.id),
-travelHorses:horses.map(h=>h.id),
-palefrenier:false,
-palefrenierCost:0
+
+stableHorses:
+stable.map(
+h=>h.id
+),
+
+travelHorses:
+horses.map(
+h=>h.id
+),
+
+palefrenier:false
+
 };
 
 let need=
-stable.length>0&&e.days>1;
+stable.length>0 &&
+e.days>1;
 
 open(
 "🚚 Préparation du départ",
+
 `
+
 <div class="notice">
 
-🏆 ${e.city}<br>
-📅 ${e.days} jour${e.days>1?"s":""}<br>
+🏆 ${e.city}
+
+<br>
+
+📅 ${e.days}
+jour${e.days>1?"s":""}
+
+<br>
+
 🐴 ${horses.length}
 cheval${horses.length>1?"ux":""}
 embarqué${horses.length>1?"s":""}
 
 </div>
+
 
 <div class="choice">
 
@@ -1797,58 +3052,79 @@ embarqué${horses.length>1?"s":""}
 
 </div>
 
+
 ${
-need?
+need
+
+?
+
 `
+
 <div class="notice alert">
 
-👨‍🌾 Palefrenier obligatoire pendant l'absence.<br>
+👨‍🌾 Un palefrenier est obligatoire pendant votre absence.
 
-Coût :
-<b>${palefrenierCost(
+<br>
+
+Coût estimé :
+<b>
+${palefrenierCost(
 stable.length,
 e.days
-)} €</b>
+)} €
+</b>
 
 </div>
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="hirePalefrenier()">
+
 👨‍🌾 Engager le palefrenier
+
 </button>
 
-${
-trip.palefrenier?
-`<div class="notice good">
-Palefrenier déjà engagé.
-</div>`:
-""
-}
-
-`:
 `
+
+:
+
+`
+
 <div class="notice good">
-Aucun palefrenier nécessaire.
+
+Aucun palefrenier nécessaire pour ce déplacement.
+
 </div>
+
 `
 }
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="startTrip()">
+
 🚚 Partir
+
 </button>
+
 `
+
 );
 
 }
 
+
 function palefrenierCost(n,d){
-return 80*d+25*n*d;
+
+return 80*d+
+25*n*d;
+
 }
 
-function hirePalefrenier(){
 
-if(!trip)return;
+function hirePalefrenier(){
 
 let cost=
 palefrenierCost(
@@ -1856,115 +3132,127 @@ trip.stableHorses.length,
 trip.event.days
 );
 
-if(trip.palefrenier){
-
-open(
-"👨‍🌾",
-"Le palefrenier est déjà engagé."
-);
-
-return;
-}
-
 if(game.money<cost){
 
 open(
 "💸",
-"Pas assez d'argent."
+"Pas assez d'argent pour engager le palefrenier."
 );
 
 return;
+
 }
 
 game.money-=cost;
 
 trip.palefrenier=true;
-trip.palefrenierCost=cost;
 
 save();
 
 prepareTrip();
+
 }
+
 
 function startTrip(){
 
 if(
-trip.event.days>1&&
-trip.stableHorses.length&&
+trip.event.days>1 &&
+trip.stableHorses.length &&
 !trip.palefrenier
 ){
 
 open(
 "👨‍🌾",
-"Engage le palefrenier avant de partir."
+"Tu dois engager un palefrenier avant de partir."
 );
 
 return;
+
 }
 
-trip.travelHorses.forEach(id=>{
+trip.travelHorses.forEach(
+id=>{
 
-let h=game.horses.find(
+let h=
+game.horses.find(
 x=>String(x.id)===String(id)
 );
 
 if(h)
+
 h.away=true;
 
 });
 
 runCompetitionDay();
+
 }
 
-function competitionScore(h,d,level){
+
+/* =========================================================
+   SCORE CONCOURS
+========================================================= */
+
+function competitionScore(
+h,
+d,
+level
+){
 
 let diff=
-level==="Club"?0:
-level==="Amateur"?8:
-16;
+level==="Club"
+?0
+:level==="Amateur"
+?10
+:20;
 
-let mental=
-h.character.mental*.06+
-h.character.calm*.025+
-h.character.courage*.025+
-h.character.concentration*.05;
+return(
 
-let condition=
-h.form*.08-
-h.fatigue*.11+
-h.health*.04;
-
-let sport=
 h.current[d]*.50+
-h.potential[d]*.12+
+
+h.potentialReal[d]*.15+
+
 h.experience[d]*.12+
-h.regularity[d]*.10;
 
-let random=Math.random()*18-9;
+h.mental*.08+
 
-return sport+
-mental+
-condition+
-random-
-diff;
+h.regularity[d]*.10+
+
+h.form*.05-
+
+h.fatigue*.10+
+
+Math.random()*18-9-
+
+diff
+
+);
+
 }
+
 
 function runCompetitionDay(){
 
 let e=trip.event;
 
 trip.day++;
+
 trip.remaining--;
 
 let results=[];
 
-trip.travelHorses.forEach(id=>{
+game.horses
 
-let h=game.horses.find(
-x=>String(x.id)===String(id)
-);
+.filter(
+h=>
+trip.travelHorses
+.includes(
+String(h.id)
+)
+)
 
-if(!h)return;
+.forEach(h=>{
 
 let score=
 competitionScore(
@@ -1979,10 +3267,13 @@ for(
 let i=0;
 i<e.places-1;
 i++
-)
+){
+
 competitors.push(
 Math.random()*100
 );
+
+}
 
 let rank=
 1+
@@ -1990,70 +3281,61 @@ competitors.filter(
 x=>x>score
 ).length;
 
-rank=clamp(
+rank=
+clamp(
 rank,
 1,
 e.places
 );
 
 let penalties=0;
+
 let summary="";
+
 
 if(e.discipline==="CSO"){
 
-let obstacles=
-rand(10,14);
-
 let bars=
-chance(.18+
-h.fatigue/400)?
-rand(1,2):
-0;
+Math.random()<.25
+?1+
+Math.floor(
+Math.random()*2
+)
+:0;
 
-let refusals=
-chance(
-.06+
-(100-h.character.courage)/1000
-)?
-1:
-0;
+let refus=
+Math.random()<.10
+?1
+:0;
 
-let timeFault=
-chance(.14+
-h.fatigue/500)?
-rand(1,3):
-0;
+let time=
+Math.random()<.18
+?1
+:0;
 
 penalties=
 bars*4+
-refusals*4+
-timeFault;
-
-let time=
-clamp(
-70+
-Math.random()*18+
-h.fatigue*.08-
-h.character.concentration*.03,
-58,
-100
-);
+refus*4+
+time;
 
 summary=
-`${obstacles} obstacles · ${bars} barre(s) · ${refusals} refus · ${timeFault} pt(s) temps · chrono ${time.toFixed(2)} s`;
+`${bars} barre(s), ${refus} refus, ${
+time
+?"temps dépassé"
+:"temps correct"
+}`;
 
 }
 
-else if(e.discipline==="Dressage"){
+
+if(e.discipline==="Dressage"){
 
 let percent=
 clamp(
 50+
 h.current.Dressage*.38+
-h.character.concentration*.08+
-h.character.calm*.05+
-Math.random()*8-
-h.fatigue*.04,
+h.mental*.08+
+Math.random()*8,
 45,
 85
 );
@@ -2064,33 +3346,31 @@ Math.round(
 )/10;
 
 summary=
-`Moyenne ${percent.toFixed(2)} %`;
+`Moyenne ${percent.toFixed(3)} %`;
 
 }
 
-else{
+
+if(e.discipline==="CCE"){
 
 let dress=
 clamp(
 50+
 h.current.CCE*.35+
-h.character.concentration*.05+
-Math.random()*10-
-h.fatigue*.04,
+Math.random()*10,
 45,
 82
 );
 
 let cross=
-rand(0,11);
+Math.floor(
+Math.random()*12
+);
 
 let cso=
-chance(
-.20+
-(100-h.character.courage)/500
-)?
-4:
-0;
+Math.random()<.3
+?4
+:0;
 
 penalties=
 Math.round(
@@ -2100,21 +3380,26 @@ cso
 );
 
 summary=
-`Dressage ${dress.toFixed(2)} % · cross +${cross} · CSO +${cso}`;
+`Dressage ${dress.toFixed(2)} %, cross +${cross}, CSO +${cso}`;
+
 }
+
 
 let points=
 qualificationPoints(
 rank,
 e.places,
-penalties
+penalties,
+e.discipline
 );
 
-h.qualPoints[e.discipline]+=points;
+h.qualPoints[e.discipline]+=
+points;
 
 h.courses[e.discipline]++;
 
-h.lastCompetitionDay=game.day;
+h.lastCompetitionDay=
+game.day;
 
 h.experience[e.discipline]=
 clamp(
@@ -2123,101 +3408,39 @@ h.experience[e.discipline]+3,
 100
 );
 
+let fatigue=
+e.days===1
+?25
+:18;
+
 h.fatigue=
 clamp(
-h.fatigue+28,
+h.fatigue+fatigue,
 0,
 100
 );
-
-h.form=
-clamp(
-h.form-8,
-0,
-100
-);
-
-if(rank===1){
-
-h.career.wins[e.discipline]++;
-
-h.career.earnings+=
-e.level==="Club"?250:
-e.level==="Amateur"?600:
-1500;
-
-game.money+=
-e.level==="Club"?250:
-e.level==="Amateur"?600:
-1500;
-
-}
-
-if(rank<=3){
-
-h.career.podiums[e.discipline]++;
-}
-
-if(
-!h.career.bestRank[e.discipline]||
-rank<h.career.bestRank[e.discipline]
-){
-
-h.career.bestRank[e.discipline]=rank;
-}
-
-let injuryChance=
-.025+
-h.fatigue/900+
-(100-h.health)/1200+
-(h.age>=14?.02:0);
-
-if(chance(injuryChance)){
-
-let injuryTypes=[
-"petite lésion musculaire",
-"tendinite légère",
-"contusion",
-"douleur dorsale",
-"petit problème de pied"
-];
-
-let injury=
-injuryTypes[
-rand(0,injuryTypes.length-1)
-];
-
-let duration=rand(5,14);
-
-h.injuries.push({
-type:injury,
-active:true,
-until:game.day+duration
-});
-
-historyEvent(
-h,
-`Blessure après concours : ${injury}. Repos ${duration} jours.`
-);
-}
 
 let result=
-`J${dateDay()} · ${e.city} · ${e.discipline} ${e.level} · ${rank}e/${e.places} · ${summary} · +${points} pts`;
+`${dateDay()} · ${e.city} · ${e.discipline} ${e.level} · ${rank}e/${e.places} · ${summary} · +${points} pts`;
 
-h.results.push(result);
-
-historyEvent(
-h,
-`Concours à ${e.city} : ${rank}e/${e.places}, ${e.discipline}, +${points} points de qualification.`
+h.results.push(
+result
 );
 
 results.push({
+
 name:h.name,
-rank,
+
+rank:rank,
+
 places:e.places,
-penalties,
-points,
-summary
+
+penalties:penalties,
+
+points:points,
+
+summary:summary
+
 });
 
 });
@@ -2225,233 +3448,345 @@ summary
 save();
 
 showDayResults(results);
+
 }
 
-function qualificationPoints(rank,total,penalties){
 
-let q=Math.ceil(total*.25);
+function qualificationPoints(
+rank,
+total,
+penalties,
+d
+){
 
-if(rank<=q)
-return penalties===0?10:5;
+let firstQuarter=
+Math.ceil(
+total*.25
+);
 
-if(rank<=Math.ceil(total*.5))
+let secondQuarter=
+Math.ceil(
+total*.50
+);
+
+let thirdQuarter=
+Math.ceil(
+total*.75
+);
+
+if(rank<=firstQuarter){
+
+if(penalties===0)
+
+return 10;
+
+return 5;
+
+}
+
+if(rank<=secondQuarter)
+
 return 3;
 
-if(rank<=Math.ceil(total*.75))
+if(rank<=thirdQuarter)
+
 return 1;
 
 return 0;
+
 }
+
+
+/* =========================================================
+   RESULTATS CONCOURS
+========================================================= */
 
 function showDayResults(results){
 
 let e=trip.event;
 
 let html=`
+
 <div class="notice">
 
-📍 ${e.city}<br>
-🏆 ${e.discipline} — ${e.level}<br>
-📅 Épreuve ${trip.day}/${e.days}
+📍 ${e.city}
+
+<br>
+
+🏆 ${e.discipline}
+— ${e.level}
+
+<br>
+
+📅 Épreuve
+${trip.day}/${e.days}
 
 </div>
+
 `;
+
 
 results.forEach(r=>{
 
 html+=`
-<div class="card ${
-r.rank<=3?
-"resultGood":
-""
-}">
+
+<div class="card">
 
 <div class="rank">
 
-${r.rank===1?
-"🥇":
-r.rank===2?
-"🥈":
-r.rank===3?
-"🥉":
-"🏅"}
+${
+r.rank===1
+?"🥇"
+:r.rank===2
+?"🥈"
+:r.rank===3
+?"🥉"
+:"🏅"
+}
 
 <br>
 
-${r.rank}e / ${r.places}
+${r.rank}e /
+${r.places}
 
 </div>
 
-<b>${r.name}</b><br>
+<b>${r.name}</b>
 
-${r.summary}<br>
+<br>
 
-🎯
-<b>${r.penalties}</b>
-point(s) de pénalité<br>
+${r.summary}
+
+<br>
+
+🎯 ${r.penalties}
+point(s) de pénalité
+
+<br>
 
 🇫🇷
-<b>+${r.points}
-point(s) qualification</b>
+<b>
++${r.points}
+point(s) qualification
+</b>
 
 </div>
+
 `;
 
 });
 
-html+=
-trip.remaining>0?
-`
-<button class="primary"
+
+if(trip.remaining>0){
+
+html+=`
+
+<button
+class="primary"
 onclick="nextCompetitionDay()">
-📅 Passer à l'épreuve suivante
+
+📅 Passer à l'épreuve du jour suivant
+
 </button>
-`:
-`
-<button class="primary"
-onclick="finishTrip()">
-🏠 Terminer le concours et rentrer
-</button>
+
 `;
+
+}else{
+
+html+=`
+
+<button
+class="primary"
+onclick="finishTrip()">
+
+🏠 Terminer le concours et rentrer
+
+</button>
+
+`;
+
+}
 
 open(
 "🏆 Résultats",
 html,
 false
 );
+
 }
+
 
 function nextCompetitionDay(){
 
 game.day++;
 
-game.horses.forEach(h=>{
+game.horses.forEach(
+h=>{
 
 if(h.away){
 
 h.fatigue=
 clamp(
-h.fatigue-4,
+h.fatigue-8,
 0,
 100
 );
 
 }
 
-});
+}
+);
 
 save();
 
 runCompetitionDay();
+
 }
+
 
 function finishTrip(){
 
-trip.travelHorses.forEach(id=>{
+trip.travelHorses.forEach(
+id=>{
 
-let h=game.horses.find(
+let h=
+game.horses.find(
 x=>String(x.id)===String(id)
 );
 
 if(h)
+
 h.away=false;
 
-});
+}
+);
 
-trip=null;
+trip={
+
+event:null,
+
+day:0,
+
+remaining:0,
+
+stableHorses:[],
+
+travelHorses:[],
+
+palefrenier:false
+
+};
 
 save();
 
 open(
 "🏠 Retour à l'écurie",
+
 `
+
 <div class="notice good">
 
-🏠 Les chevaux sont revenus à l'écurie.<br>
+🏠 Les chevaux sont revenus à l'écurie.
 
-📖 Résultats enregistrés dans leur carnet.
+<br>
+
+📖 Tous les résultats ont été enregistrés dans leur carnet.
 
 </div>
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="horsesPage()">
+
 🐴 Voir mes chevaux
+
 </button>
+
 `,
 false
 );
+
 }
+
+
+/* =========================================================
+   CHAMPIONNATS
+========================================================= */
 
 function championshipPage(){
 
 page(()=>open(
 "🇫🇷 Championnats de France",
+
 `
+
 <div class="notice">
 
-📅 Saison :
-automne → fin juillet<br>
+📅 Qualifications :
+automne → fin juillet
+
+<br>
 
 🇫🇷 Championnats de France :
-août.
-
-<br><br>
-
-Un cheval doit avoir obtenu
-<b>20 points</b> dans une discipline
-pour être éligible.
+<b>août</b>
 
 </div>
 
-${game.horses.map(h=>`
+
+${game.horses.map(
+h=>`
 
 <div class="card">
 
-<b>${h.name}</b><br>
+<b>${h.name}</b>
+
+<br>
 
 🏇 CSO :
-${h.qualPoints.CSO} pts
+<b>${h.qualPoints.CSO}</b>
+pts
 
 <br>
 
 🌳 CCE :
-${h.qualPoints.CCE} pts
+<b>${h.qualPoints.CCE}</b>
+pts
 
 <br>
 
 💃 Dressage :
-${h.qualPoints.Dressage} pts
-
-<br>
-
-${
-h.qualPoints.CSO>=20||
-h.qualPoints.CCE>=20||
-h.qualPoints.Dressage>=20?
-"🇫🇷 <b>QUALIFIÉ</b>":
-"❌ Non qualifié"
-}
+<b>${h.qualPoints.Dressage}</b>
+pts
 
 </div>
 
-`).join("")}
-
-<button class="primary"
-onclick="runChampionships()">
-🇫🇷 Participer aux Championnats
-</button>
 `
+).join("")}
+
+
+<button
+class="primary"
+onclick="runChampionships()">
+
+🇫🇷 Participer aux Championnats
+
+</button>
+
+`
+
 ));
 
 }
+
 
 function runChampionships(){
 
 let eligible=
 game.horses.filter(
 h=>
-h.qualPoints.CSO>=20||
-h.qualPoints.CCE>=20||
+h.qualPoints.CSO>=20 ||
+h.qualPoints.CCE>=20 ||
 h.qualPoints.Dressage>=20
 );
 
@@ -2459,202 +3794,183 @@ if(!eligible.length){
 
 open(
 "🇫🇷",
-"Aucun cheval qualifié."
+"Aucun cheval qualifié pour le moment."
 );
 
 return;
+
 }
-
-let html=`
-<div class="notice">
-Sélectionne le cheval qui participera.
-</div>
-`;
-
-eligible.forEach(h=>{
-
-let disciplines=[];
-
-DISC.forEach(d=>{
-if(h.qualPoints[d]>=20)
-disciplines.push(d);
-});
-
-html+=`
-<div class="card">
-
-<b>${h.name}</b><br>
-
-${disciplines
-.map(d=>
-`<button class="secondary"
-onclick="championshipResult('${h.id}','${d}')">
-🇫🇷 ${d}
-</button>`
-)
-.join("")}
-
-</div>
-`;
-
-});
-
-open(
-"🇫🇷 Championnats",
-html
-);
-}
-
-function championshipResult(id,d){
 
 let h=
-game.horses.find(
-x=>String(x.id)===String(id)
+eligible[
+Math.floor(
+Math.random()*eligible.length
+)
+];
+
+let d=
+
+h.qualPoints.CSO>=
+Math.max(
+h.qualPoints.CCE,
+h.qualPoints.Dressage
+)
+
+?"CSO"
+
+:h.qualPoints.CCE>=
+h.qualPoints.Dressage
+
+?"CCE"
+
+:"Dressage";
+
+let total=
+50+
+Math.floor(
+Math.random()*51
 );
-
-if(!h)return;
-
-let total=rand(50,100);
-
-let base=
-h.current[d]*.45+
-h.potential[d]*.15+
-h.experience[d]*.10+
-h.character.mental*.08+
-h.character.concentration*.08+
-h.regularity[d]*.08+
-h.form*.06;
 
 let rank=
-clamp(
-Math.round(
-total-
-base*.35+
-rand(-15,15)
-),
-1,
-total
+1+
+Math.floor(
+Math.random()*total
 );
-
-let gain=
-rank<=3?
-1500:
-rank<=10?
-800:
-300;
-
-game.money+=gain;
-
-h.career.earnings+=gain;
 
 h.results.push(
-`Août · Championnat de France ${d} · ${rank}e/${total} · gain ${money(gain)}`
-);
-
-historyEvent(
-h,
-`Championnat de France ${d} : ${rank}e/${total}. Gain ${money(gain)}.`
+`Août · Championnat de France ${d} · ${rank}e/${total}`
 );
 
 save();
 
 open(
-"🇫🇷 Résultat",
+"🇫🇷 Championnats de France",
+
 `
+
 <div class="rank">
 
-${rank===1?
-"🥇":
-rank===2?
-"🥈":
-rank===3?
-"🥉":
-"🏅"}
+${
+rank===1
+?"🥇"
+:rank===2
+?"🥈"
+:rank===3
+?"🥉"
+:"🏅"
+}
 
 <br>
 
-${rank}e / ${total}
+${rank}e /
+${total}
 
 </div>
+
 
 <div class="notice good">
 
-<b>${h.name}</b><br>
+<b>${h.name}</b>
 
-${d}<br>
+<br>
 
-Championnat de France terminé.<br>
+Discipline :
+${d}
 
-💰 Gain :
-<b>${money(gain)}</b>
+<br>
+
+🇫🇷 Championnat de France terminé.
 
 </div>
+
 `,
 false
 );
+
 }
+
+
+/* =========================================================
+   REPRODUCTION
+========================================================= */
 
 function breedingPage(){
 
 let females=
 game.horses.filter(
 h=>
-h.sex==="Jument"&&
-h.age>=4&&
-h.age<=18&&
-!h.retired&&
+h.sex==="Jument" &&
+h.age>=4 &&
+h.age<=18 &&
+!h.retired &&
 !h.away
 );
 
 page(()=>open(
 "❤️‍🔥 Reproduction",
+
 `
+
 <div class="notice">
 
-Gestation :
-<b>11 mois</b>.<br>
+Une gestation dure 11 mois.
 
-Le prénom est choisi
-<b>uniquement à la naissance</b>.
+<br>
+
+Le prénom est choisi uniquement à la naissance.
 
 </div>
 
-${
-females.map(h=>`
+
+${females.map(
+h=>`
 
 <div class="card">
 
 <b>${h.name}</b>
 · ${h.race}
 
-<button class="primary"
+<button
+class="primary"
 onclick="chooseStallion('${h.id}')">
+
 ❤️‍🔥 Choisir un étalon
+
 </button>
 
 </div>
 
-`).join("")||
-"<div class='notice'>Aucune jument disponible.</div>"
-}
 `
+).join("")
+
+||
+
+"<div class='notice'>Aucune jument disponible.</div>"
+
+}
+
+`
+
 ));
 
 }
+
 
 function chooseStallion(mid){
 
 let stallions=
 game.horses.filter(
 h=>
-h.sex==="Entier"&&
-!h.retired&&
+h.sex==="Entier" &&
+!h.retired &&
 !h.away
 );
 
 open(
 "🐎 Choisir l'étalon",
-stallions.map(h=>`
+
+stallions.map(
+h=>`
 
 <div class="card">
 
@@ -2662,21 +3978,27 @@ stallions.map(h=>`
 · ${h.race}
 · ${h.sex}
 
-<br>
-
-${potentialHTML(h)}
-
-<button class="primary"
+<button
+class="primary"
 onclick="createFoal('${mid}','${h.id}')">
+
 Choisir
+
 </button>
 
 </div>
 
-`).join("")||
+`
+).join("")
+
+||
+
 "<div class='notice'>Aucun entier disponible.</div>"
+
 );
+
 }
+
 
 function createFoal(mid,fid){
 
@@ -2690,6 +4012,8 @@ game.horses.find(
 h=>String(h.id)===String(fid)
 );
 
+if(!m||!f)return;
+
 if(game.money<1000){
 
 open(
@@ -2698,53 +4022,66 @@ open(
 );
 
 return;
+
 }
 
 game.money-=1000;
 
 let race=
-m.race===f.race?
-m.race:
-"OC";
+m.race===f.race
+?m.race
+:"OC";
 
 let p={
+
 CSO:clamp(
 Math.round(
-(m.potential.CSO+f.potential.CSO)/2+
-rand(-14,14)
+(
+m.potentialReal.CSO+
+f.potentialReal.CSO
+)/2+
+Math.random()*12-6
 ),
-40,
+35,
 99
 ),
 
 CCE:clamp(
 Math.round(
-(m.potential.CCE+f.potential.CCE)/2+
-rand(-14,14)
+(
+m.potentialReal.CCE+
+f.potentialReal.CCE
+)/2+
+Math.random()*12-6
 ),
-40,
+35,
 99
 ),
 
 Dressage:clamp(
 Math.round(
-(m.potential.Dressage+f.potential.Dressage)/2+
-rand(-14,14)
+(
+m.potentialReal.Dressage+
+f.potentialReal.Dressage
+)/2+
+Math.random()*12-6
 ),
-40,
+35,
 99
 )
+
 };
 
 let foal=
-makeHorse(
+horse(
 "foal"+Date.now(),
 "",
 race,
 0,
-chance(.5)?"Jument":"Entier",
+Math.random()<.5
+?"Jument"
+:"Entier",
 "pasture",
-1000,
 p
 );
 
@@ -2764,29 +4101,35 @@ name:m.name,
 results:[m.race]
 };
 
-historyEvent(
-foal,
-`Naissance issue de ${m.name} et ${f.name}.`
-);
+refreshPotentialRange(foal);
 
-game.horses.push(foal);
+game.horses.push(
+foal
+);
 
 save();
 
 open(
 "🐴 Naissance",
+
 `
+
 <div class="notice good">
 
-🎉 Un poulain est né !<br>
+🎉 Un poulain est né !
+
+<br>
 
 Race :
-<b>${race}</b><br>
+<b>${race}</b>
+
+<br>
 
 Sexe :
 <b>${foal.sex}</b>
 
 </div>
+
 
 <input
 id="foalName"
@@ -2794,14 +4137,21 @@ class="input"
 placeholder="Prénom du poulain"
 maxlength="24">
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="nameFoal('${foal.id}')">
+
 🐴 Donner ce prénom
+
 </button>
+
 `,
 false
 );
+
 }
+
 
 function nameFoal(id){
 
@@ -2809,6 +4159,8 @@ let h=
 game.horses.find(
 x=>String(x.id)===String(id)
 );
+
+if(!h)return;
 
 let n=
 $("foalName").value.trim();
@@ -2822,13 +4174,16 @@ false
 );
 
 return;
+
 }
 
 if(
 game.horses.some(
 x=>
-x!==h&&
-(x.name||"").toLowerCase()===n.toLowerCase()
+x!==h &&
+x.name &&
+x.name.toLowerCase()===
+n.toLowerCase()
 )
 ){
 
@@ -2839,310 +4194,209 @@ false
 );
 
 return;
+
 }
 
 h.name=n;
 
-historyEvent(
-h,
-`Prénom choisi à la naissance : ${n}.`
-);
-
 save();
 
 horseBook(id);
+
 }
+
+
+/* =========================================================
+   MARCHÉ
+========================================================= */
+
+function uniqueName(){
+
+let used=
+new Set(
+game.horses.map(
+h=>
+(h.name||"").toLowerCase()
+)
+);
+
+let a=
+NAMES
+.slice()
+.sort(
+()=>Math.random()-.5
+);
+
+return(
+a.find(
+n=>!used.has(
+n.toLowerCase()
+)
+)
+||
+"Étoile"
+);
+
+}
+
 
 function marketPage(){
 
 page(()=>open(
 "🏪 Marché",
-`
-<div class="notice">
 
-Les trois filières proposent maintenant
-des profils différents.
-
-🧬 Élevage :
-origines sportives.
-
-🐎 Marchand :
-profils variés.
-
-🔨 Enchères :
-prix variables et bonnes surprises possibles.
-
-</div>
-
-<div class="grid">
-
-<button class="menuBtn"
-onclick="breedersPage()">
-🧬<br>Élevages
-</button>
-
-<button class="menuBtn"
-onclick="merchantPage()">
-🐎<br>Marchands
-</button>
-
-<button class="menuBtn"
-onclick="auctionPage()">
-🔨<br>Enchères
-</button>
-
-<button class="menuBtn"
-onclick="salesPage()">
-💶<br>Vendre
-</button>
-
-</div>
-`
-));
-
-}
-
-function generateMarket(race,count,mode){
-
-let arr=[];
-
-for(let i=0;i<count;i++){
-
-let p=rawPotential(race);
-
-let age=
-mode==="foal"?
-rand(0,3):
-rand(3,14);
-
-let sex=
-["Jument","Hongre","Entier"]
-[rand(0,2)];
-
-let base;
-
-if(mode==="auction")
-base=rand(6000,45000);
-
-else if(mode==="breeder")
-base=rand(3500,60000);
-
-else
-base=rand(2500,30000);
-
-let h=
-makeHorse(
-"m"+Date.now()+i,
-uniqueName(),
-race,
-age,
-sex,
-"market",
-base,
-p
-);
-
-h.purchasePrice=base;
-
-h.ranges=rangesFor(
-p,
-age
-);
-
-arr.push(h);
-}
-
-return arr;
-}
-
-function breedersPage(){
-
-page(()=>open(
-"🧬 Élevages",
-
-BREEDS
-.map(r=>`
-
-<div class="card">
-
-<b>${r}</b><br>
-
-Origines sportives et profils individuels.
-
-<button class="primary"
-onclick="marketList('${encodeURIComponent(r)}','breeder')">
-Voir les chevaux
-</button>
-
-</div>
-`)
-.join("")
-));
-
-}
-
-function merchantPage(){
-
-page(()=>open(
-"🐎 Marchands",
-`
-<div class="notice">
-Chevaux de profils variés,
-y compris de bonnes surprises.
-</div>
-
-${BREEDS.slice(0,8)
-.map(r=>`
+BREEDS.map(
+r=>`
 
 <div class="card">
 
 <b>${r}</b>
-
-<button class="primary"
-onclick="marketList('${encodeURIComponent(r)}','merchant')">
-Voir
-</button>
-
-</div>
-
-`)
-.join("")}
-`
-));
-
-}
-
-function auctionPage(){
-
-page(()=>open(
-"🔨 Enchères",
-`
-<div class="notice">
-
-Les enchères proposent des chevaux
-avec des prix de départ variables.
-
-⚠️ Le prix ne garantit jamais le potentiel.
-
-</div>
-
-${BREEDS.slice(2,10)
-.map(r=>`
-
-<div class="card">
-
-<b>${r}</b>
-
-<button class="primary"
-onclick="marketList('${encodeURIComponent(r)}','auction')">
-Voir les enchères
-</button>
-
-</div>
-
-`)
-.join("")}
-`
-));
-
-}
-
-function marketList(er,mode){
-
-let r=decodeURIComponent(er);
-
-let horses=
-generateMarket(
-r,
-mode==="auction"?5:6,
-mode
-);
-
-let key=
-mode+"_"+r;
-
-marketCache[key]=horses;
-
-open(
-mode==="breeder"?
-"🧬 Élevage · "+r:
-mode==="auction"?
-"🔨 Enchères · "+r:
-"🐎 Marchand · "+r,
-
-horses
-.map((h,i)=>{
-
-let p=
-probabilityProfile(
-h.potential,
-h.purchasePrice,
-h.race
-);
-
-return `
-<div class="marketCard">
-
-<div class="marketPic">🐎</div>
-
-<span class="badge">${h.sex}</span>
-<span class="badge">${h.age} ans</span>
-<span class="badge">${h.race}</span>
-
-<h3>${h.name}</h3>
-
-<div class="choice">
-
-<b>🧠 Mental :</b>
-${h.character.mental}/100<br>
-
-❤️ Gentillesse :
-${h.character.gentillesse}<br>
-
-🧘 Calme :
-${h.character.calme}<br>
-
-🦁 Courage :
-${h.character.courage}<br>
-
-🎯 Concentration :
-${h.character.concentration}
-
-</div>
-
-${potentialHTML(h)}
-
-${probHTML(p)}
 
 <br>
 
-<b>
-${mode==="auction"?
-"Mise de départ":
-"Prix"} :
-${money(h.purchasePrice)}
-</b>
+Chevaux disponibles avec sexe,
+race et niveaux individuels.
 
-<button class="primary"
-onclick="buyMarket('${key}',${i})">
-💰 Acheter
+<button
+class="primary"
+onclick="marketRace('${r}')">
+
+Voir les chevaux
+
 </button>
 
 </div>
-`;
-})
-.join("")
+
+`
+).join("")
+
+));
+
+}
+
+
+function marketRace(r){
+
+let horses=[];
+
+for(
+let i=0;
+i<6;
+i++
+){
+
+let p=
+potentials(r);
+
+let h=
+horse(
+
+"m"+Math.random(),
+
+uniqueName(),
+
+r,
+
+3+
+Math.floor(
+Math.random()*12
+),
+
+[
+"Jument",
+"Hongre",
+"Entier"
+][
+Math.floor(
+Math.random()*3
+)
+],
+
+"market",
+
+p
+
+);
+
+refreshPotentialRange(h);
+
+horses.push(h);
+
+}
+
+
+open(
+"🐎 "+r,
+
+horses.map(
+h=>`
+
+<div class="marketCard">
+
+<div class="marketPic">
+🐎
+</div>
+
+<span class="badge">
+${h.race}
+</span>
+
+<span class="badge">
+${h.sex}
+</span>
+
+<span class="badge">
+${h.age} ans
+</span>
+
+<h3>
+${h.name}
+</h3>
+
+🏇 ${h.current.CSO}
+· 🌳 ${h.current.CCE}
+· 💃 ${h.current.Dressage}
+
+<br>
+
+💰 ${money(value(h))}
+
+${potentialRangeBlock(h)}
+
+<button
+class="primary"
+onclick="buyHorse('${encodeURIComponent(
+JSON.stringify(h)
+)}')">
+
+💰 Acheter
+
+</button>
+
+</div>
+
+`
+).join("")
+
 );
 
 }
 
-function buyMarket(key,i){
 
-let h=marketCache[key]?.[i];
+function buyHorse(encoded){
 
-if(!h)return;
+let h=
+JSON.parse(
+decodeURIComponent(encoded)
+);
 
-if(game.money<h.purchasePrice){
+initHorsePotential(h);
+
+refreshPotentialRange(h);
+
+let p=value(h);
+
+if(game.money<p){
 
 open(
 "💸",
@@ -3150,6 +4404,7 @@ open(
 );
 
 return;
+
 }
 
 if(
@@ -3164,9 +4419,10 @@ open(
 );
 
 return;
+
 }
 
-game.money-=h.purchasePrice;
+game.money-=p;
 
 h.id=
 "h"+
@@ -3174,19 +4430,21 @@ Date.now()+
 Math.random();
 
 h.place="box";
-h.away=false;
 
-historyEvent(
-h,
-`Achat : ${money(h.purchasePrice)}.`
-);
+refreshPotentialRange(h);
 
 game.horses.push(h);
 
 save();
 
 horseBook(h.id);
+
 }
+
+
+/* =========================================================
+   VENTE
+========================================================= */
 
 function salesPage(){
 
@@ -3194,34 +4452,50 @@ page(()=>open(
 "💶 Vendre un cheval",
 
 game.horses
-.filter(h=>!h.away&&!h.retired)
-.map(h=>`
+.filter(h=>!h.away)
+.map(
+h=>`
 
 <div class="card">
 
 <b>${h.name}</b>
 · ${h.race}
-· ${h.sex}
+· <b>${h.sex}</b>
 
 <br>
 
 Valeur :
 ${money(value(h))}
 
-<button class="primary"
+${potentialRangeBlock(h)}
+
+<button
+class="primary"
 onclick="sellHorse('${h.id}')">
+
 💶 Vendre
-${money(Math.round(value(h)*.82))}
+${money(
+Math.round(
+value(h)*.82
+)
+)}
+
 </button>
 
 </div>
 
-`)
-.join("")||
+`
+)
+.join("")
+
+||
+
 "<div class='notice'>Aucun cheval disponible.</div>"
+
 ));
 
 }
+
 
 function sellHorse(id){
 
@@ -3232,33 +4506,84 @@ h=>String(h.id)===String(id)
 
 if(i<0)return;
 
-let h=game.horses[i];
+let h=
+game.horses[i];
 
-let sale=
-Math.round(value(h)*.82);
-
-game.money+=sale;
-
-historyEvent(
-h,
-`Vendu pour ${money(sale)}.`
+game.money+=
+Math.round(
+value(h)*.82
 );
 
-game.horses.splice(i,1);
+game.horses.splice(
+i,
+1
+);
 
 save();
 
 salesPage();
+
 }
 
-function professionalPage(title,key,cost,interval,gain){
+
+/* =========================================================
+   PROFESSIONNELS
+========================================================= */
+
+function vetPage(){
+
+professionalPage(
+"🩺 Vétérinaire",
+"vet",
+100,
+90,
+8
+);
+
+}
+
+function dentistPage(){
+
+professionalPage(
+"🦷 Dentiste",
+"dentist",
+70,
+180,
+4
+);
+
+}
+
+function osteoPage(){
+
+professionalPage(
+"👐 Ostéopathe",
+"osteo",
+90,
+120,
+5
+);
+
+}
+
+
+function professionalPage(
+title,
+key,
+cost,
+interval,
+gain
+){
 
 page(()=>open(
 title,
 
 game.horses
-.filter(h=>!h.away&&!h.retired)
-.map(h=>`
+.filter(
+h=>!h.away
+)
+.map(
+h=>`
 
 <div class="card">
 
@@ -3267,55 +4592,42 @@ game.horses
 
 <br>
 
-Dernier :
-J${h[key].lastDay}
+Dernier J${h[key].lastDay}
+· prochain J${h[key].nextDay}
 
-· prochain :
-J${h[key].nextDay}
+<button
+class="primary"
+onclick="professional(
+'${key}',
+'${h.id}',
+${cost},
+${interval},
+${gain}
+)">
 
-<button class="primary"
-onclick="professional('${key}','${h.id}',${cost},${interval},${gain})">
-Faire venir — ${cost} €
+Faire venir —
+${cost} €
+
 </button>
 
 </div>
-`)
+
+`
+)
 .join("")
+
 ));
 
 }
 
-function vetPage(){
-professionalPage(
-"🩺 Vétérinaire",
-"vet",
-100,
-90,
-8
-);
-}
 
-function dentistPage(){
-professionalPage(
-"🦷 Dentiste",
-"dentist",
-70,
-180,
-4
-);
-}
-
-function osteoPage(){
-professionalPage(
-"👐 Ostéopathe",
-"osteo",
-90,
-120,
-5
-);
-}
-
-function professional(key,id,cost,interval,gain){
+function professional(
+key,
+id,
+cost,
+interval,
+gain
+){
 
 let h=
 game.horses.find(
@@ -3332,13 +4644,18 @@ open(
 );
 
 return;
+
 }
 
 game.money-=cost;
 
 h[key]={
+
 lastDay:game.day,
-nextDay:game.day+interval
+
+nextDay:
+game.day+interval
+
 };
 
 h.health=
@@ -3348,98 +4665,29 @@ h.health+gain,
 100
 );
 
-if(key==="vet"){
-
-h.injuries.forEach(i=>{
-
-if(
-i.active&&
-game.day>=i.until
-)
-i.active=false;
-
-});
-
-if(
-h.injuries.some(i=>i.active)
-){
-
-historyEvent(
-h,
-"Visite vétérinaire : blessure suivie, repos maintenu."
-);
-
-}else{
-
-historyEvent(
-h,
-"Visite vétérinaire : contrôle général."
-);
-
-}
-
-}else{
-
-historyEvent(
-h,
-`Visite ${
-key==="dentist"?
-"du dentiste":
-"de l'ostéopathe"
-}.`
-);
-
-}
-
 save();
 
-horseBook(
-id,
-key==="vet"?
-"health":
-key
+professionalPage(
+
+key==="vet"
+?"🩺 Vétérinaire"
+:key==="dentist"
+?"🦷 Dentiste"
+:"👐 Ostéopathe",
+
+key,
+cost,
+interval,
+gain
+
 );
+
 }
 
-function vaccinate(id,type){
 
-let h=
-game.horses.find(
-x=>String(x.id)===String(id)
-);
-
-if(!h)return;
-
-if(game.money<55){
-
-open(
-"💸",
-"Pas assez d'argent."
-);
-
-return;
-}
-
-game.money-=55;
-
-h.vaccines[type]=
-game.day+365;
-
-historyEvent(
-h,
-`Vaccination ${
-type==="tetanos"?
-"tétanos":
-type==="grippe"?
-"grippe":
-"rhinopneumonie"
-} effectuée.`
-);
-
-save();
-
-horseBook(id,"vacc");
-}
+/* =========================================================
+   MARÉCHAL
+========================================================= */
 
 function farrierPage(){
 
@@ -3447,8 +4695,11 @@ page(()=>open(
 "🧲 Maréchal-ferrant",
 
 game.horses
-.filter(h=>!h.away&&!h.retired)
-.map(h=>`
+.filter(
+h=>!h.away
+)
+.map(
+h=>`
 
 <div class="card">
 
@@ -3458,33 +4709,52 @@ game.horses
 <br>
 
 ${
-h.hoof.type==="ferrure"?
-"🔨 Ferrure":
-"✂️ Parage"
+h.hoof.type==="ferrure"
+?"🔨 Ferrure"
+:"✂️ Parage"
 }
 
-· échéance J${h.hoof.nextDay}
+<br>
+
+Échéance J
+${h.hoof.lastDay+60}
 
 <div class="two">
 
-<button class="primary"
-onclick="farrier('${h.id}','ferrure')">
+<button
+class="primary"
+onclick="farrier(
+'${h.id}',
+'ferrure'
+)">
+
 110 €
+
 </button>
 
-<button class="primary"
-onclick="farrier('${h.id}','parage')">
+<button
+class="primary"
+onclick="farrier(
+'${h.id}',
+'parage'
+)">
+
 50 €
+
 </button>
 
 </div>
 
 </div>
-`)
+
+`
+)
 .join("")
+
 ));
 
 }
+
 
 function farrier(id,type){
 
@@ -3493,8 +4763,12 @@ game.horses.find(
 x=>String(x.id)===String(id)
 );
 
+if(!h)return;
+
 let c=
-type==="ferrure"?110:50;
+type==="ferrure"
+?110
+:50;
 
 if(game.money<c){
 
@@ -3504,14 +4778,14 @@ open(
 );
 
 return;
+
 }
 
 game.money-=c;
 
 h.hoof={
-type,
-lastDay:game.day,
-nextDay:game.day+60
+type:type,
+lastDay:game.day
 };
 
 h.health=
@@ -3521,15 +4795,16 @@ h.health+2,
 100
 );
 
-historyEvent(
-h,
-`${type==="ferrure"?"Ferrure":"Parage"} effectué.`
-);
-
 save();
 
-horseBook(id,"farrier");
+farrierPage();
+
 }
+
+
+/* =========================================================
+   SOINS
+========================================================= */
 
 function carePage(){
 
@@ -3537,8 +4812,11 @@ page(()=>open(
 "❤️ Soins",
 
 game.horses
-.filter(h=>!h.away&&!h.retired)
-.map(h=>`
+.filter(
+h=>!h.away
+)
+.map(
+h=>`
 
 <div class="choice">
 
@@ -3551,18 +4829,24 @@ Santé ${h.health}%
 · Forme ${h.form}%
 · Fatigue ${h.fatigue}%
 
-<button class="primary"
+<button
+class="primary"
 onclick="care('${h.id}')">
+
 ❤️ Soins — 80 €
+
 </button>
 
 </div>
 
-`)
+`
+)
 .join("")
+
 ));
 
 }
+
 
 function care(id){
 
@@ -3581,6 +4865,7 @@ open(
 );
 
 return;
+
 }
 
 game.money-=80;
@@ -3606,15 +4891,16 @@ h.fatigue-10,
 100
 );
 
-historyEvent(
-h,
-"Soins quotidiens renforcés."
-);
-
 save();
 
 carePage();
+
 }
+
+
+/* =========================================================
+   RATIONS
+========================================================= */
 
 function feedPage(){
 
@@ -3622,29 +4908,39 @@ page(()=>open(
 "🥕 Rations",
 
 game.horses
-.filter(h=>!h.away&&!h.retired)
-.map(h=>`
+.filter(
+h=>!h.away
+)
+.map(
+h=>`
 
 <div class="card">
 
-<b>${h.name}</b><br>
+<b>${h.name}</b>
+
+<br>
 
 🌾 ${h.ration.hay} kg
-·
-🌽 ${h.ration.grain} kg
+· 🌽 ${h.ration.grain} kg
 
-<button class="primary"
+<button
+class="primary"
 onclick="setRation('${h.id}')">
+
 Modifier
+
 </button>
 
 </div>
 
-`)
+`
+)
 .join("")
+
 ));
 
 }
+
 
 function setRation(id){
 
@@ -3653,10 +4949,16 @@ game.horses.find(
 x=>String(x.id)===String(id)
 );
 
+if(!h)return;
+
 open(
 "🥕 Ration de "+h.name,
+
 `
-<label>🌾 Foin kg/j</label>
+
+<label>
+🌾 Foin kg/j
+</label>
 
 <input
 id="hayI"
@@ -3667,7 +4969,9 @@ step=".5">
 
 <br><br>
 
-<label>🌽 Grain kg/j</label>
+<label>
+🌽 Grain kg/j
+</label>
 
 <input
 id="grainI"
@@ -3676,13 +4980,20 @@ type="number"
 value="${h.ration.grain}"
 step=".5">
 
-<button class="primary"
+<button
+class="primary"
 onclick="saveRation('${h.id}')">
+
 💾 Enregistrer
+
 </button>
+
 `
+
 );
+
 }
+
 
 function saveRation(id){
 
@@ -3691,67 +5002,110 @@ game.horses.find(
 x=>String(x.id)===String(id)
 );
 
+if(!h)return;
+
 h.ration.hay=
 clamp(
-parseFloat($("hayI").value)||0,
+parseFloat(
+$("hayI").value
+)||0,
 0,
 25
 );
 
 h.ration.grain=
 clamp(
-parseFloat($("grainI").value)||0,
+parseFloat(
+$("grainI").value
+)||0,
 0,
 10
 );
 
 save();
 
-horseBook(id,"food");
+horseBook(id);
+
 }
+
+
+/* =========================================================
+   DOMAINE
+========================================================= */
 
 function domainPage(){
 
 page(()=>open(
 "🏡 Domaine",
+
 `
+
 <div class="choice">
 
-💰 ${money(game.money)}<br>
+💰 ${money(game.money)}
+
+<br>
 
 🏠
-${game.horses.filter(
+${
+game.horses.filter(
 h=>h.place==="box"&&!h.away
-).length}/${game.boxes}
-boxes<br>
+).length
+}
+/${game.boxes}
+boxes
 
-🌳 ${game.pastures} pâtures<br>
+<br>
 
-🌾 ${game.land} hectares<br>
+🌳 ${game.pastures}
+pâture(s)
+
+<br>
+
+🌾 ${game.land}
+hectare(s)
+
+<br>
 
 🚚 Camion :
-${game.truckCapacity} places
+${game.truckCapacity}
+places
 
 </div>
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="buyBox()">
+
 🏠 Box — 3 500 €
+
 </button>
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="buyPasture()">
+
 🌳 Pâture — 5 000 €
+
 </button>
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="buyLand()">
+
 🌾 Hectare — 8 000 €
+
 </button>
+
 `
+
 ));
 
 }
+
 
 function buyBox(){
 
@@ -3763,6 +5117,7 @@ open(
 );
 
 return;
+
 }
 
 game.money-=3500;
@@ -3772,7 +5127,9 @@ game.boxes++;
 save();
 
 domainPage();
+
 }
+
 
 function buyPasture(){
 
@@ -3784,6 +5141,7 @@ open(
 );
 
 return;
+
 }
 
 game.money-=5000;
@@ -3793,7 +5151,9 @@ game.pastures++;
 save();
 
 domainPage();
+
 }
+
 
 function buyLand(){
 
@@ -3805,6 +5165,7 @@ open(
 );
 
 return;
+
 }
 
 game.money-=8000;
@@ -3814,28 +5175,43 @@ game.land++;
 save();
 
 domainPage();
+
 }
+
+
+/* =========================================================
+   TRANSPORT
+========================================================= */
 
 function transportPage(){
 
 page(()=>open(
 "🚚 Transport",
+
 `
+
 <div class="choice">
 
-🚚 Capacité :
+🚚 Capacité actuelle :
 <b>${game.truckCapacity} chevaux</b>
 
 </div>
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="upgradeTruck()">
+
 🚚 +2 places — 6 000 €
+
 </button>
+
 `
+
 ));
 
 }
+
 
 function upgradeTruck(){
 
@@ -3847,6 +5223,7 @@ open(
 );
 
 return;
+
 }
 
 if(game.money<6000){
@@ -3857,6 +5234,7 @@ open(
 );
 
 return;
+
 }
 
 game.money-=6000;
@@ -3870,7 +5248,13 @@ game.truckCapacity+2
 save();
 
 transportPage();
+
 }
+
+
+/* =========================================================
+   BOXES
+========================================================= */
 
 function stablePage(){
 
@@ -3878,13 +5262,26 @@ page(()=>open(
 "🏚️ Boxes",
 
 game.horses
-.filter(h=>h.place==="box")
-.map(horseCard)
-.join("")||
+.filter(
+h=>h.place==="box"
+)
+.map(
+horseCard
+)
+.join("")
+
+||
+
 "<div class='notice'>Aucun cheval.</div>"
+
 ));
 
 }
+
+
+/* =========================================================
+   PÂTURES
+========================================================= */
 
 function pasturePage(){
 
@@ -3892,8 +5289,11 @@ page(()=>open(
 "🌳 Pâtures",
 
 game.horses
-.filter(h=>!h.away)
-.map(h=>`
+.filter(
+h=>!h.away
+)
+.map(
+h=>`
 
 <div class="choice">
 
@@ -3902,26 +5302,34 @@ game.horses
 
 <br>
 
-${h.place==="pasture"?
-"🌳 Pré":
-"🏠 Box"}
+${
+h.place==="pasture"
+?"🌳 Pré"
+:"🏠 Box"
+}
 
-<button class="primary"
+<button
+class="primary"
 onclick="togglePlace('${h.id}')">
 
-${h.place==="pasture"?
-"🏠 Mettre au box":
-"🌳 Mettre au pré"}
+${
+h.place==="pasture"
+?"🏠 Mettre au box"
+:"🌳 Mettre au pré"
+}
 
 </button>
 
 </div>
 
-`)
+`
+)
 .join("")
+
 ));
 
 }
+
 
 function togglePlace(id){
 
@@ -3930,15 +5338,7 @@ game.horses.find(
 x=>String(x.id)===String(id)
 );
 
-if(!h||h.away){
-
-open(
-"🐴",
-"Impossible pendant un concours."
-);
-
-return;
-}
+if(!h)return;
 
 if(h.place==="pasture"){
 
@@ -3954,6 +5354,7 @@ open(
 );
 
 return;
+
 }
 
 h.place="box";
@@ -3961,79 +5362,107 @@ h.place="box";
 }else{
 
 h.place="pasture";
-}
 
-historyEvent(
-h,
-`Changement de logement : ${
-h.place==="box"?
-"box":
-"pré"
-}.`
-);
+}
 
 save();
 
 pasturePage();
+
 }
+
+
+/* =========================================================
+   STOCKS
+========================================================= */
 
 function stocksPage(){
 
 page(()=>open(
 "📦 Stocks",
+
 `
+
 <div class="choice">
+
 🌾 Foin :
-${game.hay}/${game.maxHay} kg
+${game.hay}/${game.maxHay}
+kg
+
 </div>
 
 <div class="choice">
+
 🌽 Grain :
-${game.grain}/${game.maxGrain} kg
+${game.grain}/${game.maxGrain}
+kg
+
 </div>
 
 <div class="choice">
+
 🪵 Paille :
-${game.straw}/${game.maxStraw} kg
+${game.straw}/${game.maxStraw}
+kg
+
 </div>
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="buyStock('hay')">
+
 🌾 500 kg — 250 €
+
 </button>
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="buyStock('grain')">
+
 🌽 300 kg — 180 €
+
 </button>
 
-<button class="primary"
+
+<button
+class="primary"
 onclick="buyStock('straw')">
+
 🪵 500 kg — 160 €
+
 </button>
+
 `
+
 ));
 
 }
 
+
 function buyStock(t){
 
 let c=
-t==="hay"?250:
-t==="grain"?180:
-160;
+t==="hay"
+?250
+:t==="grain"
+?180
+:160;
 
 let a=
-t==="hay"?500:
-t==="grain"?300:
-500;
+t==="hay"
+?500
+:t==="grain"
+?300
+:500;
 
 let m=
-t==="hay"?
-game.maxHay:
-t==="grain"?
-game.maxGrain:
-game.maxStraw;
+t==="hay"
+?game.maxHay
+:t==="grain"
+?game.maxGrain
+:game.maxStraw;
 
 if(game.money<c){
 
@@ -4043,12 +5472,12 @@ open(
 );
 
 return;
+
 }
 
 game.money-=c;
 
-game[t]=
-Math.min(
+game[t]=Math.min(
 m,
 game[t]+a
 );
@@ -4056,13 +5485,21 @@ game[t]+a
 save();
 
 stocksPage();
+
 }
+
+
+/* =========================================================
+   FINANCES
+========================================================= */
 
 function financesPage(){
 
 page(()=>open(
 "💰 Finances",
+
 `
+
 <div class="notice">
 
 💰 Trésorerie :
@@ -4083,66 +5520,62 @@ page(()=>open(
 </div>
 
 <div class="choice">
-🧲 Ferrure : 110 €
-· Parage : 50 €
+🧲 Ferrure : 110 € · Parage : 50 €
 </div>
 
 <div class="choice">
-💉 Vaccin : 55 €
+📅 Frais quotidiens : 350 €
 </div>
 
-<div class="choice">
-📅 Frais quotidiens :
-350 €
-</div>
-
-<div class="choice">
-🏆 Les victoires rapportent désormais
-une récompense financière.
-</div>
 `
+
 ));
 
 }
+
+
+/* =========================================================
+   CALENDRIER
+========================================================= */
 
 function calendarPage(){
 
 page(()=>open(
 "📆 Calendrier",
+
 `
+
 <div class="notice">
 
-<b>${dateText()}</b><br>
+<b>${dateText()}</b>
+
+<br>
 
 J${dateDay()}/365
-· ${season()}<br><br>
+· ${season()}
+
+<br><br>
 
 🏆 Saison de concours :
-automne → fin juillet<br>
+automne → fin juillet
+
+<br>
 
 🇫🇷 Championnats :
 août
 
 </div>
 
-<div class="choice">
-
-<b>📅 Prochains concours</b><br>
-
-${EVENTS
-.slice()
-.sort((a,b)=>a.dateOffset-b.dateOffset)
-.slice(0,8)
-.map(e=>
-`${e.city} · ${e.discipline} · ${e.level} · J+${e.dateOffset}`
-)
-.join("<br>")}
-
-</div>
 `
+
 ));
 
 }
+
+
+/* =========================================================
+   SAUVEGARDE MANUELLE
+========================================================= */
 
 function saveManual(){
 
@@ -4150,121 +5583,82 @@ save();
 
 open(
 "💾 Sauvegarde",
-"La V13.4 est sauvegardée sur cet appareil.",
+
+"La V13.3 est sauvegardée sur cet appareil.",
+
 false
 );
+
 }
 
-function retireHorse(id){
 
-let h=
-game.horses.find(
-x=>String(x.id)===String(id)
-);
-
-if(!h)return;
-
-if(h.age<20){
-
-open(
-"🛑",
-"Le départ à la retraite est conseillé à partir de 20 ans."
-);
-
-return;
-}
-
-h.retired=true;
-h.away=false;
-
-historyEvent(
-h,
-"Départ à la retraite."
-);
-
-save();
-
-horseBook(id);
-}
+/* =========================================================
+   PASSAGE D'UN JOUR
+========================================================= */
 
 function nextDay(){
 
-if(trip){
-
-open(
-"🏆",
-"Impossible d'avancer la journée pendant un concours."
-);
-
-return;
-}
-
-game.money=
-Math.max(
-0,
-game.money-350
-);
+game.money-=350;
 
 game.day++;
 
-if(dateDay()===1)
-game.year++;
 
-game.horses.forEach(h=>{
-
-if(h.away)
-return;
+/*
+Anniversaire :
+le cheval prend un an
+au changement d'année.
+*/
 
 if(dateDay()===1){
 
+game.year++;
+
+game.horses.forEach(
+h=>{
+
+if(
+typeof h.age==="number" &&
+h.age<30
+){
+
 h.age++;
 
-h.ranges=
-rangesFor(
-h.potential,
-h.age
-);
-
-if(h.age===20&&!h.retired){
-
-historyEvent(
-h,
-"Le cheval atteint 20 ans : retraite désormais conseillée."
-);
+refreshPotentialRange(h);
 
 }
 
 }
-
-if(h.age>=13){
-
-h.current.CSO=
-Math.min(
-h.current.CSO,
-h.potential.CSO
-);
-
-h.current.CCE=
-Math.min(
-h.current.CCE,
-h.potential.CCE
-);
-
-h.current.Dressage=
-Math.min(
-h.current.Dressage,
-h.potential.Dressage
 );
 
 }
+
+
+game.horses.forEach(
+h=>{
+
+if(h.away)return;
+
+
+/*
+Récupération.
+*/
 
 h.fatigue=
 clamp(
 h.fatigue-
-(h.place==="pasture"?10:7),
+(
+h.place==="pasture"
+?10
+:7
+),
 0,
 100
 );
+
+
+/*
+Forme.
+*/
 
 h.form=
 clamp(
@@ -4272,6 +5666,11 @@ h.form+1,
 0,
 100
 );
+
+
+/*
+Santé au pré.
+*/
 
 if(h.place==="pasture"){
 
@@ -4283,6 +5682,11 @@ h.health+1,
 );
 
 }
+
+
+/*
+Consommation.
+*/
 
 game.hay=
 Math.max(
@@ -4302,49 +5706,13 @@ Math.max(
 game.straw-.5
 );
 
-h.injuries.forEach(i=>{
+
+/*
+Manque de nourriture.
+*/
 
 if(
-i.active&&
-game.day>=i.until
-){
-
-i.active=false;
-
-historyEvent(
-h,
-`Fin de repos après ${i.type}.`
-);
-
-}
-
-});
-
-if(
-chance(.012)&&
-h.health<85
-){
-
-h.illnesses.push(
-`Épisode léger détecté à J${game.day}`
-);
-
-h.health=
-clamp(
-h.health-5,
-0,
-100
-);
-
-historyEvent(
-h,
-"Petit épisode de santé, surveillance recommandée."
-);
-
-}
-
-if(
-game.hay===0||
+game.hay===0 ||
 game.grain===0
 ){
 
@@ -4364,24 +5732,21 @@ h.form-2,
 
 }
 
-if(h.fatigue>80){
-
-h.form=
-clamp(
-h.form-3,
-0,
-100
+}
 );
 
-}
-
-});
-
 save();
+
 }
+
+
+/* =========================================================
+   DÉMARRAGE
+========================================================= */
 
 render();
 
 </script>
+
 </body>
 </html>
